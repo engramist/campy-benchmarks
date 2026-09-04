@@ -7,7 +7,7 @@ import os
 import sys
 import argparse
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 
 def main():
     parser = argparse.ArgumentParser(description="Run Campy Benchmarks")
@@ -20,11 +20,11 @@ def main():
 
     mcp_cmd = os.environ.get("CAMPY_MCP_CMD")
     print(f"=== Campy Benchmark Harness ===")
-    print(f"Timestamp: {datetime.utcnow().isoformat()}Z")
+    print(f"Timestamp: {datetime.now(timezone.utc).isoformat()}Z")
     print(f"Target MCP Server: {mcp_cmd or 'NOT SET (warning)'}")
 
     results = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "mcp_configured": bool(mcp_cmd),
         "suites": {
             "locomo": {"status": "scaffolded", "target": "multi-session constraint deprecation"},
