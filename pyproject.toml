@@ -1,0 +1,25 @@
+[project]
+name = "campy-benchmarks"
+version = "0.1.0"
+description = "Evaluation and benchmarking harness for HippoCampy agent memory"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp>=1.0.0",
+    "rich>=13.7.0",
+    "pydantic>=2.0.0",
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+rl = [
+    "gymnasium>=0.29.0",
+    "memory-gym>=0.5.0",
+]
+datasets = [
+    "datasets>=2.18.0",
+    "pandas>=2.2.0",
+]
+all = [
+    "campy-benchmarks[rl,datasets]",
+]
