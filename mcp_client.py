@@ -211,14 +211,28 @@ class CampyMCPClient:
 
         elif name == "compile_context":
             query = args.get("query", "")
+            sections = [
+                {"section_type": "exact_fact", "content": list(self._mock_constraints.values())},
+                {"section_type": "semantic", "content": [{"query": query, "relevance": 0.9}]},
+            ]
+            # B436: the real compile_context response nests the estimate at
+            # bundle.total_token_estimate, not a top-level "token_count" --
+            # this mock previously used the wrong shape too, which masked
+            # membench/runner.py's matching bug in smoke/mock mode. Estimate
+            # from the actual mocked content (same ~4 chars/token heuristic
+            # runner.py uses) rather than a hardcoded literal, so it moves
+            # with the mocked data like the real bundle does.
+            content_chars = sum(
+                len(str(item))
+                for sec in sections
+                for item in sec["content"]
+            )
+            token_estimate = max(1, content_chars // 4)
             return {
                 "bundle": {
-                    "sections": [
-                        {"section_type": "exact_fact", "content": list(self._mock_constraints.values())},
-                        {"section_type": "semantic", "content": [{"query": query, "relevance": 0.9}]},
-                    ]
+                    "sections": sections,
+                    "total_token_estimate": token_estimate,
                 },
-                "token_count": 420,
             }
 
         elif name == "run_sweep":

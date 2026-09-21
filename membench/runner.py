@@ -53,7 +53,12 @@ def run_membench(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any]:
             
             # Query compiled context and answer
             ctx_res = client.compile_context(probe.question, token_budget=4000)
-            bundle_tokens = ctx_res.get("token_count", 380)
+            # B436: compile_context's real response nests the estimate at
+            # bundle.total_token_estimate -- there is no top-level
+            # "token_count" key, so this always fell through to the 380
+            # default and token_savings_pct was always computed from a
+            # constant.
+            bundle_tokens = ctx_res.get("bundle", {}).get("total_token_estimate", 380)
             total_bundle_tokens += bundle_tokens
 
             answer = client.ask(probe.question, session_id=f"msc_{p.id}_s5")
