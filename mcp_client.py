@@ -42,6 +42,24 @@ class CampyMCPClient:
         if not self.mock_mode and self.mcp_cmd:
             self._start_process()
 
+    def reset_mock_state(self) -> None:
+        """B438: clear mock-mode scratch state between suites.
+
+        A single CampyMCPClient is intentionally shared across every
+        suite in a `run_all.py --suite all` run (real/non-mock mode
+        reuses one live daemon connection rather than respawning it per
+        suite). In mock mode, that same sharing let one suite's fake
+        constraint/memory data leak into a later suite's mocked
+        responses -- e.g. LoCoMo's fake Postgres-migration constraints
+        inflating MemBench's mocked bundle-size estimate past the real
+        persona's raw conversation size. Call this between suites (not
+        within one -- a suite's own multi-session/multi-persona state is
+        meant to accumulate across its own notify_turn calls).
+        """
+        self._mock_memory = {}
+        self._mock_constraints = {}
+        self._mock_facts = {}
+
     def _start_process(self) -> None:
         """Start the MCP server subprocess."""
         try:

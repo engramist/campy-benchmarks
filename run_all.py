@@ -136,24 +136,28 @@ def main():
         if "locomo" in suites_to_run:
             print("\n[+] Running LoCoMo Suite (Conversational Deprecation)...")
             t0 = time.time()
+            client.reset_mock_state()  # B438: isolate from any prior suite's mock data
             executed_suites["locomo"] = run_locomo(client, smoke=args.smoke)
             print(f"    Completed in {time.time() - t0:.2f}s")
 
         if "memory_gym" in suites_to_run:
             print("\n[+] Running MemoryGym Suite (2D Spatial/Temporal Persistence)...")
             t0 = time.time()
+            client.reset_mock_state()  # B438
             executed_suites["memory_gym"] = run_memory_gym(client, smoke=args.smoke)
             print(f"    Completed in {time.time() - t0:.2f}s")
 
         if "membench" in suites_to_run:
             print("\n[+] Running MemBench Suite (Persona & Contradiction Arbitration)...")
             t0 = time.time()
+            client.reset_mock_state()  # B438
             executed_suites["membench"] = run_membench(client, smoke=args.smoke)
             print(f"    Completed in {time.time() - t0:.2f}s")
 
         if "arc" in suites_to_run or "arc_bridge" in suites_to_run:
             print("\n[+] Running ARC Bridge Suite (World Model & Memory Transfer)...")
             t0 = time.time()
+            client.reset_mock_state()  # B438
             executed_suites["arc_bridge"] = run_arc_bridge(client, smoke=args.smoke)
             print(f"    Completed in {time.time() - t0:.2f}s")
     finally:
