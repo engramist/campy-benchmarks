@@ -47,6 +47,10 @@ def run_memory_gym(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any
             session_id=session_id,
         )
 
+        # B448/B450: wait for the Gated Consolidation Loop to process the write
+        # before probing (this suite previously queried immediately, racing it).
+        client.run_sweep()
+
         # Retrieve stored path from memory
         t0 = time.perf_counter()
         recall_res = client.current_truth(f"MysteryPath navigation sequence for {session_id}")

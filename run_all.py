@@ -19,7 +19,7 @@ from typing import Any, Dict, Optional
 # Add parent directory to sys.path so modules import cleanly
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from mcp_client import CampyMCPClient
+from mcp_client import CampyMCPClient, CampyClientError
 from locomo.runner import run_locomo
 from memory_gym.runner import run_memory_gym
 from membench.runner import run_membench
@@ -132,34 +132,34 @@ def main():
     suites_to_run = ["locomo", "memory_gym", "membench", "arc"] if args.suite == "all" else [args.suite]
     executed_suites: Dict[str, Any] = {}
 
+    def run_suite(key: str, label: str, fn) -> None:
+        print(f"\n[+] Running {label}...")
+        t0 = time.time()
+        client.reset_mock_state()  # B438: isolate from any prior suite's mock data
+        calls0, fails0 = client.stats["calls"], client.stats["failures"]
+        try:
+            res = fn(client, smoke=args.smoke)
+            res["valid"] = True
+        except CampyClientError as e:
+            # A suite that lost the daemon mid-run produced no measurement.
+            # Record that loudly instead of a score.
+            res = {"suite": key, "valid": False, "error": str(e)[:500]}
+            print(f"    !! SUITE INVALID: {e}")
+        res["client_calls"] = client.stats["calls"] - calls0
+        res["client_failures"] = client.stats["failures"] - fails0
+        executed_suites[key] = res
+        print(f"    Completed in {time.time() - t0:.2f}s "
+              f"(calls={res['client_calls']}, failures={res['client_failures']}, valid={res['valid']})")
+
     try:
         if "locomo" in suites_to_run:
-            print("\n[+] Running LoCoMo Suite (Conversational Deprecation)...")
-            t0 = time.time()
-            client.reset_mock_state()  # B438: isolate from any prior suite's mock data
-            executed_suites["locomo"] = run_locomo(client, smoke=args.smoke)
-            print(f"    Completed in {time.time() - t0:.2f}s")
-
+            run_suite("locomo", "LoCoMo Suite (Conversational Deprecation)", run_locomo)
         if "memory_gym" in suites_to_run:
-            print("\n[+] Running MemoryGym Suite (2D Spatial/Temporal Persistence)...")
-            t0 = time.time()
-            client.reset_mock_state()  # B438
-            executed_suites["memory_gym"] = run_memory_gym(client, smoke=args.smoke)
-            print(f"    Completed in {time.time() - t0:.2f}s")
-
+            run_suite("memory_gym", "MemoryGym Suite (2D Spatial/Temporal Persistence)", run_memory_gym)
         if "membench" in suites_to_run:
-            print("\n[+] Running MemBench Suite (Persona & Contradiction Arbitration)...")
-            t0 = time.time()
-            client.reset_mock_state()  # B438
-            executed_suites["membench"] = run_membench(client, smoke=args.smoke)
-            print(f"    Completed in {time.time() - t0:.2f}s")
-
+            run_suite("membench", "MemBench Suite (Persona & Contradiction Arbitration)", run_membench)
         if "arc" in suites_to_run or "arc_bridge" in suites_to_run:
-            print("\n[+] Running ARC Bridge Suite (World Model & Memory Transfer)...")
-            t0 = time.time()
-            client.reset_mock_state()  # B438
-            executed_suites["arc_bridge"] = run_arc_bridge(client, smoke=args.smoke)
-            print(f"    Completed in {time.time() - t0:.2f}s")
+            run_suite("arc_bridge", "ARC Bridge Suite (World Model & Memory Transfer)", run_arc_bridge)
     finally:
         client.close()
 
@@ -168,6 +168,7 @@ def main():
         "mode": "smoke" if args.smoke else "standard",
         "mcp_configured": bool(mcp_cmd),
         "suites": executed_suites,
+        "all_suites_valid": all(v.get("valid", False) for v in executed_suites.values()),
         "canonical_baseline_targets": {
             "retrieval_latency_ms": "<10.0ms (via B375)",
             "llm_generation_latency_s": "<1.0s (via B374)",

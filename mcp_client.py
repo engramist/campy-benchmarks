@@ -13,19 +13,40 @@ import json
 import os
 import re
 import shlex
+import queue
 import subprocess
 import sys
+import tempfile
+import threading
 import time
 from typing import Any, Dict, List, Optional
 
 
+class CampyClientError(RuntimeError):
+    """Raised in real (non-mock) mode whenever a tool call did not get a real
+    answer from the daemon. A benchmark score computed from anything else is
+    not a measurement -- it must never be silently replaced by mock data."""
+
+
+class DaemonOfflineError(CampyClientError):
+    """The MCP adapter reported the daemon as offline / queued the call."""
+
+
+_OFFLINE_MARKERS = ("Brain: OFFLINE", "queued_offline")
+
+
 class CampyMCPClient:
-    """Client for HippoCampy MCP server over STDIO transport."""
+    """Client for HippoCampy MCP server over STDIO transport.
+
+    Real mode (a CAMPY_MCP_CMD is configured) is strict: any failure raises
+    CampyClientError instead of falling back to the in-process mock. Mock mode
+    is only entered when NO command is configured (smoke/standalone runs).
+    """
 
     def __init__(
         self,
         mcp_cmd: Optional[str] = None,
-        timeout: float = 10.0,
+        timeout: float = 240.0,
         mock_mode: bool = False,
     ):
         self.mcp_cmd = mcp_cmd or os.environ.get("CAMPY_MCP_CMD")
@@ -33,6 +54,7 @@ class CampyMCPClient:
         self.mock_mode = mock_mode or not bool(self.mcp_cmd)
         self._proc: Optional[subprocess.Popen] = None
         self._req_id = 0
+        self.stats = {"calls": 0, "failures": 0}
         
         # Internal store for mock / fallback mode
         self._mock_memory: Dict[str, List[Dict[str, Any]]] = {}
@@ -61,55 +83,96 @@ class CampyMCPClient:
         self._mock_facts = {}
 
     def _start_process(self) -> None:
-        """Start the MCP server subprocess."""
+        """Start the MCP server subprocess. Real mode never degrades to mock:
+        a failed start raises CampyClientError."""
         try:
             cmd_args = shlex.split(self.mcp_cmd)
+            # stderr goes to a file, never an undrained PIPE (a full 64KB pipe
+            # blocks the child forever) and so a dead child leaves a reason.
+            self._stderr_file = tempfile.NamedTemporaryFile(
+                mode="w+", prefix="campy-mcp-stderr-", suffix=".log", delete=False
+            )
             self._proc = subprocess.Popen(
                 cmd_args,
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
+                stderr=self._stderr_file,
                 text=True,
                 bufsize=1,
             )
-            # Initialize MCP session
+            self._lines = queue.Queue()
+            threading.Thread(target=self._pump_stdout, daemon=True).start()
             self._send_request("initialize", {
                 "protocolVersion": "2024-11-05",
                 "capabilities": {},
                 "clientInfo": {"name": "campy-benchmarks", "version": "0.1.0"},
             })
             self._send_notification("notifications/initialized", {})
+        except CampyClientError:
+            raise
         except Exception as e:
-            # Fall back to mock mode if process failed to start
-            self.mock_mode = True
-            self._proc = None
+            raise CampyClientError(f"failed to start MCP server ({self.mcp_cmd!r}): {e}") from e
 
-    def _send_request(self, method: str, params: Optional[Dict[str, Any]] = None) -> Optional[Dict[str, Any]]:
+    def _pump_stdout(self) -> None:
+        """Reader thread: lets _send_request enforce a real timeout instead of
+        blocking forever in readline()."""
+        try:
+            for line in self._proc.stdout:
+                self._lines.put(line)
+        finally:
+            self._lines.put(None)  # EOF marker
+
+    def _stderr_tail(self, n: int = 800) -> str:
+        try:
+            self._stderr_file.flush()
+            with open(self._stderr_file.name) as f:
+                return f.read()[-n:]
+        except Exception:
+            return ""
+
+    def _send_request(self, method: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Send one JSON-RPC request; return its `result`. Raises
+        CampyClientError on a dead process, timeout, EOF, or JSON-RPC error."""
         if not self._proc or self._proc.poll() is not None:
-            return None
+            rc = self._proc.poll() if self._proc else None
+            raise CampyClientError(
+                f"MCP server process is not running (exit code {rc}); "
+                f"stderr tail: {self._stderr_tail()!r}"
+            )
 
         self._req_id += 1
-        req = {
-            "jsonrpc": "2.0",
-            "id": self._req_id,
-            "method": method,
-            "params": params or {},
-        }
-        payload = json.dumps(req) + "\n"
+        req_id = self._req_id
+        payload = json.dumps({
+            "jsonrpc": "2.0", "id": req_id, "method": method, "params": params or {},
+        }) + "\n"
         try:
             self._proc.stdin.write(payload)
             self._proc.stdin.flush()
+        except Exception as e:
+            raise CampyClientError(f"write to MCP server failed for {method}: {e}") from e
 
-            # Read response
-            line = self._proc.stdout.readline()
-            if not line:
-                return None
-            data = json.loads(line)
+        deadline = time.monotonic() + self.timeout
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise CampyClientError(f"{method}: no response within {self.timeout}s")
+            try:
+                line = self._lines.get(timeout=remaining)
+            except queue.Empty:
+                raise CampyClientError(f"{method}: no response within {self.timeout}s")
+            if line is None:
+                raise CampyClientError(
+                    f"{method}: MCP server closed its stdout; stderr tail: {self._stderr_tail()!r}"
+                )
+            try:
+                data = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if data.get("id") != req_id:
+                continue  # stale/unrelated line
             if "error" in data:
-                return None
-            return data.get("result")
-        except Exception:
-            return None
+                raise CampyClientError(f"{method}: JSON-RPC error {data['error']}")
+            return data.get("result") or {}
 
     def _send_notification(self, method: str, params: Optional[Dict[str, Any]] = None) -> None:
         if not self._proc or self._proc.poll() is not None:
@@ -126,25 +189,32 @@ class CampyMCPClient:
             pass
 
     def call_tool(self, name: str, arguments: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        """Invoke an MCP tool by name."""
+        """Invoke an MCP tool by name. Real mode raises on any failure and on
+        any adapter-reported offline/queued response; only mock mode (no
+        command configured) ever returns synthesized data."""
         arguments = arguments or {}
-        if not self.mock_mode and self._proc:
-            result = self._send_request("tools/call", {
-                "name": name,
-                "arguments": arguments,
-            })
-            if result and "content" in result:
-                for item in result["content"]:
-                    if item.get("type") == "text":
-                        text = item.get("text", "")
-                        try:
-                            return json.loads(text)
-                        except Exception:
-                            return {"text": text}
-                return result
+        if self.mock_mode:
+            return self._mock_call_tool(name, arguments)
 
-        # Mock fallback implementation
-        return self._mock_call_tool(name, arguments)
+        self.stats["calls"] += 1
+        try:
+            result = self._send_request("tools/call", {"name": name, "arguments": arguments})
+            content = result.get("content") if isinstance(result, dict) else None
+            if not content:
+                raise CampyClientError(f"{name}: response had no content: {result!r}")
+            for item in content:
+                if item.get("type") == "text":
+                    text = item.get("text", "")
+                    if any(m in text for m in _OFFLINE_MARKERS):
+                        raise DaemonOfflineError(f"{name}: adapter reported daemon offline: {text[:160]!r}")
+                    try:
+                        return json.loads(text)
+                    except Exception:
+                        return {"text": text}
+            return result
+        except CampyClientError:
+            self.stats["failures"] += 1
+            raise
 
     def _mock_call_tool(self, name: str, args: Dict[str, Any]) -> Dict[str, Any]:
         """High-fidelity mock behavior for offline benchmarking."""
@@ -276,8 +346,29 @@ class CampyMCPClient:
     def compile_context(self, query: str, token_budget: int = 32000) -> Dict[str, Any]:
         return self.call_tool("compile_context", {"query": query, "token_budget": token_budget})
 
-    def run_sweep(self) -> Dict[str, Any]:
-        return self.call_tool("run_sweep", {})
+    def run_sweep(self, timeout: float = 3600.0, poll: float = 5.0) -> Dict[str, Any]:
+        """B448: settle -- block until the daemon's Gated Consolidation Loop has
+        drained (context_status.consolidation_pending == 0 on consecutive
+        polls). There has never been a `run_sweep` MCP tool; the old call
+        silently no-op'd, so probes raced consolidation. Mock mode: no-op.
+        Raises CampyClientError if it does not drain within `timeout`."""
+        if self.mock_mode:
+            return {"status": "mock"}
+        deadline = time.monotonic() + timeout
+        zero_polls = 0
+        pending = None
+        while time.monotonic() < deadline:
+            res = self.call_tool("context_status", {"session_id": "benchmark-settle"})
+            pending = res.get("consolidation_pending")
+            if pending is None:
+                raise CampyClientError(
+                    "context_status has no consolidation_pending -- daemon predates B448"
+                )
+            zero_polls = zero_polls + 1 if pending == 0 else 0
+            if zero_polls >= 2:
+                return {"status": "settled"}
+            time.sleep(poll)
+        raise CampyClientError(f"consolidation did not drain within {timeout}s (pending={pending})")
 
     def close(self) -> None:
         if self._proc:
