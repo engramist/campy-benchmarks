@@ -338,7 +338,11 @@ class CampyMCPClient:
         return self.call_tool("current_truth", {"query": query})
 
     def ask(self, query: str, session_id: str = "benchmark", token_budget: int = 32000) -> str:
-        res = self.call_tool("ask", {"query": query, "session_id": session_id, "token_budget": token_budget})
+        # capture=False: an evaluation probe must not write its question and the
+        # model's answer back into the memory being evaluated (ask's default
+        # closed-loop capture would pollute it, including with "no info" answers).
+        res = self.call_tool("ask", {"query": query, "session_id": session_id,
+                                     "token_budget": token_budget, "capture": False})
         if isinstance(res, dict):
             return res.get("answer", res.get("text", str(res)))
         return str(res)
