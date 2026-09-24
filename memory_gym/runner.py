@@ -41,9 +41,14 @@ def run_memory_gym(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any
         # Step 0: Path is flashed! Ingest into Campy memory
         flashed_path = obs.get("flashed_path") or []
         path_str = " -> ".join(f"({x}, {y})" for x, y in flashed_path)
+        # role="user": the daemon does not surface system-role messages via
+        # current_truth/ask (probed 2026-09-23), so a system-role observation is
+        # unrecallable by construction. The episode id in the text makes each
+        # episode's memory uniquely retrievable (the store holds every prior
+        # run's identically-formatted notes).
         client.notify_turn(
-            role="system",
-            content=f"Observation at Step 0: MysteryPath navigation sequence is: {path_str}",
+            role="user",
+            content=f"Observation at Step 0 for {session_id}: MysteryPath navigation sequence is: {path_str}",
             session_id=session_id,
         )
 
@@ -61,7 +66,10 @@ def run_memory_gym(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any
         recalled_coords: List[Tuple[int, int]] = []
         if isinstance(recall_res, dict):
             for res in recall_res.get("results", []):
-                recalled_coords = parse_path_from_memory(res.get("content", res.get("text", "")))
+                # the daemon returns the message text under `text_raw`
+                recalled_coords = parse_path_from_memory(
+                    res.get("content") or res.get("text_raw") or res.get("text") or ""
+                )
                 if recalled_coords:
                     break
         if not recalled_coords:
