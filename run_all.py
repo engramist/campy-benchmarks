@@ -19,6 +19,7 @@ from typing import Any, Dict, Optional
 # Add parent directory to sys.path so modules import cleanly
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import provenance
 from mcp_client import CampyMCPClient, CampyClientError
 from locomo.runner import run_locomo
 from memory_gym.runner import run_memory_gym
@@ -28,6 +29,8 @@ from arc_bridge.runner import run_arc_bridge
 
 def format_delta(baseline_val: Any, current_val: Any, higher_is_better: bool = True) -> str:
     """Format comparison delta string."""
+    if baseline_val is None or current_val is None:
+        return f"{current_val if current_val is not None else 'N/A'}"
     try:
         b = float(baseline_val)
         c = float(current_val)
@@ -40,41 +43,73 @@ def format_delta(baseline_val: Any, current_val: Any, higher_is_better: bool = T
         return f"{current_val} (vs {baseline_val})"
 
 
+# (suite, key, label, higher_is_better)
+COMPARE_ROWS = [
+    ("locomo", "accuracy", "LoCoMo Accuracy", True),
+    ("locomo", "deprecation_accuracy", "LoCoMo Deprecation Accuracy", True),
+    ("locomo", "exact_match", "LoCoMo Exact Match", True),
+    ("locomo", "f1", "LoCoMo F1 (token overlap)", True),
+    ("memory_gym", "success_rate", "MemoryGym Success Rate", True),
+    ("memory_gym", "step_efficiency", "MemoryGym Step Efficiency", True),
+    ("membench", "accuracy", "MemBench Accuracy", True),
+    ("membench", "contradiction_score", "MemBench Contradiction Score", True),
+    ("membench", "token_savings_pct", "MemBench Token Savings %", True),
+    ("arc_bridge", "hot_path_latency_ms", "ARC Hot-Path Latency (ms)", False),
+    ("arc_bridge", "rule_transfer_rate", "ARC Rule Transfer Rate", True),
+    ("arc_bridge", "disappeared_entity_recall", "ARC Disappearance Recall", True),
+]
+
+
+def comparability_warnings(baseline: Dict[str, Any], current: Dict[str, Any]) -> list:
+    """Reasons the two runs' scores are not like-for-like."""
+    bp, cp = baseline.get("provenance", {}), current.get("provenance", {})
+    warnings = []
+    b_sv, c_sv = bp.get("scorer_version", 1), cp.get("scorer_version", 1)
+    if b_sv != c_sv:
+        warnings.append(f"scorer_version differs (baseline v{b_sv}, current v{c_sv}): "
+                        "accuracy-type metrics are NOT comparable")
+    if baseline.get("mode") != current.get("mode"):
+        warnings.append(f"mode differs ({baseline.get('mode')} vs {current.get('mode')})")
+    b_ds, c_ds = bp.get("dataset_sha"), cp.get("dataset_sha")
+    if b_ds and c_ds and b_ds != c_ds:
+        warnings.append(f"dataset fixtures differ ({b_ds} vs {c_ds})")
+    b_m = (bp.get("daemon_config") or {}).get("llm_model")
+    c_m = (cp.get("daemon_config") or {}).get("llm_model")
+    if b_m != c_m:
+        warnings.append(f"LLM model differs or unknown ({b_m} vs {c_m})")
+    return warnings
+
+
+def flipped_probes(baseline: Dict[str, Any], current: Dict[str, Any]) -> list:
+    """Per-probe pass/fail changes, when both runs recorded details."""
+    flips = []
+    for suite in ("locomo", "membench"):
+        b = {d["id"]: d for d in baseline.get("suites", {}).get(suite, {}).get("details", [])}
+        for d in current.get("suites", {}).get(suite, {}).get("details", []):
+            if d["id"] in b and b[d["id"]]["passed"] != d["passed"]:
+                flips.append((suite, d["id"], b[d["id"]]["passed"], d["passed"], d["reason"]))
+    return flips
+
+
 def print_comparison_table(baseline: Dict[str, Any], current: Dict[str, Any]) -> None:
     """Print markdown comparison table between baseline and current run."""
     print("\n" + "=" * 80)
-    print("### HippoCampy Decision-Grade Benchmark Comparison Report (B381)")
+    print("### HippoCampy Benchmark Comparison Report")
     print("=" * 80 + "\n")
-    print(f"| Suite / Metric | Baseline Snapshot | Current Evaluation | Evaluation Status |")
-    print(f"|---|---|---|---|")
-
-    # LoCoMo
-    b_locomo = baseline.get("suites", {}).get("locomo", {})
-    c_locomo = current.get("suites", {}).get("locomo", {})
-    print(f"| **LoCoMo Exact Match** | {b_locomo.get('exact_match', 'N/A')} | {format_delta(b_locomo.get('exact_match', 0), c_locomo.get('exact_match', 0), True)} |")
-    print(f"| **LoCoMo F1 Score** | {b_locomo.get('f1', 'N/A')} | {format_delta(b_locomo.get('f1', 0), c_locomo.get('f1', 0), True)} |")
-    print(f"| **LoCoMo Deprecation Accuracy** | {b_locomo.get('deprecation_accuracy', 'N/A')} | {format_delta(b_locomo.get('deprecation_accuracy', 0), c_locomo.get('deprecation_accuracy', 0), True)} |")
-
-    # MemoryGym
-    b_mg = baseline.get("suites", {}).get("memory_gym", {})
-    c_mg = current.get("suites", {}).get("memory_gym", {})
-    print(f"| **MemoryGym Success Rate** | {b_mg.get('success_rate', 'N/A')} | {format_delta(b_mg.get('success_rate', 0), c_mg.get('success_rate', 0), True)} |")
-    print(f"| **MemoryGym Step Efficiency** | {b_mg.get('step_efficiency', 'N/A')} | {format_delta(b_mg.get('step_efficiency', 0), c_mg.get('step_efficiency', 0), True)} |")
-    print(f"| **MemoryGym 500-Step Retention** | {b_mg.get('retention_500_steps', 'N/A')} | {format_delta(b_mg.get('retention_500_steps', 0), c_mg.get('retention_500_steps', 0), True)} |")
-
-    # MemBench
-    b_mb = baseline.get("suites", {}).get("membench", {})
-    c_mb = current.get("suites", {}).get("membench", {})
-    print(f"| **MemBench Fact Precision** | {b_mb.get('fact_precision', 'N/A')} | {format_delta(b_mb.get('fact_precision', 0), c_mb.get('fact_precision', 0), True)} |")
-    print(f"| **MemBench Contradiction Score** | {b_mb.get('contradiction_score', 'N/A')} | {format_delta(b_mb.get('contradiction_score', 0), c_mb.get('contradiction_score', 0), True)} |")
-    print(f"| **MemBench Token Savings %** | {b_mb.get('token_savings_pct', 'N/A')}% | {format_delta(b_mb.get('token_savings_pct', 0), c_mb.get('token_savings_pct', 0), True)} |")
-
-    # ARC Bridge
-    b_arc = baseline.get("suites", {}).get("arc_bridge", {})
-    c_arc = current.get("suites", {}).get("arc_bridge", {})
-    print(f"| **ARC Hot-Path Latency (ms)** | {b_arc.get('hot_path_latency_ms', 'N/A')}ms | {format_delta(b_arc.get('hot_path_latency_ms', 0), c_arc.get('hot_path_latency_ms', 0), False)} |")
-    print(f"| **ARC Rule Transfer Rate** | {b_arc.get('rule_transfer_rate', 'N/A')} | {format_delta(b_arc.get('rule_transfer_rate', 0), c_arc.get('rule_transfer_rate', 0), True)} |")
-    print(f"| **ARC Disappearance Recall** | {b_arc.get('disappeared_entity_recall', 'N/A')} | {format_delta(b_arc.get('disappeared_entity_recall', 0), c_arc.get('disappeared_entity_recall', 0), True)} |")
+    for w in comparability_warnings(baseline, current):
+        print(f"> ⚠️ {w}")
+    print()
+    print("| Suite / Metric | Baseline Snapshot | Current Evaluation |")
+    print("|---|---|---|")
+    for suite, key, label, hib in COMPARE_ROWS:
+        b = baseline.get("suites", {}).get(suite, {}).get(key)
+        c = current.get("suites", {}).get(suite, {}).get(key)
+        print(f"| **{label}** | {b if b is not None else 'N/A'} | {format_delta(b, c, hib)} |")
+    flips = flipped_probes(baseline, current)
+    if flips:
+        print("\n#### Probes that changed verdict")
+        for suite, pid, was, now, reason in flips:
+            print(f"- {suite}/{pid}: {'pass' if was else 'fail'} -> {'pass' if now else 'fail'} ({reason})")
     print("\n" + "=" * 80 + "\n")
 
 
@@ -90,26 +125,35 @@ def print_summary_table(results: Dict[str, Any]) -> None:
         table.add_column("Score / Rate", style="green bold")
         table.add_column("Latency", style="yellow")
 
-        suites = results.get("suites", {})
+        suites = {k: v for k, v in results.get("suites", {}).items() if v.get("valid")}
         if "locomo" in suites:
             loc = suites["locomo"]
-            table.add_row("LoCoMo", f"F1: {loc.get('f1')} | DeprecAcc: {loc.get('deprecation_accuracy')}", f"EM: {loc.get('exact_match')}", f"{loc.get('avg_latency_ms')} ms")
+            table.add_row("LoCoMo", f"DeprecAcc: {loc.get('deprecation_accuracy')} | EM: {loc.get('exact_match')} | F1: {loc.get('f1')}", f"Acc: {loc.get('accuracy')}", f"{loc.get('avg_latency_ms')} ms")
         if "memory_gym" in suites:
             mg = suites["memory_gym"]
-            table.add_row("MemoryGym", f"Efficiency: {mg.get('step_efficiency')} | Steps: {mg.get('total_steps')}", f"Success: {mg.get('success_rate') * 100:.1f}%", f"{mg.get('avg_step_latency_ms')} ms")
+            table.add_row("MemoryGym", f"Efficiency: {mg.get('step_efficiency')} | Steps: {mg.get('total_steps')}", f"Success: {mg.get('success_rate') * 100:.1f}%", f"{mg.get('avg_retrieve_latency_ms')} ms (retrieve)")
         if "membench" in suites:
             mb = suites["membench"]
-            table.add_row("MemBench", f"Contradiction: {mb.get('contradiction_score')} | Savings: {mb.get('token_savings_pct')}%", f"Precision: {mb.get('fact_precision')}", f"{mb.get('avg_latency_ms')} ms")
+            table.add_row("MemBench", f"Contradiction: {mb.get('contradiction_score')} | Savings: {mb.get('token_savings_pct')}%", f"Acc: {mb.get('accuracy')}", f"{mb.get('avg_latency_ms')} ms")
         if "arc_bridge" in suites:
             arc = suites["arc_bridge"]
-            table.add_row("ARC Bridge", f"Transfer: {arc.get('rule_transfer_rate')} | Disappear: {arc.get('disappeared_entity_recall')}", f"Active", f"{arc.get('hot_path_latency_ms')} ms")
+            table.add_row("ARC Bridge", f"Transfer: {arc.get('rule_transfer_rate')} | Disappear: {arc.get('disappeared_entity_recall')}", "-", f"{arc.get('hot_path_latency_ms')} ms")
 
         console.print(table)
     except Exception:
         # Fallback to plain text
         print("\n=== Benchmark Execution Summary ===")
         for name, data in results.get("suites", {}).items():
-            print(f"- {name.upper()}: {data}")
+            print(f"- {name.upper()}: " + str({k: v for k, v in data.items() if k != "details"}))
+
+
+def default_results_path(results: Dict[str, Any], real: bool) -> Path:
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    sha = (results["provenance"]["harness"].get("commit") or "nogit")[:8]
+    suffix = "" if real else "-mock"
+    if results.get("mode") == "smoke":
+        suffix += "-smoke"
+    return Path(__file__).resolve().parent / "results" / f"{stamp}-{sha}{suffix}.json"
 
 
 def main():
@@ -117,7 +161,10 @@ def main():
     parser.add_argument("--smoke", action="store_true", help="Run fast smoke checks across all suites")
     parser.add_argument("--baseline", action="store_true", help="Record current baseline snapshot")
     parser.add_argument("--compare", type=str, nargs="?", const="baseline_snapshot.json", help="Compare against baseline JSON file")
-    parser.add_argument("--out", type=str, default="baseline_snapshot.json", help="Output file for baseline snapshot")
+    parser.add_argument("--out", type=str, default=None,
+                        help="Write results here (default with --baseline: results/<utc>-<harness sha>[-smoke|-mock].json)")
+    parser.add_argument("--trace-context", action="store_true",
+                        help="LoCoMo: also call compile_context per probe and record what it retrieved (extra daemon calls)")
     parser.add_argument("--suite", choices=["all", "locomo", "memory_gym", "membench", "arc"], default="all")
     args = parser.parse_args()
 
@@ -138,7 +185,7 @@ def main():
         client.reset_mock_state()  # B438: isolate from any prior suite's mock data
         calls0, fails0 = client.stats["calls"], client.stats["failures"]
         try:
-            res = fn(client, smoke=args.smoke)
+            res = fn(client, smoke=args.smoke, trace_context=args.trace_context)
             res["valid"] = True
         except CampyClientError as e:
             # A suite that lost the daemon mid-run produced no measurement.
@@ -165,6 +212,7 @@ def main():
 
     results: Dict[str, Any] = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
+        "provenance": provenance.collect(mcp_cmd, args.smoke, sys.argv),
         "mode": "smoke" if args.smoke else "standard",
         "mcp_configured": bool(mcp_cmd),
         "suites": executed_suites,
@@ -180,11 +228,12 @@ def main():
 
     print_summary_table(results)
 
-    if args.baseline:
-        out_path = Path(args.out)
+    if args.baseline or args.out:
+        out_path = Path(args.out) if args.out else default_results_path(results, bool(mcp_cmd))
+        out_path.parent.mkdir(parents=True, exist_ok=True)
         with open(out_path, "w") as f:
             json.dump(results, f, indent=2)
-        print(f"\n[+] Successfully recorded baseline snapshot to {out_path.resolve()}")
+        print(f"\n[+] Recorded results (with per-probe details) to {out_path.resolve()}")
 
     if args.compare:
         baseline_file = Path(args.compare)

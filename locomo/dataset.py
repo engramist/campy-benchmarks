@@ -11,11 +11,13 @@ from typing import List, Dict, Any
 
 @dataclass
 class ProbeQuestion:
+    """Judged by scoring.judge (scorer v2) -- see scoring.py for the rules."""
     id: str
     question: str
     expected: str
-    must_match: List[str] = field(default_factory=list)
-    must_not_match: List[str] = field(default_factory=list)
+    kind: str = "value"  # "value" | "negative"
+    accept: List[str] = field(default_factory=list)
+    stale: List[str] = field(default_factory=list)
     is_deprecation: bool = False
 
 
@@ -61,24 +63,23 @@ def get_locomo_scenarios(smoke: bool = False) -> List[LoCoMoScenario]:
                 id="p1_current_db",
                 question="What is our active production database engine and version?",
                 expected="PostgreSQL 16",
-                must_match=[r"PostgreSQL\s*16", r"Postgres\s*16"],
-                must_not_match=[r"active.*PostgreSQL\s*14", r"deploy to PostgreSQL\s*14"],
+                accept=[r"Postgre(?:SQL|s)?\s*16\b"],
+                stale=[r"Postgre(?:SQL|s)?\s*14\b"],
                 is_deprecation=True,
             ),
             ProbeQuestion(
                 id="p2_deprecated_check",
                 question="Can we deploy the new payment service on PostgreSQL 14?",
                 expected="No, PostgreSQL 14 is deprecated; use PostgreSQL 16.",
-                must_match=[r"(no|cannot|do not|deprecated|prohibited|must.*16)"],
-                must_not_match=[r"yes.*deploy on.*14"],
+                kind="negative",
+                accept=[r"Postgre(?:SQL|s)?\s*16\b", r"\bdeprecat\w*", r"\bno\s+longer\b", r"\bmigrat\w*"],
                 is_deprecation=True,
             ),
             ProbeQuestion(
                 id="p3_analytics_pk",
                 question="What primary key format is required for analytics tables?",
                 expected="BIGINT sequence IDs",
-                must_match=[r"BIGINT"],
-                must_not_match=[r"UUID.*for analytics"],
+                accept=[r"\bBIGINT\b"],
                 is_deprecation=False,
             ),
         ],
@@ -111,16 +112,16 @@ def get_locomo_scenarios(smoke: bool = False) -> List[LoCoMoScenario]:
                 id="p4_auth_algo",
                 question="What algorithm is required for signing authentication tokens?",
                 expected="RS256 asymmetric keys via JWKS",
-                must_match=[r"RS256"],
-                must_not_match=[r"HS256.*active", r"symmetric"],
+                accept=[r"\bRS256\b"],
+                stale=[r"\bHS256\b"],
                 is_deprecation=True,
             ),
             ProbeQuestion(
                 id="p5_hs256_rejection",
                 question="Is an HS256 signed token acceptable for internal APIs?",
                 expected="No, HS256 is forbidden/deprecated.",
-                must_match=[r"(no|not acceptable|forbidden|deprecated|reject)"],
-                must_not_match=[r"yes.*acceptable"],
+                kind="negative",
+                accept=[r"\bRS256\b", r"\bforbidden\b", r"\bdeprecat\w*", r"\bprohibited\b", r"\breject\w*", r"\bsymmetric\b"],
                 is_deprecation=True,
             ),
         ],
@@ -148,8 +149,8 @@ def get_locomo_scenarios(smoke: bool = False) -> List[LoCoMoScenario]:
                 id="p6_cache_engine",
                 question="What system do we use for caching and distributed locks?",
                 expected="Redis cluster on port 6379",
-                must_match=[r"Redis"],
-                must_not_match=[r"Memcached.*active"],
+                accept=[r"\bRedis\b"],
+                stale=[r"\bMemcached\b"],
                 is_deprecation=True,
             ),
         ],
@@ -159,33 +160,59 @@ def get_locomo_scenarios(smoke: bool = False) -> List[LoCoMoScenario]:
     if smoke:
         return scenarios
 
-    # Add 22 more scenarios for full 25-scenario evaluation
+    # Add 22 more scenarios for full 25-scenario evaluation.
+    # (domain, v1, v2, v3, v1_re, v2_re, v3_re): the ingested text uses the
+    # literal values; the regexes are what the judge accepts for each value,
+    # so "Kubernetes." counts for "Kubernetes k8s" (scorer v1 required the
+    # literal gold string).
     domain_topics = [
-        ("api_format", "XML RPC", "JSON REST", "GraphQL"),
-        ("container_orchestration", "Docker Swarm", "Nomad", "Kubernetes k8s"),
-        ("logging_backend", "Local Syslog", "Logstash", "Vector to OpenSearch"),
-        ("python_version", "Python 3.9", "Python 3.11", "Python 3.12"),
-        ("ci_provider", "Jenkins", "Travis CI", "GitHub Actions"),
-        ("message_broker", "RabbitMQ", "ActiveMQ", "Apache Kafka"),
-        ("rpc_framework", "Thrift", "REST", "gRPC with Protobuf v3"),
-        ("cloud_region", "us-east-1", "us-west-2", "eu-central-1"),
-        ("monitoring", "Nagios", "Graphite", "Prometheus with Grafana"),
-        ("code_formatter", "autopep8", "yapf", "Ruff and Black"),
-        ("storage_tier", "S3 Standard", "S3 Glacier", "Ceph Object Storage"),
-        ("tls_version", "TLS 1.1", "TLS 1.2", "Strict TLS 1.3"),
-        ("css_framework", "Bootstrap 4", "Bulma", "Tailwind CSS v3"),
-        ("build_system", "Makefiles", "Bazel", "Hatch / UV"),
-        ("dns_provider", "BIND9", "Route53", "Cloudflare DNS"),
-        ("search_engine", "Solr", "Elasticsearch 6", "Kuzu Hybrid Search"),
-        ("serialization", "Pickle", "MessagePack", "Protobuf"),
-        ("tracing", "Jaeger standalone", "Zipkin", "OpenTelemetry OTel"),
-        ("testing_framework", "unittest", "nose2", "pytest"),
-        ("frontend_framework", "AngularJS", "Vue 2", "React 19 with Next.js"),
-        ("secrets_manager", "Vault dev", "AWS Secrets Manager", "Infisical"),
-        ("os_base_image", "Ubuntu 18.04", "CentOS 7", "Debian 12 Bookworm slim"),
+        ("api_format", "XML RPC", "JSON REST", "GraphQL",
+         r"\bXML[\s-]*RPC\b", r"\bREST\b", r"\bGraphQL\b"),
+        ("container_orchestration", "Docker Swarm", "Nomad", "Kubernetes k8s",
+         r"\bSwarm\b", r"\bNomad\b", r"\bKubernetes\b|\bk8s\b"),
+        ("logging_backend", "Local Syslog", "Logstash", "Vector to OpenSearch",
+         r"\bSyslog\b", r"\bLogstash\b", r"\bOpenSearch\b"),
+        ("python_version", "Python 3.9", "Python 3.11", "Python 3.12",
+         r"\b3\.9\b", r"\b3\.11\b", r"\b3\.12\b"),
+        ("ci_provider", "Jenkins", "Travis CI", "GitHub Actions",
+         r"\bJenkins\b", r"\bTravis\b", r"\bGitHub\s+Actions\b"),
+        ("message_broker", "RabbitMQ", "ActiveMQ", "Apache Kafka",
+         r"\bRabbitMQ\b", r"\bActiveMQ\b", r"\bKafka\b"),
+        ("rpc_framework", "Thrift", "REST", "gRPC with Protobuf v3",
+         r"\bThrift\b", r"\bREST\b", r"\bgRPC\b"),
+        ("cloud_region", "us-east-1", "us-west-2", "eu-central-1",
+         r"\bus-east-1\b", r"\bus-west-2\b", r"\beu-central-1\b"),
+        ("monitoring", "Nagios", "Graphite", "Prometheus with Grafana",
+         r"\bNagios\b", r"\bGraphite\b", r"\bPrometheus\b"),
+        ("code_formatter", "autopep8", "yapf", "Ruff and Black",
+         r"\bautopep8\b", r"\byapf\b", r"\bRuff\b"),
+        ("storage_tier", "S3 Standard", "S3 Glacier", "Ceph Object Storage",
+         r"\bS3\s+Standard\b", r"\bGlacier\b", r"\bCeph\b"),
+        ("tls_version", "TLS 1.1", "TLS 1.2", "Strict TLS 1.3",
+         r"\bTLS\s*v?1\.1\b", r"\bTLS\s*v?1\.2\b", r"\bTLS\s*v?1\.3\b"),
+        ("css_framework", "Bootstrap 4", "Bulma", "Tailwind CSS v3",
+         r"\bBootstrap\b", r"\bBulma\b", r"\bTailwind\b"),
+        ("build_system", "Makefiles", "Bazel", "Hatch / UV",
+         r"\bMakefiles?\b", r"\bBazel\b", r"\bHatch\b|\buv\b"),
+        ("dns_provider", "BIND9", "Route53", "Cloudflare DNS",
+         r"\bBIND\s*9\b", r"\bRoute\s*53\b", r"\bCloudflare\b"),
+        ("search_engine", "Solr", "Elasticsearch 6", "Kuzu Hybrid Search",
+         r"\bSolr\b", r"\bElasticsearch\b", r"\bKuzu\b"),
+        ("serialization", "Pickle", "MessagePack", "Protobuf",
+         r"\bPickle\b", r"\bMessagePack\b|\bmsgpack\b", r"\bProtobuf\b|\bProtocol\s+Buffers\b"),
+        ("tracing", "Jaeger standalone", "Zipkin", "OpenTelemetry OTel",
+         r"\bJaeger\b", r"\bZipkin\b", r"\bOpenTelemetry\b|\bOTel\b"),
+        ("testing_framework", "unittest", "nose2", "pytest",
+         r"\bunittest\b", r"\bnose2?\b", r"\bpytest\b"),
+        ("frontend_framework", "AngularJS", "Vue 2", "React 19 with Next.js",
+         r"\bAngular(?:JS)?\b", r"\bVue\b", r"\bReact\b|\bNext\.?js\b"),
+        ("secrets_manager", "Vault dev", "AWS Secrets Manager", "Infisical",
+         r"\bVault\b", r"\bSecrets\s+Manager\b", r"\bInfisical\b"),
+        ("os_base_image", "Ubuntu 18.04", "CentOS 7", "Debian 12 Bookworm slim",
+         r"\bUbuntu\b", r"\bCentOS\b", r"\bDebian\b"),
     ]
 
-    for idx, (domain, v1, v2, v3) in enumerate(domain_topics, start=4):
+    for idx, (domain, v1, v2, v3, re1, re2, re3) in enumerate(domain_topics, start=4):
         sc = LoCoMoScenario(
             id=f"locomo_{idx:02d}_{domain}",
             title=f"Evolution of {domain}",
@@ -208,8 +235,8 @@ def get_locomo_scenarios(smoke: bool = False) -> List[LoCoMoScenario]:
                     id=f"p_{idx}_active",
                     question=f"What is the current required tool for {domain}?",
                     expected=v3,
-                    must_match=[re.escape(v3)],
-                    must_not_match=[re.escape(v1)],
+                    accept=[re3],
+                    stale=[re1, re2],
                     is_deprecation=True,
                 ),
             ],

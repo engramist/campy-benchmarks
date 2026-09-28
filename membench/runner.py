@@ -1,16 +1,22 @@
 """
 campy-benchmarks / membench / runner.py
 MemBench Benchmark Runner: Evaluates Multi-Session Persona Fact Retention, Contradiction Arbitration & Token Savings.
+
+Scoring is scorer v2 (scoring.py). `accuracy` replaces the old
+fact_precision/fact_recall pair, which were the same number computed twice.
+Every probe's question, answer, verdict and compile_context summary is in
+`details`.
 """
 
 from __future__ import annotations
 
-import re
 import time
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from mcp_client import CampyMCPClient
-from membench.msc_dataset import get_msc_personas, MSCPersona, ContradictionProbe
+from membench.msc_dataset import get_msc_personas
+from records import summarize_bundle
+from scoring import judge
 
 
 def estimate_tokens(text: str) -> int:
@@ -18,18 +24,14 @@ def estimate_tokens(text: str) -> int:
     return max(1, len(text) // 4)
 
 
-def run_membench(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any]:
-    """Execute MemBench evaluation suite."""
+def run_membench(client: CampyMCPClient, smoke: bool = False, trace_context: bool = False) -> Dict[str, Any]:
+    """Execute MemBench evaluation suite. (`trace_context` is accepted for a
+    uniform runner signature; this suite always records its bundle.)"""
     personas = get_msc_personas(smoke=smoke)
-    
-    total_probes = 0
-    facts_recalled = 0
-    contradictions_tested = 0
-    contradictions_resolved = 0
-    
+
+    details: List[Dict[str, Any]] = []
     total_raw_tokens = 0
     total_bundle_tokens = 0
-    latencies: List[float] = []
 
     for p in personas:
         # Ingest 5 sessions
@@ -42,59 +44,57 @@ def run_membench(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any]:
                 client.notify_turn(role=turn["role"], content=content, session_id=sess_id)
             client.run_sweep()
 
-        # Compute raw conversation tokens
-        raw_tokens = sum(estimate_tokens(t) for t in session_text_acc)
-        total_raw_tokens += raw_tokens
+        total_raw_tokens += sum(estimate_tokens(t) for t in session_text_acc)
 
         # In Session 5, evaluate probes
         for probe in p.probes:
-            total_probes += 1
             t0 = time.perf_counter()
-            
-            # Query compiled context and answer
             ctx_res = client.compile_context(probe.question, token_budget=4000)
-            # B436: compile_context's real response nests the estimate at
-            # bundle.total_token_estimate -- there is no top-level
-            # "token_count" key, so this always fell through to the 380
-            # default and token_savings_pct was always computed from a
-            # constant.
-            bundle_tokens = ctx_res.get("bundle", {}).get("total_token_estimate", 380)
+            compile_ms = (time.perf_counter() - t0) * 1000.0
+            # B436: the estimate is nested at bundle.total_token_estimate.
+            # Missing means the bundle shape changed -- count 0 and let the
+            # record show it rather than substituting a constant.
+            bundle_tokens = ctx_res.get("bundle", {}).get("total_token_estimate") or 0
             total_bundle_tokens += bundle_tokens
 
+            t1 = time.perf_counter()
             answer = client.ask(probe.question, session_id=f"msc_{p.id}_s5")
-            lat_ms = (time.perf_counter() - t0) * 1000.0
-            latencies.append(lat_ms)
+            ask_ms = (time.perf_counter() - t1) * 1000.0
 
-            # Check must-match and must-not-match
-            hit_must = all(re.search(pat, answer, re.IGNORECASE) for pat in probe.must_match)
-            hit_must_not = any(re.search(pat, answer, re.IGNORECASE) for pat in probe.must_not_match)
+            passed, reason = judge(answer, probe.kind, probe.accept, probe.stale)
+            details.append({
+                "id": probe.id,
+                "persona": p.id,
+                "question": probe.question,
+                "expected": probe.expected_active,
+                "answer": answer,
+                "passed": passed,
+                "reason": reason,
+                "is_contradiction": probe.is_contradiction,
+                "ask_latency_ms": round(ask_ms, 1),
+                "compile_latency_ms": round(compile_ms, 1),
+                "context": summarize_bundle(ctx_res),
+            })
 
-            if hit_must and not hit_must_not:
-                facts_recalled += 1
-                if probe.is_contradiction:
-                    contradictions_resolved += 1
-            
-            if probe.is_contradiction:
-                contradictions_tested += 1
+    # Token savings: compiled bundle vs raw transcript. Meaningless when the
+    # bundles are empty (B454: that read as "100% savings") -> None.
+    token_savings: Optional[float] = None
+    if total_raw_tokens > 0 and total_bundle_tokens > 0:
+        token_savings = round(max(0.0, 1.0 - total_bundle_tokens / total_raw_tokens) * 100.0, 2)
 
-    # Token savings ratio: compare Campy's compiled context bundle vs raw transcript
-    token_savings = 0.0
-    if total_raw_tokens > 0:
-        token_savings = max(0.0, (1.0 - (total_bundle_tokens / total_raw_tokens))) * 100.0
-
-    precision = round(facts_recalled / max(1, total_probes), 4)
-    recall = round(facts_recalled / max(1, total_probes), 4)
-    contra_score = round(contradictions_resolved / max(1, contradictions_tested), 4) if contradictions_tested else 1.0
-
+    n = len(details)
+    contra = [d for d in details if d["is_contradiction"]]
     return {
         "suite": "membench",
         "personas": len(personas),
-        "total_probes": total_probes,
-        "fact_precision": precision,
-        "fact_recall": recall,
-        "contradiction_score": contra_score,
+        "total_probes": n,
+        "accuracy": round(sum(d["passed"] for d in details) / max(1, n), 4),
+        "contradiction_score": round(sum(d["passed"] for d in contra) / len(contra), 4) if contra else None,
+        "contradiction_probes": len(contra),
         "raw_tokens_avg": round(total_raw_tokens / max(1, len(personas)), 1),
         "bundle_tokens_avg": round(total_bundle_tokens / max(1, len(personas)), 1),
-        "token_savings_pct": round(token_savings, 2),
-        "avg_latency_ms": round(sum(latencies) / max(1, len(latencies)), 2),
+        "token_savings_pct": token_savings,
+        "avg_latency_ms": round(sum(d["ask_latency_ms"] for d in details) / max(1, n), 2),
+        "avg_compile_latency_ms": round(sum(d["compile_latency_ms"] for d in details) / max(1, n), 2),
+        "details": details,
     }

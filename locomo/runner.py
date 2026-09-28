@@ -1,41 +1,36 @@
 """
 campy-benchmarks / locomo / runner.py
 LoCoMo Benchmark Runner: Evaluates Multi-Session Factual Recall & Dynamic Constraint Deprecation.
+
+Scoring is scorer v2 (scoring.py): `accuracy` (every probe judged) and
+`deprecation_accuracy` (deprecation probes only) are the headline numbers.
+`exact_match` is now "names an accepted form of the current value" and `f1`
+is token overlap with the short gold string (understates full-sentence
+answers). Every probe's question, answer and verdict is in `details`.
 """
 
 from __future__ import annotations
 
-import re
 import time
-from typing import Any, Dict, List, Set
+from typing import Any, Dict, List
 
 from mcp_client import CampyMCPClient
-from locomo.dataset import get_locomo_scenarios, LoCoMoScenario, ProbeQuestion
+from locomo.dataset import get_locomo_scenarios
+from records import summarize_bundle
+from scoring import compute_f1, contains_current_value, judge
 
 
-def compute_f1(prediction: str, ground_truth: str) -> float:
-    """Compute token-level F1 score between prediction and ground truth."""
-    pred_tokens = re.findall(r"\w+", prediction.lower())
-    truth_tokens = re.findall(r"\w+", ground_truth.lower())
-    if not pred_tokens or not truth_tokens:
-        return float(pred_tokens == truth_tokens)
-    common = set(pred_tokens) & set(truth_tokens)
-    if not common:
-        return 0.0
-    precision = sum(min(pred_tokens.count(w), truth_tokens.count(w)) for w in common) / len(pred_tokens)
-    recall = sum(min(pred_tokens.count(w), truth_tokens.count(w)) for w in common) / len(truth_tokens)
-    return 2 * (precision * recall) / (precision + recall)
+def run_locomo(client: CampyMCPClient, smoke: bool = False, trace_context: bool = False) -> Dict[str, Any]:
+    """Execute LoCoMo benchmark suite against Campy.
 
-
-def run_locomo(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any]:
-    """Execute LoCoMo benchmark suite against Campy."""
+    trace_context: also call compile_context per probe and record what it
+    retrieved. This is an extra daemon call per probe and is NOT necessarily
+    the bundle `ask` used internally (ask augments the query first); it is
+    a diagnostic view of retrieval, not ask's exact prompt.
+    """
     scenarios = get_locomo_scenarios(smoke=smoke)
-    
-    total_probes = 0
-    exact_matches = 0
-    f1_scores: List[float] = []
-    deprecation_probes = 0
-    deprecation_correct = 0
+
+    details: List[Dict[str, Any]] = []
     latencies: List[float] = []
 
     for sc in scenarios:
@@ -45,40 +40,45 @@ def run_locomo(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any]:
             sess_id = f"{session_prefix}_s{sess_idx}"
             for turn in session:
                 client.notify_turn(role=turn["role"], content=turn["content"], session_id=sess_id)
-            # Intermediate sweep simulates consolidation
+            # Settle: wait for consolidation to drain (see mcp_client.run_sweep)
             client.run_sweep()
 
         # Evaluate probe questions
         for probe in sc.probes:
-            total_probes += 1
             t0 = time.perf_counter()
             answer = client.ask(query=probe.question, session_id=f"{session_prefix}_eval")
             lat_ms = (time.perf_counter() - t0) * 1000.0
             latencies.append(lat_ms)
 
-            # Check Exact Match
-            em = 1.0 if probe.expected.lower() in answer.lower() else 0.0
-            exact_matches += int(em)
+            passed, reason = judge(answer, probe.kind, probe.accept, probe.stale)
+            record: Dict[str, Any] = {
+                "id": probe.id,
+                "scenario": sc.id,
+                "question": probe.question,
+                "expected": probe.expected,
+                "answer": answer,
+                "passed": passed,
+                "reason": reason,
+                "exact_match": contains_current_value(answer, probe.accept),
+                "f1": round(compute_f1(answer, probe.expected), 4),
+                "is_deprecation": probe.is_deprecation,
+                "latency_ms": round(lat_ms, 1),
+            }
+            if trace_context:
+                record["context"] = summarize_bundle(client.compile_context(probe.question))
+            details.append(record)
 
-            # Check F1
-            f1 = compute_f1(answer, probe.expected)
-            f1_scores.append(f1)
-
-            # Check Deprecation
-            if probe.is_deprecation:
-                deprecation_probes += 1
-                hit_must = all(re.search(pat, answer, re.IGNORECASE) for pat in probe.must_match)
-                hit_must_not = any(re.search(pat, answer, re.IGNORECASE) for pat in probe.must_not_match)
-                if hit_must and not hit_must_not:
-                    deprecation_correct += 1
-
+    n = len(details)
+    dep = [d for d in details if d["is_deprecation"]]
     return {
         "suite": "locomo",
         "scenarios": len(scenarios),
-        "probes": total_probes,
-        "exact_match": round(exact_matches / max(1, total_probes), 4),
-        "f1": round(sum(f1_scores) / max(1, len(f1_scores)), 4),
-        "deprecation_accuracy": round(deprecation_correct / max(1, deprecation_probes), 4) if deprecation_probes else 1.0,
-        "deprecation_probes": deprecation_probes,
+        "probes": n,
+        "accuracy": round(sum(d["passed"] for d in details) / max(1, n), 4),
+        "exact_match": round(sum(d["exact_match"] for d in details) / max(1, n), 4),
+        "f1": round(sum(d["f1"] for d in details) / max(1, n), 4),
+        "deprecation_accuracy": round(sum(d["passed"] for d in dep) / len(dep), 4) if dep else None,
+        "deprecation_probes": len(dep),
         "avg_latency_ms": round(sum(latencies) / max(1, len(latencies)), 2),
+        "details": details,
     }

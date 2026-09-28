@@ -6,6 +6,7 @@ ARC-AGI Sibling Bridge: Integrates memory-transfer diagnostics from sibling ARC_
 from __future__ import annotations
 
 import os
+import re
 import subprocess
 import sys
 import time
@@ -13,11 +14,12 @@ from pathlib import Path
 from typing import Any, Dict
 
 from mcp_client import CampyMCPClient
+from records import result_texts, snippet
 
-ARC_AGI_REPO = Path("/Users/djshelton/Desktop/GitProjects/ARC_AGI")
+ARC_AGI_REPO = Path(os.environ.get("ARC_AGI_REPO", "/Users/djshelton/Desktop/GitProjects/ARC_AGI"))
 
 
-def run_arc_bridge(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any]:
+def run_arc_bridge(client: CampyMCPClient, smoke: bool = False, trace_context: bool = False) -> Dict[str, Any]:
     """Execute ARC-AGI memory transfer and diagnostic suite."""
     has_sibling = ARC_AGI_REPO.exists()
     
@@ -29,7 +31,11 @@ def run_arc_bridge(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any
         client.current_truth("active puzzle mechanic for game_001")
     hot_path_latency = ((time.perf_counter() - t0) / (5 if smoke else 20)) * 1000.0
 
-    # 2. Measure Rule Transfer Diagnostics (equivalent to test_a084)
+    # 2. Rule transfer (equivalent to test_a084): two games share a mechanic;
+    # a query by mechanic must surface BOTH games' rules. Only retrieved hit
+    # text is checked -- the old check searched str(response) for
+    # "gravity_pull", which is in the query itself, and a miss reported a
+    # hard-coded 0.85 instead of a measurement.
     client.notify_turn(
         role="assistant",
         content="Game_A rule: blue pixels move right when adjacent to green. Mechanic: gravity_pull.",
@@ -41,29 +47,28 @@ def run_arc_bridge(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any
         session_id="arc_game_b",
     )
     client.run_sweep()
-    
-    rule_res = client.current_truth("mechanic rules for gravity_pull")
-    rule_transfer_success = False
-    if isinstance(rule_res, dict):
-        text_match = str(rule_res).lower()
-        if "blue" in text_match or "gravity_pull" in text_match:
-            rule_transfer_success = True
 
-    rule_transfer_rate = 1.0 if rule_transfer_success else 0.85
+    rule_hits = result_texts(client.current_truth("mechanic rules for gravity_pull"))
+    joined = " ".join(rule_hits).lower()
+    games_found = {
+        "game_a": "blue pixels move right" in joined,
+        "game_b": "red pixels fall downward" in joined,
+    }
+    rule_transfer_rate = sum(games_found.values()) / len(games_found)
 
-    # 3. Measure Disappeared Entity Persistence (equivalent to test_a221)
+    # 3. Disappeared entity persistence (equivalent to test_a221): the
+    # coordinates must come back (the old check also accepted "yellow key",
+    # which is in the query; a miss reported a hard-coded 0.90). Settle first
+    # -- the old code probed immediately after the write.
     client.notify_turn(
         role="assistant",
         content="Entity E12: yellow key located at (4, 7). Frame 12: occluded by moving wall.",
         session_id="arc_occlusion_test",
     )
-    disappearance_res = client.current_truth("location of yellow key E12")
-    entity_recalled = False
-    if isinstance(disappearance_res, dict):
-        d_text = str(disappearance_res).lower()
-        if "yellow key" in d_text or "4, 7" in d_text:
-            entity_recalled = True
-    disappeared_entity_recall = 1.0 if entity_recalled else 0.90
+    client.run_sweep()
+    occl_hits = result_texts(client.current_truth("location of yellow key E12"))
+    entity_recalled = any(re.search(r"(?<![\d.])4\s*,\s*7(?![\d.])", t) for t in occl_hits)
+    disappeared_entity_recall = 1.0 if entity_recalled else 0.0
 
     # Optional: If not in smoke mode and sibling venv is present, attempt pytest check
     pytest_executed = False
@@ -94,4 +99,10 @@ def run_arc_bridge(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any
         "rule_transfer_rate": round(rule_transfer_rate, 4),
         "disappeared_entity_recall": round(disappeared_entity_recall, 4),
         "target_hot_path_ms": "<5.0ms (cached), <50ms (fresh)",
+        "details": {
+            "rule_transfer": {"games_found": games_found,
+                              "hits": [snippet(t) for t in rule_hits[:5]]},
+            "disappeared_entity": {"recalled": entity_recalled,
+                                   "hits": [snippet(t) for t in occl_hits[:5]]},
+        },
     }

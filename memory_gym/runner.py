@@ -11,6 +11,7 @@ import time
 from typing import Any, Dict, List, Tuple
 
 from mcp_client import CampyMCPClient
+from records import snippet
 from memory_gym.env_wrapper import make_memory_gym_env
 
 
@@ -23,7 +24,7 @@ def parse_path_from_memory(text: str) -> List[Tuple[int, int]]:
     return coords
 
 
-def run_memory_gym(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any]:
+def run_memory_gym(client: CampyMCPClient, smoke: bool = False, trace_context: bool = False) -> Dict[str, Any]:
     """Execute MemoryGym benchmark suite (MysteryPath-v0)."""
     episodes_to_run = 3 if smoke else 20
     max_steps = 50 if smoke else 500
@@ -32,6 +33,7 @@ def run_memory_gym(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any
     efficiencies: List[float] = []
     latencies: List[float] = []
     total_steps_executed = 0
+    details: List[Dict[str, Any]] = []
 
     for ep in range(episodes_to_run):
         env = make_memory_gym_env("MysteryPath-v0", max_steps=max_steps)
@@ -64,23 +66,28 @@ def run_memory_gym(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any
 
         # Parse recalled path
         recalled_coords: List[Tuple[int, int]] = []
+        recall_source = "current_truth"
+        recalled_text = ""
         if isinstance(recall_res, dict):
             for res in recall_res.get("results", []):
                 # the daemon returns the message text under `text_raw`
-                recalled_coords = parse_path_from_memory(
-                    res.get("content") or res.get("text_raw") or res.get("text") or ""
-                )
+                recalled_text = res.get("content") or res.get("text_raw") or res.get("text") or ""
+                recalled_coords = parse_path_from_memory(recalled_text)
                 if recalled_coords:
                     break
         if not recalled_coords:
             # Fallback query
             answer = client.ask(f"What is the navigation sequence?", session_id=session_id)
             recalled_coords = parse_path_from_memory(answer)
+            recall_source = "ask_fallback"
+            recalled_text = answer
 
         # Execute navigation steps
         done = False
+        reward = 0.0
         step_idx = 1
         optimal_len = len(flashed_path)
+        steps_before = total_steps_executed
 
         while not done and step_idx < len(recalled_coords) and step_idx < max_steps:
             target_pos = recalled_coords[step_idx]
@@ -100,6 +107,19 @@ def run_memory_gym(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any
                 break
             step_idx += 1
 
+        details.append({
+            "episode": ep,
+            "session_id": session_id,
+            "path_len": optimal_len,
+            "recalled_len": len(recalled_coords),
+            "recalled_exact": recalled_coords == list(flashed_path),
+            "recall_source": recall_source if recalled_coords else "none",
+            "recalled_text": snippet(recalled_text),
+            "steps": total_steps_executed - steps_before,
+            "success": bool(done and reward > 0.0),
+            "retrieve_latency_ms": round(t_retrieve, 1),
+        })
+
     avg_eff = sum(efficiencies) / max(1, len(efficiencies))
     succ_rate = successes / max(1, episodes_to_run)
     avg_lat = sum(latencies) / max(1, len(latencies))
@@ -114,4 +134,8 @@ def run_memory_gym(client: CampyMCPClient, smoke: bool = False) -> Dict[str, Any
         "step_efficiency": round(avg_eff, 4),
         "retention_500_steps": round(succ_rate * avg_eff, 4),
         "avg_step_latency_ms": round(avg_lat, 2),
+        # avg_step_latency_ms averages one retrieval with ~path_len in-process
+        # env steps (microseconds); this is the retrieval latency alone.
+        "avg_retrieve_latency_ms": round(sum(d["retrieve_latency_ms"] for d in details) / max(1, len(details)), 2),
+        "details": details,
     }

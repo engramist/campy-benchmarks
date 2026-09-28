@@ -53,7 +53,7 @@ def main() -> int:
     # Compare only the fields that should be order-independent (latency
     # legitimately varies run to run and isn't part of this check).
     fields = [
-        "fact_precision", "fact_recall", "contradiction_score",
+        "accuracy", "contradiction_score",
         "raw_tokens_avg", "bundle_tokens_avg", "token_savings_pct",
     ]
     mismatches = [f for f in fields if isolated.get(f) != after_others.get(f)]
