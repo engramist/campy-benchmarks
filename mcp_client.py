@@ -48,12 +48,14 @@ class CampyMCPClient:
         mcp_cmd: Optional[str] = None,
         timeout: float = 240.0,
         mock_mode: bool = False,
+        env: Optional[Dict[str, str]] = None,
     ):
         self.mcp_cmd = mcp_cmd or os.environ.get("CAMPY_MCP_CMD")
         self.timeout = timeout
         self.mock_mode = mock_mode or not bool(self.mcp_cmd)
         self._proc: Optional[subprocess.Popen] = None
         self._req_id = 0
+        self.env = env  # None: inherit os.environ (isolated mode pins the daemon here)
         self.stats = {"calls": 0, "failures": 0}
         
         # Internal store for mock / fallback mode
@@ -99,6 +101,7 @@ class CampyMCPClient:
                 stderr=self._stderr_file,
                 text=True,
                 bufsize=1,
+                env=self.env,
             )
             self._lines = queue.Queue()
             threading.Thread(target=self._pump_stdout, daemon=True).start()

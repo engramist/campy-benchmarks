@@ -79,6 +79,31 @@ def _config_candidates(repo: Optional[Path]):
         yield repo / "campy.toml", "guessed:hippocampy-repo/campy.toml"
 
 
+def _summarize(cfg: Dict[str, Any]) -> Dict[str, Any]:
+    llm = cfg.get("llm", {})
+    return {
+        "llm_provider": llm.get("provider"),
+        "llm_model": llm.get("model"),
+        "llm_step_overrides": {
+            k: {"provider": v.get("provider"), "model": v.get("model")}
+            for k, v in llm.items()
+            if isinstance(v, dict)
+        },
+        "embeddings_model": cfg.get("embeddings", {}).get("model"),
+        "compression_model": cfg.get("compression", {}).get("compression_model"),
+    }
+
+
+def base_config_path(repo: Optional[Path]) -> Optional[Path]:
+    """The config an isolated daemon is derived from: the same candidates
+    as the best-effort guess (CAMPY_BENCH_CONFIG, ~/.campy/config.toml,
+    the hippocampy repo's campy.toml), first that exists."""
+    for path, _source in _config_candidates(repo):
+        if path.exists():
+            return path
+    return None
+
+
 def daemon_config(repo: Optional[Path]) -> Dict[str, Any]:
     for path, source in _config_candidates(repo):
         if not path.exists():
@@ -92,22 +117,22 @@ def daemon_config(repo: Optional[Path]) -> Dict[str, Any]:
         try:
             import tomllib
 
-            cfg = tomllib.loads(raw.decode())
-            llm = cfg.get("llm", {})
-            info["llm_provider"] = llm.get("provider")
-            info["llm_model"] = llm.get("model")
-            info["llm_step_overrides"] = {
-                k: {"provider": v.get("provider"), "model": v.get("model")}
-                for k, v in llm.items()
-                if isinstance(v, dict)
-            }
-            emb = cfg.get("embeddings", {})
-            info["embeddings_model"] = emb.get("model")
-            info["compression_model"] = cfg.get("compression", {}).get("compression_model")
+            info.update(_summarize(tomllib.loads(raw.decode())))
         except Exception as e:  # unparseable config is still worth hashing
             info["parse_error"] = str(e)[:200]
         return info
     return {"source": None, "note": "no config found; set CAMPY_BENCH_CONFIG"}
+
+
+def isolated_daemon_config(isolated) -> Dict[str, Any]:
+    """Exact: this is the config file the harness itself wrote."""
+    info: Dict[str, Any] = {
+        "source": "isolated (written by harness)",
+        "derived_from": str(isolated.base_config) if isolated.base_config else None,
+        "sha256": hashlib.sha256(isolated.config_text.encode()).hexdigest(),
+    }
+    info.update(_summarize(isolated.config))
+    return info
 
 
 def _jsonable(obj: Any) -> Any:
@@ -134,16 +159,26 @@ def dataset_fingerprint(smoke: bool) -> Dict[str, str]:
     }
 
 
-def collect(mcp_cmd: Optional[str], smoke: bool, argv) -> Dict[str, Any]:
+def collect(mcp_cmd: Optional[str], smoke: bool, argv, isolated=None) -> Dict[str, Any]:
     from scoring import SCORER_VERSION
 
     repo = hippocampy_repo_from_cmd(mcp_cmd)
+    if isolated is not None:
+        config_info = isolated_daemon_config(isolated)
+    elif mcp_cmd:
+        config_info = daemon_config(repo)
+    else:
+        config_info = {"source": "mock"}
     return {
         "scorer_version": SCORER_VERSION,
         "argv": list(argv),
         "harness": git_info(HARNESS_ROOT),
         "hippocampy": git_info(repo),
-        "daemon_config": daemon_config(repo) if mcp_cmd else {"source": "mock"},
+        "daemon_config": config_info,
+        "store": isolated.describe() if isolated is not None else {
+            "isolated": False,
+            "note": "personal ~/.campy store; contains earlier runs' data",
+        },
         "dataset_sha": dataset_fingerprint(smoke),
         "python": sys.version.split()[0],
         "platform": platform.platform(),

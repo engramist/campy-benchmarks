@@ -27,6 +27,9 @@ python run_all.py --smoke
 # Full run; writes results/<utc>-<harness sha>.json with per-probe details
 python run_all.py --baseline
 
+# Recommended: a throwaway daemon with its own empty store (see "Isolated mode")
+python run_all.py --baseline --isolated
+
 # Compare against an earlier result file (warns when runs are not like-for-like)
 python run_all.py --baseline --compare results/<earlier>.json
 ```
@@ -53,6 +56,41 @@ Headline metrics: LoCoMo `accuracy` / `deprecation_accuracy`, MemBench
 gold string and understates full-sentence answers. MemBench `avg_latency_ms`
 is `ask` alone (`compile_context` is `avg_compile_latency_ms`). ARC scores are
 measured values: a retrieval miss is 0, not the old hard-coded 0.85/0.9.
+
+## Isolated mode (`--isolated`)
+
+Without it, a run uses your personal daemon and `~/.campy` store: benchmark
+turns land in your memory, earlier runs' identical turns contaminate later
+runs, and scores depend on whatever else is in the store. `--isolated`
+(requires hippocampy with `CAMPY_HOME` support, B456):
+
+1. creates a temp `CAMPY_HOME` under `/tmp` and writes its `config.toml` from
+   your config (`CAMPY_BENCH_CONFIG`, else `~/.campy/config.toml`, else the
+   repo's `campy.toml`) with overrides: capture off, self-restart and
+   watchdog off (both restart by exiting and rely on launchd), a free web port;
+2. starts `python -m campy.brain_daemon` there, using the python from
+   `CAMPY_MCP_CMD`, and waits for its socket (`--daemon-ready-timeout`,
+   default 900 s, because cold start loads models);
+3. runs the MCP adapter pinned to that daemon's socket **and** HTTP URL. The
+   adapter falls back to HTTP when the socket fails, and its default URL is
+   your personal daemon on :7799, so pinning only the socket would not be
+   isolation. `BRAIN_URL`, `SIDEQUESTS_*` and `CAMPY_BRAIN_SOCKET`, which
+   outrank the pins, are removed from its environment;
+4. stops the daemon and deletes the store (`--keep-store` keeps it).
+
+Two guards refuse to run instead of silently using the personal store. Before
+launch, the daemon's Python must resolve `runtime_dir()` to the temp home; a
+pre-B456 hippocampy fails this, because it would honor the socket pin but
+still open `~/.campy`. After startup, a `brain.db`/`vectors.db` must exist
+inside the temp home. Use `--daemon-python` when `CAMPY_MCP_CMD` doesn't
+start with the Python executable (e.g. `uv run ...`).
+
+The store starts **empty**: no personal memory and no earlier runs. Scores
+are reproducible, but they are not comparable with personal-store runs,
+which contain thousands of unrelated messages as distractors. `--compare`
+warns when isolation differs. `provenance.store` records the overrides,
+ready time, and the isolated activity-log line count, which should roughly
+match `client_calls` and shows the calls reached the isolated daemon.
 
 ## Result files and provenance
 

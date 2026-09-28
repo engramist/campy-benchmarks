@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shlex
 import sys
 import time
 from datetime import datetime, timezone
@@ -20,6 +21,7 @@ from typing import Any, Dict, Optional
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import provenance
+from isolation import IsolatedDaemon
 from mcp_client import CampyMCPClient, CampyClientError
 from locomo.runner import run_locomo
 from memory_gym.runner import run_memory_gym
@@ -73,6 +75,11 @@ def comparability_warnings(baseline: Dict[str, Any], current: Dict[str, Any]) ->
     b_ds, c_ds = bp.get("dataset_sha"), cp.get("dataset_sha")
     if b_ds and c_ds and b_ds != c_ds:
         warnings.append(f"dataset fixtures differ ({b_ds} vs {c_ds})")
+    b_iso = (bp.get("store") or {}).get("isolated", False)
+    c_iso = (cp.get("store") or {}).get("isolated", False)
+    if b_iso != c_iso:
+        warnings.append(f"store isolation differs (baseline isolated={b_iso}, current isolated={c_iso}): "
+                        "a personal store has distractors and earlier runs' data, an isolated one has neither")
     b_m = (bp.get("daemon_config") or {}).get("llm_model")
     c_m = (cp.get("daemon_config") or {}).get("llm_model")
     if b_m != c_m:
@@ -163,6 +170,15 @@ def main():
     parser.add_argument("--compare", type=str, nargs="?", const="baseline_snapshot.json", help="Compare against baseline JSON file")
     parser.add_argument("--out", type=str, default=None,
                         help="Write results here (default with --baseline: results/<utc>-<harness sha>[-smoke|-mock].json)")
+    parser.add_argument("--isolated", action="store_true",
+                        help="Start a throwaway daemon with its own empty store (CAMPY_HOME) instead of "
+                             "using the personal ~/.campy daemon; needs hippocampy with CAMPY_HOME support")
+    parser.add_argument("--daemon-python", type=str, default=None,
+                        help="With --isolated: python that runs campy.brain_daemon (default: first word of CAMPY_MCP_CMD)")
+    parser.add_argument("--keep-store", action="store_true",
+                        help="With --isolated: keep the temp CAMPY_HOME for inspection instead of deleting it")
+    parser.add_argument("--daemon-ready-timeout", type=float, default=900.0,
+                        help="With --isolated: seconds to wait for the daemon socket (cold start loads models)")
     parser.add_argument("--trace-context", action="store_true",
                         help="LoCoMo: also call compile_context per probe and record what it retrieved (extra daemon calls)")
     parser.add_argument("--suite", choices=["all", "locomo", "memory_gym", "membench", "arc"], default="all")
@@ -174,7 +190,34 @@ def main():
     print(f"Mode: {'SMOKE' if args.smoke else 'STANDARD'}")
     print(f"Target MCP Server: {mcp_cmd or 'Standalone / Fallback Mock'}")
 
-    client = CampyMCPClient(mcp_cmd=mcp_cmd)
+    if args.isolated and not mcp_cmd:
+        parser.error("--isolated needs CAMPY_MCP_CMD (its python is used to launch the daemon)")
+    if mcp_cmd and not args.isolated:
+        print("[!] Not isolated: this run reads and writes the personal ~/.campy store, and earlier "
+              "runs' data is in it. Use --isolated for a clean, reproducible store.")
+
+    isolated = None
+    client_env = None
+    if args.isolated:
+        repo = provenance.hippocampy_repo_from_cmd(mcp_cmd)
+        base_cfg = provenance.base_config_path(repo)
+        isolated = IsolatedDaemon(
+            python=args.daemon_python or shlex.split(mcp_cmd)[0],
+            base_config=base_cfg,
+            keep_store=args.keep_store,
+            ready_timeout=args.daemon_ready_timeout,
+        )
+        print(f"[+] Starting isolated daemon (base config: {base_cfg or 'daemon defaults'})...")
+        isolated.start()
+        client_env = isolated.client_env()
+        print(f"    ready in {isolated.ready_seconds}s at {isolated.home}")
+
+    try:
+        client = CampyMCPClient(mcp_cmd=mcp_cmd, env=client_env)
+    except Exception:
+        if isolated:
+            isolated.stop()
+        raise
 
     suites_to_run = ["locomo", "memory_gym", "membench", "arc"] if args.suite == "all" else [args.suite]
     executed_suites: Dict[str, Any] = {}
@@ -209,10 +252,12 @@ def main():
             run_suite("arc_bridge", "ARC Bridge Suite (World Model & Memory Transfer)", run_arc_bridge)
     finally:
         client.close()
+        if isolated:
+            isolated.stop()
 
     results: Dict[str, Any] = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "provenance": provenance.collect(mcp_cmd, args.smoke, sys.argv),
+        "provenance": provenance.collect(mcp_cmd, args.smoke, sys.argv, isolated),
         "mode": "smoke" if args.smoke else "standard",
         "mcp_configured": bool(mcp_cmd),
         "suites": executed_suites,
