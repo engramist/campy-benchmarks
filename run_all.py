@@ -21,7 +21,9 @@ from typing import Any, Dict, Optional
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import provenance
+from baselines import BASELINE_NAMES, QA_SUITES, compare_to_campy, run_all_baselines
 from isolation import IsolatedDaemon
+from llm_client import BaselineLLM
 from mcp_client import CampyMCPClient, CampyClientError
 from locomo.runner import run_locomo
 from memory_gym.runner import run_memory_gym
@@ -154,10 +156,56 @@ def print_summary_table(results: Dict[str, Any]) -> None:
             print(f"- {name.upper()}: " + str({k: v for k, v in data.items() if k != "details"}))
 
 
-def default_results_path(results: Dict[str, Any], real: bool) -> Path:
+def resolve_baseline_llm(args, mcp_cmd, isolated):
+    """The baselines' LLM: the same base [llm] section Campy's `ask` uses --
+    the isolated daemon's written config when there is one, else the best-
+    effort config provenance finds -- with any --baseline-* overrides."""
+    import tomllib
+
+    cfg: Dict[str, Any] = {}
+    source = "none (set --baseline-provider/--baseline-model)"
+    if isolated is not None:
+        cfg, source = isolated.config, "isolated daemon config"
+    else:
+        path = provenance.base_config_path(provenance.hippocampy_repo_from_cmd(mcp_cmd))
+        if path is not None:
+            cfg, source = tomllib.loads(path.read_text()), str(path)
+    if args.baseline_provider or args.baseline_model or args.baseline_base_url:
+        source += " + CLI overrides"
+    llm = BaselineLLM.from_config(cfg.get("llm", {}), provider=args.baseline_provider,
+                                  model=args.baseline_model, base_url=args.baseline_base_url)
+    return llm, cfg.get("embeddings", {}).get("model"), source
+
+
+def print_baseline_table(results: Dict[str, Any]) -> None:
+    """Campy next to each baseline, per QA suite, plus the per-probe cross-tab."""
+    bl = results.get("baselines", {})
+    print("\n### Campy vs baselines (same LLM, same judge)")
+    print("| Suite | Metric | Campy | " + " | ".join(BASELINE_NAMES) + " |")
+    print("|---|---|---|" + "---|" * len(BASELINE_NAMES))
+    for suite in QA_SUITES:
+        campy = results.get("suites", {}).get(suite, {})
+        flag = "deprecation_accuracy" if suite == "locomo" else "contradiction_score"
+        for metric in ("accuracy", flag, "avg_prompt_tokens_est"):
+            row = [campy.get(metric, "-") if campy.get("valid") else "-"]
+            for name in BASELINE_NAMES:
+                b = bl.get(name, {}).get(suite)
+                row.append("-" if not b else (b.get(metric, "-") if b.get("valid") else "INVALID"))
+            if any(v != "-" for v in row):
+                print(f"| {suite} | {metric} | " + " | ".join(str(v) for v in row) + " |")
+    for suite, xt in (results.get("campy_vs_baselines") or {}).items():
+        if xt.get("guessable_without_memory"):
+            print(f"- {suite}: pass with NO memory (not testing memory): {xt['guessable_without_memory']}")
+        for name in ("naive_rag", "full_context"):
+            ids = (xt.get(name) or {}).get("baseline_passes_campy_fails")
+            if ids:
+                print(f"- {suite}: {name} passes but Campy fails: {ids}")
+
+
+def default_results_path(results: Dict[str, Any], real: bool, baselines_only: bool = False) -> Path:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     sha = (results["provenance"]["harness"].get("commit") or "nogit")[:8]
-    suffix = "" if real else "-mock"
+    suffix = "-baselines" if baselines_only else ("" if real else "-mock")
     if results.get("mode") == "smoke":
         suffix += "-smoke"
     return Path(__file__).resolve().parent / "results" / f"{stamp}-{sha}{suffix}.json"
@@ -166,7 +214,8 @@ def default_results_path(results: Dict[str, Any], real: bool) -> Path:
 def main():
     parser = argparse.ArgumentParser(description="Run Campy External Benchmarks Harness")
     parser.add_argument("--smoke", action="store_true", help="Run fast smoke checks across all suites")
-    parser.add_argument("--baseline", action="store_true", help="Record current baseline snapshot")
+    parser.add_argument("--baseline", action="store_true",
+                        help="Save this run's results file (a 'baseline snapshot'; unrelated to --baselines)")
     parser.add_argument("--compare", type=str, nargs="?", const="baseline_snapshot.json", help="Compare against baseline JSON file")
     parser.add_argument("--out", type=str, default=None,
                         help="Write results here (default with --baseline: results/<utc>-<harness sha>[-smoke|-mock].json)")
@@ -182,7 +231,29 @@ def main():
     parser.add_argument("--trace-context", action="store_true",
                         help="LoCoMo: also call compile_context per probe and record what it retrieved (extra daemon calls)")
     parser.add_argument("--suite", choices=["all", "locomo", "memory_gym", "membench", "arc"], default="all")
+    parser.add_argument("--baselines", type=str, default=None,
+                        help="Reference systems to score on the QA suites (LoCoMo, MemBench) with the same LLM "
+                             "and judge: 'all' or a comma list of " + ", ".join(BASELINE_NAMES))
+    parser.add_argument("--baselines-only", action="store_true",
+                        help="Run only --baselines (no daemon needed)")
+    parser.add_argument("--baseline-provider", type=str, default=None, help="Override the baselines' [llm].provider")
+    parser.add_argument("--baseline-model", type=str, default=None, help="Override the baselines' [llm].model")
+    parser.add_argument("--baseline-base-url", type=str, default=None, help="Override the baselines' [llm].base_url")
+    parser.add_argument("--rag-k", type=int, default=5, help="naive_rag: turns retrieved per question")
+    parser.add_argument("--rag-retriever", choices=["auto", "embedding", "bm25"], default="auto",
+                        help="naive_rag retriever: embedding (fastembed, Campy's embedder), bm25, or auto "
+                             "(embedding, else bm25 with a warning)")
     args = parser.parse_args()
+
+    baseline_names = []
+    if args.baselines:
+        baseline_names = list(BASELINE_NAMES) if args.baselines == "all" else \
+            [b.strip() for b in args.baselines.split(",") if b.strip()]
+        unknown = [b for b in baseline_names if b not in BASELINE_NAMES]
+        if unknown:
+            parser.error(f"unknown baselines {unknown}; choose from {list(BASELINE_NAMES)}")
+    if args.baselines_only and not baseline_names:
+        parser.error("--baselines-only needs --baselines")
 
     mcp_cmd = os.environ.get("CAMPY_MCP_CMD")
     print(f"=== Campy Benchmark Harness (B381) ===")
@@ -190,9 +261,11 @@ def main():
     print(f"Mode: {'SMOKE' if args.smoke else 'STANDARD'}")
     print(f"Target MCP Server: {mcp_cmd or 'Standalone / Fallback Mock'}")
 
+    if args.baselines_only:
+        mcp_cmd = None  # no daemon: baselines need only the LLM
     if args.isolated and not mcp_cmd:
         parser.error("--isolated needs CAMPY_MCP_CMD (its python is used to launch the daemon)")
-    if mcp_cmd and not args.isolated:
+    if mcp_cmd and not args.isolated and not args.baselines_only:
         print("[!] Not isolated: this run reads and writes the personal ~/.campy store, and earlier "
               "runs' data is in it. Use --isolated for a clean, reproducible store.")
 
@@ -220,6 +293,7 @@ def main():
         raise
 
     suites_to_run = ["locomo", "memory_gym", "membench", "arc"] if args.suite == "all" else [args.suite]
+    campy_suites = [] if args.baselines_only else suites_to_run
     executed_suites: Dict[str, Any] = {}
 
     def run_suite(key: str, label: str, fn) -> None:
@@ -242,13 +316,13 @@ def main():
               f"(calls={res['client_calls']}, failures={res['client_failures']}, valid={res['valid']})")
 
     try:
-        if "locomo" in suites_to_run:
+        if "locomo" in campy_suites:
             run_suite("locomo", "LoCoMo Suite (Conversational Deprecation)", run_locomo)
-        if "memory_gym" in suites_to_run:
+        if "memory_gym" in campy_suites:
             run_suite("memory_gym", "MemoryGym Suite (2D Spatial/Temporal Persistence)", run_memory_gym)
-        if "membench" in suites_to_run:
+        if "membench" in campy_suites:
             run_suite("membench", "MemBench Suite (Persona & Contradiction Arbitration)", run_membench)
-        if "arc" in suites_to_run or "arc_bridge" in suites_to_run:
+        if "arc" in campy_suites:
             run_suite("arc_bridge", "ARC Bridge Suite (World Model & Memory Transfer)", run_arc_bridge)
     finally:
         client.close()
@@ -271,10 +345,29 @@ def main():
         },
     }
 
+    if args.baselines_only:
+        results["provenance"]["daemon_config"] = {"source": "not used (--baselines-only)"}
+        results["provenance"]["store"] = {"note": "no daemon (--baselines-only)"}
+    if baseline_names:
+        qa_suites = [s for s in QA_SUITES if s in suites_to_run]
+        print(f"\n[+] Running baselines {baseline_names} on {qa_suites} (after the Campy suites, so they "
+              "don't compete with the daemon for the LLM)...")
+        llm, embed_model, llm_source = resolve_baseline_llm(args, os.environ.get("CAMPY_MCP_CMD"), isolated)
+        print(f"    LLM: {llm.describe()} (from {llm_source})")
+        bl = run_all_baselines(baseline_names, qa_suites, llm, args.smoke,
+                               retriever_kind=args.rag_retriever, embed_model=embed_model, k=args.rag_k)
+        bl["config"]["llm_source"] = llm_source
+        results["baselines"] = bl
+        if executed_suites:
+            results["campy_vs_baselines"] = compare_to_campy(executed_suites, bl)
+
     print_summary_table(results)
+    if baseline_names:
+        print_baseline_table(results)
 
     if args.baseline or args.out:
-        out_path = Path(args.out) if args.out else default_results_path(results, bool(mcp_cmd))
+        out_path = Path(args.out) if args.out else default_results_path(
+            results, bool(mcp_cmd), baselines_only=args.baselines_only)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         with open(out_path, "w") as f:
             json.dump(results, f, indent=2)

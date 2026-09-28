@@ -30,6 +30,9 @@ python run_all.py --baseline
 # Recommended: a throwaway daemon with its own empty store (see "Isolated mode")
 python run_all.py --baseline --isolated
 
+# Score reference systems next to Campy (same LLM, same judge; see "Baselines")
+python run_all.py --baseline --isolated --baselines all
+
 # Compare against an earlier result file (warns when runs are not like-for-like)
 python run_all.py --baseline --compare results/<earlier>.json
 ```
@@ -91,6 +94,43 @@ which contain thousands of unrelated messages as distractors. `--compare`
 warns when isolation differs. `provenance.store` records the overrides,
 ready time, and the isolated activity-log line count, which should roughly
 match `client_calls` and shows the calls reached the isolated daemon.
+
+## Baselines (`--baselines`)
+
+A Campy score means little alone. `--baselines all` (or a comma list) scores
+three reference systems on the QA suites (LoCoMo, MemBench) with the **same
+LLM, temperature 0, and the same judge** as Campy. Not to be confused with
+`--baseline`, which only saves the results file.
+
+| Baseline | Context in the prompt | What it tells you |
+|---|---|---|
+| `no_memory` | none; plain "answer as best you can" | Probes it passes are guessable from priors and aren't testing memory |
+| `full_context` | every turn the suite has written so far | A near-ceiling on fixtures this small (LoCoMo ≈ 7.5k tokens as formatted) |
+| `naive_rag` | top-k raw turns by similarity, oldest first | The simplest retrieval system; Campy's consolidation should beat it |
+
+- **Same prompt as Campy.** The context-bearing baselines reuse `ask`'s
+  system prompt, its `<retrieved_memory>` wrapping and its empty/non-empty
+  instruction lines, copied into `baselines.py` (keep them in sync by hand).
+  They differ from Campy only in the context supplied.
+- **LLM:** the base `[llm]` section Campy's `ask` uses: the isolated
+  daemon's config, else the config provenance finds. Override it with
+  `--baseline-provider/--baseline-model/--baseline-base-url`. Ollama is
+  called through its native `/api/chat` with `num_ctx` sized to each prompt,
+  because its OpenAI-compatible endpoint silently drops the start of prompts
+  longer than the server default. That would cut the full transcript,
+  system prompt included. The `num_ctx` used is recorded per question.
+- **`naive_rag` retriever:** fastembed with the same model Campy embeds with
+  (`--rag-k`, default 5). `--rag-retriever auto` falls back to BM25 with a
+  warning when fastembed isn't installed; the retriever used is recorded.
+- **Scope:** each suite's own turns. In an isolated run Campy's store also
+  holds earlier suites' data, so Campy faces slightly more distractors.
+- **Independent of the daemon.** Baselines run after the Campy suites;
+  `--baselines-only` skips the daemon entirely.
+
+Output: `baselines.<name>.<suite>` (metrics plus per-question `details`) and
+`campy_vs_baselines`. The latter lists, per suite, the probes a baseline
+passes that Campy fails (the actionable list), the reverse, and the probes
+that pass with no memory at all.
 
 ## Result files and provenance
 
