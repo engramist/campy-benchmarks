@@ -54,3 +54,19 @@ def summarize_bundle(ctx: Any, max_items: int = 8) -> Dict[str, Any]:
         "sections": summary,
         "top_items": items,
     }
+
+
+def bundle_texts(ctx: Any) -> List[str]:
+    """Full text of every item in a compile_context response (no snippeting),
+    for matching retrieved items back to source turns."""
+    bundle = ctx.get("bundle", {}) if isinstance(ctx, dict) else {}
+    out: List[str] = []
+    for sec in bundle.get("sections", []) or []:
+        content = sec.get("content", []) if isinstance(sec, dict) else []
+        for item in content if isinstance(content, list) else [content]:
+            if isinstance(item, dict):
+                item = (item.get("text") or item.get("content") or item.get("text_raw")
+                        or item.get("compact") or item.get("source") or "")
+            if item:
+                out.append(str(item))
+    return out

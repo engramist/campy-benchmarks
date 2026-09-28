@@ -6,10 +6,11 @@ Independent evaluation and benchmarking suite for HippoCampy.
 This repository is an isolated consumer harness that tests HippoCampy strictly over standard Model Context Protocol (MCP) transport (`CAMPY_MCP_CMD`). It contains zero internal engine imports, preserving the clean layer boundaries defined in `hippocampy/docs/ecosystem-rules.md`.
 
 ## Benchmark Suites
-1. **LoCoMo (`locomo/`):** Long-context multi-session conversational recall and dynamic constraint updates (deprecation).
+1. **LoCoMo fixture (`locomo/`):** a small synthetic fixture (25 hand-written scenarios, 28 probes) for multi-session recall and constraint updates (deprecation). It borrows the name, not the data; for the real benchmark see LoCoMo-10 below.
 2. **MemoryGym (`memory_gym/`):** 2D Grid RL/spatial persistence across extended step horizons (NeurIPS 2023).
 3. **MemBench (`membench/`):** Multi-Session Chat (MSC) persona memory and contradictory belief resolution.
 4. **ARC Bridge (`arc_bridge/`):** Integrates memory-transfer diagnostics from the sibling `ARC_AGI` repo.
+5. **LoCoMo-10 (`locomo10/`, `--suite locomo10`):** the published LoCoMo dataset (Maharana et al., ACL 2024): 10 long conversations, 5,882 turns, 1,986 questions. Not part of `--suite all`, because a full run takes hours on a local model.
 
 ## Quickstart
 
@@ -32,6 +33,10 @@ python run_all.py --baseline --isolated
 
 # Score reference systems next to Campy (same LLM, same judge; see "Baselines")
 python run_all.py --baseline --isolated --baselines all
+
+# The published LoCoMo benchmark: start with one conversation, then scale up
+python check_locomo10.py      # downloads + verifies the dataset, checks scoring
+python run_all.py --baseline --isolated --suite locomo10 --baselines all --locomo10-conversations 1
 
 # Compare against an earlier result file (warns when runs are not like-for-like)
 python run_all.py --baseline --compare results/<earlier>.json
@@ -131,6 +136,47 @@ Output: `baselines.<name>.<suite>` (metrics plus per-question `details`) and
 `campy_vs_baselines`. The latter lists, per suite, the probes a baseline
 passes that Campy fails (the actionable list), the reverse, and the probes
 that pass with no memory at all.
+
+## LoCoMo-10 (`--suite locomo10`)
+
+**License:** the dataset is **CC BY-NC 4.0 (non-commercial)**. It is not
+committed here. The first run downloads it into `data/` (gitignored), pinned
+to snap-research/locomo commit `3eb6f2c5` and verified by sha256; a git fetch
+is the fallback when raw.githubusercontent.com is blocked. `LOCOMO10_PATH`
+points at an existing copy. The scoring code is this harness's own, written
+from the official evaluation's behaviour. Check that non-commercial terms fit
+your use before publishing results.
+
+**Protocol:**
+- **Ingestion:** each turn is written as role `user` with the session date and
+  speaker in its text: `[1:56 pm on 8 May, 2023] Caroline: …`, plus
+  `[shares an image: <caption>]` for image turns. `notify_turn` has no
+  timestamp parameter, and temporal questions need the dates. Consolidation
+  settles once per conversation, before its questions.
+- **Temporal questions:** category 2 questions get LoCoMo's "answer with an
+  approximate date" instruction, reworded for a memory context. Campy and
+  every baseline receive the same text.
+- **Per question:** `compile_context` (retrieval diagnostic), then `ask`.
+
+**Metrics** (all systems scored identically; `details` holds every answer):
+
+| Metric | What it is |
+|---|---|
+| `judge_accuracy` | **Headline.** An LLM judge grades categories 1–4 CORRECT/WRONG against the gold answer (the "J" memory-system papers report). Campy and all baselines are judged in one pass by the same judge. The prompt is this harness's own, so it's comparable across runs of this harness with the same judge model, not directly with published numbers. The judge defaults to the baselines' LLM; `--judge-model` sets a stronger one (recommended). `--judge none` skips it. |
+| `f1` | The official token F1 (categories 1–4): category 1 averages comma-separated parts, category 3 uses the text before `;`. It matched the official implementation on 7,418 answer pairs. It stems only when `nltk` is installed (`f1_stemmed`); `pip install nltk` for paper-comparable F1. |
+| `adversarial_abstention` | Category 5 (the event never happened): the share of answers that decline. The `_strict` variant uses only the official phrases ("not mentioned", "no information available"). The main one also accepts other declines, e.g. Campy's "No relevant context was found in memory". The official protocol offers two options; here every system gets the bare question. |
+| `evidence_recall` | The share of the turns the gold answer cites that retrieval surfaced. For Campy: `compile_context`'s items matched back to turn text. For `naive_rag`: exact. `full_context` is 1.0 by construction. This separates "retrieval missed it" from "the LLM misread it". |
+| `by_category` | All of the above per category: multi_hop, temporal, open_domain, single_hop, adversarial (names from the official evaluation code's comments). |
+
+**Baselines:** `full_context` is the question's own conversation, about 32k
+tokens as formatted (Ollama gets `num_ctx` 65536), and slow on a local 8B
+model. `naive_rag` retrieves over all turns written so far, the same corpus
+Campy's store holds.
+
+**Subsets:** `--locomo10-conversations N`, `--locomo10-max-questions N` (taken
+round-robin across categories, so a subset stays balanced) and
+`--locomo10-categories 1,2,3,4`. `--smoke` defaults to 1 conversation and 25
+questions. `--compare` warns when the subset or judge model differs.
 
 ## Result files and provenance
 

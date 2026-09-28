@@ -153,9 +153,12 @@ def dataset_fingerprint(smoke: bool) -> Dict[str, str]:
         blob = json.dumps(_jsonable(obj), sort_keys=True).encode()
         return hashlib.sha256(blob).hexdigest()[:16]
 
+    from locomo10.dataset import COMMIT, SHA256
+
     return {
         "locomo": h(get_locomo_scenarios(smoke=smoke)),
         "membench": h(get_msc_personas(smoke=smoke)),
+        "locomo10": f"{SHA256[:16]}@{COMMIT[:8]}",  # pinned download, verified on load
     }
 
 

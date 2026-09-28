@@ -28,7 +28,7 @@ from __future__ import annotations
 import math
 import re
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, Iterator, List, Optional
 
 from llm_client import BaselineLLM, LLMError
@@ -36,7 +36,7 @@ from records import snippet
 from scoring import compute_f1, contains_current_value, judge
 
 BASELINE_NAMES = ("no_memory", "full_context", "naive_rag")
-QA_SUITES = ("locomo", "membench")
+QA_SUITES = ("locomo", "membench", "locomo10")
 
 # Copied from campy/brain/thalamus/ask.py (_ASK_SYSTEM_PROMPT, _bundle_to_prompt)
 # and memory_formatter.py (_DATA_BOUNDARY_TEMPLATE). Keep in sync by hand --
@@ -69,6 +69,7 @@ class Turn:
     session_id: str
     role: str
     content: str
+    meta: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
@@ -79,14 +80,26 @@ class Probe:
     kind: str
     accept: List[str]
     stale: List[str]
-    flagged: bool  # is_deprecation (LoCoMo) / is_contradiction (MemBench)
+    flagged: bool  # is_deprecation (LoCoMo) / is_contradiction (MemBench) / adversarial (LoCoMo-10)
+    meta: Dict[str, Any] = field(default_factory=dict)
 
 
-def suite_events(suite: str, smoke: bool) -> Iterator[Any]:
+def suite_events(suite: str, smoke: bool, opts: Optional[Dict[str, Any]] = None) -> Iterator[Any]:
     """Yield Turn and Probe objects in exactly the order the Campy runner
     writes and asks them."""
     n = 0
-    if suite == "locomo":
+    if suite == "locomo10":
+        from locomo10.dataset import ensure_dataset, load_conversations
+        from locomo10.runner import session_id
+        for conv in load_conversations(ensure_dataset(), **(opts or {})):
+            for t in conv.turns():
+                yield Turn(n, session_id(conv.sample_id, t.session), "user", t.content(),
+                           {"dia_id": t.dia_id, "sample_id": conv.sample_id}); n += 1
+            for q in conv.questions:
+                yield Probe(q.id, q.question, q.answer, "locomo10", [], [], q.category == 5,
+                            {"category": q.category, "evidence": q.evidence,
+                             "sample_id": conv.sample_id, "raw_question": q.raw_question})
+    elif suite == "locomo":
         from locomo.dataset import get_locomo_scenarios
         for sc in get_locomo_scenarios(smoke=smoke):
             for s_idx, session in enumerate(sc.sessions, start=1):
@@ -214,6 +227,11 @@ def memory_prompt(question: str, items: List[Turn], source: str) -> str:
 # ---------------------------------------------------------------------------
 
 def _aggregate(suite: str, details: List[Dict[str, Any]]) -> Dict[str, Any]:
+    if suite == "locomo10":
+        from locomo10.scoring import aggregate
+        return {**aggregate(details),
+                "avg_prompt_tokens_est": round(sum(d["prompt_tokens_est"] for d in details) / max(1, len(details)), 1),
+                "avg_latency_ms": round(sum(d["latency_ms"] for d in details) / max(1, len(details)), 1)}
     n = len(details)
     flagged = [d for d in details if d["flagged"]]
     flag_key = "deprecation_accuracy" if suite == "locomo" else "contradiction_score"
@@ -231,14 +249,14 @@ def _aggregate(suite: str, details: List[Dict[str, Any]]) -> Dict[str, Any]:
 
 
 def run_baseline(name: str, suite: str, llm: BaselineLLM, smoke: bool,
-                 retriever=None, k: int = 5) -> Dict[str, Any]:
+                 retriever=None, k: int = 5, opts: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     if name not in BASELINE_NAMES:
         raise ValueError(f"unknown baseline {name!r}")
     if name == "naive_rag" and retriever is None:
         raise ValueError("naive_rag needs a retriever")
     seen: List[Turn] = []
     details: List[Dict[str, Any]] = []
-    for ev in suite_events(suite, smoke):
+    for ev in suite_events(suite, smoke, opts):
         if isinstance(ev, Turn):
             seen.append(ev)
             continue
@@ -247,12 +265,20 @@ def run_baseline(name: str, suite: str, llm: BaselineLLM, smoke: bool,
             messages = [{"role": "system", "content": NO_MEMORY_SYSTEM_PROMPT},
                         {"role": "user", "content": ev.question}]
         else:
-            items = list(seen) if name == "full_context" else sorted(
-                retriever.top_k(ev.question, seen, k), key=lambda t: t.index)
+            if name == "full_context":
+                # LoCoMo-10: the question's own conversation only (all ten
+                # together are ~200k tokens) -- the standard full-context setup.
+                sid = ev.meta.get("sample_id")
+                items = [t for t in seen if t.meta.get("sample_id") == sid] if sid else list(seen)
+            else:
+                items = sorted(retriever.top_k(ev.question, seen, k), key=lambda t: t.index)
             messages = [{"role": "system", "content": ASK_SYSTEM_PROMPT},
                         {"role": "user", "content": memory_prompt(ev.question, items, name)}]
         res = llm.chat(messages)
         answer = res["text"]
+        if ev.kind == "locomo10":
+            details.append(_locomo10_record(name, ev, answer, items, res))
+            continue
         passed, reason = judge(answer, ev.kind, ev.accept, ev.stale)
         rec: Dict[str, Any] = {
             "id": ev.id,
@@ -276,10 +302,36 @@ def run_baseline(name: str, suite: str, llm: BaselineLLM, smoke: bool,
     return {**_aggregate(suite, details), "details": details}
 
 
+def _locomo10_record(name: str, ev: Probe, answer: str, items: List[Turn], res: Dict[str, Any]) -> Dict[str, Any]:
+    from locomo10.scoring import score_answer
+    ev_ids = ev.meta["evidence"]
+    if name == "no_memory" or not ev_ids:
+        recall = None
+    else:
+        got = {t.meta.get("dia_id") for t in items if t.meta.get("sample_id") == ev.meta["sample_id"]}
+        recall = round(sum(e in got for e in ev_ids) / len(ev_ids), 4)
+    rec = {
+        "id": ev.id, "conversation": ev.meta["sample_id"], "category": ev.meta["category"],
+        "question": ev.question, "raw_question": ev.meta["raw_question"], "expected": ev.expected,
+        "evidence": ev_ids, "answer": answer, "evidence_recall": recall,
+        "context_turns": len(items), "prompt_tokens_est": res["prompt_tokens_est"],
+        "num_ctx": res["num_ctx"], "latency_ms": res["latency_ms"],
+    }
+    rec.update(score_answer(answer, ev.expected, ev.meta["category"]))
+    if name == "naive_rag":
+        rec["retrieved"] = [t.meta.get("dia_id") for t in items]
+    return rec
+
+
 def run_all_baselines(names: List[str], suites: List[str], llm: BaselineLLM, smoke: bool,
                       retriever_kind: str = "auto", embed_model: Optional[str] = None,
-                      k: int = 5, log: Callable[[str], None] = print) -> Dict[str, Any]:
-    out: Dict[str, Any] = {"config": {"llm": llm.describe(), "rag_k": k, "scope": "per-suite turns"}}
+                      k: int = 5, log: Callable[[str], None] = print,
+                      suite_opts: Optional[Dict[str, Dict[str, Any]]] = None) -> Dict[str, Any]:
+    out: Dict[str, Any] = {"config": {
+        "llm": llm.describe(), "rag_k": k,
+        "scope": "per-suite turns; LoCoMo-10 full_context = the question's own conversation, "
+                 "naive_rag = all turns written so far (the corpus Campy's store holds)",
+    }}
     retriever = None
     retriever_error = None
     if "naive_rag" in names:
@@ -303,7 +355,8 @@ def run_all_baselines(names: List[str], suites: List[str], llm: BaselineLLM, smo
                 continue
             log(f"    baseline {name} / {suite} ...")
             try:
-                out[name][suite] = {**run_baseline(name, suite, llm, smoke, retriever, k), "valid": True}
+                out[name][suite] = {**run_baseline(name, suite, llm, smoke, retriever, k,
+                                                   (suite_opts or {}).get(suite)), "valid": True}
             except LLMError as e:
                 out[name][suite] = {"valid": False, "error": str(e)[:500]}
                 log(f"    !! baseline {name}/{suite} INVALID: {e}")
@@ -316,7 +369,8 @@ def compare_to_campy(campy_suites: Dict[str, Any], baselines: Dict[str, Any]) ->
     memory at all (not testing memory)."""
     out: Dict[str, Any] = {}
     for suite in QA_SUITES:
-        campy = {d["id"]: d["passed"] for d in campy_suites.get(suite, {}).get("details", [])}
+        campy = {d["id"]: d["passed"] for d in campy_suites.get(suite, {}).get("details", [])
+                 if d.get("passed") is not None}
         if not campy:
             continue
         suite_out: Dict[str, Any] = {}
@@ -324,7 +378,7 @@ def compare_to_campy(campy_suites: Dict[str, Any], baselines: Dict[str, Any]) ->
             b = baselines.get(name, {}).get(suite, {})
             if not b.get("valid"):
                 continue
-            bp = {d["id"]: d["passed"] for d in b["details"]}
+            bp = {d["id"]: d["passed"] for d in b["details"] if d.get("passed") is not None}
             common = [i for i in campy if i in bp]
             suite_out[name] = {
                 "baseline_passes_campy_fails": [i for i in common if bp[i] and not campy[i]],
@@ -332,6 +386,9 @@ def compare_to_campy(campy_suites: Dict[str, Any], baselines: Dict[str, Any]) ->
             }
         nm = baselines.get("no_memory", {}).get(suite, {})
         if nm.get("valid"):
-            suite_out["guessable_without_memory"] = [d["id"] for d in nm["details"] if d["passed"]]
+            # LoCoMo-10 adversarial (category 5) is excluded: declining is the
+            # right answer, and a system with no memory declines by default.
+            suite_out["guessable_without_memory"] = [d["id"] for d in nm["details"]
+                                                     if d["passed"] and d.get("category") != 5]
         out[suite] = suite_out
     return out

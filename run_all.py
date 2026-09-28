@@ -8,6 +8,7 @@ Supports --smoke, --baseline, and --compare flags.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import shlex
@@ -23,7 +24,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import provenance
 from baselines import BASELINE_NAMES, QA_SUITES, compare_to_campy, run_all_baselines
 from isolation import IsolatedDaemon
-from llm_client import BaselineLLM
+from llm_client import BaselineLLM, LLMError
+from locomo10.runner import locomo10_options, run_locomo10
+from locomo10.scoring import aggregate as locomo10_aggregate, judge_details, JUDGE_TEMPLATE
 from mcp_client import CampyMCPClient, CampyClientError
 from locomo.runner import run_locomo
 from memory_gym.runner import run_memory_gym
@@ -61,6 +64,10 @@ COMPARE_ROWS = [
     ("arc_bridge", "hot_path_latency_ms", "ARC Hot-Path Latency (ms)", False),
     ("arc_bridge", "rule_transfer_rate", "ARC Rule Transfer Rate", True),
     ("arc_bridge", "disappeared_entity_recall", "ARC Disappearance Recall", True),
+    ("locomo10", "judge_accuracy", "LoCoMo-10 Judge Accuracy (cat 1-4)", True),
+    ("locomo10", "f1", "LoCoMo-10 F1 (cat 1-4)", True),
+    ("locomo10", "adversarial_abstention", "LoCoMo-10 Adversarial Abstention", True),
+    ("locomo10", "evidence_recall", "LoCoMo-10 Evidence Recall", True),
 ]
 
 
@@ -82,6 +89,14 @@ def comparability_warnings(baseline: Dict[str, Any], current: Dict[str, Any]) ->
     if b_iso != c_iso:
         warnings.append(f"store isolation differs (baseline isolated={b_iso}, current isolated={c_iso}): "
                         "a personal store has distractors and earlier runs' data, an isolated one has neither")
+    b_j = ((baseline.get("locomo10_judge") or {}).get("llm") or {}).get("model")
+    c_j = ((current.get("locomo10_judge") or {}).get("llm") or {}).get("model")
+    if (baseline.get("locomo10_judge") or current.get("locomo10_judge")) and b_j != c_j:
+        warnings.append(f"LoCoMo-10 judge model differs ({b_j} vs {c_j}): judge_accuracy is not comparable")
+    b_l10 = (baseline.get("suites", {}).get("locomo10") or {}).get("dataset", {}).get("options")
+    c_l10 = (current.get("suites", {}).get("locomo10") or {}).get("dataset", {}).get("options")
+    if b_l10 and c_l10 and b_l10 != c_l10:
+        warnings.append(f"LoCoMo-10 subset differs ({b_l10} vs {c_l10})")
     b_m = (bp.get("daemon_config") or {}).get("llm_model")
     c_m = (cp.get("daemon_config") or {}).get("llm_model")
     if b_m != c_m:
@@ -144,6 +159,9 @@ def print_summary_table(results: Dict[str, Any]) -> None:
         if "membench" in suites:
             mb = suites["membench"]
             table.add_row("MemBench", f"Contradiction: {mb.get('contradiction_score')} | Savings: {mb.get('token_savings_pct')}%", f"Acc: {mb.get('accuracy')}", f"{mb.get('avg_latency_ms')} ms")
+        if "locomo10" in suites:
+            l10 = suites["locomo10"]
+            table.add_row("LoCoMo-10", f"F1: {l10.get('f1')} | Adv. abstain: {l10.get('adversarial_abstention')} | Evidence recall: {l10.get('evidence_recall')}", f"Judge: {l10.get('judge_accuracy')}", f"{l10.get('avg_latency_ms')} ms")
         if "arc_bridge" in suites:
             arc = suites["arc_bridge"]
             table.add_row("ARC Bridge", f"Transfer: {arc.get('rule_transfer_rate')} | Disappear: {arc.get('disappeared_entity_recall')}", "-", f"{arc.get('hot_path_latency_ms')} ms")
@@ -156,12 +174,14 @@ def print_summary_table(results: Dict[str, Any]) -> None:
             print(f"- {name.upper()}: " + str({k: v for k, v in data.items() if k != "details"}))
 
 
-def resolve_baseline_llm(args, mcp_cmd, isolated):
+def resolve_baseline_llm(args, mcp_cmd, isolated, overrides=None):
     """The baselines' LLM: the same base [llm] section Campy's `ask` uses --
     the isolated daemon's written config when there is one, else the best-
-    effort config provenance finds -- with any --baseline-* overrides."""
+    effort config provenance finds -- with any --baseline-* overrides (or
+    `overrides`, a (provider, model, base_url) tuple, for the judge)."""
     import tomllib
 
+    provider, model, base_url = overrides or (args.baseline_provider, args.baseline_model, args.baseline_base_url)
     cfg: Dict[str, Any] = {}
     source = "none (set --baseline-provider/--baseline-model)"
     if isolated is not None:
@@ -170,11 +190,44 @@ def resolve_baseline_llm(args, mcp_cmd, isolated):
         path = provenance.base_config_path(provenance.hippocampy_repo_from_cmd(mcp_cmd))
         if path is not None:
             cfg, source = tomllib.loads(path.read_text()), str(path)
-    if args.baseline_provider or args.baseline_model or args.baseline_base_url:
+    if provider or model or base_url:
         source += " + CLI overrides"
-    llm = BaselineLLM.from_config(cfg.get("llm", {}), provider=args.baseline_provider,
-                                  model=args.baseline_model, base_url=args.baseline_base_url)
+    llm = BaselineLLM.from_config(cfg.get("llm", {}), provider=provider, model=model, base_url=base_url)
     return llm, cfg.get("embeddings", {}).get("model"), source
+
+
+def finalize_locomo10(results: Dict[str, Any], args, isolated) -> None:
+    """Judge every LoCoMo-10 answer -- Campy's and each baseline's -- with the
+    same judge in one pass, then recompute their metrics."""
+    targets = []
+    campy = results.get("suites", {}).get("locomo10")
+    if campy and campy.get("valid"):
+        targets.append(("campy", campy))
+    for name, per_suite in (results.get("baselines") or {}).items():
+        if name != "config" and (per_suite.get("locomo10") or {}).get("valid"):
+            targets.append((name, per_suite["locomo10"]))
+    if not targets:
+        return
+    info: Dict[str, Any] = {"enabled": args.judge != "none", "template_sha256": hashlib.sha256(JUDGE_TEMPLATE.encode()).hexdigest()[:16]}
+    if args.judge != "none":
+        judge_llm, _, source = resolve_baseline_llm(
+            args, os.environ.get("CAMPY_MCP_CMD"), isolated,
+            # unset --judge-* fall back to --baseline-*, then to the config
+            overrides=(args.judge_provider or args.baseline_provider,
+                       args.judge_model or args.baseline_model,
+                       args.judge_base_url or args.baseline_base_url))
+        info.update({"llm": judge_llm.describe(), "source": source})
+        print(f"\n[+] LoCoMo-10 judge: {judge_llm.describe()['model']} over {[n for n, _ in targets]}")
+        try:
+            for name, res in targets:
+                n = judge_details(res["details"], judge_llm)
+                print(f"    judged {name}: {n} calls")
+        except LLMError as e:
+            info["error"] = str(e)[:500]
+            print(f"    !! judge failed ({e}); LoCoMo-10 judge_accuracy stays null, F1 still reported")
+    for _, res in targets:
+        res.update(locomo10_aggregate(res["details"]))
+    results["locomo10_judge"] = info
 
 
 def print_baseline_table(results: Dict[str, Any]) -> None:
@@ -185,8 +238,12 @@ def print_baseline_table(results: Dict[str, Any]) -> None:
     print("|---|---|---|" + "---|" * len(BASELINE_NAMES))
     for suite in QA_SUITES:
         campy = results.get("suites", {}).get(suite, {})
-        flag = "deprecation_accuracy" if suite == "locomo" else "contradiction_score"
-        for metric in ("accuracy", flag, "avg_prompt_tokens_est"):
+        if suite == "locomo10":
+            metrics = ("judge_accuracy", "f1", "adversarial_abstention", "evidence_recall", "avg_prompt_tokens_est")
+        else:
+            flag = "deprecation_accuracy" if suite == "locomo" else "contradiction_score"
+            metrics = ("accuracy", flag, "avg_prompt_tokens_est")
+        for metric in metrics:
             row = [campy.get(metric, "-") if campy.get("valid") else "-"]
             for name in BASELINE_NAMES:
                 b = bl.get(name, {}).get(suite)
@@ -230,7 +287,21 @@ def main():
                         help="With --isolated: seconds to wait for the daemon socket (cold start loads models)")
     parser.add_argument("--trace-context", action="store_true",
                         help="LoCoMo: also call compile_context per probe and record what it retrieved (extra daemon calls)")
-    parser.add_argument("--suite", choices=["all", "locomo", "memory_gym", "membench", "arc"], default="all")
+    parser.add_argument("--suite", choices=["all", "locomo", "memory_gym", "membench", "arc", "locomo10"], default="all",
+                        help="'all' = the four fixture suites. locomo10 = the published LoCoMo dataset "
+                             "(hours on a local model; not in 'all')")
+    parser.add_argument("--locomo10-conversations", type=int, default=None,
+                        help="LoCoMo-10: first N of the 10 conversations (smoke default 1)")
+    parser.add_argument("--locomo10-max-questions", type=int, default=None,
+                        help="LoCoMo-10: at most N questions per conversation (smoke default 25)")
+    parser.add_argument("--locomo10-categories", type=lambda s: [int(x) for x in s.split(",")], default=None,
+                        help="LoCoMo-10: only these categories, e.g. 1,2,3,4 (5 = adversarial)")
+    parser.add_argument("--judge", choices=["auto", "none"], default="auto",
+                        help="LoCoMo-10 LLM judge: auto = run it (default LLM = the baselines' LLM), none = F1 only")
+    parser.add_argument("--judge-provider", type=str, default=None)
+    parser.add_argument("--judge-model", type=str, default=None,
+                        help="A stronger judge than the answering model is recommended")
+    parser.add_argument("--judge-base-url", type=str, default=None)
     parser.add_argument("--baselines", type=str, default=None,
                         help="Reference systems to score on the QA suites (LoCoMo, MemBench) with the same LLM "
                              "and judge: 'all' or a comma list of " + ", ".join(BASELINE_NAMES))
@@ -294,6 +365,7 @@ def main():
 
     suites_to_run = ["locomo", "memory_gym", "membench", "arc"] if args.suite == "all" else [args.suite]
     campy_suites = [] if args.baselines_only else suites_to_run
+    l10_opts = locomo10_options(args, args.smoke)
     executed_suites: Dict[str, Any] = {}
 
     def run_suite(key: str, label: str, fn) -> None:
@@ -324,6 +396,9 @@ def main():
             run_suite("membench", "MemBench Suite (Persona & Contradiction Arbitration)", run_membench)
         if "arc" in campy_suites:
             run_suite("arc_bridge", "ARC Bridge Suite (World Model & Memory Transfer)", run_arc_bridge)
+        if "locomo10" in campy_suites:
+            run_suite("locomo10", f"LoCoMo-10 (published dataset; {l10_opts})",
+                      lambda c, smoke, trace_context: run_locomo10(c, smoke, True, l10_opts))
     finally:
         client.close()
         if isolated:
@@ -355,11 +430,14 @@ def main():
         llm, embed_model, llm_source = resolve_baseline_llm(args, os.environ.get("CAMPY_MCP_CMD"), isolated)
         print(f"    LLM: {llm.describe()} (from {llm_source})")
         bl = run_all_baselines(baseline_names, qa_suites, llm, args.smoke,
-                               retriever_kind=args.rag_retriever, embed_model=embed_model, k=args.rag_k)
+                               retriever_kind=args.rag_retriever, embed_model=embed_model, k=args.rag_k,
+                               suite_opts={"locomo10": l10_opts})
         bl["config"]["llm_source"] = llm_source
         results["baselines"] = bl
-        if executed_suites:
-            results["campy_vs_baselines"] = compare_to_campy(executed_suites, bl)
+    if "locomo10" in suites_to_run:
+        finalize_locomo10(results, args, isolated)
+    if baseline_names and executed_suites:
+        results["campy_vs_baselines"] = compare_to_campy(executed_suites, results["baselines"])
 
     print_summary_table(results)
     if baseline_names:
