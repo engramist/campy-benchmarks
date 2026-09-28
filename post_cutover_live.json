@@ -1,0 +1,56 @@
+{
+  "timestamp": "2026-09-22T20:40:22.928308+00:00",
+  "mode": "standard",
+  "mcp_configured": true,
+  "suites": {
+    "locomo": {
+      "suite": "locomo",
+      "scenarios": 25,
+      "probes": 28,
+      "exact_match": 0.0,
+      "f1": 0.0,
+      "deprecation_accuracy": 0.0,
+      "deprecation_probes": 27,
+      "avg_latency_ms": 6006.49
+    },
+    "memory_gym": {
+      "suite": "memory_gym",
+      "env": "MysteryPath-v0",
+      "episodes": 20,
+      "max_steps": 500,
+      "total_steps": 0,
+      "success_rate": 0.0,
+      "step_efficiency": 0.0,
+      "retention_500_steps": 0.0,
+      "avg_step_latency_ms": 6006.08
+    },
+    "membench": {
+      "suite": "membench",
+      "personas": 5,
+      "total_probes": 6,
+      "fact_precision": 0.0,
+      "fact_recall": 0.0,
+      "contradiction_score": 0.0,
+      "raw_tokens_avg": 102.6,
+      "bundle_tokens_avg": 456.0,
+      "token_savings_pct": 0.0,
+      "avg_latency_ms": 10011.93
+    },
+    "arc_bridge": {
+      "suite": "arc_bridge",
+      "sibling_repo_present": true,
+      "sibling_tests_executed": true,
+      "hot_path_latency_ms": 4655.15,
+      "rule_transfer_rate": 0.85,
+      "disappeared_entity_recall": 0.9,
+      "target_hot_path_ms": "<5.0ms (cached), <50ms (fresh)"
+    }
+  },
+  "canonical_baseline_targets": {
+    "retrieval_latency_ms": "<10.0ms (via B375)",
+    "llm_generation_latency_s": "<1.0s (via B374)",
+    "daemon_idle_rss_mb": "<80MB (via B384)",
+    "token_compression_ratio": "50%-70% bulk, 100% bypass on sub-budget (B374)",
+    "ask_eval_overall": ">=0.90"
+  }
+}

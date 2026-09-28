@@ -1,0 +1,69 @@
+{
+  "timestamp": "2026-09-24T08:09:38.702799+00:00",
+  "mode": "standard",
+  "mcp_configured": true,
+  "suites": {
+    "locomo": {
+      "suite": "locomo",
+      "scenarios": 25,
+      "probes": 28,
+      "exact_match": 0.75,
+      "f1": 0.1915,
+      "deprecation_accuracy": 0.6296,
+      "deprecation_probes": 27,
+      "avg_latency_ms": 3213.19,
+      "valid": true,
+      "client_calls": 381,
+      "client_failures": 0
+    },
+    "memory_gym": {
+      "suite": "memory_gym",
+      "env": "MysteryPath-v0",
+      "episodes": 20,
+      "max_steps": 500,
+      "total_steps": 560,
+      "success_rate": 1.0,
+      "step_efficiency": 1.0,
+      "retention_500_steps": 1.0,
+      "avg_step_latency_ms": 14.27,
+      "valid": true,
+      "client_calls": 100,
+      "client_failures": 0
+    },
+    "membench": {
+      "suite": "membench",
+      "personas": 5,
+      "total_probes": 6,
+      "fact_precision": 0.8333,
+      "fact_recall": 0.8333,
+      "contradiction_score": 0.8,
+      "raw_tokens_avg": 102.6,
+      "bundle_tokens_avg": 914.2,
+      "token_savings_pct": 0.0,
+      "avg_latency_ms": 2860.76,
+      "valid": true,
+      "client_calls": 119,
+      "client_failures": 0
+    },
+    "arc_bridge": {
+      "suite": "arc_bridge",
+      "sibling_repo_present": true,
+      "sibling_tests_executed": true,
+      "hot_path_latency_ms": 335.68,
+      "rule_transfer_rate": 1.0,
+      "disappeared_entity_recall": 1.0,
+      "target_hot_path_ms": "<5.0ms (cached), <50ms (fresh)",
+      "valid": true,
+      "client_calls": 28,
+      "client_failures": 0
+    }
+  },
+  "all_suites_valid": true,
+  "canonical_baseline_targets": {
+    "retrieval_latency_ms": "<10.0ms (via B375)",
+    "llm_generation_latency_s": "<1.0s (via B374)",
+    "daemon_idle_rss_mb": "<80MB (via B384)",
+    "token_compression_ratio": "50%-70% bulk, 100% bypass on sub-budget (B374)",
+    "ask_eval_overall": ">=0.90"
+  }
+}
