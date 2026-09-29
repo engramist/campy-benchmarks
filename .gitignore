@@ -5,3 +5,4 @@ __pycache__/
 *.log
 baseline_snapshot.json
 data/
+results/*-mock*.json

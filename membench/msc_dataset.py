@@ -4,18 +4,19 @@ Multi-Session Chat (MSC) Dataset for Persona Retention and Contradiction Arbitra
 """
 
 from __future__ import annotations
-import re
 from dataclasses import dataclass, field
 from typing import List, Dict, Any
 
 
 @dataclass
 class ContradictionProbe:
+    """Judged by scoring.judge (scorer v2) -- see scoring.py for the rules."""
     id: str
     question: str
     expected_active: str
-    must_match: List[str] = field(default_factory=list)
-    must_not_match: List[str] = field(default_factory=list)
+    kind: str = "value"  # "value" | "negative"
+    accept: List[str] = field(default_factory=list)
+    stale: List[str] = field(default_factory=list)
     is_contradiction: bool = True
 
 
@@ -67,16 +68,15 @@ def get_msc_personas(smoke: bool = False) -> List[MSCPersona]:
                 id="p_alex_diet",
                 question="What is Alex's current diet? Are they vegan or pescatarian?",
                 expected_active="pescatarian",
-                must_match=[r"pescatarian"],
-                must_not_match=[r"strictly vegan", r"currently.*vegan"],
+                accept=[r"\bpescatarian\b"],
+                stale=[r"\bvegan\b"],
                 is_contradiction=True,
             ),
             ContradictionProbe(
                 id="p_alex_city",
                 question="Where does Alex live?",
                 expected_active="Seattle",
-                must_match=[r"Seattle"],
-                must_not_match=[],
+                accept=[r"\bSeattle\b"],
                 is_contradiction=False,
             ),
         ],
@@ -119,8 +119,8 @@ def get_msc_personas(smoke: bool = False) -> List[MSCPersona]:
                 id="p_jordan_editor",
                 question="What primary code editor does Jordan use?",
                 expected_active="VS Code with Cursor",
-                must_match=[r"(VS\s*Code|Cursor)"],
-                must_not_match=[r"exclusively.*Vim"],
+                accept=[r"\bVS\s*Code\b|\bCursor\b"],
+                stale=[r"\bVim\b"],
                 is_contradiction=True,
             ),
         ],
@@ -131,13 +131,17 @@ def get_msc_personas(smoke: bool = False) -> List[MSCPersona]:
         return personas
 
     # Add additional personas for full evaluation
+    # (name, pref, old, new, accept patterns for new, stale patterns for old)
     topics = [
-        ("Taylor", "favorite coffee", "Oat milk latte", "Cold brew with cinnamon", [r"Cold brew"]),
-        ("Morgan", "exercise routine", "Marathon running", "Olympic weightlifting", [r"weightlifting"]),
-        ("Casey", "cloud preference", "AWS ECS", "Google Cloud Run serverless", [r"Cloud Run|GCP"]),
+        ("Taylor", "favorite coffee", "Oat milk latte", "Cold brew with cinnamon",
+         [r"\bcold\s+brew\b"], [r"\boat\s+milk\b"]),
+        ("Morgan", "exercise routine", "Marathon running", "Olympic weightlifting",
+         [r"\bweightlifting\b"], [r"\bmarathon\w*\b"]),
+        ("Casey", "cloud preference", "AWS ECS", "Google Cloud Run serverless",
+         [r"\bCloud\s+Run\b|\bGCP\b|\bGoogle\s+Cloud\b"], [r"\bECS\b"]),
     ]
 
-    for idx, (name, pref_name, old_val, new_val, must) in enumerate(topics, start=3):
+    for idx, (name, pref_name, old_val, new_val, accept, stale) in enumerate(topics, start=3):
         p = MSCPersona(
             id=f"msc_{name.lower()}",
             name=name,
@@ -153,8 +157,8 @@ def get_msc_personas(smoke: bool = False) -> List[MSCPersona]:
                     id=f"p_{name.lower()}_{idx}",
                     question=f"What is {name}'s {pref_name}?",
                     expected_active=new_val,
-                    must_match=must,
-                    must_not_match=[re.escape(old_val)],
+                    accept=accept,
+                    stale=stale,
                     is_contradiction=True,
                 )
             ],
