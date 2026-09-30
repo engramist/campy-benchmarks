@@ -24,6 +24,11 @@ Scorer v2 judges each answer against a typed spec:
 Any answer that is a non-answer ("I don't know", "No relevant context was
 found in memory") fails before either check runs.
 
+Scorer v3 adds "prohibit", "forbid" (not just "forbidden"), "disallow" and
+"banned" as supersession cues and negations. v2 failed correct answers that
+retired the old values with "prohibits the use of X or Y" (LoCoMo p_6/p_8,
+2026-09-30); check_scorers.py pins them verbatim.
+
 This is still a lexical judge and it has known blind spots (e.g. "we use
 Docker Swarm, not Kubernetes" contains a cue word and passes). An LLM judge
 is the real fix; until then check_scorers.py is the contract.
@@ -34,7 +39,7 @@ from __future__ import annotations
 import re
 from typing import List, Tuple
 
-SCORER_VERSION = 2
+SCORER_VERSION = 3
 
 NON_ANSWER_PATTERNS = [
     r"\b(?:i|we)\s+(?:do\s*n[o']t|don't|cannot|can't|am\s+unable\s+to)\s+(?:know|find|determine|say|tell|recall|answer)",
@@ -51,14 +56,15 @@ SUPERSESSION_CUES = [
     r"\bno\s+longer\b", r"\bformer(?:ly)?\b", r"\bprevious(?:ly)?\b",
     r"\bprior\b", r"\blegacy\b", r"\bsupersed\w*", r"\bswitch\w*",
     r"\bmoved\b", r"\bstopped\b", r"\binstead\s+of\b", r"\brather\s+than\b",
-    r"\bnot\b", r"\bdo\s*n[o']t\b", r"\bforbidden\b", r"\babandon\w*",
+    r"\bnot\b", r"\bdo\s*n[o']t\b", r"\bforbid\w*", r"\babandon\w*",
+    r"\bprohibit\w*", r"\bdisallow\w*", r"\bbanned\b",
     r"\bdropped\b", r"\bphased\s+out\b", r"\bold\b", r"\bearlier\b",
     r"\bused\s+to\b", r"\btransition\w*", r"\bupgrad\w*",
 ]
 
 NEGATIVE_PATTERNS = [
     r"^\W*no\b", r"\bnot\b", r"\bcannot\b", r"\bcan't\b", r"\bmust\s+not\b",
-    r"\bshould\s*n[o']t\b", r"\bforbidden\b", r"\bprohibited\b",
+    r"\bshould\s*n[o']t\b", r"\bforbid\w*", r"\bprohibit\w*", r"\bbanned\b",
     r"\bnot\s+(?:acceptable|allowed|permitted)\b", r"\breject\w*",
     r"\bdeprecat\w*", r"\bdisallow\w*",
 ]
