@@ -85,6 +85,23 @@ CORRECT: Dict[str, List[str]] = {
     "p_casey_5": ["Casey prefers Google Cloud Run serverless now instead of AWS ECS."],
 }
 
+# Real answers (llama3.1:8b via `ask`) that a scorer version wrongly failed.
+# Checked in addition to each probe's other cases.
+REAL: Dict[str, List[str]] = {
+    # 2026-09-30, scorer v2: "prohibits" was not a supersession cue.
+    "p_6_active": [
+        "The current required tool for logging_backend is Vector to OpenSearch. This is "
+        "based on the final decision made on 2026-09-30 20:29, which strictly requires the "
+        "use of Vector to OpenSearch for logging_backend, and prohibits the use of Local "
+        "Syslog or Logstash.",
+    ],
+    "p_8_active": [
+        "The current required tool for ci_provider is GitHub Actions. This is based on the "
+        "final decision made on 2026-09-30, which strictly requires the use of GitHub Actions "
+        "for ci_provider, and prohibits the use of Jenkins or Travis CI.",
+    ],
+}
+
 # Hand-written probes: answers that must fail (beyond the shared non-answers).
 WRONG: Dict[str, List[str]] = {
     "p1_current_db": ["The active database is PostgreSQL 14.", "PostgreSQL 14 and PostgreSQL 16."],
@@ -127,6 +144,8 @@ def main() -> int:
             expect(pid, probe, gold, True)  # the gold answer itself
         for a in NON_ANSWERS:
             expect(pid, probe, a, False)
+        for a in REAL.get(pid, []):
+            expect(pid, probe, a, True)
 
         if pid in CORRECT:
             for a in CORRECT[pid]:
@@ -149,6 +168,12 @@ def main() -> int:
             f"We use {v3} for {domain}; {v1} and {v2} are deprecated.",
             f"{domain} moved from {v1} to {v2} and has now been replaced by {v3}.",
             f"{v3} -- do not use {v1} or {v2}.",
+            f"{v3} is required for {domain}; the use of {v1} or {v2} is prohibited.",
+            f"We use {v3}, which prohibits the use of {v1} or {v2}.",
+            f"{v3}; {v1} and {v2} are forbidden.",
+            f"{v3}. The final decision forbids {v1} and {v2}.",
+            f"{v3}; {v1} and {v2} are disallowed.",
+            f"{v3} ({v1} and {v2} are banned).",
         ]:
             expect(pid, probe, a, True)
         for a in [

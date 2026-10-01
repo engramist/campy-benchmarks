@@ -42,7 +42,7 @@ python run_all.py --baseline --isolated --suite locomo10 --baselines all --locom
 python run_all.py --baseline --compare results/<earlier>.json
 ```
 
-## Scoring (scorer v2)
+## Scoring (scorer v3)
 
 LoCoMo and MemBench answers are judged by `scoring.py`, not per-probe raw
 regexes. A "value" probe passes when the answer states the current value and,
@@ -55,6 +55,10 @@ paraphrases must pass; non-answers and wrong answers must fail. Scorer v1
 failed two of its own gold answers and passed "I don't know" on two probes, so
 **results recorded before scorer v2 (`post_cutover_live*.json`) are not
 comparable** with later ones. `--compare` says so when the versions differ.
+Scorer v3 (2026-09-30) only widens the words that count as marking an old
+value retired ("prohibits", "forbids", "disallowed", "banned"). v2 failed
+correct answers phrased "...and prohibits the use of X or Y", so v2 LoCoMo
+scores can be slightly low; v3 never fails an answer v2 passed.
 
 The judge is still lexical and has known blind spots (e.g. "we use Docker
 Swarm, not Kubernetes" passes). An LLM judge is the planned replacement.
