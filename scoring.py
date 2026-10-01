@@ -29,6 +29,10 @@ Scorer v3 adds "prohibit", "forbid" (not just "forbidden"), "disallow" and
 retired the old values with "prohibits the use of X or Y" (LoCoMo p_6/p_8,
 2026-09-30); check_scorers.py pins them verbatim.
 
+Scorer v4 adds "update" and "change" (any form): v3 failed a correct
+MemBench answer that said "Casey updates their preference from AWS ECS to
+Google Cloud Run" (p_casey_5, 2026-10-01).
+
 This is still a lexical judge and it has known blind spots (e.g. "we use
 Docker Swarm, not Kubernetes" contains a cue word and passes). An LLM judge
 is the real fix; until then check_scorers.py is the contract.
@@ -39,7 +43,7 @@ from __future__ import annotations
 import re
 from typing import List, Tuple
 
-SCORER_VERSION = 3
+SCORER_VERSION = 4
 
 NON_ANSWER_PATTERNS = [
     r"\b(?:i|we)\s+(?:do\s*n[o']t|don't|cannot|can't|am\s+unable\s+to)\s+(?:know|find|determine|say|tell|recall|answer)",
@@ -60,6 +64,7 @@ SUPERSESSION_CUES = [
     r"\bprohibit\w*", r"\bdisallow\w*", r"\bbanned\b",
     r"\bdropped\b", r"\bphased\s+out\b", r"\bold\b", r"\bearlier\b",
     r"\bused\s+to\b", r"\btransition\w*", r"\bupgrad\w*",
+    r"\bupdat\w*", r"\bchang\w*",
 ]
 
 NEGATIVE_PATTERNS = [
