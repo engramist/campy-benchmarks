@@ -86,6 +86,21 @@ mg = repeats.aggregate_runs([{"memory_gym": {"valid": True, "success_rate": 1.0,
 check(mg["suites"]["memory_gym"]["details"] == [{"episode": 0, "success": True}],
       "non-verdict details are kept (run 1's)")
 
+jr = repeats.aggregate_runs([
+    {"membench": {"valid": True, "judge_accuracy": 1.0, "details": [
+        {"id": "p", "passed": False, "reason": "stale", "llm_judge": True}]}},
+    {"membench": {"valid": True, "judge_accuracy": 1.0, "details": [
+        {"id": "p", "passed": False, "reason": "stale", "llm_judge": True}]}},
+    {"membench": {"valid": True, "judge_accuracy": 0.0, "details": [
+        {"id": "p", "passed": False, "reason": "stale", "llm_judge": False}]}},
+])
+jd = jr["suites"]["membench"]["details"][0]
+check(jd["llm_judge"] is True and abs(jd["judge_pass_rate"] - 0.6667) < 1e-4,
+      f"LLM judge verdicts merge by majority too: {jd}")
+check([d["id"] for d in jr["suites"]["membench"]["judge_disagreements"]] == ["p"],
+      "judge disagreements recomputed from the merged verdicts")
+check(abs(jr["suites"]["membench"]["judge_accuracy"] - 0.6667) < 1e-4, "judge_accuracy is averaged")
+
 # --- noise-aware compare ----------------------------------------------------
 noise = repeats.metric_range(agg, "locomo", "accuracy")
 check(abs(noise - 0.0715) < 1e-4, f"metric_range: {noise}")

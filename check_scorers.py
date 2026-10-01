@@ -95,6 +95,15 @@ REAL: Dict[str, List[str]] = {
         "use of Vector to OpenSearch for logging_backend, and prohibits the use of Local "
         "Syslog or Logstash.",
     ],
+    # 2026-10-01, scorer v3: "updates ... from X to Y" was not a supersession cue.
+    "p_casey_5": [
+        "Based on the provided context, Casey's current cloud preference is Google Cloud Run "
+        "serverless. This is stated in the conversation log, where Casey updates their "
+        "preference from AWS ECS to Google Cloud Run serverless on 2026-10-01 04:58.",
+        "Based on the provided context, Casey's current cloud preference is Google Cloud Run "
+        "serverless. This is stated in the conversation log where Casey updates their "
+        "preference from AWS ECS to Google Cloud Run serverless.",
+    ],
     "p_8_active": [
         "The current required tool for ci_provider is GitHub Actions. This is based on the "
         "final decision made on 2026-09-30, which strictly requires the use of GitHub Actions "
@@ -119,18 +128,11 @@ WRONG: Dict[str, List[str]] = {
 }
 
 
-def main() -> int:
-    failures: List[str] = []
-    checked = 0
-
-    def expect(pid: str, probe, answer: str, should_pass: bool) -> None:
-        nonlocal checked
-        checked += 1
-        passed, reason = judge(answer, probe.kind, probe.accept, probe.stale)
-        if passed != should_pass:
-            want = "pass" if should_pass else "fail"
-            failures.append(f"{pid}: expected {want}, got {reason}: {answer!r}")
-
+def labelled_cases():
+    """Every hand-labelled (probe id, probe, gold, question, answer, should_pass)
+    case: the contract check_scorers.py holds the lexical scorer to, and
+    check_qa_judge.py measures an LLM judge against. A probe with no cases
+    yields (pid, probe, gold, question, None, None)."""
     probes = []
     for sc in get_locomo_scenarios(smoke=False):
         for p in sc.probes:
@@ -140,23 +142,24 @@ def main() -> int:
             probes.append((p.id, p, p.expected_active, None))
 
     for pid, probe, gold, sc in probes:
+        base = (pid, probe, gold, probe.question)
         if probe.kind == "value":
-            expect(pid, probe, gold, True)  # the gold answer itself
+            yield (*base, gold, True)  # the gold answer itself
         for a in NON_ANSWERS:
-            expect(pid, probe, a, False)
+            yield (*base, a, False)
         for a in REAL.get(pid, []):
-            expect(pid, probe, a, True)
+            yield (*base, a, True)
 
         if pid in CORRECT:
             for a in CORRECT[pid]:
-                expect(pid, probe, a, True)
+                yield (*base, a, True)
             for a in WRONG.get(pid, []):
-                expect(pid, probe, a, False)
+                yield (*base, a, False)
             continue
 
         # Templated LoCoMo topic: pull v1/v2/v3 from the scenario's own turns.
         if sc is None:
-            failures.append(f"{pid}: no self-test cases defined")
+            yield (*base, None, None)
             continue
         final_turn = sc.sessions[2][0]["content"]  # "... do NOT use {v1} or {v2}."
         v1, v2 = final_turn.rsplit("do NOT use ", 1)[1].rstrip(".").split(" or ")
@@ -174,21 +177,39 @@ def main() -> int:
             f"{v3}. The final decision forbids {v1} and {v2}.",
             f"{v3}; {v1} and {v2} are disallowed.",
             f"{v3} ({v1} and {v2} are banned).",
+            f"The decision was updated from {v1} to {v2} and then to {v3}.",
+            f"{domain} changed from {v2} to {v3}.",
         ]:
-            expect(pid, probe, a, True)
+            yield (*base, a, True)
         for a in [
             f"{v1}.",
             f"We use {v2} for {domain}.",
             f"We use {v1} and {v3}.",
         ]:
-            expect(pid, probe, a, False)
+            yield (*base, a, False)
+
+
+def main() -> int:
+    failures: List[str] = []
+    checked = 0
+    pids = set()
+    for pid, probe, gold, question, answer, should_pass in labelled_cases():
+        pids.add(pid)
+        if answer is None:
+            failures.append(f"{pid}: no self-test cases defined")
+            continue
+        checked += 1
+        passed, reason = judge(answer, probe.kind, probe.accept, probe.stale)
+        if passed != should_pass:
+            want = "pass" if should_pass else "fail"
+            failures.append(f"{pid}: expected {want}, got {reason}: {answer!r}")
 
     if failures:
         print(f"FAIL -- {len(failures)} of {checked} scorer checks failed:")
         for f in failures:
             print(f"  {f}")
         return 1
-    print(f"OK -- {checked} scorer checks passed across {len(probes)} probes")
+    print(f"OK -- {checked} scorer checks passed across {len(pids)} probes")
     return 0
 
 
