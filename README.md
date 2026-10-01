@@ -21,6 +21,7 @@ export CAMPY_MCP_CMD="/Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/
 # Scorer + isolation self-tests (no daemon needed; run before trusting a score)
 python check_scorers.py
 python check_suite_order_independence.py
+python check_repeat.py
 
 # Run smoke test
 python run_all.py --smoke
@@ -37,6 +38,9 @@ python run_all.py --baseline --isolated --baselines all
 # The published LoCoMo benchmark: start with one conversation, then scale up
 python check_locomo10.py      # downloads + verifies the dataset, checks scoring
 python run_all.py --baseline --isolated --suite locomo10 --baselines all --locomo10-conversations 1
+
+# Before trusting a change: 3 runs, each on a fresh store (see "Repeated runs")
+python run_all.py --baseline --isolated --repeat 3
 
 # Compare against an earlier result file (warns when runs are not like-for-like)
 python run_all.py --baseline --compare results/<earlier>.json
@@ -103,6 +107,33 @@ which contain thousands of unrelated messages as distractors. `--compare`
 warns when isolation differs. `provenance.store` records the overrides,
 ready time, and the isolated activity-log line count, which should roughly
 match `client_calls` and shows the calls reached the isolated daemon.
+
+## Repeated runs (`--repeat N`)
+
+One run of an LLM-backed suite is one sample. llama3.1:8b on Ollama at
+temperature 0 still rephrases answers between runs, so the lexical judge can
+flip a probe with no code change. On 2026-09-30, two LoCoMo probes flipped
+between two runs of retrieval-identical code, moving accuracy from 0.89 to
+0.82.
+
+`--repeat N` runs the suites N times, each on a **fresh isolated store**.
+With a real daemon it requires `--isolated`, because on a shared store run k
+would read runs 1..k-1's data. It reports:
+
+- `suites`: each numeric metric as the **mean** over the runs. Each LoCoMo
+  and MemBench probe gets a majority verdict (a tie fails) and a `pass_rate`.
+  `--compare` and the summary table read this as before.
+- `repeat.spread`: min, max and stdev for every metric.
+- `repeat.unstable_probes`: probes whose verdict differed between runs. A
+  flip on one of these is not evidence of a change.
+- `repeat.runs`: every run's full results.
+
+`--compare` marks a change with `≈ (within run-to-run range)` when the
+difference is no bigger than the metric's min-max range in either file. Use
+`--repeat 3` or more on both sides before calling something a regression.
+Repeats multiply the run time: about 20 minutes per full run on a local
+llama3.1:8b. `--repeat` can't yet be combined with `--baselines` or
+`--suite locomo10`.
 
 ## Baselines (`--baselines`)
 

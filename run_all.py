@@ -22,6 +22,7 @@ from typing import Any, Dict, Optional
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import provenance
+import repeats
 from baselines import BASELINE_NAMES, QA_SUITES, compare_to_campy, run_all_baselines
 from isolation import IsolatedDaemon
 from llm_client import BaselineLLM, LLMError
@@ -34,8 +35,10 @@ from membench.runner import run_membench
 from arc_bridge.runner import run_arc_bridge
 
 
-def format_delta(baseline_val: Any, current_val: Any, higher_is_better: bool = True) -> str:
-    """Format comparison delta string."""
+def format_delta(baseline_val: Any, current_val: Any, higher_is_better: bool = True,
+                 noise: Optional[float] = None) -> str:
+    """Format comparison delta string. `noise`: the run-to-run range of this
+    metric (from --repeat); a change no bigger than that is marked ≈."""
     if baseline_val is None or current_val is None:
         return f"{current_val if current_val is not None else 'N/A'}"
     try:
@@ -45,6 +48,8 @@ def format_delta(baseline_val: Any, current_val: Any, higher_is_better: bool = T
         pct = (delta / b * 100.0) if b != 0 else 0.0
         sign = "+" if delta > 0 else ""
         icon = "✅" if (delta >= 0 if higher_is_better else delta <= 0) else "⚠️"
+        if noise is not None and delta != 0 and abs(delta) <= noise:
+            icon = "≈ (within run-to-run range)"
         return f"{c:.4f} ({sign}{delta:.4f} / {sign}{pct:.1f}%) {icon}"
     except Exception:
         return f"{current_val} (vs {baseline_val})"
@@ -128,7 +133,12 @@ def print_comparison_table(baseline: Dict[str, Any], current: Dict[str, Any]) ->
     for suite, key, label, hib in COMPARE_ROWS:
         b = baseline.get("suites", {}).get(suite, {}).get(key)
         c = current.get("suites", {}).get(suite, {}).get(key)
-        print(f"| **{label}** | {b if b is not None else 'N/A'} | {format_delta(b, c, hib)} |")
+        ranges = [r for r in (repeats.metric_range(baseline, suite, key),
+                              repeats.metric_range(current, suite, key)) if r is not None]
+        noise = max(ranges) if ranges else None
+        print(f"| **{label}** | {b if b is not None else 'N/A'} | {format_delta(b, c, hib, noise)} |")
+    if not (baseline.get("repeat") or current.get("repeat")):
+        print("\n_Single runs: LLM answer variance alone can move a metric. Use --repeat N to measure it._")
     flips = flipped_probes(baseline, current)
     if flips:
         print("\n#### Probes that changed verdict")
@@ -285,6 +295,10 @@ def main():
                         help="With --isolated: keep the temp CAMPY_HOME for inspection instead of deleting it")
     parser.add_argument("--daemon-ready-timeout", type=float, default=900.0,
                         help="With --isolated: seconds to wait for the daemon socket (cold start loads models)")
+    parser.add_argument("--repeat", type=int, default=1, metavar="N",
+                        help="Run the suites N times, each on a fresh isolated store, and report the mean, "
+                             "the min/max/stdev, and the probes whose verdict changed between runs "
+                             "(needs --isolated with a real daemon)")
     parser.add_argument("--trace-context", action="store_true",
                         help="LoCoMo: also call compile_context per probe and record what it retrieved (extra daemon calls)")
     parser.add_argument("--suite", choices=["all", "locomo", "memory_gym", "membench", "arc", "locomo10"], default="all",
@@ -325,6 +339,10 @@ def main():
             parser.error(f"unknown baselines {unknown}; choose from {list(BASELINE_NAMES)}")
     if args.baselines_only and not baseline_names:
         parser.error("--baselines-only needs --baselines")
+    if args.repeat < 1:
+        parser.error("--repeat must be at least 1")
+    if args.repeat > 1 and (baseline_names or args.suite == "locomo10"):
+        parser.error("--repeat > 1 is not supported with --baselines or --suite locomo10 yet")
 
     mcp_cmd = os.environ.get("CAMPY_MCP_CMD")
     print(f"=== Campy Benchmark Harness (B381) ===")
@@ -336,73 +354,93 @@ def main():
         mcp_cmd = None  # no daemon: baselines need only the LLM
     if args.isolated and not mcp_cmd:
         parser.error("--isolated needs CAMPY_MCP_CMD (its python is used to launch the daemon)")
+    if args.repeat > 1 and mcp_cmd and not args.isolated:
+        # Each repeat needs an empty store: on a shared one, run k reads runs
+        # 1..k-1's data (20 more near-identical MemoryGym notes per run).
+        parser.error("--repeat > 1 with a real daemon needs --isolated (a fresh store per run)")
     if mcp_cmd and not args.isolated and not args.baselines_only:
         print("[!] Not isolated: this run reads and writes the personal ~/.campy store, and earlier "
               "runs' data is in it. Use --isolated for a clean, reproducible store.")
 
-    isolated = None
-    client_env = None
-    if args.isolated:
-        repo = provenance.hippocampy_repo_from_cmd(mcp_cmd)
-        base_cfg = provenance.base_config_path(repo)
-        isolated = IsolatedDaemon(
-            python=args.daemon_python or shlex.split(mcp_cmd)[0],
-            base_config=base_cfg,
-            keep_store=args.keep_store,
-            ready_timeout=args.daemon_ready_timeout,
-        )
-        print(f"[+] Starting isolated daemon (base config: {base_cfg or 'daemon defaults'})...")
-        isolated.start()
-        client_env = isolated.client_env()
-        print(f"    ready in {isolated.ready_seconds}s at {isolated.home}")
-
-    try:
-        client = CampyMCPClient(mcp_cmd=mcp_cmd, env=client_env)
-    except Exception:
-        if isolated:
-            isolated.stop()
-        raise
-
     suites_to_run = ["locomo", "memory_gym", "membench", "arc"] if args.suite == "all" else [args.suite]
     campy_suites = [] if args.baselines_only else suites_to_run
     l10_opts = locomo10_options(args, args.smoke)
-    executed_suites: Dict[str, Any] = {}
 
-    def run_suite(key: str, label: str, fn) -> None:
-        print(f"\n[+] Running {label}...")
-        t0 = time.time()
-        client.reset_mock_state()  # B438: isolate from any prior suite's mock data
-        calls0, fails0 = client.stats["calls"], client.stats["failures"]
+    def run_once(run_no: int):
+        """Start the daemon (fresh isolated store if --isolated), run the
+        Campy suites, stop it. Returns (executed suites, the IsolatedDaemon)."""
+        isolated = None
+        client_env = None
+        if args.repeat > 1:
+            print(f"\n=== Run {run_no} of {args.repeat} ===")
+        if args.isolated:
+            repo = provenance.hippocampy_repo_from_cmd(mcp_cmd)
+            base_cfg = provenance.base_config_path(repo)
+            isolated = IsolatedDaemon(
+                python=args.daemon_python or shlex.split(mcp_cmd)[0],
+                base_config=base_cfg,
+                keep_store=args.keep_store,
+                ready_timeout=args.daemon_ready_timeout,
+            )
+            print(f"[+] Starting isolated daemon (base config: {base_cfg or 'daemon defaults'})...")
+            isolated.start()
+            client_env = isolated.client_env()
+            print(f"    ready in {isolated.ready_seconds}s at {isolated.home}")
+
         try:
-            res = fn(client, smoke=args.smoke, trace_context=args.trace_context)
-            res["valid"] = True
-        except CampyClientError as e:
-            # A suite that lost the daemon mid-run produced no measurement.
-            # Record that loudly instead of a score.
-            res = {"suite": key, "valid": False, "error": str(e)[:500]}
-            print(f"    !! SUITE INVALID: {e}")
-        res["client_calls"] = client.stats["calls"] - calls0
-        res["client_failures"] = client.stats["failures"] - fails0
-        executed_suites[key] = res
-        print(f"    Completed in {time.time() - t0:.2f}s "
-              f"(calls={res['client_calls']}, failures={res['client_failures']}, valid={res['valid']})")
+            client = CampyMCPClient(mcp_cmd=mcp_cmd, env=client_env)
+        except Exception:
+            if isolated:
+                isolated.stop()
+            raise
 
-    try:
-        if "locomo" in campy_suites:
-            run_suite("locomo", "LoCoMo Suite (Conversational Deprecation)", run_locomo)
-        if "memory_gym" in campy_suites:
-            run_suite("memory_gym", "MemoryGym Suite (2D Spatial/Temporal Persistence)", run_memory_gym)
-        if "membench" in campy_suites:
-            run_suite("membench", "MemBench Suite (Persona & Contradiction Arbitration)", run_membench)
-        if "arc" in campy_suites:
-            run_suite("arc_bridge", "ARC Bridge Suite (World Model & Memory Transfer)", run_arc_bridge)
-        if "locomo10" in campy_suites:
-            run_suite("locomo10", f"LoCoMo-10 (published dataset; {l10_opts})",
-                      lambda c, smoke, trace_context: run_locomo10(c, smoke, True, l10_opts))
-    finally:
-        client.close()
-        if isolated:
-            isolated.stop()
+        executed_suites: Dict[str, Any] = {}
+
+        def run_suite(key: str, label: str, fn) -> None:
+            print(f"\n[+] Running {label}...")
+            t0 = time.time()
+            client.reset_mock_state()  # B438: isolate from any prior suite's mock data
+            calls0, fails0 = client.stats["calls"], client.stats["failures"]
+            try:
+                res = fn(client, smoke=args.smoke, trace_context=args.trace_context)
+                res["valid"] = True
+            except CampyClientError as e:
+                # A suite that lost the daemon mid-run produced no measurement.
+                # Record that loudly instead of a score.
+                res = {"suite": key, "valid": False, "error": str(e)[:500]}
+                print(f"    !! SUITE INVALID: {e}")
+            res["client_calls"] = client.stats["calls"] - calls0
+            res["client_failures"] = client.stats["failures"] - fails0
+            executed_suites[key] = res
+            print(f"    Completed in {time.time() - t0:.2f}s "
+                  f"(calls={res['client_calls']}, failures={res['client_failures']}, valid={res['valid']})")
+
+        try:
+            if "locomo" in campy_suites:
+                run_suite("locomo", "LoCoMo Suite (Conversational Deprecation)", run_locomo)
+            if "memory_gym" in campy_suites:
+                run_suite("memory_gym", "MemoryGym Suite (2D Spatial/Temporal Persistence)", run_memory_gym)
+            if "membench" in campy_suites:
+                run_suite("membench", "MemBench Suite (Persona & Contradiction Arbitration)", run_membench)
+            if "arc" in campy_suites:
+                run_suite("arc_bridge", "ARC Bridge Suite (World Model & Memory Transfer)", run_arc_bridge)
+            if "locomo10" in campy_suites:
+                run_suite("locomo10", f"LoCoMo-10 (published dataset; {l10_opts})",
+                          lambda c, smoke, trace_context: run_locomo10(c, smoke, True, l10_opts))
+        finally:
+            client.close()
+            if isolated:
+                isolated.stop()
+        return executed_suites, isolated
+
+    runs = [run_once(i + 1) for i in range(args.repeat)]
+    isolated = runs[-1][1]
+    repeat_info = None
+    if args.repeat > 1:
+        agg = repeats.aggregate_runs([suites for suites, _ in runs])
+        executed_suites, repeat_info = agg["suites"], agg["repeat"]
+    else:
+        executed_suites = runs[0][0]
 
     results: Dict[str, Any] = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -411,6 +449,7 @@ def main():
         "mcp_configured": bool(mcp_cmd),
         "suites": executed_suites,
         "all_suites_valid": all(v.get("valid", False) for v in executed_suites.values()),
+        **({"repeat": repeat_info} if repeat_info else {}),
         "canonical_baseline_targets": {
             "retrieval_latency_ms": "<10.0ms (via B375)",
             "llm_generation_latency_s": "<1.0s (via B374)",
@@ -420,6 +459,9 @@ def main():
         },
     }
 
+    if repeat_info:
+        results["provenance"]["store"]["repeats"] = args.repeat
+        results["provenance"]["store"]["note"] = "a fresh isolated store per run; describe() is the last run's"
     if args.baselines_only:
         results["provenance"]["daemon_config"] = {"source": "not used (--baselines-only)"}
         results["provenance"]["store"] = {"note": "no daemon (--baselines-only)"}
@@ -440,6 +482,7 @@ def main():
         results["campy_vs_baselines"] = compare_to_campy(executed_suites, results["baselines"])
 
     print_summary_table(results)
+    repeats.print_spread(results, COMPARE_ROWS)
     if baseline_names:
         print_baseline_table(results)
 
