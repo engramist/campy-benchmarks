@@ -95,6 +95,15 @@ REAL: Dict[str, List[str]] = {
         "use of Vector to OpenSearch for logging_backend, and prohibits the use of Local "
         "Syslog or Logstash.",
     ],
+    # 2026-10-01, scorer v3: "updates ... from X to Y" was not a supersession cue.
+    "p_casey_5": [
+        "Based on the provided context, Casey's current cloud preference is Google Cloud Run "
+        "serverless. This is stated in the conversation log, where Casey updates their "
+        "preference from AWS ECS to Google Cloud Run serverless on 2026-10-01 04:58.",
+        "Based on the provided context, Casey's current cloud preference is Google Cloud Run "
+        "serverless. This is stated in the conversation log where Casey updates their "
+        "preference from AWS ECS to Google Cloud Run serverless.",
+    ],
     "p_8_active": [
         "The current required tool for ci_provider is GitHub Actions. This is based on the "
         "final decision made on 2026-09-30, which strictly requires the use of GitHub Actions "
@@ -174,6 +183,8 @@ def main() -> int:
             f"{v3}. The final decision forbids {v1} and {v2}.",
             f"{v3}; {v1} and {v2} are disallowed.",
             f"{v3} ({v1} and {v2} are banned).",
+            f"The decision was updated from {v1} to {v2} and then to {v3}.",
+            f"{domain} changed from {v2} to {v3}.",
         ]:
             expect(pid, probe, a, True)
         for a in [

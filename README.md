@@ -46,7 +46,7 @@ python run_all.py --baseline --isolated --repeat 3
 python run_all.py --baseline --compare results/<earlier>.json
 ```
 
-## Scoring (scorer v3)
+## Scoring (scorer v4)
 
 LoCoMo and MemBench answers are judged by `scoring.py`, not per-probe raw
 regexes. A "value" probe passes when the answer states the current value and,
@@ -63,6 +63,10 @@ Scorer v3 (2026-09-30) only widens the words that count as marking an old
 value retired ("prohibits", "forbids", "disallowed", "banned"). v2 failed
 correct answers phrased "...and prohibits the use of X or Y", so v2 LoCoMo
 scores can be slightly low; v3 never fails an answer v2 passed.
+Scorer v4 (2026-10-01) adds "update" and "change" for the same reason
+("Casey updates their preference from AWS ECS to Google Cloud Run").
+Each word-list fix only covers phrasings seen so far; an LLM judge for
+LoCoMo and MemBench is the real fix.
 
 The judge is still lexical and has known blind spots (e.g. "we use Docker
 Swarm, not Kubernetes" passes). An LLM judge is the planned replacement.
