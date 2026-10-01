@@ -35,6 +35,8 @@ import time
 from pathlib import Path
 from typing import Any, Dict, Optional
 
+import store_stats
+
 # Env vars that outrank CAMPY_SOCKET_PATH / CAMPY_BRAIN_URL in
 # campy.brain_transport and could route calls to the personal daemon.
 _OUTRANKING_ENV = (
@@ -131,6 +133,7 @@ class IsolatedDaemon:
         self.ready_seconds: Optional[float] = None
         self._log = None
         self._final_activity_lines: Optional[int] = None
+        self.graph_stats: Optional[Dict[str, Any]] = None
 
     # -- config ------------------------------------------------------------
 
@@ -279,6 +282,9 @@ class IsolatedDaemon:
             self._log.close()
         if self.home and self._final_activity_lines is None:
             self._final_activity_lines = self.activity_lines()
+        if self.home and self.proc is not None and self.graph_stats is None:
+            # Count what the run stored before the store is deleted (B461).
+            self.graph_stats = store_stats.collect(self.python, self.home)
         if self.home and not self.keep_store:
             shutil.rmtree(self.home, ignore_errors=True)
 
@@ -292,6 +298,7 @@ class IsolatedDaemon:
             "activity_log_lines": (self._final_activity_lines
                                    if self._final_activity_lines is not None
                                    else self.activity_lines()),
+            "graph_stats": self.graph_stats,
         }
 
     def __enter__(self) -> "IsolatedDaemon":

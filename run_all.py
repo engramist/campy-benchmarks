@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import provenance
 import repeats
+import store_stats
 from baselines import BASELINE_NAMES, QA_SUITES, compare_to_campy, run_all_baselines
 from isolation import IsolatedDaemon
 from llm_client import BaselineLLM, LLMError
@@ -73,7 +74,26 @@ COMPARE_ROWS = [
     ("locomo10", "f1", "LoCoMo-10 F1 (cat 1-4)", True),
     ("locomo10", "adversarial_abstention", "LoCoMo-10 Adversarial Abstention", True),
     ("locomo10", "evidence_recall", "LoCoMo-10 Evidence Recall", True),
+    ("locomo10", "ingest_seconds", "LoCoMo-10 Memory Construction (s)", False),
 ]
+
+# Graph contents after an isolated run (store_stats.headline). Not graded
+# better/worse: fewer nodes is only good if the recall scores hold (B461).
+GRAPH_ROWS = [
+    ("total_nodes", "Graph nodes (all types)"),
+    ("concept_nodes", "Concepts"),
+    ("confirmed_concepts", "Concepts confirmed"),
+    ("tentative_concepts", "Concepts tentative"),
+    ("artifact_nodes", "Artifacts (Decision/Constraint/Requirement/ActionItem)"),
+]
+
+
+def _by_category(results: Dict[str, Any]) -> Dict[str, Any]:
+    return (results.get("suites", {}).get("locomo10") or {}).get("by_category") or {}
+
+
+def _graph_headline(results: Dict[str, Any]) -> Dict[str, Any]:
+    return store_stats.headline((results.get("provenance", {}).get("store") or {}).get("graph_stats"))
 
 
 def comparability_warnings(baseline: Dict[str, Any], current: Dict[str, Any]) -> list:
@@ -137,6 +157,17 @@ def print_comparison_table(baseline: Dict[str, Any], current: Dict[str, Any]) ->
                               repeats.metric_range(current, suite, key)) if r is not None]
         noise = max(ranges) if ranges else None
         print(f"| **{label}** | {b if b is not None else 'N/A'} | {format_delta(b, c, hib, noise)} |")
+    b_cat, c_cat = _by_category(baseline), _by_category(current)
+    for name in [n for n in c_cat if n in b_cat]:
+        key = "abstention" if "abstention" in c_cat[name] else "judge_accuracy"
+        b, c = b_cat[name].get(key), c_cat[name].get(key)
+        print(f"| LoCoMo-10 {name} ({key}) | {b if b is not None else 'N/A'} | {format_delta(b, c, True)} |")
+    b_g, c_g = _graph_headline(baseline), _graph_headline(current)
+    if b_g or c_g:
+        for key, label in GRAPH_ROWS:
+            b, c = b_g.get(key), c_g.get(key)
+            delta = f" ({c - b:+d})" if isinstance(b, int) and isinstance(c, int) else ""
+            print(f"| {label} | {b if b is not None else 'N/A'} | {c if c is not None else 'N/A'}{delta} |")
     if not (baseline.get("repeat") or current.get("repeat")):
         print("\n_Single runs: LLM answer variance alone can move a metric. Use --repeat N to measure it._")
     flips = flipped_probes(baseline, current)
@@ -461,6 +492,8 @@ def main():
 
     if repeat_info:
         results["provenance"]["store"]["repeats"] = args.repeat
+        results["provenance"]["store"]["graph_stats_per_run"] = [
+            iso.graph_stats if iso is not None else None for _, iso in runs]
         results["provenance"]["store"]["note"] = "a fresh isolated store per run; describe() is the last run's"
     if args.baselines_only:
         results["provenance"]["daemon_config"] = {"source": "not used (--baselines-only)"}
