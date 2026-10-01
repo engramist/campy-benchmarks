@@ -22,6 +22,7 @@ from typing import Any, Dict, Optional
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import provenance
+import qa_judge
 import repeats
 from baselines import BASELINE_NAMES, QA_SUITES, compare_to_campy, run_all_baselines
 from isolation import IsolatedDaemon
@@ -61,11 +62,15 @@ COMPARE_ROWS = [
     ("locomo", "deprecation_accuracy", "LoCoMo Deprecation Accuracy", True),
     ("locomo", "exact_match", "LoCoMo Exact Match", True),
     ("locomo", "f1", "LoCoMo F1 (token overlap)", True),
+    ("locomo", "judge_accuracy", "LoCoMo Judge Accuracy (LLM)", True),
+    ("locomo", "judge_deprecation_accuracy", "LoCoMo Judge Deprecation Accuracy (LLM)", True),
     ("memory_gym", "success_rate", "MemoryGym Success Rate", True),
     ("memory_gym", "step_efficiency", "MemoryGym Step Efficiency", True),
     ("membench", "accuracy", "MemBench Accuracy", True),
     ("membench", "contradiction_score", "MemBench Contradiction Score", True),
     ("membench", "token_savings_pct", "MemBench Token Savings %", True),
+    ("membench", "judge_accuracy", "MemBench Judge Accuracy (LLM)", True),
+    ("membench", "judge_contradiction_score", "MemBench Judge Contradiction Score (LLM)", True),
     ("arc_bridge", "hot_path_latency_ms", "ARC Hot-Path Latency (ms)", False),
     ("arc_bridge", "rule_transfer_rate", "ARC Rule Transfer Rate", True),
     ("arc_bridge", "disappeared_entity_recall", "ARC Disappearance Recall", True),
@@ -98,6 +103,10 @@ def comparability_warnings(baseline: Dict[str, Any], current: Dict[str, Any]) ->
     c_j = ((current.get("locomo10_judge") or {}).get("llm") or {}).get("model")
     if (baseline.get("locomo10_judge") or current.get("locomo10_judge")) and b_j != c_j:
         warnings.append(f"LoCoMo-10 judge model differs ({b_j} vs {c_j}): judge_accuracy is not comparable")
+    b_qj = ((baseline.get("qa_judge") or {}).get("llm") or {}).get("model")
+    c_qj = ((current.get("qa_judge") or {}).get("llm") or {}).get("model")
+    if b_qj and c_qj and b_qj != c_qj:
+        warnings.append(f"LoCoMo/MemBench judge model differs ({b_qj} vs {c_qj}): judge metrics are not comparable")
     b_l10 = (baseline.get("suites", {}).get("locomo10") or {}).get("dataset", {}).get("options")
     c_l10 = (current.get("suites", {}).get("locomo10") or {}).get("dataset", {}).get("options")
     if b_l10 and c_l10 and b_l10 != c_l10:
@@ -162,13 +171,15 @@ def print_summary_table(results: Dict[str, Any]) -> None:
         suites = {k: v for k, v in results.get("suites", {}).items() if v.get("valid")}
         if "locomo" in suites:
             loc = suites["locomo"]
-            table.add_row("LoCoMo", f"DeprecAcc: {loc.get('deprecation_accuracy')} | EM: {loc.get('exact_match')} | F1: {loc.get('f1')}", f"Acc: {loc.get('accuracy')}", f"{loc.get('avg_latency_ms')} ms")
+            judged = f" | Judge: {loc['judge_accuracy']}" if loc.get("judge_accuracy") is not None else ""
+            table.add_row("LoCoMo", f"DeprecAcc: {loc.get('deprecation_accuracy')} | EM: {loc.get('exact_match')} | F1: {loc.get('f1')}", f"Acc: {loc.get('accuracy')}{judged}", f"{loc.get('avg_latency_ms')} ms")
         if "memory_gym" in suites:
             mg = suites["memory_gym"]
             table.add_row("MemoryGym", f"Efficiency: {mg.get('step_efficiency')} | Steps: {mg.get('total_steps')}", f"Success: {mg.get('success_rate') * 100:.1f}%", f"{mg.get('avg_retrieve_latency_ms')} ms (retrieve)")
         if "membench" in suites:
             mb = suites["membench"]
-            table.add_row("MemBench", f"Contradiction: {mb.get('contradiction_score')} | Savings: {mb.get('token_savings_pct')}%", f"Acc: {mb.get('accuracy')}", f"{mb.get('avg_latency_ms')} ms")
+            judged = f" | Judge: {mb['judge_accuracy']}" if mb.get("judge_accuracy") is not None else ""
+            table.add_row("MemBench", f"Contradiction: {mb.get('contradiction_score')} | Savings: {mb.get('token_savings_pct')}%", f"Acc: {mb.get('accuracy')}{judged}", f"{mb.get('avg_latency_ms')} ms")
         if "locomo10" in suites:
             l10 = suites["locomo10"]
             table.add_row("LoCoMo-10", f"F1: {l10.get('f1')} | Adv. abstain: {l10.get('adversarial_abstention')} | Evidence recall: {l10.get('evidence_recall')}", f"Judge: {l10.get('judge_accuracy')}", f"{l10.get('avg_latency_ms')} ms")
@@ -182,6 +193,18 @@ def print_summary_table(results: Dict[str, Any]) -> None:
         print("\n=== Benchmark Execution Summary ===")
         for name, data in results.get("suites", {}).items():
             print(f"- {name.upper()}: " + str({k: v for k, v in data.items() if k != "details"}))
+
+
+def print_judge_disagreements(results: Dict[str, Any]) -> None:
+    """Probes where the lexical scorer and the LLM judge disagree."""
+    lines = []
+    for suite in qa_judge.JUDGED_SUITES:
+        for d in (results.get("suites", {}).get(suite) or {}).get("judge_disagreements") or []:
+            lex = "pass" if d["lexical"] else f"fail ({d.get('lexical_reason')})"
+            lines.append(f"- {suite}/{d['id']}: lexical {lex}, LLM judge {'pass' if d['llm_judge'] else 'fail'}")
+    if lines:
+        print("\n### Lexical scorer vs LLM judge disagree (read these answers first)")
+        print("\n".join(lines))
 
 
 def resolve_baseline_llm(args, mcp_cmd, isolated, overrides=None):
@@ -252,7 +275,7 @@ def print_baseline_table(results: Dict[str, Any]) -> None:
             metrics = ("judge_accuracy", "f1", "adversarial_abstention", "evidence_recall", "avg_prompt_tokens_est")
         else:
             flag = "deprecation_accuracy" if suite == "locomo" else "contradiction_score"
-            metrics = ("accuracy", flag, "avg_prompt_tokens_est")
+            metrics = ("accuracy", flag, "judge_accuracy", "avg_prompt_tokens_est")
         for metric in metrics:
             row = [campy.get(metric, "-") if campy.get("valid") else "-"]
             for name in BASELINE_NAMES:
@@ -311,7 +334,8 @@ def main():
     parser.add_argument("--locomo10-categories", type=lambda s: [int(x) for x in s.split(",")], default=None,
                         help="LoCoMo-10: only these categories, e.g. 1,2,3,4 (5 = adversarial)")
     parser.add_argument("--judge", choices=["auto", "none"], default="auto",
-                        help="LoCoMo-10 LLM judge: auto = run it (default LLM = the baselines' LLM), none = F1 only")
+                        help="LLM judge for LoCoMo, MemBench and LoCoMo-10: auto = run it (default LLM = the "
+                             "baselines' LLM; real-daemon runs only), none = lexical scorer / F1 only")
     parser.add_argument("--judge-provider", type=str, default=None)
     parser.add_argument("--judge-model", type=str, default=None,
                         help="A stronger judge than the answering model is recommended")
@@ -433,7 +457,43 @@ def main():
                 isolated.stop()
         return executed_suites, isolated
 
-    runs = [run_once(i + 1) for i in range(args.repeat)]
+    judge_info: Dict[str, Any] = {"enabled": False}
+    judge_llm = None
+    wants_judge = args.judge != "none" and any(s in suites_to_run for s in qa_judge.JUDGED_SUITES)
+    if wants_judge and not mcp_cmd and not baseline_names:
+        judge_info["note"] = "skipped: mock run (no CAMPY_MCP_CMD), the answers are canned"
+    elif wants_judge:
+        try:
+            judge_llm, _, judge_source = resolve_baseline_llm(
+                args, os.environ.get("CAMPY_MCP_CMD"), None,
+                overrides=(args.judge_provider or args.baseline_provider,
+                           args.judge_model or args.baseline_model,
+                           args.judge_base_url or args.baseline_base_url))
+            judge_info = {"enabled": True, "llm": judge_llm.describe(), "source": judge_source,
+                          "template_sha256": hashlib.sha256(qa_judge.JUDGE_TEMPLATE.encode()).hexdigest()[:16],
+                          "calls": 0}
+        except LLMError as e:
+            judge_info = {"enabled": False, "error": str(e)[:500]}
+            print(f"[!] LoCoMo/MemBench LLM judge unavailable ({e}); lexical scores only")
+
+    def judge_run(suites: Dict[str, Any], label: str) -> None:
+        if judge_llm is None or not suites:
+            return
+        try:
+            n = qa_judge.judge_results(suites, judge_llm)
+            judge_info["calls"] += n
+            if n:
+                print(f"    LLM judge ({judge_llm.model}) graded {label}: {n} calls")
+        except LLMError as e:
+            judge_info["error"] = str(e)[:500]
+            print(f"    !! LLM judge failed on {label} ({e}); its judge metrics are missing")
+
+    runs = []
+    for i in range(args.repeat):
+        suites_i, iso_i = run_once(i + 1)
+        if not args.baselines_only:
+            judge_run(suites_i, f"run {i + 1}" if args.repeat > 1 else "Campy")
+        runs.append((suites_i, iso_i))
     isolated = runs[-1][1]
     repeat_info = None
     if args.repeat > 1:
@@ -475,7 +535,11 @@ def main():
                                retriever_kind=args.rag_retriever, embed_model=embed_model, k=args.rag_k,
                                suite_opts={"locomo10": l10_opts})
         bl["config"]["llm_source"] = llm_source
+        for name in baseline_names:
+            judge_run(bl.get(name) or {}, f"baseline {name}")
         results["baselines"] = bl
+    if judge_info.get("enabled") or judge_info.get("note") or judge_info.get("error"):
+        results["qa_judge"] = judge_info
     if "locomo10" in suites_to_run:
         finalize_locomo10(results, args, isolated)
     if baseline_names and executed_suites:
@@ -483,6 +547,7 @@ def main():
 
     print_summary_table(results)
     repeats.print_spread(results, COMPARE_ROWS)
+    print_judge_disagreements(results)
     if baseline_names:
         print_baseline_table(results)
 

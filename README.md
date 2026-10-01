@@ -22,6 +22,10 @@ export CAMPY_MCP_CMD="/Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/
 python check_scorers.py
 python check_suite_order_independence.py
 python check_repeat.py
+python check_qa_judge.py
+
+# Before trusting a judge model: grade the ~600 hand-labelled answers with it
+python check_qa_judge.py --live --judge-model gemma4:26b
 
 # Run smoke test
 python run_all.py --smoke
@@ -65,8 +69,8 @@ correct answers phrased "...and prohibits the use of X or Y", so v2 LoCoMo
 scores can be slightly low; v3 never fails an answer v2 passed.
 Scorer v4 (2026-10-01) adds "update" and "change" for the same reason
 ("Casey updates their preference from AWS ECS to Google Cloud Run").
-Each word-list fix only covers phrasings seen so far; an LLM judge for
-LoCoMo and MemBench is the real fix.
+Each word-list fix only covers phrasings seen so far, which is why the LLM
+judge below now runs alongside it.
 
 The judge is still lexical and has known blind spots (e.g. "we use Docker
 Swarm, not Kubernetes" passes). An LLM judge is the planned replacement.
@@ -111,6 +115,35 @@ which contain thousands of unrelated messages as distractors. `--compare`
 warns when isolation differs. `provenance.store` records the overrides,
 ready time, and the isolated activity-log line count, which should roughly
 match `client_calls` and shows the calls reached the isolated daemon.
+
+## LLM judge for LoCoMo and MemBench
+
+The lexical scorer above needs a cue word whenever an answer mentions an old
+value. Each new phrasing an LLM uses ("prohibits the use of X", "updates
+their preference from X to Y") produced false failures until the word list
+caught up (scorer v3, v4). On real-daemon runs, an LLM judge now grades every
+LoCoMo and MemBench answer as well. It asks: does the answer give the current
+value without presenting an old one as current? (`qa_judge.py`, using the
+same approach as LoCoMo-10's judge.)
+
+- It runs **alongside** the lexical scorer. Each record keeps `passed` /
+  `reason` and gains `llm_judge` / `llm_judge_reason`. The suites gain
+  `judge_accuracy` and `judge_deprecation_accuracy` (LoCoMo) or
+  `judge_contradiction_score` (MemBench), all in `--compare`.
+- **Disagreements** between the two are printed after the summary and stored
+  in `judge_disagreements`. That is where to look first: either a scorer gap
+  or a judge mistake.
+- Baselines are graded by the same judge in the same run. With `--repeat N`,
+  each run is graded before averaging, and per-probe judge verdicts merge by
+  majority, like the lexical ones.
+- **Judge model:** `--judge-model` (and `--judge-provider`/`--judge-base-url`).
+  The default is the baselines' LLM, i.e. the same model that answered,
+  which is a weak judge of itself. Prefer a different, stronger local model.
+  `--compare` warns when the judge model differs.
+- **Validate it first:** `check_qa_judge.py --live --judge-model <m>` grades
+  every hand-labelled answer from `check_scorers.py` and exits non-zero below
+  95% agreement, listing each lenient or strict call.
+- `--judge none` turns it off. Mock runs (no daemon) skip it.
 
 ## Repeated runs (`--repeat N`)
 

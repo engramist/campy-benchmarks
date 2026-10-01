@@ -54,6 +54,11 @@ def _merge_probe_details(per_run: List[List[Dict[str, Any]]]) -> List[Dict[str, 
         rec["runs"] = len(recs)
         reasons = Counter(r.get("reason") for r in recs if r["passed"] == rec["passed"])
         rec["reason"] = reasons.most_common(1)[0][0] if reasons else recs[0].get("reason")
+        judged = [r["llm_judge"] for r in recs if r.get("llm_judge") is not None]
+        if judged:  # same majority rule for the LLM judge's verdict
+            jrate = sum(judged) / len(judged)
+            rec["llm_judge"] = jrate > 0.5
+            rec["judge_pass_rate"] = round(jrate, 4)
         merged.append(rec)
     return merged
 
@@ -101,6 +106,11 @@ def aggregate_runs(runs: List[Dict[str, Dict[str, Any]]]) -> Dict[str, Any]:
         details = [r.get("details") for r in results]
         if all(_probe_details(d) for d in details):
             agg["details"] = _merge_probe_details(details)
+            if any("llm_judge" in d for d in agg["details"]):
+                agg["judge_disagreements"] = [
+                    {"id": d["id"], "lexical": d["passed"], "llm_judge": d["llm_judge"],
+                     "lexical_reason": d.get("reason")}
+                    for d in agg["details"] if "llm_judge" in d and d["llm_judge"] != d["passed"]]
             flaky = [{"id": d["id"], "pass_rate": d["pass_rate"]}
                      for d in agg["details"] if 0.0 < d["pass_rate"] < 1.0]
             if flaky:
