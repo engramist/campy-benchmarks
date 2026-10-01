@@ -21,6 +21,7 @@ export CAMPY_MCP_CMD="/Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/
 # Scorer + isolation self-tests (no daemon needed; run before trusting a score)
 python check_scorers.py
 python check_suite_order_independence.py
+python check_store_stats.py   # CAMPY_PYTHON=<hippocampy venv python> also tests the store probe
 python check_repeat.py
 
 # Run smoke test
@@ -107,6 +108,13 @@ which contain thousands of unrelated messages as distractors. `--compare`
 warns when isolation differs. `provenance.store` records the overrides,
 ready time, and the isolated activity-log line count, which should roughly
 match `client_calls` and shows the calls reached the isolated daemon.
+
+`provenance.store.graph_stats` records what the run left in the graph,
+counted after the daemon stops and before the store is deleted: nodes per
+type, Concepts split into confirmed/tentative and by origin role, and
+artifact nodes (Decision, Constraint, Requirement, ActionItem). The counts
+cover every Campy suite in the run, so run one suite alone for per-suite
+numbers. `store_stats.py` has the details; `check_store_stats.py` tests it.
 
 ## Repeated runs (`--repeat N`)
 
@@ -212,6 +220,41 @@ Campy's store holds.
 round-robin across categories, so a subset stays balanced) and
 `--locomo10-categories 1,2,3,4`. `--smoke` defaults to 1 conversation and 25
 questions. `--compare` warns when the subset or judge model differs.
+
+## Comparing hippocampy commits (B461)
+
+To measure a hippocampy change (e.g. the B462/B459/B460 save-gate work),
+run LoCoMo-10 once per hippocampy commit with everything else fixed, then
+compare the result files with `compare_results.py` (the same table
+`run_all.py --compare` prints, for two saved files). Besides the recall
+metrics, the table includes the per-category scores, memory construction time
+(`ingest_seconds`, lower is better) and the graph counts above. The graph
+counts aren't marked better or worse: fewer nodes is only an improvement if
+the recall scores hold.
+
+```bash
+# One checkout + venv per commit (worktrees share the git objects)
+git -C ~/hippocampy worktree add /tmp/hc-base <commit>
+python3.12 -m venv /tmp/hc-base/.venv && /tmp/hc-base/.venv/bin/pip install -e /tmp/hc-base
+
+# Same config for every commit: otherwise each worktree's campy.toml is used
+export CAMPY_BENCH_CONFIG=~/.campy/config.toml
+export CAMPY_MCP_CMD="/tmp/hc-base/.venv/bin/python -m campy.adapters.mcp_server"
+python run_all.py --baseline --isolated --suite locomo10 --locomo10-conversations 2 \
+    --judge-model <judge> --repeat 2 --out results/b461-base.json
+# ...the same for each other commit (--out results/b461-<name>.json), then:
+python compare_results.py results/b461-base.json results/b461-<name>.json
+```
+
+- Keep the subset, judge model, LLM and `--repeat` identical across commits;
+  `--compare` warns about the ones it can see.
+- Size: conversations 1-2 (`conv-26`, `conv-30`) are 788 turns and 304
+  questions together, the smallest pair. A full run (5,882 turns, 1,986
+  questions) takes hours per commit on a local 8B model.
+- Single runs move by a few points from LLM variance alone (see
+  `--repeat`); a difference inside the run-to-run range is marked ≈.
+- `--keep-store` keeps `$CAMPY_HOME`, including the daemon's log, for
+  inspection, e.g. `grep "Gate:" daemon.log` for save-gate decisions.
 
 ## Result files and provenance
 
