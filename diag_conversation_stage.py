@@ -11,7 +11,10 @@ message that mentions a topic word, where it stopped:
   vrank rank among Message vector hits (- = below the floor)
   frank rank among Message FTS hits (- = no lexical match)
   terms question content words the message contains; a lexical-only hit
-        needs 2 (or the only one there is)
+        needs 2 (or the only one there is), or -- hippocampy B459 -- the
+        query's anchor word: its rarest word in the store that one of the
+        top vector hits also contains (applied when the installed campy
+        has VectorStore.document_frequencies)
   gate  why it was dropped, or "cand" for a candidate
   pick  * = one of the `limit` messages the stage hands to the bundle
         (fused vector+FTS rank, newest copy of repeated text)
@@ -32,10 +35,15 @@ import sqlite3
 import sys
 from pathlib import Path
 
+import re
+
 import sqlite_vec
 
 from campy.brain.hippocampus.graph import embeddings as emb
-from campy.brain.hippocampus.graph.vector_store import _fts_match_expression, fts_content_terms
+from campy.brain.hippocampus.graph.vector_store import (
+    VectorStore, _fts_match_expression, fts_content_terms)
+
+B459 = hasattr(VectorStore, "document_frequencies")
 
 MIN_SCORE = 0.30  # GraphGateway._bundle_conversation
 ECHO = 0.985
@@ -95,9 +103,23 @@ def main() -> int:
     frank = {u: i for i, u in enumerate(fts)}
     terms = fts_content_terms(question)
     need = min(2, len(terms) or 1)
+    words = lambda t: set(re.findall(r"[^\W_]+", t.lower()))
+    anchors = set()
+    if B459:
+        df = {}
+        for t in terms:
+            n = conn.execute("SELECT count(*) FROM lexical WHERE lexical MATCH ? AND uri LIKE '%/Message/%'",
+                             (f'"{t}"',)).fetchone()[0]
+            if n:
+                df[t] = n
+        top_words = set().union(*(words(texts.get(u, "")) for u in vec_hits[:LIMIT]))
+        rarest = min(df.values(), default=0)
+        anchors = {t for t, n in df.items() if n == rarest and t in top_words}
 
     print(f"question: {question!r}\nembedding model: {model}\ncontent terms: {terms} "
-          f"(lexical-only hits need {need})\nmessages in store: {len(texts)}, vector hits >= "
+          f"(lexical-only hits need {need}"
+          + (f", or the B459 anchor {sorted(anchors)})" if B459 else "; pre-B459 rule)")
+          + f"\nmessages in store: {len(texts)}, vector hits >= "
           f"{MIN_SCORE}: {len(vec_hits)}, FTS hits: {len(fts)}\n")
     meta = graph_meta(home, texts)
     norm = lambda t: " ".join(t.lower().split())
@@ -117,7 +139,7 @@ def main() -> int:
             return "OUT: question"
         if u not in vrank:
             n = sum(1 for t in terms if t in text.lower())
-            if n < need:
+            if n < need and not anchors & words(text):
                 return f"OUT: {n} term(s)"
         return "cand"
 
