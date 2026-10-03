@@ -118,7 +118,10 @@ def get_msc_personas(smoke: bool = False) -> List[MSCPersona]:
             ContradictionProbe(
                 id="p_jordan_editor",
                 question="What primary code editor does Jordan use?",
-                expected_active="VS Code with Cursor",
+                # Either name answers "primary editor" (accept takes either); the
+                # gold said "VS Code with Cursor", and the LLM judge failed a
+                # correct "VS Code" for leaving out Cursor (2026-10-02).
+                expected_active="VS Code (with Cursor for AI assistance)",
                 accept=[r"\bVS\s*Code\b|\bCursor\b"],
                 stale=[r"\bVim\b"],
                 is_contradiction=True,
