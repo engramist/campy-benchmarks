@@ -104,6 +104,13 @@ REAL: Dict[str, List[str]] = {
         "serverless. This is stated in the conversation log where Casey updates their "
         "preference from AWS ECS to Google Cloud Run serverless.",
     ],
+    # 2026-10-02, LLM judge (gemma4:26b): failed for leaving out Cursor while the
+    # gold read "VS Code with Cursor"; correct, and Vim is retired.
+    "p_jordan_editor": [
+        "Based on the provided context, I can see that Jordan mentioned they stopped using "
+        "Vim and fully transitioned to VS Code. Therefore, the primary code editor that "
+        "Jordan uses is VS Code.",
+    ],
     "p_8_active": [
         "The current required tool for ci_provider is GitHub Actions. This is based on the "
         "final decision made on 2026-09-30, which strictly requires the use of GitHub Actions "
