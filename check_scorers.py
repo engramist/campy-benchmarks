@@ -104,6 +104,13 @@ REAL: Dict[str, List[str]] = {
         "serverless. This is stated in the conversation log where Casey updates their "
         "preference from AWS ECS to Google Cloud Run serverless.",
     ],
+    # 2026-10-04, lexical: grounded in "not accept ... under any circumstances",
+    # none of the probe's grounding words (B459 baseline, run 1 of 3).
+    "p5_hs256_rejection": [
+        "Based on the provided memory context, I can see that there is a constraint to not "
+        "accept HS256 tokens under any circumstances, as stated in the final rollout message. "
+        "Therefore, an HS256 signed token is not acceptable for internal APIs.",
+    ],
     # 2026-10-02, LLM judge (gemma4:26b): failed for leaving out Cursor while the
     # gold read "VS Code with Cursor"; correct, and Vim is retired.
     "p_jordan_editor": [

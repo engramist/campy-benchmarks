@@ -121,7 +121,10 @@ def get_locomo_scenarios(smoke: bool = False) -> List[LoCoMoScenario]:
                 question="Is an HS256 signed token acceptable for internal APIs?",
                 expected="No, HS256 is forbidden/deprecated.",
                 kind="negative",
-                accept=[r"\bRS256\b", r"\bforbidden\b", r"\bdeprecat\w*", r"\bprohibited\b", r"\breject\w*", r"\bsymmetric\b"],
+                # "not accept(ed)" is the fixture's own wording ("do NOT accept HS256
+                # tokens"); the verb only, so a bare "not acceptable" stays ungrounded.
+                accept=[r"\bRS256\b", r"\bforbidden\b", r"\bdeprecat\w*", r"\bprohibited\b", r"\breject\w*", r"\bsymmetric\b",
+                        r"\bnot\s+accept(?:ed)?\b"],
                 is_deprecation=True,
             ),
         ],
