@@ -30,10 +30,8 @@ python check_qa_judge.py --live --judge-model gemma4:26b
 # Run smoke test
 python run_all.py --smoke
 
-# Full run; writes results/<utc>-<harness sha>.json with per-probe details
-python run_all.py --baseline
-
-# Recommended: a throwaway daemon with its own empty store (see "Isolated mode")
+# Full run on a throwaway daemon with its own empty store (see "Isolated mode");
+# writes results/<utc>-<harness sha>.json with per-probe details
 python run_all.py --baseline --isolated
 
 # Score reference systems next to Campy (same LLM, same judge; see "Baselines")
@@ -47,7 +45,7 @@ python run_all.py --baseline --isolated --suite locomo10 --baselines all --locom
 python run_all.py --baseline --isolated --repeat 3
 
 # Compare against an earlier result file (warns when runs are not like-for-like)
-python run_all.py --baseline --compare results/<earlier>.json
+python run_all.py --baseline --isolated --compare results/<earlier>.json
 ```
 
 ## Scoring (scorer v4)
@@ -83,9 +81,14 @@ measured values: a retrieval miss is 0, not the old hard-coded 0.85/0.9.
 
 ## Isolated mode (`--isolated`)
 
-Without it, a run uses your personal daemon and `~/.campy` store: benchmark
-turns land in your memory, earlier runs' identical turns contaminate later
-runs, and scores depend on whatever else is in the store. `--isolated`
+With a real daemon (`CAMPY_MCP_CMD` set), a run needs `--isolated`; it is
+refused otherwise. Without isolation a run uses your personal daemon and
+`~/.campy` store: benchmark turns land in your memory, earlier runs'
+identical turns contaminate later runs, and scores depend on whatever else is
+in the store. That happened: earlier runs left ~2,000 fixture turns in a
+personal store, and consolidation turned them into Concepts and edges that
+`ask` read as the user's own decisions (hippocampy B467). `--shared-store`
+allows such a run when that is really intended. `--isolated`
 (requires hippocampy with `CAMPY_HOME` support, B456):
 
 1. creates a temp `CAMPY_HOME` under `/tmp` and writes its `config.toml` from

@@ -309,6 +309,9 @@ def main():
     parser.add_argument("--compare", type=str, nargs="?", const="baseline_snapshot.json", help="Compare against baseline JSON file")
     parser.add_argument("--out", type=str, default=None,
                         help="Write results here (default with --baseline: results/<utc>-<harness sha>[-smoke|-mock].json)")
+    parser.add_argument("--shared-store", action="store_true",
+                        help="Allow a run against the personal daemon and its ~/.campy store. Refused "
+                             "without it: benchmark turns become your memory (hippocampy B467)")
     parser.add_argument("--isolated", action="store_true",
                         help="Start a throwaway daemon with its own empty store (CAMPY_HOME) instead of "
                              "using the personal ~/.campy daemon; needs hippocampy with CAMPY_HOME support")
@@ -382,8 +385,17 @@ def main():
         # Each repeat needs an empty store: on a shared one, run k reads runs
         # 1..k-1's data (20 more near-identical MemoryGym notes per run).
         parser.error("--repeat > 1 with a real daemon needs --isolated (a fresh store per run)")
-    if mcp_cmd and not args.isolated and not args.baselines_only:
-        print("[!] Not isolated: this run reads and writes the personal ~/.campy store, and earlier "
+    if args.isolated and args.shared_store:
+        parser.error("--isolated and --shared-store contradict each other")
+    if mcp_cmd and not args.isolated and not args.shared_store:
+        # B467: earlier non-isolated runs wrote ~2,000 fixture turns into the
+        # personal store, and consolidation turned them into Concepts and
+        # edges that `ask` then read as the user's own decisions.
+        parser.error("a real daemon needs --isolated (a throwaway store). Without it the fixture "
+                     "turns are written into your personal ~/.campy memory; pass --shared-store "
+                     "only if that is really what you want")
+    if args.shared_store and not args.baselines_only:
+        print("[!] --shared-store: this run reads and writes the personal ~/.campy store, and earlier "
               "runs' data is in it. Use --isolated for a clean, reproducible store.")
 
     suites_to_run = ["locomo", "memory_gym", "membench", "arc"] if args.suite == "all" else [args.suite]
