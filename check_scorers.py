@@ -118,6 +118,17 @@ REAL: Dict[str, List[str]] = {
         "Vim and fully transitioned to VS Code. Therefore, the primary code editor that "
         "Jordan uses is VS Code.",
     ],
+    # 2026-10-05, LLM judge (gemma4:26b), R1 run 1 of 3 on hippocampy#278: states
+    # the update's scope (BIGINT for new analytics tables, UUID otherwise).
+    "p3_analytics_pk": [
+        "Based on the provided memory context, the primary key format required for analytics "
+        "tables is a UUID primary key, as stated in the conversation on 2026-10-05 04:12. "
+        "However, there is a later update that specifies new analytics tables should use BIGINT "
+        "sequence IDs. Since the constraint is to use UUID primary keys for all tables, and the "
+        "update only applies to new analytics tables, it can be inferred that the primary key "
+        "format for existing analytics tables is still UUID, while new analytics tables should "
+        "use BIGINT sequence IDs.",
+    ],
     "p_8_active": [
         "The current required tool for ci_provider is GitHub Actions. This is based on the "
         "final decision made on 2026-09-30, which strictly requires the use of GitHub Actions "
@@ -129,7 +140,13 @@ REAL: Dict[str, List[str]] = {
 WRONG: Dict[str, List[str]] = {
     "p1_current_db": ["The active database is PostgreSQL 14.", "PostgreSQL 14 and PostgreSQL 16."],
     "p2_deprecated_check": ["Yes, you can deploy it on PostgreSQL 14.", "No."],
-    "p3_analytics_pk": ["Analytics tables use UUID primary keys."],
+    "p3_analytics_pk": [
+        "Analytics tables use UUID primary keys.",
+        # R1 run 3 (2026-10-05): the BIGINT update was in the bundle and dropped
+        "Based on the provided memory context, the primary key format required for analytics "
+        "tables is a UUID primary key, as stated in the conversation on 2026-10-05 05:09. This "
+        "constraint was explicitly mentioned for all tables, including analytics tables.",
+    ],
     "p4_auth_algo": ["HS256 with a symmetric secret.", "HS256 or RS256."],
     "p5_hs256_rejection": ["Yes, HS256 tokens are acceptable internally, no problem.", "No."],
     "p6_cache_engine": ["Memcached on port 11211.", "Memcached and Redis."],

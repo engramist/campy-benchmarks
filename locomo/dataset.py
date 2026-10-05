@@ -78,7 +78,12 @@ def get_locomo_scenarios(smoke: bool = False) -> List[LoCoMoScenario]:
             ProbeQuestion(
                 id="p3_analytics_pk",
                 question="What primary key format is required for analytics tables?",
-                expected="BIGINT sequence IDs",
+                # The update scopes BIGINT to *new* analytics tables; the
+                # earlier rule (UUID for all tables) still covers the rest. A
+                # gold of bare "BIGINT sequence IDs" made the judge fail the
+                # answer that states both (2026-10-05, R1 on hippocampy#278).
+                expected=("BIGINT sequence IDs for new analytics tables "
+                          "(the earlier rule for all tables is UUID primary keys)"),
                 accept=[r"\bBIGINT\b"],
                 is_deprecation=False,
             ),
