@@ -129,6 +129,19 @@ with tempfile.TemporaryDirectory() as tmp:
     check(bad_proc.returncode != 0 and "needs --isolated" in bad_proc.stderr,
           "real daemon without --isolated is refused")
 
+    # B467: a single run against a real daemon is refused too unless it opts
+    # in to the personal store; the refusal comes before any daemon contact.
+    for argv, why in ((["--smoke"], "pass --shared-store"),
+                      (["--smoke", "--isolated", "--shared-store"], "contradict")):
+        p = subprocess.run([sys.executable, str(HERE / "run_all.py"), *argv], cwd=HERE,
+                           env={**env, "CAMPY_MCP_CMD": "python -m nothing"},
+                           capture_output=True, text=True, timeout=60)
+        check(p.returncode == 2 and why in p.stderr,
+              f"run_all {' '.join(argv)} with a real daemon is refused ({why!r}): {p.stderr[-300:]}")
+    p = subprocess.run([sys.executable, str(HERE / "run_all.py"), "--smoke", "--suite", "locomo"],
+                       cwd=HERE, env=env, capture_output=True, text=True, timeout=600)
+    check(p.returncode == 0, "mock mode (no CAMPY_MCP_CMD) still runs without --isolated")
+
 if failures:
     print(f"FAIL -- {len(failures)} repeat checks failed:")
     for f in failures:
