@@ -100,7 +100,7 @@ def main() -> int:
             turn = turn_of.get(ev)
             uris = by_text.get(norm(turn.content())) if turn else None
             head = f"{d['id'] if i == 0 else '':<16}{d['category'] if i == 0 else '':>4}" \
-                   f"{('pass' if d.get('judge') else 'FAIL') if i == 0 else '':>6}  {ev:<8}"
+                   f"{({True: 'pass', False: 'FAIL'}.get(d.get('judge'), '-')) if i == 0 else '':>6}  {ev:<8}"
             stats["turns"] += 1
             if not uris:
                 stats["missing"] += 1
