@@ -107,7 +107,8 @@ with tempfile.TemporaryDirectory() as tmp:
     check([s.index for s in q0.sessions] == [1, 2, 3, 4], "4 sessions in order")
     check([t.speaker for t in q0.sessions[0].turns] == ["Speaker 1", "Speaker 2"], "speakers alternate from Speaker 1")
     check(q0.evidence_ids() == ["1:1"] and q0.answerer == "Speaker 2", f"evidence/answerer: {q0.evidence_ids()} {q0.answerer}")
-    check(ask_text(q0).startswith("Speaker 1 asks Speaker 2: "), ask_text(q0))
+    check(ask_text(q0) == 'Speaker 1 asks Speaker 2 ("you" means Speaker 2): ' + q0.question
+          + " Answer with what Speaker 2 said earlier.", ask_text(q0))
     check(qs[1].answerer == "Speaker 1" and qs[1].evidence_ids() == ["1:0"], "answer said by Speaker 1")
     check(qs[2].answerer is None and qs[2].evidence_ids() == [] and ask_text(qs[2]) == qs[2].question,
           "a paraphrased answer has no derived evidence and the question stays verbatim")

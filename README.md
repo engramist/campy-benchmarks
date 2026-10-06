@@ -326,7 +326,11 @@ sha256; `DMR_PATH` points at an existing copy.
     because they state the answer verbatim.
   - Speakers alternate from Speaker 1 (the turns carry no speaker id).
 - **Question:** addressed to the speaker it asks about,
-  `Speaker 2 asks Speaker 1: <question>`, because the questions say "you".
+  `Speaker 2 asks Speaker 1 ("you" means Speaker 1): <question> Answer with
+  what Speaker 1 said earlier.` The questions say "you", and without the
+  framing the answering model read "you" as itself (R13a: "I don't have a
+  pet... between you and another user"). Results from before this framing
+  (2026-10-06, judge 0.500) are not comparable with later ones.
   - That speaker is the one whose earlier turn contains the gold answer.
   - When no turn contains it, the question is asked verbatim.
 - **Judge:** LoCoMo-10's CORRECT/WRONG prompt. A non-answer counts as wrong

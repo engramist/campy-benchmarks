@@ -10,7 +10,8 @@ question has its own pair of speakers):
     convention; then settle consolidation once;
   * compile_context for evidence recall (against the derived evidence);
   * ask the question, addressed to the speaker it asks about:
-    `Speaker 2 asks Speaker 1: <question>` (the verbatim question when the
+    `Speaker 2 asks Speaker 1 ("you" means Speaker 1): <question> Answer
+    with what Speaker 1 said earlier.` (the verbatim question when the
     answer's speaker can't be found).
 
 The judge runs later (run_all.finalize_dmr).
@@ -41,9 +42,15 @@ def turn_content(session, turn) -> str:
 
 
 def ask_text(q) -> str:
+    """The question, with who is asking whom. DMR questions say "you" (the
+    speaker being asked), and answered as is, the memory's own model reads
+    "you" as itself ("I don't have a pet... that was between you and another
+    user", R13a). So the framing names the speaker "you" refers to and says
+    whose earlier words answer it."""
     if q.answerer:
         asker = "Speaker 2" if q.answerer == "Speaker 1" else "Speaker 1"
-        return f"{asker} asks {q.answerer}: {q.question}"
+        return (f'{asker} asks {q.answerer} ("you" means {q.answerer}): {q.question} '
+                f"Answer with what {q.answerer} said earlier.")
     return q.question
 
 
@@ -95,7 +102,8 @@ def run_dmr(new_store: Callable[[], ContextManager[CampyMCPClient]],
         raise CampyClientError(f"every question failed; the last: {details[-1]['error']}")
     return {
         "suite": "dmr",
-        "dataset": {"file": str(path), "sha256": sha256(path)[:16], "options": opts,
+        # 2: "you" named in the question framing (ask_text); 1 (unrecorded): before
+        "dataset": {"file": str(path), "sha256": sha256(path)[:16], "options": opts, "question_framing": 2,
                     "questions": len(details), "turns": sum(d["turns"] for d in details)},
         **aggregate(details),
         "ingest_seconds": round(ingest_s, 1),
