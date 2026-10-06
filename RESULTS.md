@@ -8,8 +8,9 @@ Published datasets are what to quote. The fixtures are regression tests for this
 
 | suite | kind | subset | metrics | baselines on the first metric (same LLM, same judge) | LLM / judge | hippocampy | run |
 |---|---|---|---|---|---|---|---|
-| LoCoMo-10 | published dataset | 1 conv, 60 q | judge accuracy: **0.354**<br>F1: **0.089**<br>adversarial abstention: **0.083**<br>evidence recall: **0.397** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-locomo10-conv26-q60.json](results/published/2026-10-06-locomo10-conv26-q60.json) |
+| LoCoMo-10 | published dataset | 1 conv, 60 q | judge accuracy: **0.396**<br>F1: **0.104**<br>adversarial abstention: **0.167**<br>evidence recall: **0.411** | – | llama3.1:8b / gemma4:26b | `71041ab` | [2026-10-06-locomo10-conv26-q60-b470.json](results/published/2026-10-06-locomo10-conv26-q60-b470.json) |
 | LongMemEval | published dataset | oracle, 35 q | accuracy: **0.400**<br>task-averaged accuracy: **0.400**<br>evidence recall: **0.496** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-longmemeval-oracle-q35.json](results/published/2026-10-06-longmemeval-oracle-q35.json) |
+| DMR (MSC-Self-Instruct) | published dataset | 50 q | judge accuracy: **0.500**<br>F1: **0.173**<br>evidence recall: **0.531** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-dmr-q50.json](results/published/2026-10-06-dmr-q50.json) |
 
 ## LoCoMo-10
 
@@ -18,16 +19,17 @@ Maharana et al., ACL 2024. Judge accuracy is this harness's own prompt (categori
 | date | subset | judge accuracy | F1 | adversarial abstention | evidence recall | repeat | LLM / judge | hippocampy | harness | file |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 2026-10-06 | 1 conv, 60 q | 0.354 | 0.089 | 0.083 | 0.397 | 1 | llama3.1:8b / gemma4:26b | `98ec223` | `e7694d8` | [2026-10-06-locomo10-conv26-q60.json](results/published/2026-10-06-locomo10-conv26-q60.json) |
+| 2026-10-06 | 1 conv, 60 q | 0.396 | 0.104 | 0.167 | 0.411 | 1 | llama3.1:8b / gemma4:26b | `71041ab` | `e7694d8` | [2026-10-06-locomo10-conv26-q60-b470.json](results/published/2026-10-06-locomo10-conv26-q60-b470.json) |
 
 Newest counted run, by category:
 
 | category | abstention | evidence_recall | f1 | judge_accuracy | n |
 |---|---|---|---|---|---|
-| multi_hop | – | 0.083 | 0.070 | 0.000 | 12 |
-| temporal | – | 0.583 | 0.114 | 0.417 | 12 |
-| open_domain | – | 0.200 | 0.033 | 0.333 | 12 |
+| multi_hop | – | 0.153 | 0.099 | 0.000 | 12 |
+| temporal | – | 0.583 | 0.145 | 0.417 | 12 |
+| open_domain | – | 0.200 | 0.034 | 0.500 | 12 |
 | single_hop | – | 0.583 | 0.139 | 0.667 | 12 |
-| adversarial | 0.083 | 0.500 | – | – | 12 |
+| adversarial | 0.167 | 0.500 | – | – | 12 |
 
 ## LongMemEval
 
@@ -48,3 +50,11 @@ Newest counted run, by category:
 | single-session-preference | 0.400 | 0.467 | 5 |
 | single-session-user | 0.600 | 0.600 | 5 |
 | temporal-reasoning | 0.200 | 0.500 | 5 |
+
+## DMR (MSC-Self-Instruct)
+
+Deep Memory Retrieval (Packer et al., MemGPT, 2023): 500 questions, each over 4 earlier Multi-Session Chat sessions. Judge: LoCoMo-10's prompt. Evidence labels are derived (turns containing the answer), so recall covers only the questions where the answer is quoted. Published scores are near the full-context ceiling (MemGPT 93.4%, Zep 94.8%, GPT-4 Turbo full context 94.4%), so DMR separates systems little.
+
+| date | subset | judge accuracy | F1 | evidence recall | repeat | LLM / judge | hippocampy | harness | file |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-06 | 50 q | 0.500 | 0.173 | 0.531 | 1 | llama3.1:8b / gemma4:26b | `98ec223` | `e7694d8` | [2026-10-06-dmr-q50.json](results/published/2026-10-06-dmr-q50.json) |
