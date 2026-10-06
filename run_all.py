@@ -178,11 +178,11 @@ def print_summary_table(results: Dict[str, Any]) -> None:
             table.add_row("LoCoMo", f"DeprecAcc: {loc.get('deprecation_accuracy')} | EM: {loc.get('exact_match')} | F1: {loc.get('f1')}", f"Acc: {loc.get('accuracy')}{judged}", f"{loc.get('avg_latency_ms')} ms")
         if "memory_gym" in suites:
             mg = suites["memory_gym"]
-            table.add_row("MemoryGym", f"Efficiency: {mg.get('step_efficiency')} | Steps: {mg.get('total_steps')}", f"Success: {mg.get('success_rate') * 100:.1f}%", f"{mg.get('avg_retrieve_latency_ms')} ms (retrieve)")
+            table.add_row("MemoryGym fixture", f"Efficiency: {mg.get('step_efficiency')} | Steps: {mg.get('total_steps')}", f"Success: {mg.get('success_rate') * 100:.1f}%", f"{mg.get('avg_retrieve_latency_ms')} ms (retrieve)")
         if "membench" in suites:
             mb = suites["membench"]
             judged = f" | Judge: {mb['judge_accuracy']}" if mb.get("judge_accuracy") is not None else ""
-            table.add_row("MemBench", f"Contradiction: {mb.get('contradiction_score')} | Savings: {mb.get('token_savings_pct')}%", f"Acc: {mb.get('accuracy')}{judged}", f"{mb.get('avg_latency_ms')} ms")
+            table.add_row("MemBench fixture", f"Contradiction: {mb.get('contradiction_score')} | Savings: {mb.get('token_savings_pct')}%", f"Acc: {mb.get('accuracy')}{judged}", f"{mb.get('avg_latency_ms')} ms")
         if "locomo10" in suites:
             l10 = suites["locomo10"]
             table.add_row("LoCoMo-10", f"F1: {l10.get('f1')} | Adv. abstain: {l10.get('adversarial_abstention')} | Evidence recall: {l10.get('evidence_recall')}", f"Judge: {l10.get('judge_accuracy')}", f"{l10.get('avg_latency_ms')} ms")
@@ -506,9 +506,9 @@ def main():
             if "locomo" in campy_suites:
                 run_suite("locomo", "LoCoMo Suite (Conversational Deprecation)", run_locomo)
             if "memory_gym" in campy_suites:
-                run_suite("memory_gym", "MemoryGym Suite (2D Spatial/Temporal Persistence)", run_memory_gym)
+                run_suite("memory_gym", "MemoryGym fixture (simulated environment)", run_memory_gym)
             if "membench" in campy_suites:
-                run_suite("membench", "MemBench Suite (Persona & Contradiction Arbitration)", run_membench)
+                run_suite("membench", "MemBench fixture (hand-written personas)", run_membench)
             if "arc" in campy_suites:
                 run_suite("arc_bridge", "ARC Bridge Suite (World Model & Memory Transfer)", run_arc_bridge)
             if "locomo10" in campy_suites:
