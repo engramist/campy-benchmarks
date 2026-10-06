@@ -50,4 +50,6 @@ def aggregate(details: List[Dict[str, Any]]) -> Dict[str, Any]:
         "f1": _mean([d["f1"] for d in details if d.get("f1") is not None]),
         "evidence_recall": _mean(rec),
         "evidence_labelled": len(rec),
+        # questions whose daemon failed twice (scored wrong, never judged)
+        "errors": sum(1 for d in details if d.get("error")),
     }

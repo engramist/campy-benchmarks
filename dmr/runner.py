@@ -24,7 +24,8 @@ from typing import Any, Callable, ContextManager, Dict, List, Optional
 from dmr.dataset import ensure_dataset, load_questions, sha256
 from dmr.scoring import aggregate, f1
 from locomo10.scoring import evidence_recall_from_texts
-from mcp_client import CampyMCPClient
+from fresh_store import run_on_fresh_store
+from mcp_client import CampyClientError, CampyMCPClient
 from records import bundle_texts, summarize_bundle
 
 SMOKE_QUESTIONS = 5
@@ -61,14 +62,14 @@ def run_dmr(new_store: Callable[[], ContextManager[CampyMCPClient]],
             "id": q.question_id, "question": ask_text(q), "raw_question": q.question,
             "expected": q.answer, "answerer": q.answerer, "turns": turns, "evidence": q.evidence_ids(),
         }
-        with new_store() as client:
+        def body(client: CampyMCPClient, q=q, rec=rec, turn_text=turn_text) -> None:
             t0 = time.perf_counter()
             for s in q.sessions:
                 for t in s.turns:
                     client.notify_turn(role="user", content=turn_content(s, t),
                                        session_id=f"dmr_{q.question_id}_s{s.index}")
             client.run_sweep()
-            ingest_s += time.perf_counter() - t0
+            rec["ingest_seconds"] = round(time.perf_counter() - t0, 1)
             t1 = time.perf_counter()
             ctx = client.compile_context(rec["question"])
             rec["compile_latency_ms"] = round((time.perf_counter() - t1) * 1000.0, 1)
@@ -78,15 +79,27 @@ def run_dmr(new_store: Callable[[], ContextManager[CampyMCPClient]],
             t2 = time.perf_counter()
             rec["answer"] = client.ask(rec["question"], session_id=f"dmr_{q.question_id}_eval")
             rec["latency_ms"] = round((time.perf_counter() - t2) * 1000.0, 1)
+
+        err = run_on_fresh_store(new_store, body, q.question_id, log=log)
+        if err is not None:
+            # the daemon failed twice: no measurement, scored wrong, never judged
+            rec.update({"error": err, "answer": "", "f1": 0.0, "evidence_recall": None, "latency_ms": None,
+                        "judge": False, "reason": "error"})
+            details.append(rec)
+            continue
+        ingest_s += rec["ingest_seconds"]
         rec["f1"] = f1(rec["answer"], q.answer)
         rec["judge"] = None  # filled by run_all.finalize_dmr
         details.append(rec)
+    if details and all(d.get("error") for d in details):
+        raise CampyClientError(f"every question failed; the last: {details[-1]['error']}")
     return {
         "suite": "dmr",
         "dataset": {"file": str(path), "sha256": sha256(path)[:16], "options": opts,
                     "questions": len(details), "turns": sum(d["turns"] for d in details)},
         **aggregate(details),
         "ingest_seconds": round(ingest_s, 1),
-        "avg_latency_ms": round(sum(d["latency_ms"] for d in details) / max(1, len(details)), 1),
+        "avg_latency_ms": round(sum(lat) / len(lat), 1) if (lat := [d["latency_ms"] for d in details
+                                                                     if d.get("latency_ms") is not None]) else None,
         "details": details,
     }
