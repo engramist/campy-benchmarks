@@ -110,6 +110,28 @@ def countable(r: Dict[str, Any]) -> Optional[str]:
     return None
 
 
+def variant(key: str, s: Dict[str, Any]) -> Any:
+    ds = s.get("dataset") if isinstance(s.get("dataset"), dict) else {}
+    return ds.get("variant") if key == "longmemeval" else None
+
+
+def headline_row(w, key: str, r: Dict[str, Any]) -> None:
+    s = r["suites"][key]
+    title, kind, metrics, _ = SUITES[key]
+    prov = r.get("provenance") or {}
+    mets = "<br>".join(f"{label}: **{fmt(s.get(m))}**" for m, label in metrics if s.get(m) is not None)
+    bl = []
+    for name, data in (r.get("baselines") or {}).items():
+        if name != "config" and isinstance(data, dict) and isinstance(data.get(key), dict):
+            m0 = metrics[0][0]
+            if data[key].get(m0) is not None:
+                bl.append(f"{name}: {fmt(data[key][m0])}")
+    llm = (prov.get("daemon_config") or {}).get("llm_model") or "?"
+    w(f"| {title} | {kind} | {subset(key, s)} | {mets} | {'<br>'.join(bl) or '–'} | "
+      f"{llm} / {judge_model(r, key)} | `{short((prov.get('hippocampy') or {}).get('commit'))}` | "
+      f"[{Path(r['_file']).name}]({r['_file']}) |")
+
+
 def main(paths: List[str]) -> int:
     runs = []
     for p in paths:
@@ -136,21 +158,12 @@ def main(paths: List[str]) -> int:
         have = [r for r in good if key in (r.get("suites") or {}) and r["suites"][key].get("valid")]
         if not have:
             continue
-        r = have[-1]
-        s = r["suites"][key]
-        title, kind, metrics, _ = SUITES[key]
-        prov = r.get("provenance") or {}
-        mets = "<br>".join(f"{label}: **{fmt(s.get(m))}**" for m, label in metrics if s.get(m) is not None)
-        bl = []
-        for name, data in (r.get("baselines") or {}).items():
-            if name != "config" and isinstance(data, dict) and isinstance(data.get(key), dict):
-                m0 = metrics[0][0]
-                if data[key].get(m0) is not None:
-                    bl.append(f"{name}: {fmt(data[key][m0])}")
-        llm = (prov.get("daemon_config") or {}).get("llm_model") or "?"
-        w(f"| {title} | {kind} | {subset(key, s)} | {mets} | {'<br>'.join(bl) or '–'} | "
-          f"{llm} / {judge_model(r, key)} | `{short((prov.get('hippocampy') or {}).get('commit'))}` | "
-          f"[{Path(r['_file']).name}]({r['_file']}) |")
+        # one headline row per dataset variant (LongMemEval oracle vs s are different tests)
+        newest: Dict[Any, Dict[str, Any]] = {}
+        for r in have:
+            newest[variant(key, r["suites"][key])] = r
+        for r in newest.values():
+            headline_row(w, key, r)
     w("")
 
     for key in ORDER:

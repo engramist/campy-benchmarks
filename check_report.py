@@ -60,6 +60,15 @@ with tempfile.TemporaryDirectory() as tmp:
         check(why in hist, f"history says why: {why}")
     check("multi-session" in hist, "per-category table of the newest counted run")
 
+    s_run = result("2026-10-07T00:00:00Z", 0.42, sha="3" * 40)
+    s_run["suites"]["longmemeval"]["dataset"] = {"variant": "s"}
+    (Path(tmp) / "variant_s.json").write_text(json.dumps(s_run))
+    out = subprocess.run([sys.executable, str(HERE / "report.py"), *sorted(str(p) for p in Path(tmp).glob("*.json"))],
+                         capture_output=True, text=True).stdout
+    head = out.split("## Headline")[1].split("\n## ")[0]
+    check("accuracy: **0.500**" in head and "accuracy: **0.420**" in head,
+          "each LongMemEval variant keeps its own headline row")
+
     (Path(tmp) / "only_mock.json").write_text(json.dumps(result("2026-10-07T00:00:00Z", 1.0, mcp=False)))
     out = subprocess.run([sys.executable, str(HERE / "report.py"), str(Path(tmp) / "only_mock.json")],
                          capture_output=True, text=True).stdout
