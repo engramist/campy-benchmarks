@@ -1,0 +1,13 @@
+store: /tmp/l10-store  messages: 419  model: sentence-transformers/all-MiniLM-L6-v2  hdf: 0.1
+
+46 questions (cat 1-4), 69 evidence turns found in the store
+the run's own evidence_recall (all bundle stages): 0.370
+
+variant                   limit 6              limit 12              limit 20
+                turns   questions     turns   questions     turns   questions
+base             0.319     21/46       0.362     24/46       0.478     29/46 
+nohdf            0.377     23/46       0.449     28/46       0.536     30/46 
+noname           0.377     23/46       0.449     28/46       0.536     30/46 
+vec              0.275     18/46       0.391     24/46       0.493     28/46 
+fts              0.333     23/46       0.377     24/46       0.435     26/46 
+fts_nohdf        0.304     21/46       0.362     23/46       0.377     23/46 

@@ -1,0 +1,59 @@
+store: /tmp/l10-store  messages: 419  model: sentence-transformers/all-MiniLM-L6-v2  hdf: 0.2
+conv-26_q3       c1 FAIL  ev=1 base=0 nohdf=0 noname=0 vec=1 fts=1 fts_nohdf=0  What did Caroline research?
+conv-26_q0       c2 FAIL  ev=1 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  When did Caroline go to the LGBTQ support group? Use the dat
+conv-26_q2       c3 FAIL  ev=2 base=1 nohdf=1 noname=1 vec=1 fts=0 fts_nohdf=0  What fields would Caroline be likely to pursue in her educat
+conv-26_q82      c4 pass  ev=1 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  What did the charity race raise awareness for?
+conv-26_q4       c1 FAIL  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What is Caroline's identity?
+conv-26_q1       c2 pass  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  When did Melanie paint a sunrise? Use the dates of the conve
+conv-26_q14      c3 pass  ev=2 base=0 nohdf=0 noname=0 vec=0 fts=1 fts_nohdf=1  Would Caroline still want to pursue counseling as a career i
+conv-26_q83      c4 pass  ev=1 base=1 nohdf=1 noname=1 vec=0 fts=1 fts_nohdf=1  What did Melanie realize after the charity race?
+conv-26_q7       c1 FAIL  ev=2 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What is Caroline's relationship status?
+conv-26_q5       c2 FAIL  ev=1 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  When did Melanie run a charity race? Use the dates of the co
+conv-26_q22      c3 pass  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  Would Caroline likely have Dr. Seuss books on her bookshelf?
+conv-26_q84      c4 FAIL  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  How does Melanie prioritize self-care?
+conv-26_q11      c1 FAIL  ev=2 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  Where did Caroline move from 4 years ago?
+conv-26_q6       c2 pass  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  When is Melanie planning on going camping? Use the dates of 
+conv-26_q27      c3 FAIL  ev=2 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  Would Caroline pursue writing as a career option?
+conv-26_q85      c4 FAIL  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What are Caroline's plans for the summer?
+conv-26_q13      c1 FAIL  ev=2 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What career path has Caroline decided to persue?
+conv-26_q8       c2 FAIL  ev=1 base=1 nohdf=1 noname=1 vec=0 fts=1 fts_nohdf=1  When did Caroline give a speech at a school? Use the dates o
+conv-26_q86      c4 pass  ev=1 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  What type of individuals does the adoption agency Caroline i
+conv-26_q15      c1 FAIL  ev=4 base=1 nohdf=1 noname=1 vec=0 fts=1 fts_nohdf=1  What activities does Melanie partake in?
+conv-26_q9       c2 FAIL  ev=1 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  When did Caroline meet up with her friends, family, and ment
+conv-26_q42      c3 pass  ev=2 base=0 nohdf=0 noname=0 vec=1 fts=0 fts_nohdf=0  Would Melanie be more interested in going to a national park
+conv-26_q87      c4 pass  ev=1 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  Why did Caroline choose the adoption agency?
+conv-26_q18      c1 FAIL  ev=3 base=0 nohdf=1 noname=1 vec=1 fts=0 fts_nohdf=0  Where has Melanie camped?
+conv-26_q10      c2 FAIL  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  How long has Caroline had her current group of friends for? 
+conv-26_q88      c4 FAIL  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What is Caroline excited about in the adoption process?
+conv-26_q19      c1 FAIL  ev=2 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What do Melanie's kids like?
+conv-26_q12      c2 FAIL  ev=1 base=1 nohdf=1 noname=1 vec=0 fts=1 fts_nohdf=1  How long ago was Caroline's 18th birthday? Use the dates of 
+conv-26_q50      c3 pass  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What would Caroline's political leaning likely be?
+conv-26_q89      c4 pass  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What does Melanie think about Caroline's decision to adopt?
+conv-26_q23      c1 FAIL  ev=2 base=1 nohdf=2 noname=2 vec=1 fts=1 fts_nohdf=1  What books has Melanie read?
+conv-26_q16      c2 FAIL  ev=1 base=1 nohdf=1 noname=1 vec=0 fts=1 fts_nohdf=1  When did Melanie sign up for a pottery class? Use the dates 
+conv-26_q59      c3 FAIL  ev=2 base=1 nohdf=2 noname=2 vec=1 fts=1 fts_nohdf=1  Would Caroline be considered religious?
+conv-26_q90      c4 FAIL  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  How long have Mel and her husband been married?
+conv-26_q24      c1 FAIL  ev=2 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What does Melanie do to destress?
+conv-26_q17      c2 pass  ev=1 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  When is Caroline going to the transgender conference? Use th
+conv-26_q64      c3 FAIL  ev=1 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  Would Melanie likely enjoy the song "The Four Seasons" by Vi
+conv-26_q91      c4 pass  ev=1 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  What does Caroline's necklace symbolize?
+conv-26_q32      c1 FAIL  ev=4 base=2 nohdf=2 noname=2 vec=2 fts=1 fts_nohdf=1  What LGBTQ+ events has Caroline participated in?
+conv-26_q20      c2 FAIL  ev=1 base=0 nohdf=1 noname=1 vec=0 fts=1 fts_nohdf=1  When did Melanie go to the museum? Use the dates of the conv
+conv-26_q69      c3 FAIL  ev=3 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What personality traits might Melanie say Caroline has?
+conv-26_q92      c4 pass  ev=1 base=1 nohdf=1 noname=1 vec=0 fts=1 fts_nohdf=1  What country is Caroline's grandma from?
+conv-26_q34      c1 FAIL  ev=2 base=0 nohdf=0 noname=0 vec=0 fts=0 fts_nohdf=0  What events has Caroline participated in to help children?
+conv-26_q21      c2 pass  ev=1 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  When did Caroline have a picnic? Use the dates of the conver
+conv-26_q77      c3 FAIL  ev=2 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  Would Melanie go on another roadtrip soon?
+conv-26_q93      c4 pass  ev=1 base=1 nohdf=1 noname=1 vec=1 fts=1 fts_nohdf=1  What was grandma's gift to Caroline?
+
+46 questions (cat 1-4), 69 evidence turns found in the store
+the run's own evidence_recall (all bundle stages): 0.370
+
+variant                   limit 6              limit 12              limit 20
+                turns   questions     turns   questions     turns   questions
+base             0.319     21/46       0.362     24/46       0.478     29/46 
+nohdf            0.377     23/46       0.435     27/46       0.522     30/46 
+noname           0.377     23/46       0.435     27/46       0.522     30/46 
+vec              0.275     18/46       0.391     24/46       0.493     28/46 
+fts              0.333     23/46       0.377     24/46       0.435     26/46 
+fts_nohdf        0.319     22/46       0.362     23/46       0.377     23/46 
