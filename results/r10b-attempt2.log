@@ -1,0 +1,35 @@
+=== Campy Benchmark Harness (B381) ===
+Timestamp: 2026-10-06T06:40:58.715712+00:00Z
+Mode: STANDARD
+Target MCP Server: /Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/python -m campy.adapters.mcp_server
+[+] Starting isolated daemon (base config: /Users/djshelton/.campy/config.toml)...
+    ready in 3.0s at /tmp/campy-bench-zaz9xrol
+
+[+] Running LongMemEval (published dataset; {'variant': 'oracle', 'max_questions': 35, 'types': None})...
+    [1/35] gpt4_70e84552_abs (abstention, 24 turns)
+      store kept: /tmp/campy-bench-uj4t8vef
+    [2/35] 6a1eabeb (knowledge-update, 24 turns)
+      store kept: /tmp/campy-bench-z907ju9y
+    [3/35] 0a995998 (multi-session, 34 turns)
+      store kept: /tmp/campy-bench-bv134hod
+    [4/35] 7161e7e2 (single-session-assistant, 14 turns)
+      store kept: /tmp/campy-bench-b8qe8m3z
+    [5/35] 8a2466db (single-session-preference, 18 turns)
+      store kept: /tmp/campy-bench-zyen3xg8
+    [6/35] e47becba (single-session-user, 12 turns)
+      store kept: /tmp/campy-bench-k07tm_0a
+    [7/35] gpt4_2655b836 (temporal-reasoning, 36 turns)
+      store kept: /tmp/campy-bench-g96_htro
+    [8/35] gpt4_93159ced_abs (abstention, 24 turns)
+      store kept: /tmp/campy-bench-gyi2inun
+    !! SUITE INVALID: notify_turn: adapter reported daemon offline: '{"status": "queued_offline"}'
+    Completed in 1191.34s (calls=325, failures=1, valid=False)
+         Campy Benchmark Results (FULL)         
+┏━━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━┓
+┃ Suite ┃ Key Metrics ┃ Score / Rate ┃ Latency ┃
+┡━━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━┩
+└───────┴─────────────┴──────────────┴─────────┘
+
+[+] Recorded results (with per-probe details) to /private/tmp/cb-lme/results/r10b-lme-oracle-q35.json
+
+Harness execution complete.

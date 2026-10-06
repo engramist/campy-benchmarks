@@ -1,0 +1,1579 @@
+{
+  "timestamp": "2026-10-06T08:31:30.299872+00:00",
+  "provenance": {
+    "scorer_version": 4,
+    "argv": [
+      "run_all.py",
+      "--baseline",
+      "--isolated",
+      "--suite",
+      "longmemeval",
+      "--lme-variant",
+      "oracle",
+      "--lme-questions",
+      "35",
+      "--judge-model",
+      "gemma4:26b",
+      "--out",
+      "results/r10b-verify-b468.json"
+    ],
+    "harness": {
+      "path": "/private/tmp/cb-lme",
+      "commit": "0544d25e08b3f6be0247e66283cf8e85f959a18e",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "hippocampy": {
+      "path": "/Users/djshelton/Desktop/GitProjects/hippocampy",
+      "commit": "13484ba2302fc53a351f6a6b3b7204a7c69253e3",
+      "branch": "fix/b468-llm-steps-block-loop",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "daemon_config": {
+      "source": "isolated (written by harness)",
+      "derived_from": "/Users/djshelton/.campy/config.toml",
+      "sha256": "e22f300998d6437f7ceda45307c40088e4111f9a2ec67c4b30df0c92b6f6e9d5",
+      "llm_provider": "ollama",
+      "llm_model": "llama3.1:8b",
+      "llm_step_overrides": {},
+      "embeddings_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "compression_model": null
+    },
+    "store": {
+      "isolated": true,
+      "campy_home": "(deleted after run)",
+      "web_port": 63807,
+      "config_overrides": {
+        "capture.enabled": false,
+        "capture.codex.enabled": false,
+        "capture.claude_code.enabled": false,
+        "capture.vscode.enabled": false,
+        "daemon.restart_interval_hours": 0,
+        "watchdog.enabled": false,
+        "web.port": 63807,
+        "server.bind_host": "127.0.0.1",
+        "activity.log_path": "/tmp/campy-bench-tp4nbuth/activity.log"
+      },
+      "daemon_ready_seconds": 2.0,
+      "activity_log_lines": 2
+    },
+    "dataset_sha": {
+      "locomo": "dbbe2514f617d524",
+      "membench": "5ba306db91543c61",
+      "locomo10": "79fa87e90f040813@3eb6f2c5"
+    },
+    "python": "3.12.13",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "mode": "standard",
+  "mcp_configured": true,
+  "suites": {
+    "longmemeval": {
+      "suite": "longmemeval",
+      "dataset": {
+        "variant": "oracle",
+        "file": "/private/tmp/cb-lme/data/longmemeval_oracle.json",
+        "sha256": "821a2034d219ab45",
+        "options": {
+          "max_questions": 35,
+          "types": null
+        },
+        "questions": 35,
+        "turns": 746
+      },
+      "questions": 35,
+      "accuracy": 0.3714,
+      "task_averaged_accuracy": 0.3714,
+      "evidence_recall": 0.4956,
+      "evidence_over_ingest_limit": 0,
+      "errors": 0,
+      "by_category": {
+        "abstention": {
+          "n": 5,
+          "accuracy": 0.4,
+          "evidence_recall": 0.875
+        },
+        "knowledge-update": {
+          "n": 5,
+          "accuracy": 0.6,
+          "evidence_recall": 0.4667
+        },
+        "multi-session": {
+          "n": 5,
+          "accuracy": 0.4,
+          "evidence_recall": 0.6367
+        },
+        "single-session-assistant": {
+          "n": 5,
+          "accuracy": 0.2,
+          "evidence_recall": 0.0
+        },
+        "single-session-preference": {
+          "n": 5,
+          "accuracy": 0.4,
+          "evidence_recall": 0.4667
+        },
+        "single-session-user": {
+          "n": 5,
+          "accuracy": 0.4,
+          "evidence_recall": 0.6
+        },
+        "temporal-reasoning": {
+          "n": 5,
+          "accuracy": 0.2,
+          "evidence_recall": 0.5
+        }
+      },
+      "ingest_seconds": 3541.6,
+      "avg_latency_ms": 2624.7,
+      "details": [
+        {
+          "id": "gpt4_70e84552_abs",
+          "question_type": "temporal-reasoning",
+          "category": "abstention",
+          "abstention": true,
+          "question": "Which task did I complete first, fixing the fence or purchasing three cows from Peter?",
+          "question_date": "2023/05/30 (Tue) 08:08",
+          "expected": "The information provided is not enough. You mentioned fixing the fence but did not mention purchasing cows from Peter.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_b3070ec4_abs_1:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 128.4,
+          "compile_latency_ms": 47.6,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 663,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 5
+              }
+            ],
+            "top_items": [
+              "three weeks ago",
+              "2023/05/30",
+              "[user, 2026-10-06 07:29] [2023/05/30 (Tue) 04:10] I'm thinking of hosting a farm open house event soon and I want to make sure everything is perfect. Can you help me come up with some ideas for activities and also give me some tips on how \u2026",
+              "[user, 2026-10-06 07:29] [2023/05/30 (Tue) 04:10] I like the idea of a petting zoo, but I'm worried about the logistics of keeping all the animals contained and safe. Do you have any advice on how to set that up? By the way, I've also been\u2026",
+              "[user, 2026-10-06 07:29] [2023/05/30 (Tue) 04:10] I think I'll stop here for now. I've got a lot to think about with the farm open house event and selecting a new cow breed. Thanks for all the advice and guidance! I feel more confident abo\u2026",
+              "[user, 2026-10-06 07:29] [2023/05/30 (Tue) 08:29] I'm thinking of hosting a farm open house event soon and I was wondering if you could help me come up with some fun activities for kids and adults alike. By the way, speaking of the farm, I\u2026",
+              "[user, 2026-10-06 07:29] [2023/05/30 (Tue) 08:29] Thanks for the advice! I was thinking of getting a Brown Swiss or a Jersey, as I've heard they're both great for dairy production. I've also been doing some research online and talking to o\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, it appears that you mentioned fixing the fence on the east side of your property three weeks ago, which was before the current date of 2023/05/30. Therefore, I would conclude that you completed the task of fixing the fence first.",
+          "latency_ms": 2527.5,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "6a1eabeb",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "What was my personal best time in the charity 5K run?",
+          "question_date": "2023/06/01 (Thu) 00:58",
+          "expected": "25 minutes and 50 seconds (or 25:50)",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_a25d4a91_1:4",
+            "answer_a25d4a91_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 108.1,
+          "compile_latency_ms": 39.6,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 285,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "your personal schedule",
+              "(Thu",
+              "[user, 2026-10-06 07:31] [2023/05/27 (Sat) 10:20] I'm training for another charity 5K run coming up and I was wondering if you could give me some tips on how to improve my endurance. By the way, I'm hoping to beat my personal best time of \u2026",
+              "[user, 2026-10-06 07:31] [2023/05/27 (Sat) 10:20] I'm getting ready for a charity 5K run and I was wondering if you could give me some tips on how to improve my endurance. By the way, I'm hoping to beat my personal best time this time arou\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, your personal best time in the charity 5K run is 25:50. This information was mentioned in a conversation on 2023/05/27 (Sat) 10:20, where you expressed your goal of beating this time in the upcoming charity 5K run.",
+          "latency_ms": 1981.6,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "0a995998",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many items of clothing do I need to pick up or return from a store?",
+          "question_date": "2023/02/15 (Wed) 19:47",
+          "expected": "3",
+          "sessions": 3,
+          "turns": 34,
+          "evidence": [
+            "answer_afa9873b_2:10",
+            "answer_afa9873b_3:6",
+            "answer_afa9873b_1:4"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 174.3,
+          "compile_latency_ms": 45.6,
+          "evidence_recall": 0.3333,
+          "context": {
+            "total_token_estimate": 385,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 07:33] [2023/02/15 (Wed) 03:35] I need help organizing my closet. Can you give me some tips on how to declutter and categorize my clothes? Also, by the way, I still need to pick up my dry cleaning for the navy blue blazer\u2026",
+              "[user, 2026-10-06 07:33] [2023/02/15 (Wed) 03:35] That's a lot of tips! Thanks for the help. I'm going to start with decluttering my clothes. Can you give me some advice on how to decide what to keep and what to donate or discard? I've got\u2026",
+              "[user, 2026-10-06 07:33] [2023/02/15 (Wed) 03:35] I'll start with my short-sleeve shirts. I've got a lot of them, and some of them are from last summer. I'm not sure if I'll wear them again this year.",
+              "[user, 2026-10-06 07:33] [2023/02/15 (Wed) 07:47] I'm looking for some organization tips for my closet. It's been a mess since the holidays and I still have winter clothes to put away.",
+              "[user, 2026-10-06 07:33] [2023/02/15 (Wed) 07:47] I need to return some boots to Zara, actually. I got them on February 5th, but they were too small, so I exchanged them for a larger size. I just haven't had a chance to pick them up yet.",
+              "[user, 2026-10-06 07:33] [2023/02/15 (Wed) 13:53] I'm thinking of organizing my closet this weekend. Can you give me some tips on how to maximize my closet space? By the way, I just got back from a dinner date last Friday and wore my new b\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, you need to pick up one item of clothing: the navy blue blazer from the dry cleaner. You also need to return one item: the boots from Zara that you exchanged for a larger size.",
+          "latency_ms": 2238.1,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "7161e7e2",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "I'm checking our previous chat about the shift rotation sheet for GM social media agents. Can you remind me what was the rotation for Admon on a Sunday?",
+          "question_date": "2023/05/26 (Fri) 02:28",
+          "expected": "Admon was assigned to the 8 am - 4 pm (Day Shift) on Sundays.",
+          "sessions": 1,
+          "turns": 14,
+          "evidence": [
+            "answer_sharegpt_5Lzox6N_0:13"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 136.9,
+          "compile_latency_ms": 58.8,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 539,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "GM social media agents",
+              "Admon",
+              "Sunday",
+              "Sunday - Saturday",
+              "7 agents",
+              "[user, 2026-10-06 07:36] [2023/05/24 (Wed) 16:21] can u create a shift rotation sheet for GM social media agents",
+              "[user, 2026-10-06 07:36] [2023/05/24 (Wed) 16:21] 7 agents",
+              "[user, 2026-10-06 07:36] [2023/05/24 (Wed) 16:21] 4 shifts as follows: \"8 am till 4 pm - 12 pm till 8 pm - 4 pm till 12 am - 12 am till 8 am \""
+            ]
+          },
+          "answer": "Based on our previous conversation, I can see that we discussed the shift rotation sheet for GM social media agents. According to the rotation, Sunday falls under the 4 pm till 12 am shift.",
+          "latency_ms": 2076.4,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "8a2466db",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you recommend some resources where I can learn more about video editing?",
+          "question_date": "2023/05/24 (Wed) 22:03",
+          "expected": "The user would prefer responses that suggest resources specifically tailored to Adobe Premiere Pro, especially those that delve into its advanced settings. They might not prefer general video editing resources or resources related to other video editing software.",
+          "sessions": 1,
+          "turns": 18,
+          "evidence": [
+            "answer_edb03329:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 32.5,
+          "compile_latency_ms": 39.6,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 65,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 07:39] [2023/05/20 (Sat) 01:03] Can you explain the difference between the Lumetri Color Panel and the Legacy Color Grading tools in Premiere Pro? I'm not sure when to use each, and I want to make sure I'm using the right\u2026"
+            ]
+          },
+          "answer": "Based on the provided context, it seems that the user is interested in learning more about video editing, specifically in Premiere Pro. However, the memory context only contains a conversation about the Lumetri Color Panel and Legacy Color Grading tools, which is a specific aspect of video editing.\n\nI can suggest some general resources for learning video editing, but I would like to clarify that the memory context does not contain any information about the user's current level of expertise or specific interests within video editing.\n\nSome general resources for learning video editing include:\n\n* Adobe Premiere Pro tutorials on YouTube and the Adobe website\n* Online courses on Udemy, Coursera, and LinkedIn Learning\n* Video editing communities and forums, such as Reddit's r/VideoEditing\n\nPlease let me know if you would like more specific recommendations based on your interests and level of expertise.",
+          "latency_ms": 3615.4,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "e47becba",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "What degree did I graduate with?",
+          "question_date": "2023/05/23 (Tue) 19:11",
+          "expected": "Business Administration",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_280352e9:4",
+            "answer_280352e9:5"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 82.2,
+          "compile_latency_ms": 40.0,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 0,
+            "sections": [],
+            "top_items": []
+          },
+          "answer": "I don't have any information in my memory about your educational background or the degree you graduated with.",
+          "latency_ms": 585.5,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "gpt4_2655b836",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "What was the first issue I had with my new car after its first service?",
+          "question_date": "2023/04/10 (Mon) 23:07",
+          "expected": "GPS system not functioning correctly",
+          "sessions": 3,
+          "turns": 36,
+          "evidence": [
+            "answer_4be1b6b4_3:2",
+            "answer_4be1b6b4_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 269.4,
+          "compile_latency_ms": 50.2,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 953,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "my new car accessories",
+              "2023/04/10 (Mon",
+              "my car",
+              "car wax and detailing",
+              "car wax and detailing products or services",
+              "2023/04/10",
+              "[user, 2026-10-06 07:41] [2023/04/10 (Mon) 14:47] That's really helpful, thanks! I'll definitely keep those tips in mind to improve my gas mileage. And yeah, I'll ask about additional services like interior cleaning and paint protection wh\u2026",
+              "[user, 2026-10-06 07:41] [2023/04/10 (Mon) 17:15] I think I'll try to balance my loyalty to Shell with finding cheaper options along the way. I'll use gas price comparison apps to find the best deals and fill up at Shell stations when they\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, I found a relevant conversation that occurred on the same date as the current date (2023/04/10). The user mentioned that they had just gotten their car serviced for the first time on March 15th, and it was a great experience.\n\nHowever, I did not find any information about the first issue the user had with their new car after its first service. The conversation only mentions the user's positive experience with the service and their plans to get their car detailed soon.\n\nMemory context does not contain enough information to answer the query.",
+          "latency_ms": 3758.9,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "gpt4_93159ced_abs",
+          "question_type": "temporal-reasoning",
+          "category": "abstention",
+          "abstention": true,
+          "question": "How long have I been working before I started my current job at Google?",
+          "question_date": "2023/05/23 (Tue) 10:59",
+          "expected": "The information provided is not enough. From the information provided, You haven't started working at Google yet.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 223.5,
+          "compile_latency_ms": 45.7,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 480,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 4
+              }
+            ],
+            "top_items": [
+              "(Tue",
+              "[user, 2026-10-06 07:45] [2023/05/23 (Tue) 05:40] I think my team would greatly benefit from these tools, especially with the high-priority project we're working on at NovaTech. My top priority is to identify performance bottlenecks and op\u2026",
+              "[user, 2026-10-06 07:45] [2023/05/23 (Tue) 05:40] I'll start by saying that I'm a software engineer, specifically a backend developer, and I've been in this field since I graduated with a degree in Computer Science from the University of C\u2026",
+              "[user, 2026-10-06 07:45] [2023/05/23 (Tue) 10:34] I'll definitely check out these tools and see which one fits my freelance workflow. I've been thinking of taking my freelance business to the next level, and using a digital tool to track m\u2026",
+              "[user, 2026-10-06 07:45] [2023/05/23 (Tue) 10:34] I'll consider these factors when pricing my project management and consulting services. It's helpful to have a structured approach to pricing, and I appreciate the example you provided. I'l\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, it appears that you have been working as a software engineer, specifically a backend developer, for about 4 years and 3 months before starting your current job at Google. This information is mentioned in the conversation memory from 2026-10-06 07:45.",
+          "latency_ms": 2357.1,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "6aeb4375",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "How many Korean restaurants have I tried in my city?",
+          "question_date": "2023/10/08 (Sun) 21:51",
+          "expected": "four",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_3f9693b7_1:8",
+            "answer_3f9693b7_2:2"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 28.3,
+          "compile_latency_ms": 39.6,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 578,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 5
+              }
+            ],
+            "top_items": [
+              "my city",
+              "Korean",
+              "Korean-style BBQ beef",
+              "[user, 2026-10-06 07:49] [2023/08/11 (Fri) 09:00] By the way, speaking of noodles, have you tried any good Korean restaurants in your city lately? I've tried three different ones recently, and each has its own unique flavor and style.",
+              "[user, 2026-10-06 07:49] [2023/09/30 (Sat) 18:01] I'm planning a dinner party and need some help with the menu. I was thinking of making Korean-style BBQ beef, but I want to know if you have any recommendations for side dishes that would c\u2026",
+              "[user, 2026-10-06 07:49] [2023/09/30 (Sat) 18:01] I think I'll go with kimchi and bokkeumbap. By the way, have you tried any good Korean restaurants in my city lately? I've tried four different ones so far, and I'm always looking for new r\u2026",
+              "[user, 2026-10-06 07:49] [2023/09/30 (Sat) 18:01] I think I'll go with the samosas and saag aloo. Do you have any recommendations for a good brand of basmati rice? I've been trying out different types of rice lately, and I want to make sur\u2026",
+              "[user, 2026-10-06 07:49] [2023/09/30 (Sat) 18:01] I think I'll stick with the traditional Indian basmati rice. I'll pick up a bag from the store later today. By the way, have you heard about that new Indian restaurant that just opened up i\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, you have tried four different Korean restaurants in your city. The user mentioned trying three different Korean restaurants in their conversation on 2023/08/11, and then you mentioned trying four different ones in your conversation on 2023/09/30.",
+          "latency_ms": 2320.2,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "6d550036",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many projects have I led or am currently leading?",
+          "question_date": "2023/05/30 (Tue) 04:18",
+          "expected": "2",
+          "sessions": 4,
+          "turns": 44,
+          "evidence": [
+            "answer_ec904b3c_4:0",
+            "answer_ec904b3c_2:2",
+            "answer_ec904b3c_1:0",
+            "answer_ec904b3c_3:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 205.3,
+          "compile_latency_ms": 42.8,
+          "evidence_recall": 0.25,
+          "context": {
+            "total_token_estimate": 268,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 07:50] [2023/05/24 (Wed) 09:36] I think I've covered everything I wanted to discuss. Thanks for the chat, it was really helpful to bounce ideas and get feedback on my project. I feel more confident now about presenting my\u2026",
+              "[user, 2026-10-06 07:50] [2023/05/28 (Sun) 17:25] I'm working on a project that involves analyzing customer data to identify trends and patterns. I was thinking of using clustering analysis, but I'm not sure which type of clustering method\u2026",
+              "[user, 2026-10-06 07:50] [2023/05/30 (Tue) 02:38] Can you provide more information on the credibility and trust factors mentioned in the systematic review by Hussain and Ali? I'm particularly interested in how social media influencers esta\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, it appears that you have led at least one project in the past. In the conversation on 2023/05/28 (Sun) 17:25, you mentioned that you led the data analysis team for a Marketing Research class project, where you did a comprehensive market analysis for a new product launch.\n\nHowever, I do not have information about any current projects you are leading. The conversation on 2023/05/30 (Tue) 02:38 is about a different topic, and the conversation on 2023/05/24 (Wed) 09:36 is about a project you had discussed earlier, but it's not clear if you are still leading it.\n\nTherefore, I can confirm that you have led at least one project in the past, but I do not have information about any current projects you are leading.",
+          "latency_ms": 4317.4,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "c4f10528",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "I'm planning to visit Bandung again and I was wondering if you could remind me of the name of that restaurant in Cihampelas Walk that serves a great Nasi Goreng?",
+          "question_date": "2023/05/25 (Thu) 15:43",
+          "expected": "Miss Bee Providore",
+          "sessions": 1,
+          "turns": 14,
+          "evidence": [
+            "answer_ultrachat_234453:7"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 46.7,
+          "compile_latency_ms": 55.1,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 367,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "the Miss Bee's Nasi Goreng",
+              "Cihampelas Walk",
+              "Bandung",
+              "great suggestions",
+              "[user, 2026-10-06 07:53] [2023/05/22 (Mon) 22:17] Yum, all of those dishes sound amazing! I'm definitely going to try the Miss Bee's Nasi Goreng and finish it off with the chocolate brownie."
+            ]
+          },
+          "answer": "Based on the memory context, I can answer your question. The restaurant in Cihampelas Walk that serves a great Nasi Goreng is Miss Bee's.",
+          "latency_ms": 1361.0,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "06878be2",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you suggest some accessories that would complement my current photography setup?",
+          "question_date": "2023/05/30 (Tue) 05:04",
+          "expected": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+          "sessions": 1,
+          "turns": 16,
+          "evidence": [
+            "answer_555dfb94:0",
+            "answer_555dfb94:8",
+            "answer_555dfb94:14"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 32.6,
+          "compile_latency_ms": 38.5,
+          "evidence_recall": 0.6667,
+          "context": {
+            "total_token_estimate": 154,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 07:54] [2023/05/28 (Sun) 12:58] What's the best way to clean my Sony 24-70mm f/2.8 lens? I've heard that using a soft cloth and some cleaning solution can leave streaks or scratches on the lens.",
+              "[user, 2026-10-06 07:54] [2023/05/28 (Sun) 12:58] As a Sony camera user, I've been thinking about upgrading my camera bag to something more comfortable and durable. Do you have any recommendations for camera bags that are specifically desi\u2026"
+            ]
+          },
+          "answer": "Based on our previous conversations, I see that you're a Sony camera user and have been considering upgrading your camera bag. You've also mentioned concerns about cleaning your Sony 24-70mm f/2.8 lens.\n\nAs for accessories that would complement your current photography setup, I'd recommend considering a lens cleaning kit that's specifically designed for your Sony lens. This could include a microfiber cloth and a cleaning solution that's safe for your lens.\n\nAdditionally, since you're looking to upgrade your camera bag, I'd suggest exploring options that are specifically designed for Sony cameras. Some popular brands that come to mind include Think Tank, Lowepro, and Tamrac. These bags are often designed with comfort and durability in mind, and may offer features such as padded dividers, weather-resistant materials, and comfortable shoulder straps.\n\nLet me know if you'd like more specific recommendations or have any other questions!",
+          "latency_ms": 4002.1,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "118b2229",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "How long is my daily commute to work?",
+          "question_date": "2023/05/30 (Tue) 08:00",
+          "expected": "45 minutes each way",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_40a90d51:8"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 56.8,
+          "compile_latency_ms": 41.3,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 412,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "my daily commute",
+              "daily",
+              "(Tue",
+              "[user, 2026-10-06 07:55] [2023/05/23 (Tue) 18:02] I'm looking for some new fiction audiobook recommendations. I've been enjoying audiobooks a lot lately, especially during my daily commute.",
+              "[user, 2026-10-06 07:55] [2023/05/23 (Tue) 18:02] I've been listening to audiobooks during my daily commute, which takes 45 minutes each way.",
+              "[user, 2026-10-06 07:55] [2023/05/23 (Tue) 18:02] I've noticed that I tend to retain more information from audiobooks than e-books, maybe because audiobooks are more engaging or because I can multitask while listening to them. I've started\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, I can answer your question about your daily commute to work.\n\nAccording to the conversation history, your daily commute takes 45 minutes each way. Since you mentioned it's a round trip, I'll assume the total daily commute time is 45 minutes + 45 minutes = 90 minutes.\n\nTherefore, your daily commute to work is 90 minutes.",
+          "latency_ms": 2261.5,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "gpt4_2487a7cb",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "Which event did I attend first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar?",
+          "question_date": "2023/05/28 (Sun) 06:47",
+          "expected": "'Data Analysis using Python' webinar",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_1c6b85ea_2:2",
+            "answer_1c6b85ea_1:10"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 143.2,
+          "compile_latency_ms": 55.2,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 543,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "Python",
+              "data visualization",
+              "Sun",
+              "2023/05/28",
+              "[user, 2026-10-06 07:56] [2023/05/28 (Sun) 07:17] I'm actually thinking of using Python to connect to the data source and then create the dashboard, so I don't think the data connection and integration aspect is a major concern for me. I'm\u2026",
+              "[user, 2026-10-06 07:56] [2023/05/28 (Sun) 07:17] I think I'll try out both Tableau and Power BI's free trials to get a feel for their interfaces and customization options. I'll also explore their Python APIs and documentation to see which\u2026",
+              "[user, 2026-10-06 07:56] [2023/05/28 (Sun) 21:04] I'll definitely check out these recommendations. I've been trying to implement some of the strategies like prioritizing tasks and breaking them down into smaller chunks, and it's been helpi\u2026"
+            ]
+          },
+          "answer": "I don't have enough information to determine which event you attended first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar. The provided context mentions your interest in using Python for data analysis and your plans to attend a webinar, but it does not specify which event you attended first.",
+          "latency_ms": 2203.6,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "982b5123_abs",
+          "question_type": "temporal-reasoning",
+          "category": "abstention",
+          "abstention": true,
+          "question": "When did I book the Airbnb in Sacramento?",
+          "question_date": "2023/05/25 (Thu) 14:37",
+          "expected": "The information provided is not enough. You only mentioned booking Airbnb in San Francisco.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_ab603dd5_abs_1:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 103.1,
+          "compile_latency_ms": 39.8,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 597,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 4
+              }
+            ],
+            "top_items": [
+              "Airbnb",
+              "[2023/05/25 (Thu",
+              "[2023/05/25 (Thu)",
+              "2023/05/25",
+              "[user, 2026-10-06 07:58] [2023/05/25 (Thu) 03:03] I'm planning a trip to San Francisco and was wondering if you could recommend some good neighborhoods to stay in. By the way, I've had a great experience with Airbnb in the past, like when \u2026",
+              "[user, 2026-10-06 07:58] [2023/05/25 (Thu) 03:03] I'll definitely check out those options. Can you also help me with transportation from the airport to my Airbnb in the city? I don't plan on renting a car.",
+              "[user, 2026-10-06 07:58] [2023/05/25 (Thu) 10:17] I'm planning a trip to San Francisco for next month and I was wondering if you could recommend some good restaurants in the Haight-Ashbury neighborhood. By the way, I've been to SF before, \u2026",
+              "[user, 2026-10-06 07:58] [2023/05/25 (Thu) 10:17] I'm actually planning to rent a car for my upcoming San Francisco trip, so I was wondering if you could recommend any scenic drives or routes that I shouldn't miss around the Bay Area."
+            ]
+          },
+          "answer": "I cannot provide information about a specific Airbnb booking. Is there anything else I can help you with?",
+          "latency_ms": 1649.9,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "830ce83f",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "Where did Rachel move to after her recent relocation?",
+          "question_date": "2023/06/24 (Sat) 08:50",
+          "expected": "the suburbs",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_0b1a0942_1:2",
+            "answer_0b1a0942_1:4",
+            "answer_0b1a0942_2:2"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 67.7,
+          "compile_latency_ms": 38.2,
+          "evidence_recall": 0.3333,
+          "context": {
+            "total_token_estimate": 144,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "Rachel",
+              "[user, 2026-10-06 08:00] [2023/05/21 (Sun) 09:14] She moved to Chicago.",
+              "[user, 2026-10-06 08:00] [2023/05/21 (Sun) 09:14] I'll ask Rachel which neighborhood she's living in, and then I can narrow down the options for accommodations. Thanks for the suggestions!"
+            ]
+          },
+          "answer": "According to the conversation history, Rachel moved to Chicago after her recent relocation.",
+          "latency_ms": 1062.7,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "gpt4_59c863d7",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many model kits have I worked on or bought?",
+          "question_date": "2023/05/30 (Tue) 21:08",
+          "expected": "I have worked on or bought five model kits. The scales of the models are: Revell F-15 Eagle (scale not mentioned), Tamiya 1/48 scale Spitfire Mk.V, 1/16 scale German Tiger I tank, 1/72 scale B-29 bomber, and 1/24 scale '69 Camaro.",
+          "sessions": 4,
+          "turns": 46,
+          "evidence": [
+            "answer_593bdffd_1:0",
+            "answer_593bdffd_2:0",
+            "answer_593bdffd_2:8",
+            "answer_593bdffd_3:0",
+            "answer_593bdffd_4:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 201.4,
+          "compile_latency_ms": 44.7,
+          "evidence_recall": 0.6,
+          "context": {
+            "total_token_estimate": 394,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 08:01] [2023/05/21 (Sun) 09:04] I'm looking for some tips on weathering techniques for my model kits. I've been getting back into model building and I recently finished a simple Revell F-15 Eagle kit that I picked up on a\u2026",
+              "[user, 2026-10-06 08:01] [2023/05/21 (Sun) 09:04] I'm looking forward to adding some extra details to my B-29 bomber. I'll make sure to use the right materials and techniques to create realistic antennas and aerials. Thanks for the tips an\u2026",
+              "[user, 2026-10-06 08:01] [2023/05/21 (Sun) 17:52] I didn't think to use a wet palette, that's a great tip. What's the best way to apply a metallic sheen to a model? I've been using a clear coat, but I'm not sure if that's the best approach\u2026",
+              "[user, 2026-10-06 08:01] [2023/05/27 (Sat) 10:59] I'm looking for some tips on weathering techniques for my model tanks. I've been using AK Interactive products, but I'm interested in trying out some new methods. By the way, I also started\u2026",
+              "[user, 2026-10-06 08:01] [2023/05/29 (Mon) 20:29] I'm looking for some tips on photo-etching for my new 1/72 scale B-29 bomber model kit. I've never tried it before, but I've seen some amazing results online. By the way, I just got this ki\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, it appears that you have worked on or bought the following model kits:\n\n1. Revell F-15 Eagle (1/72 scale)\n2. B-29 bomber (1/72 scale)\n3. 1/16 scale German Tiger I tank\n4. 1/24 scale '69 Camaro\n\nAdditionally, you mentioned that you recently finished the Revell F-15 Eagle kit and are working on the B-29 bomber, as well as a diorama featuring the 1/16 scale German Tiger I tank.",
+          "latency_ms": 3340.8,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "89527b6b",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "I'm going back to our previous conversation about the children's book on dinosaurs. Can you remind me what color was the scaly body of the Plesiosaur in the image?",
+          "question_date": "2023/05/24 (Wed) 21:34",
+          "expected": "The Plesiosaur had a blue scaly body.",
+          "sessions": 1,
+          "turns": 2,
+          "evidence": [
+            "answer_sharegpt_YkWn1Ne_0:1"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 11.0,
+          "compile_latency_ms": 47.0,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 85,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 08:04] [2023/05/21 (Sun) 10:20] pretend you're an author, write a children's book about dinosaurs. the book will include images of the dinosaurs. Wherever it's appropriate to insert an image, insert the image by writing t\u2026"
+            ]
+          },
+          "answer": "I'm happy to help you with your question! However, I must inform you that the context provided does not contain any information about the color of the Plesiosaur's scaly body. The context only mentions a task to write a children's book about dinosaurs and includes a description of an image, but it does not specify the color of the Plesiosaur's body.\n\nIf you'd like to continue the conversation, I can try to help you with writing the children's book or provide more information about dinosaurs in general.",
+          "latency_ms": 2537.7,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "75832dbd",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you recommend some recent publications or conferences that I might find interesting?",
+          "question_date": "2023/05/22 (Mon) 14:25",
+          "expected": "The user would prefer suggestions related to recent research papers, articles, or conferences that focus on artificial intelligence in healthcare, particularly those that involve deep learning for medical image analysis. They would not be interested in general AI topics or those unrelated to healthcare.",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_d87a6ef8:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 26.8,
+          "compile_latency_ms": 37.2,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 52,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 08:05] [2023/05/20 (Sat) 06:37] Can you give me an overview of the recent advancements in this field of deep learning for medical image analysis? Skip the basics as I am working in the field."
+            ]
+          },
+          "answer": "Based on the provided context, I don't have any specific recommendations for recent publications or conferences in the field of deep learning for medical image analysis. However, I can suggest some general approaches to find relevant information.\n\nYou may want to check the latest issues of top-tier journals in the field, such as Nature Medicine, Lancet, or IEEE Transactions on Medical Imaging. You can also search for recent conference proceedings from major events like the International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI) or the Conference on Computer Vision and Pattern Recognition (CVPR).\n\nAdditionally, you can explore online platforms like arXiv, which provides a repository of electronic preprints (particularly in fields like physics, mathematics, computer science, and related disciplines) that may be relevant to your interests.\n\nPlease note that these suggestions are based on general knowledge and not specific to your request, as the context provided does not contain any information about recent publications or conferences.",
+          "latency_ms": 4122.6,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "51a45a95",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "Where did I redeem a $5 coupon on coffee creamer?",
+          "question_date": "2023/05/30 (Tue) 01:13",
+          "expected": "Target",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_d61669c7:4"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 76.7,
+          "compile_latency_ms": 39.8,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 295,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "the \"Expiration Date\" filter",
+              "[user, 2026-10-06 08:05] [2023/05/27 (Sat) 07:11] I actually redeemed a $5 coupon on coffee creamer last Sunday, which was a nice surprise since I didn't know I had it in my email inbox.",
+              "[user, 2026-10-06 08:05] [2023/05/27 (Sat) 07:11] I shop at Target pretty frequently, maybe every other week. I like buying household items, toiletries, and sometimes clothes for my kids. I've also been using their Cartwheel app for a few \u2026",
+              "[user, 2026-10-06 08:05] [2023/05/27 (Sat) 07:11] I think the Cartwheel app is really user-friendly and easy to navigate. I like how it's organized by category and how I can easily browse through the offers and add them to my list. One thi\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, I found a relevant conversation where you mentioned redeeming a $5 coupon on coffee creamer. According to your statement on 2023/05/27 (Sat) 07:11, you redeemed the coupon last Sunday, which would be the previous Sunday to the date of the conversation, making it 2023/05/21.\n\nAs for where you redeemed the coupon, you didn't explicitly mention the store, but based on your conversation about shopping at Target and using their Cartwheel app, it's likely that you redeemed the coupon at Target.",
+          "latency_ms": 3070.4,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "gpt4_76048e76",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "Which vehicle did I take care of first in February, the bike or the car?",
+          "question_date": "2023/03/10 (Fri) 23:15",
+          "expected": "bike",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_b535969f_1:0",
+            "answer_b535969f_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 52.6,
+          "compile_latency_ms": 40.6,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 660,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "mid-February",
+              "2023/03/10",
+              "[user, 2026-10-06 08:07] [2023/03/10 (Fri) 08:11] I'm thinking of getting a newer car and I'm researching the new hybrid model of my current Toyota Corolla. Do you have any info on its fuel efficiency and any promotions or discounts availa\u2026",
+              "[user, 2026-10-06 08:07] [2023/03/10 (Fri) 08:11] I'd like to know more about the maintenance costs of the Corolla Hybrid. I've been doing some maintenance on my current car myself, like washing and vacuuming, but I had to take it to the d\u2026",
+              "[user, 2026-10-06 08:07] [2023/03/10 (Fri) 08:11] I'm considering trading in my current Corolla for the hybrid model, and I'm still doing some research. I did just get my car insurance policy renewed, and I was able to get a better rate wi\u2026",
+              "[user, 2026-10-06 08:07] [2023/03/10 (Fri) 22:50] I'm thinking of getting a new bike rack for my car. Do you have any recommendations? By the way, I've been having some issues with my bike lately - in mid-February, I had to take it in for \u2026",
+              "[user, 2026-10-06 08:07] [2023/03/10 (Fri) 22:50] I have a hybrid bike, and I want to carry just one bike. My car is a Toyota Corolla. I'm not sure about the type of mount, but I'd like something easy to install and remove. I'm open to dif\u2026",
+              "[user, 2026-10-06 08:07] [2023/03/10 (Fri) 22:50] By the way, speaking of bikes, I'm glad I got my bike repaired back in mid-February. The gears were acting up, and I couldn't shift properly, but the bike shop fixed it for me. It's been ru\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, it appears that you took care of your car first in February. On February 27th, you washed your Toyota Corolla, which suggests that you were attending to its maintenance needs. Additionally, you mentioned that your friend borrowed your car and noticed the \"check engine\" light on, prompting you to take it to the dealership for a routine checkup. This implies that you were prioritizing your car's maintenance over your bike's in mid-February.",
+          "latency_ms": 3299.8,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "c8090214_abs",
+          "question_type": "temporal-reasoning",
+          "category": "abstention",
+          "abstention": true,
+          "question": "How many days before I bought my iPad did I attend the Holiday Market?",
+          "question_date": "2023/05/27 (Sat) 17:02",
+          "expected": "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_70dc7d08_abs_1:0",
+            "answer_70dc7d08_abs_1:8"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 27.9,
+          "compile_latency_ms": 45.8,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 339,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 08:08] [2023/05/27 (Sat) 13:37] I'm looking to upgrade my phone case and screen protector. Can you show me some options for iPhone 13 Pro cases and screen protectors? By the way, I got my iPhone 13 Pro at a discounted pri\u2026",
+              "[user, 2026-10-06 08:08] [2023/05/27 (Sat) 13:37] Can you show me some waterproof phone cases, I'm planning to use my phone more outdoors and want to make sure it's protected from water and dust.",
+              "[user, 2026-10-06 08:08] [2023/05/27 (Sat) 18:16] I'm looking for some gift ideas for my sister's birthday, which is coming up soon. I'd like to get her something nice, but I'm on a budget. Do you have any suggestions? By the way, I attend\u2026",
+              "[user, 2026-10-06 08:08] [2023/05/27 (Sat) 18:16] I think I'll go back to the Holiday Market and take a closer look at the jewelry vendors. I remember seeing a few pieces that caught my eye, but I wasn't sure if they were the right fit for\u2026"
+            ]
+          },
+          "answer": "To answer your question, I need to find the date when you attended the Holiday Market and the date when you bought your iPad. \n\nFrom the conversation, I see that you attended the Holiday Market a week before Black Friday. Black Friday was when you bought your iPhone 13 Pro, which was on sale for $800. \n\nHowever, I don't have any information about when you bought your iPad. The conversation only mentions your iPhone 13 Pro purchase. \n\nTherefore, I must say that I don't have enough information to provide an accurate answer to your question.",
+          "latency_ms": 3095.5,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "852ce960",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "What was the amount I was pre-approved for when I got my mortgage from Wells Fargo?",
+          "question_date": "2023/12/09 (Sat) 11:53",
+          "expected": "$400,000",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_3a6f1e82_1:2",
+            "answer_3a6f1e82_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 203.0,
+          "compile_latency_ms": 46.5,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 80,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "Wells Fargo"
+            ]
+          },
+          "answer": "I'm sorry, but I don't have enough information in my memory context to answer your question. The context only mentions Wells Fargo, but it doesn't contain any details about your mortgage or the pre-approval amount.",
+          "latency_ms": 1218.5,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "b5ef892d",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many days did I spend on camping trips in the United States this year?",
+          "question_date": "2023/04/29 (Sat) 22:31",
+          "expected": "8 days.",
+          "sessions": 3,
+          "turns": 36,
+          "evidence": [
+            "answer_a8b4290f_2:0",
+            "answer_a8b4290f_1:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 210.2,
+          "compile_latency_ms": 49.2,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 343,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "2023/04/29",
+              "[user, 2026-10-06 08:12] [2023/04/29 (Sat) 04:40] I'm looking for some new hiking boots. Do you have any recommendations for waterproof boots that are good for multi-day backpacking trips? By the way, I just got back from a 3-day solo camp\u2026",
+              "[user, 2026-10-06 08:12] [2023/04/29 (Sat) 16:26] I'm planning a trip to Moab, Utah and was wondering if you could recommend some must-see attractions and trails in the area. By the way, I've been loving the scenic drives and hikes in Utah\u2026",
+              "[user, 2026-10-06 08:12] [2023/04/29 (Sat) 19:01] I'm planning a trip to the Rocky Mountains in Colorado and I was wondering if you could recommend some good hiking trails and camping spots in the area. By the way, I just got back from an \u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, I can see that you mentioned two camping trips this year:\n\n1. A 3-day solo camping trip to Big Sur in early April.\n2. A 5-day camping trip to Yellowstone National Park last month (which would be in March, considering the current date is April 29th).\n\nTherefore, the total number of days you spent on camping trips in the United States this year is 3 + 5 = 8 days.",
+          "latency_ms": 2565.0,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "e9327a54",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "I'm planning to revisit Orlando. I was wondering if you could remind me of that unique dessert shop with the giant milkshakes we talked about last time?",
+          "question_date": "2023/05/30 (Tue) 09:10",
+          "expected": "The Sugar Factory at Icon Park.",
+          "sessions": 1,
+          "turns": 14,
+          "evidence": [
+            "answer_ultrachat_480665:7"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 82.0,
+          "compile_latency_ms": 53.3,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 108,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "Orlando",
+              "[user, 2026-10-06 08:15] [2023/05/21 (Sun) 04:16] Please suggest some family-friendly activities to do in Orlando."
+            ]
+          },
+          "answer": "I'm happy to help you plan your trip to Orlando! However, I must inform you that I don't have any specific information about a unique dessert shop with giant milkshakes that we discussed previously. My memory only contains a mention of Orlando from a previous conversation, but it doesn't mention any specific dessert shop.\n\nIf you'd like, I can try to help you find some family-friendly activities to do in Orlando, as we discussed previously. Alternatively, I can try to provide you with some general recommendations for dessert shops in Orlando, but I won't be able to recall a specific shop that we previously discussed.",
+          "latency_ms": 2794.3,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "0edc2aef",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you suggest a hotel for my upcoming trip to Miami?",
+          "question_date": "2023/05/29 (Mon) 16:40",
+          "expected": "The user would prefer suggestions of hotels in Miami that offer great views, possibly of the ocean or the city skyline, and have unique features such as a rooftop pool or a hot tub on the balcony. They may not prefer suggestions of basic or budget hotels without these features.",
+          "sessions": 1,
+          "turns": 20,
+          "evidence": [
+            "answer_d586e9cd:2"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 77.2,
+          "compile_latency_ms": 41.8,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 221,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "The Edgewater Hotel",
+              "[user, 2026-10-06 08:17] [2023/05/27 (Sat) 18:36] I'd like to know if they have any special packages or promotions that include a room with a hot tub on the balcony and a complimentary room service breakfast.",
+              "[user, 2026-10-06 08:17] [2023/05/27 (Sat) 18:36] I think I'll stick with the Space Needle Romance Package at The Edgewater Hotel. The hot tub on the balcony with a view of the Space Needle sounds amazing, and the complimentary room servic\u2026"
+            ]
+          },
+          "answer": "Based on the context provided, I would suggest The Edgewater Hotel for your upcoming trip to Miami. You've already expressed interest in booking the Space Needle Romance Package at this hotel, which includes a room with a hot tub on the balcony and a complimentary room service breakfast, among other perks.",
+          "latency_ms": 1616.3,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "58bf7951",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "What play did I attend at the local community theater?",
+          "question_date": "2023/05/30 (Tue) 03:57",
+          "expected": "The Glass Menagerie",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_355c48bb:4"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 36.7,
+          "compile_latency_ms": 40.3,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 266,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 08:18] [2023/05/27 (Sat) 15:29] I'm looking for some recommendations for local Italian restaurants. I recently tried the new place downtown and it was pretty good, but I'd love to explore other options.",
+              "[user, 2026-10-06 08:18] [2023/05/27 (Sat) 15:29] I'll definitely try those suggestions. By the way, I recently went to a play at the local community theater and was impressed by the lead actress's performance - she reminded me of my frien\u2026",
+              "[user, 2026-10-06 08:18] [2023/05/27 (Sat) 15:29] I'll definitely try those suggestions. I've been thinking about taking some acting classes to improve my skills, especially after my recent audition for a role in \"The Crucible\" didn't go w\u2026",
+              "[user, 2026-10-06 08:18] [2023/05/27 (Sat) 15:29] I'm thinking of focusing on scene study and character development. I've always struggled with really getting into character and making my performances feel authentic. I'd love to work on th\u2026"
+            ]
+          },
+          "answer": "I'm happy to help you figure out which play you attended at the local community theater. Unfortunately, the context provided doesn't mention the title of the play you attended. However, it does mention that you recently went to a play at the local community theater and were impressed by the lead actress's performance. It also mentions that you auditioned for a role in \"The Crucible,\" but it doesn't confirm that you attended a production of that play. If you'd like to provide more context or clarify which play you're thinking of, I'd be happy to try and help further.",
+          "latency_ms": 3027.7,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "gpt4_2312f94c",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?",
+          "question_date": "2023/03/15 (Wed) 03:53",
+          "expected": "Samsung Galaxy S22",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_5328c3c2_1:0",
+            "answer_5328c3c2_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 87.8,
+          "compile_latency_ms": 45.7,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 612,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Samsung Galaxy S22",
+              "2023/03/15",
+              "[user, 2026-10-06 08:19] [2023/03/15 (Wed) 00:56] I'm planning a trip to Hawaii and I want to make sure my new phone stays charged. Can you recommend some must-visit places in Hawaii? By the way, I recently got a new Samsung Galaxy S22 fro\u2026",
+              "[user, 2026-10-06 08:19] [2023/03/15 (Wed) 00:56] I was thinking of visiting the Haleakala National Park on Maui. Can you tell me more about the sunrise viewing at the summit? I got a good deal on my new phone, saving around $100 with a st\u2026",
+              "[user, 2026-10-06 08:19] [2023/03/15 (Wed) 00:56] I'm also planning to use my portable power bank, Anker PowerCore 20000, that I bought from Amazon a week before I got my new phone, to ensure my devices stay charged during the trip.",
+              "[user, 2026-10-06 08:19] [2023/03/15 (Wed) 10:31] I'm planning a trip to Hawaii and I need to pack the right adapters for my devices. Can you help me figure out what kind of power adapters I'll need for my new laptop, Dell XPS 13, and my n\u2026",
+              "[user, 2026-10-06 08:19] [2023/03/15 (Wed) 10:31] I think I've got everything covered. But just to confirm, can you tell me a bit more about the weather in Hawaii? I want to make sure I'm prepared for any conditions.",
+              "[user, 2026-10-06 08:19] [2023/03/15 (Wed) 10:31] I think I'm all set! Thanks for the weather info. I'll make sure to pack accordingly and stay prepared for any conditions. I'm super excited for my trip to Hawaii now!"
+            ]
+          },
+          "answer": "Based on the conversation history, you got the Samsung Galaxy S22 first. The relevant conversation snippet is from 00:56 on 2023/03/15, where you mentioned that you \"recently got a new Samsung Galaxy S22 from the Best Buy store at the mall on February 20th\".",
+          "latency_ms": 2691.4,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "gpt4_c27434e8_abs",
+          "question_type": "temporal-reasoning",
+          "category": "abstention",
+          "abstention": true,
+          "question": "Which project did I start first, the Ferrari model or the Porsche 991 Turbo S model?",
+          "question_date": "2023/05/26 (Fri) 00:18",
+          "expected": "The information provided is not enough. You did not mention starting the Porsche 991 Turbo S model.",
+          "sessions": 2,
+          "turns": 22,
+          "evidence": [
+            "answer_d8e33f5c_abs_1:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 88.0,
+          "compile_latency_ms": 51.2,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 1083,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Ferrari",
+              "Ferrari 288 GTO",
+              "2023/05/26",
+              "[user, 2026-10-06 08:20] [2023/05/26 (Fri) 15:13] I'm working on a model of a 1980s-era Ferrari 288 GTO, started it about three weeks ago on a Sunday afternoon, and I'm looking for some tips on how to achieve a more realistic paint finish.",
+              "[user, 2026-10-06 08:20] [2023/05/26 (Fri) 15:13] I actually just got a new airbrush compressor recently, so I'm excited to try it out on this project. I've been reading up on some YouTube tutorials and forums on weathering and aging effec\u2026",
+              "[user, 2026-10-06 08:20] [2023/05/26 (Fri) 15:13] I've only experimented with it on some test pieces, but I'm really happy with the results. The compressor has been a game-changer for me, allowing me to achieve much smoother, more even coa\u2026",
+              "[user, 2026-10-06 08:20] [2023/05/26 (Fri) 15:13] I used pre-made decals specifically designed for the Ferrari 288 GTO. The application process was pretty straightforward, but it did take some patience and care to avoid air bubbles and wri\u2026",
+              "[user, 2026-10-06 08:20] [2023/05/26 (Fri) 15:13] I think I'll focus on adding more complexity to the engine compartment and interior. I've been thinking about adding more details like wiring, hoses, and maybe even some engine components l\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, it appears that you started working on the Ferrari 288 GTO model about three weeks ago, on a Sunday afternoon. This is mentioned in the conversation on 2023/05/26 (Fri) 15:13. There is no mention of starting the Porsche 991 Turbo S model in the provided context. Therefore, I can conclude that the project you started first is the Ferrari 288 GTO model.",
+          "latency_ms": 3986.0,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "945e3d21",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "How often do I attend yoga classes to help with my anxiety?",
+          "question_date": "2023/12/25 (Mon) 05:30",
+          "expected": "Three times a week.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_6a4f8626_1:4",
+            "answer_6a4f8626_2:2"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 148.1,
+          "compile_latency_ms": 43.8,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 253,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 08:22] [2023/08/11 (Fri) 00:31] I'm feeling a bit overwhelmed with work tasks and was wondering if you could help me prioritize them based on urgency and importance.",
+              "[user, 2026-10-06 08:22] [2023/11/30 (Thu) 01:57] I've got a bunch of projects going on, including a marketing campaign, a report due next Friday, and some website updates. I'd say the marketing campaign is the priority, but the report is \u2026",
+              "[user, 2026-10-06 08:22] [2023/11/30 (Thu) 01:57] I think this updated schedule is really working in my favor. I'm feeling more confident about tackling the report and getting it done on time. Thanks for being so flexible and accommodating!"
+            ]
+          },
+          "answer": "Based on the memory context, it appears that you attend yoga classes three times a week, which helps you feel more focused and clear-headed. This is mentioned in the conversation on 2023/11/30 (Thu) 01:57.",
+          "latency_ms": 1894.1,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "e831120c",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many weeks did it take me to watch all the Marvel Cinematic Universe movies and the main Star Wars films?",
+          "question_date": "2023/05/30 (Tue) 08:15",
+          "expected": "3.5 weeks",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_86c505e7_1:0",
+            "answer_86c505e7_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 88.4,
+          "compile_latency_ms": 48.8,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 579,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Marvel Cinematic",
+              "two weeks",
+              "about two weeks",
+              "[user, 2026-10-06 08:24] [2023/05/21 (Sun) 12:44] I'm trying to organize my movie watching history, can you help me create a list or something? By the way, I've had some crazy movie binges lately, like when I watched all 22 Marvel Cinemati\u2026",
+              "[user, 2026-10-06 08:24] [2023/05/21 (Sun) 12:44] Yeah, that looks great. I think I'll also add a column for the month I watched it, so I can see what I watched each month.",
+              "[user, 2026-10-06 08:24] [2023/05/21 (Sun) 12:44] I think I'll try Method 1, copying and pasting from a list. I have all my movies written down in a note-taking app, so I can just copy and paste them into the spreadsheet.",
+              "[user, 2026-10-06 08:24] [2023/05/21 (Sun) 13:46] I'm trying to keep track of all the movies I've watched recently. Can you help me organize them in a list or something? By the way, I just finished a Star Wars marathon, watched all the mai\u2026",
+              "[user, 2026-10-06 08:24] [2023/05/21 (Sun) 13:46] I think the simple list would be fine. And yeah, I'll add those Star Wars movies to the list. I also watched Rogue One and Solo, so add those too. After that, let's add the Marvel movies I \u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, it appears that you watched all 22 Marvel Cinematic Universe movies in about two weeks, as mentioned in the conversation on 2023/05/21 (Sun) 13:46.\n\nAdditionally, you watched all the main Star Wars films in a week and a half, as mentioned in the same conversation.\n\nTherefore, it took you about two weeks to watch all the Marvel Cinematic Universe movies and a week and a half to watch all the main Star Wars films.",
+          "latency_ms": 3243.5,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "4c36ccef",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "Can you remind me of the name of the romantic Italian restaurant in Rome you recommended for dinner?",
+          "question_date": "2023/05/23 (Tue) 04:42",
+          "expected": "Roscioli",
+          "sessions": 1,
+          "turns": 8,
+          "evidence": [
+            "answer_ultrachat_448704:3"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 21.4,
+          "compile_latency_ms": 39.5,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 310,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "{'plan_id': '0d425141-3c78-43ab-bf1c-dfeb203c868c', 'goal': '[2023/05/21 (Sun) 08:55] Yes, here are some highly recommended authentic Italian restaurants in Rome:', 'status': 'completed', 'valence': 0.8, 'pathway_strength': 0.7, 'similarit\u2026",
+              "Italian",
+              "Rome"
+            ]
+          },
+          "answer": "Based on the provided memory context, I recommended several Italian restaurants in Rome for dinner. However, I don't recall recommending a specific romantic Italian restaurant. The restaurants mentioned are:\n\n1. Trattoria Da Enzo al 29 (cozy and traditional trattoria in the Trastevere neighborhood)\n2. Roscioli (gastronomic delicatessen and restaurant near the Campo dei Fiori market)\n3. Pizzeria La Montecarlo (small family-run pizzeria in the Gianicolo area)\n4. Sora Margherita (small and quaint family-owned restaurant in the Jewish Ghetto neighborhood)\n5. La Pergola (fine-dining restaurant located atop the Rome Cavalieri Hotel)\n6. Hostaria Costanza (restaurant in the heart of Rome near the Colosseum)\n7. Ditirambo (restaurant in the historical center of Rome)\n\nIf you would like, I can try to help you narrow down the options based on your preferences.",
+          "latency_ms": 4742.3,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "35a27287",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you recommend some interesting cultural events happening around me this weekend?",
+          "question_date": "2023/05/24 (Wed) 18:12",
+          "expected": "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange.",
+          "sessions": 1,
+          "turns": 14,
+          "evidence": [
+            "answer_9b182436:2",
+            "answer_9b182436:4",
+            "answer_9b182436:12"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 52.5,
+          "compile_latency_ms": 41.3,
+          "evidence_recall": 0.6667,
+          "context": {
+            "total_token_estimate": 274,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "language exchange events",
+              "[user, 2026-10-06 08:26] [2023/05/20 (Sat) 03:58] What are some cultural events or festivals in my area that celebrate language diversity and cultural exchange? I'd love to attend something like the cultural festival I volunteered at last \u2026",
+              "[user, 2026-10-06 08:26] [2023/05/20 (Sat) 03:58] Can you recommend any language learning apps or websites that focus on idiomatic expressions and colloquialisms in French and Spanish? I've been trying to improve my conversational skills a\u2026",
+              "[user, 2026-10-06 08:26] [2023/05/20 (Sat) 03:58] Can you recommend some language learning podcasts that focus on conversational skills and everyday language usage in French and Spanish? I'd love to listen to podcasts that are engaging, in\u2026"
+            ]
+          },
+          "answer": "Based on the context, I can recommend some interesting cultural events happening around you this weekend that celebrate language diversity and cultural exchange. \n\nConsidering your interest in language diversity and cultural exchange, I would suggest looking into language exchange events in your area. These events often bring people together to practice languages, share cultures, and learn from one another. They might be a great way to experience the cultural festival atmosphere you mentioned enjoying last month.\n\nUnfortunately, I don't have specific event details or locations in my memory, so I recommend checking local event listings or community boards for more information.",
+          "latency_ms": 2880.2,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "1e043500",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "What is the name of the playlist I created on Spotify?",
+          "question_date": "2023/05/29 (Mon) 04:35",
+          "expected": "Summer Vibes",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_3e012175:2"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 47.4,
+          "compile_latency_ms": 39.3,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 148,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 08:27] [2023/05/21 (Sun) 06:44] What's a good music streaming service that can help me discover new music and artists, especially in the ambient and lo-fi genres? Also, by the way, I've been listening to this one playlist\u2026",
+              "[user, 2026-10-06 08:27] [2023/05/21 (Sun) 06:44] I just remembered that I attended a music festival last month with some friends, and we saw some great acts, including The Lumineers and The 1975. It was an amazing experience!"
+            ]
+          },
+          "answer": "Based on the conversation memory, the name of the playlist you created on Spotify is \"Summer Vibes\".",
+          "latency_ms": 1124.4,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "0bb5a684",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "How many days before the team meeting I was preparing for did I attend the workshop on 'Effective Communication in the Workplace'?",
+          "question_date": "2023/01/13 (Fri) 19:39",
+          "expected": "7 days. 8 days (including the last day) is also acceptable.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_e936197f_1:0",
+            "answer_e936197f_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 163.5,
+          "compile_latency_ms": 52.4,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 560,
+            "sections": [
+              {
+                "type": null,
+                "items": 7
+              }
+            ],
+            "top_items": [
+              "Date",
+              "my team meeting agenda",
+              "2023/01/13 (Fri)",
+              "meeting agenda",
+              "my team's feedback",
+              "(Fri",
+              "2023/01/13"
+            ]
+          },
+          "answer": "Based on the provided memory context, I can see that the current date is 2023/01/13 (Fri) 19:39. However, I don't have enough information to determine the date of the team meeting I was preparing for or the date of the workshop on 'Effective Communication in the Workplace'.\n\nI do have some relevant information, such as the current date and the fact that I was preparing for a team meeting, but I need more specific details to answer the question accurately.",
+          "latency_ms": 2294.3,
+          "judge": false,
+          "judge_reason": "judge_no"
+        }
+      ],
+      "valid": true,
+      "client_calls": 1539,
+      "client_failures": 0
+    }
+  },
+  "all_suites_valid": true,
+  "canonical_baseline_targets": {
+    "retrieval_latency_ms": "<10.0ms (via B375)",
+    "llm_generation_latency_s": "<1.0s (via B374)",
+    "daemon_idle_rss_mb": "<80MB (via B384)",
+    "token_compression_ratio": "50%-70% bulk, 100% bypass on sub-budget (B374)",
+    "ask_eval_overall": ">=0.90"
+  },
+  "longmemeval_judge": {
+    "enabled": true,
+    "prompts": "official evaluate_qa.py get_anscheck_prompt",
+    "llm": {
+      "provider": "ollama",
+      "model": "gemma4:26b",
+      "base_url": "http://localhost:11434/v1",
+      "endpoint": "ollama /api/chat (num_ctx sized per prompt)",
+      "temperature": 0.0
+    },
+    "source": "isolated daemon config + CLI overrides",
+    "calls": 26
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "timestamp": "2026-10-06T06:35:16.755975+00:00",
+  "provenance": {
+    "scorer_version": 4,
+    "argv": [
+      "run_all.py",
+      "--baseline",
+      "--isolated",
+      "--suite",
+      "longmemeval",
+      "--lme-variant",
+      "oracle",
+      "--lme-questions",
+      "35",
+      "--judge-model",
+      "gemma4:26b",
+      "--out",
+      "results/r10b-lme-oracle-q35.json"
+    ],
+    "harness": {
+      "path": "/private/tmp/cb-lme",
+      "commit": "33460b7fc1399255d0b61934c11412987a213fd0",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "hippocampy": {
+      "path": "/Users/djshelton/Desktop/GitProjects/hippocampy",
+      "commit": "babe6d31d0c994bffd8c9c5b0f73c857e4d12838",
+      "branch": "main",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "daemon_config": {
+      "source": "isolated (written by harness)",
+      "derived_from": "/Users/djshelton/.campy/config.toml",
+      "sha256": "c071e1531356578fdb4cd1e8faf9616bdabf3331ee8e010a8afb181d515b1c4f",
+      "llm_provider": "ollama",
+      "llm_model": "llama3.1:8b",
+      "llm_step_overrides": {},
+      "embeddings_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "compression_model": null
+    },
+    "store": {
+      "isolated": true,
+      "campy_home": "(deleted after run)",
+      "web_port": 53474,
+      "config_overrides": {
+        "capture.enabled": false,
+        "capture.codex.enabled": false,
+        "capture.claude_code.enabled": false,
+        "capture.vscode.enabled": false,
+        "daemon.restart_interval_hours": 0,
+        "watchdog.enabled": false,
+        "web.port": 53474,
+        "server.bind_host": "127.0.0.1",
+        "activity.log_path": "/tmp/campy-bench-b6ahmf8z/activity.log"
+      },
+      "daemon_ready_seconds": 2.0,
+      "activity_log_lines": 2
+    },
+    "dataset_sha": {
+      "locomo": "dbbe2514f617d524",
+      "membench": "5ba306db91543c61",
+      "locomo10": "79fa87e90f040813@3eb6f2c5"
+    },
+    "python": "3.12.13",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "mode": "standard",
+  "mcp_configured": true,
+  "suites": {
+    "longmemeval": {
+      "suite": "longmemeval",
+      "valid": false,
+      "error": "notify_turn: adapter reported daemon offline: '{\"status\": \"queued_offline\"}'",
+      "client_calls": 318,
+      "client_failures": 1
+    }
+  },
+  "all_suites_valid": false,
+  "canonical_baseline_targets": {
+    "retrieval_latency_ms": "<10.0ms (via B375)",
+    "llm_generation_latency_s": "<1.0s (via B374)",
+    "daemon_idle_rss_mb": "<80MB (via B384)",
+    "token_compression_ratio": "50%-70% bulk, 100% bypass on sub-budget (B374)",
+    "ask_eval_overall": ">=0.90"
+  }
+}
