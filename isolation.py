@@ -240,8 +240,9 @@ class IsolatedDaemon:
                     raise
                 return self
             time.sleep(1.0)
+        msg = f"isolated daemon not ready within {self.ready_timeout}s; log tail: {self.log_tail()!r}"
         self.stop()
-        raise RuntimeError(f"isolated daemon not ready within {self.ready_timeout}s")
+        raise RuntimeError(msg)
 
     @staticmethod
     def _socket_accepts(path: Path) -> bool:
