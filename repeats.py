@@ -46,18 +46,32 @@ def _merge_probe_details(per_run: List[List[Dict[str, Any]]]) -> List[Dict[str, 
     merged = []
     for pid in order:
         recs = by_id[pid]
-        passes = sum(1 for r in recs if r["passed"])
-        rate = passes / len(recs)
-        rec = dict(recs[0])
-        rec["passed"] = rate > 0.5
+        rate = sum(1 for r in recs if r["passed"]) / len(recs)
+        passed = rate > 0.5
+        judged = [r["llm_judge"] for r in recs if r.get("llm_judge") is not None]
+        jrate = sum(judged) / len(judged) if judged else None
+        judge = jrate > 0.5 if judged else None
+
+        # The record's answer, judge reason, f1, latency... come from one run
+        # that agrees with the majority -- the judge's verdict first (the
+        # headline), then the lexical one -- not always from run 1: a run-1
+        # answer the judge passed next to a majority "llm_judge: False" reads
+        # as a judge bug. `answer_run` says which run (1-based).
+        def agrees(r, lexical=True):
+            return ((judge is None or r.get("llm_judge") == judge)
+                    and (not lexical or r["passed"] == passed))
+        rep = (next((r for r in recs if agrees(r)), None)
+               or next((r for r in recs if agrees(r, lexical=False)), None)
+               or recs[0])
+        rec = dict(rep)
+        rec["answer_run"] = recs.index(rep) + 1
+        rec["passed"] = passed
         rec["pass_rate"] = round(rate, 4)
         rec["runs"] = len(recs)
-        reasons = Counter(r.get("reason") for r in recs if r["passed"] == rec["passed"])
-        rec["reason"] = reasons.most_common(1)[0][0] if reasons else recs[0].get("reason")
-        judged = [r["llm_judge"] for r in recs if r.get("llm_judge") is not None]
+        reasons = Counter(r.get("reason") for r in recs if r["passed"] == passed)
+        rec["reason"] = reasons.most_common(1)[0][0] if reasons else rep.get("reason")
         if judged:  # same majority rule for the LLM judge's verdict
-            jrate = sum(judged) / len(judged)
-            rec["llm_judge"] = jrate > 0.5
+            rec["llm_judge"] = judge
             rec["judge_pass_rate"] = round(jrate, 4)
         merged.append(rec)
     return merged

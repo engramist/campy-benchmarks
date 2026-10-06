@@ -109,6 +109,27 @@ check("⚠️" in format_delta(0.8929, 0.70, True, noise), "drop beyond the rang
 check("⚠️" in format_delta(0.8929, 0.8214, True, None), "no repeat data: unchanged behavior")
 check(repeats.metric_range({"suites": {}}, "locomo", "accuracy") is None, "single run has no range")
 
+# --- the merged record shows a run that agrees with the majority -------------
+# (hippocampy #278, p3_analytics_pk: the judge passed run 1 and failed runs 2-3;
+# the merged record kept run 1's answer and "judge_correct" beside
+# llm_judge: False)
+mixed = repeats.aggregate_runs([
+    {"locomo": {"valid": True, "details": [
+        {"id": "p", "passed": True, "reason": "ok", "answer": "A1", "llm_judge": True,
+         "llm_judge_reason": "judge_correct"}]}},
+    {"locomo": {"valid": True, "details": [
+        {"id": "p", "passed": True, "reason": "ok", "answer": "A2", "llm_judge": False,
+         "llm_judge_reason": "judge_wrong"}]}},
+    {"locomo": {"valid": True, "details": [
+        {"id": "p", "passed": False, "reason": "stale", "answer": "A3", "llm_judge": False,
+         "llm_judge_reason": "judge_wrong"}]}},
+])["suites"]["locomo"]["details"][0]
+check(mixed["llm_judge"] is False and mixed["llm_judge_reason"] == "judge_wrong",
+      f"merged judge reason matches the merged judge verdict: {mixed}")
+check(mixed["answer"] == "A2" and mixed["answer_run"] == 2,
+      f"the answer comes from a run agreeing with both majorities (run 2): {mixed}")
+check(mixed["passed"] is True and mixed["reason"] == "ok", "lexical majority unchanged")
+
 # --- end to end (mock mode: no daemon, no CAMPY_MCP_CMD) ---------------------
 with tempfile.TemporaryDirectory() as tmp:
     out = Path(tmp) / "r.json"
