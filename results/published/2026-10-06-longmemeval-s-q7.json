@@ -1,0 +1,470 @@
+{
+  "timestamp": "2026-10-06T22:40:11.872605+00:00",
+  "provenance": {
+    "scorer_version": 4,
+    "argv": [
+      "run_all.py",
+      "--baseline",
+      "--isolated",
+      "--judge-model",
+      "gemma4:26b",
+      "--suite",
+      "longmemeval",
+      "--lme-variant",
+      "s",
+      "--lme-questions",
+      "7",
+      "--out",
+      "results/r10c-lme-s-q7.json"
+    ],
+    "harness": {
+      "path": "/private/tmp/cb-pub",
+      "commit": "e7694d87afc876598aa3deea07e4a235302af981",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "hippocampy": {
+      "path": "/Users/djshelton/Desktop/GitProjects/hippocampy",
+      "commit": "98ec223c339d8e31099687dcd1d93ccad9c35bf4",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "daemon_config": {
+      "source": "isolated (written by harness)",
+      "derived_from": "/Users/djshelton/.campy/config.toml",
+      "sha256": "ba24107e56bb4f6f0de9fdc7beeae03cbeaa782e8cd04d120b649dd741718e74",
+      "llm_provider": "ollama",
+      "llm_model": "llama3.1:8b",
+      "llm_step_overrides": {},
+      "embeddings_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "compression_model": null
+    },
+    "store": {
+      "isolated": true,
+      "campy_home": "(deleted after run)",
+      "web_port": 62693,
+      "config_overrides": {
+        "capture.enabled": false,
+        "capture.codex.enabled": false,
+        "capture.claude_code.enabled": false,
+        "capture.vscode.enabled": false,
+        "daemon.restart_interval_hours": 0,
+        "watchdog.enabled": false,
+        "web.port": 62693,
+        "server.bind_host": "127.0.0.1",
+        "activity.log_path": "/tmp/campy-bench-98q4_gc8/activity.log"
+      },
+      "daemon_ready_seconds": 2.0,
+      "activity_log_lines": 2
+    },
+    "dataset_sha": {
+      "locomo": "dbbe2514f617d524",
+      "membench": "5ba306db91543c61",
+      "locomo10": "79fa87e90f040813@3eb6f2c5"
+    },
+    "python": "3.12.13",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "mode": "standard",
+  "mcp_configured": true,
+  "suites": {
+    "longmemeval": {
+      "suite": "longmemeval",
+      "dataset": {
+        "variant": "s",
+        "file": "/private/tmp/cb-pub/data/longmemeval_s_cleaned.json",
+        "sha256": "d6f21ea9d60a0d56",
+        "options": {
+          "max_questions": 7,
+          "types": null
+        },
+        "questions": 7,
+        "turns": 3512
+      },
+      "questions": 7,
+      "accuracy": 0.4286,
+      "task_averaged_accuracy": 0.4286,
+      "evidence_recall": 0.1389,
+      "evidence_over_ingest_limit": 0,
+      "errors": 0,
+      "by_category": {
+        "abstention": {
+          "n": 1,
+          "accuracy": 1.0,
+          "evidence_recall": null
+        },
+        "knowledge-update": {
+          "n": 1,
+          "accuracy": 1.0,
+          "evidence_recall": 0.5
+        },
+        "multi-session": {
+          "n": 1,
+          "accuracy": 0.0,
+          "evidence_recall": 0.3333
+        },
+        "single-session-assistant": {
+          "n": 1,
+          "accuracy": 0.0,
+          "evidence_recall": 0.0
+        },
+        "single-session-preference": {
+          "n": 1,
+          "accuracy": 1.0,
+          "evidence_recall": 0.0
+        },
+        "single-session-user": {
+          "n": 1,
+          "accuracy": 0.0,
+          "evidence_recall": 0.0
+        },
+        "temporal-reasoning": {
+          "n": 1,
+          "accuracy": 0.0,
+          "evidence_recall": 0.0
+        }
+      },
+      "ingest_seconds": 12277.9,
+      "avg_latency_ms": 2895.2,
+      "details": [
+        {
+          "id": "0862e8bf_abs",
+          "question_type": "single-session-user",
+          "category": "abstention",
+          "abstention": true,
+          "question": "What is the name of my hamster?",
+          "question_date": "2023/05/30 (Tue) 21:39",
+          "expected": "You did not mention this information. You mentioned your cat Luna but not your hamster.",
+          "sessions": 52,
+          "turns": 523,
+          "evidence": [],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 1917.6,
+          "compile_latency_ms": 104.4,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 363,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "2023/05/30 (Tue)",
+              "2023/05/30",
+              "[user, 2026-10-06 19:15] [2023/05/22 (Mon) 22:27] meh... some more ideas please",
+              "[user, 2026-10-06 19:15] [2023/05/24 (Wed) 11:29] I've been meaning to get my cat microchipped for a while now, especially since we've been having some issues with our front door not closing properly and I've been worried about her getting\u2026",
+              "[user, 2026-10-06 19:15] [2023/05/24 (Wed) 11:29] By the way, my cat's name is Luna, and she's been such a sweetie throughout all the changes we've been making to her environment. I'm just glad I can provide her with a happy and healthy ho\u2026",
+              "[user, 2026-10-06 19:15] [2023/05/29 (Mon) 09:04] More",
+              "[user, 2026-10-06 19:15] [2023/05/30 (Tue) 09:07] I just found a huge beehive. what does that do",
+              "[user, 2026-10-06 19:15] [2023/05/30 (Tue) 17:48] In the above table add the Applicability column as well"
+            ]
+          },
+          "answer": "I don't have any information about your hamster in the provided memory context. The context only mentions your cat, Luna, and a beehive, but not a hamster.",
+          "latency_ms": 1908.8,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "6a1eabeb",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "What was my personal best time in the charity 5K run?",
+          "question_date": "2023/06/25 (Sun) 13:22",
+          "expected": "25 minutes and 50 seconds (or 25:50)",
+          "sessions": 40,
+          "turns": 413,
+          "evidence": [
+            "answer_a25d4a91_1:4",
+            "answer_a25d4a91_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 1522.1,
+          "compile_latency_ms": 100.4,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 630,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "personal belongings",
+              "your personal schedule",
+              "Sun",
+              "[user, 2026-10-06 19:47] [2023/05/07 (Sun) 00:43] sorry i meant using this link https://www.youtube.com/watch?v=tL4tde6uZ\\_Q&ab\\_channel=redfoo",
+              "[user, 2026-10-06 19:47] [2023/05/07 (Sun) 00:43] can you give me the songs but only say it once",
+              "[user, 2026-10-06 19:47] [2023/05/27 (Sat) 14:54] I think I'll start by scheduling it into my daily planner, so it's a non-negotiable part of my post-run routine. I'll also try to find a stretching buddy, maybe a friend or family member wh\u2026",
+              "[user, 2026-10-06 19:47] [2023/05/29 (Mon) 09:17] I think I'll use this time to meditate and plan my day. I've been trying to get into meditation, and having this extra time in the morning will give me a chance to focus on my breathing and\u2026",
+              "[user, 2026-10-06 19:47] [2023/05/30 (Tue) 13:53] I'm training for another charity 5K run coming up and I was wondering if you could give me some tips on how to improve my endurance. By the way, I'm hoping to beat my personal best time of \u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, I can answer your question.\n\nYour personal best time in the charity 5K run is 25:50. This information was mentioned in the conversation on 2023/05/30 (Tue) 13:53.",
+          "latency_ms": 2540.2,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "0a995998",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many items of clothing do I need to pick up or return from a store?",
+          "question_date": "2023/02/15 (Wed) 23:50",
+          "expected": "3",
+          "sessions": 44,
+          "turns": 484,
+          "evidence": [
+            "answer_afa9873b_2:10",
+            "answer_afa9873b_3:6",
+            "answer_afa9873b_1:4"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 1754.0,
+          "compile_latency_ms": 109.1,
+          "evidence_recall": 0.3333,
+          "context": {
+            "total_token_estimate": 489,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "my eco-friendly items",
+              "[user, 2026-10-06 20:12] [2023/02/15 (Wed) 06:30] I need help organizing my closet. Can you give me some tips on how to declutter and categorize my clothes? Also, by the way, I still need to pick up my dry cleaning for the navy blue blazer\u2026",
+              "[user, 2026-10-06 20:12] [2023/02/15 (Wed) 06:30] That's a lot of tips! Thanks for the help. I'm going to start with decluttering my clothes. Can you give me some advice on how to decide what to keep and what to donate or discard? I've got\u2026",
+              "[user, 2026-10-06 20:12] [2023/02/15 (Wed) 11:13] I need to return some boots to Zara, actually. I got them on February 5th, but they were too small, so I exchanged them for a larger size. I just haven't had a chance to pick them up yet.",
+              "[user, 2026-10-06 20:13] [2023/02/15 (Wed) 15:24] I'm looking for some advice on how to properly store and preserve my comic book collection. I just got a vintage Spider-Man comic book and I want to make sure it stays in good condition. By\u2026",
+              "[user, 2026-10-06 20:13] [2023/02/15 (Wed) 16:19] I'm thinking of organizing my closet this weekend. Can you give me some tips on how to maximize my closet space? By the way, I just got back from a dinner date last Friday and wore my new b\u2026",
+              "[user, 2026-10-06 20:13] [2023/02/15 (Wed) 23:17] give me company name ideas for a streetwear clothing brand"
+            ]
+          },
+          "answer": "Based on the provided context, it appears that you need to pick up or return the following items of clothing:\n\n1. The navy blue blazer from the dry cleaner (mentioned in the first conversation)\n2. The boots from Zara (mentioned in the fourth conversation, which you exchanged for a larger size on February 5th)\n\nYou do not need to pick up any other items of clothing, as the other conversations mention organizing your closet, decluttering, and storing comic book collections, but do not specifically mention picking up or returning any clothing items.\n\nTherefore, the answer to your question is: 2 items of clothing.",
+          "latency_ms": 3899.3,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "7161e7e2",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "I'm checking our previous chat about the shift rotation sheet for GM social media agents. Can you remind me what was the rotation for Admon on a Sunday?",
+          "question_date": "2023/05/30 (Tue) 20:16",
+          "expected": "Admon was assigned to the 8 am - 4 pm (Day Shift) on Sundays.",
+          "sessions": 48,
+          "turns": 550,
+          "evidence": [
+            "answer_sharegpt_5Lzox6N_0:13"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 1831.2,
+          "compile_latency_ms": 113.6,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 539,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "GM social media agents",
+              "Admon",
+              "Sunday",
+              "Sunday - Saturday",
+              "7 agents",
+              "[user, 2026-10-06 20:41] [2023/05/24 (Wed) 02:46] can u create a shift rotation sheet for GM social media agents",
+              "[user, 2026-10-06 20:41] [2023/05/24 (Wed) 02:46] 7 agents",
+              "[user, 2026-10-06 20:41] [2023/05/24 (Wed) 02:46] 4 shifts as follows: \"8 am till 4 pm - 12 pm till 8 pm - 4 pm till 12 am - 12 am till 8 am \""
+            ]
+          },
+          "answer": "Based on our previous conversation, I can see that we discussed the shift rotation sheet for GM social media agents. According to the rotation, Sunday is one of the days off for every agent, including Admon.",
+          "latency_ms": 2190.8,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "8a2466db",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you recommend some resources where I can learn more about video editing?",
+          "question_date": "2023/05/30 (Tue) 22:03",
+          "expected": "The user would prefer responses that suggest resources specifically tailored to Adobe Premiere Pro, especially those that delve into its advanced settings. They might not prefer general video editing resources or resources related to other video editing software.",
+          "sessions": 50,
+          "turns": 508,
+          "evidence": [
+            "answer_edb03329:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 1853.2,
+          "compile_latency_ms": 103.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 326,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 21:12] [2023/05/21 (Sun) 11:35] That's really helpful! I've been meaning to learn more about ISO settings and how they affect my photos. I've had my Nikon D750 since 2018, and I've been using it for various photography pr\u2026",
+              "[user, 2026-10-06 21:12] [2023/05/21 (Sun) 14:21] Can you explain the difference between the Lumetri Color Panel and the Legacy Color Grading tools in Premiere Pro? I'm not sure when to use each, and I want to make sure I'm using the right\u2026",
+              "[user, 2026-10-06 21:12] [2023/05/26 (Fri) 03:45] make a link on google map with all this places and mark with a day number like \"day #\"",
+              "[user, 2026-10-06 21:12] [2023/05/27 (Sat) 11:31] Please give me books or articles references in each weeks",
+              "[user, 2026-10-06 21:13] [2023/05/30 (Tue) 05:17] McDonald's is known for their burgers and fries, so it's hard to resist ordering them even though I know they're not the healthiest options. But I guess I could try the grilled chicken sand\u2026",
+              "[user, 2026-10-06 21:13] [2023/05/30 (Tue) 06:35] Which festival on that list do you think has the best lineup of artists? I'm trying to decide which one to attend next year!"
+            ]
+          },
+          "answer": "Based on the provided memory context, I don't have any direct information about video editing resources. However, I do see that you mentioned using Premiere Pro in one of the conversations, which is a video editing software. Unfortunately, the conversation doesn't provide any specific information about video editing resources.\n\nHowever, I can suggest some general resources that might be helpful for learning video editing:\n\n* YouTube channels like Premiere Bro, Peter McKinnon, and Film Riot often provide tutorials and tips on video editing.\n* Online courses on platforms like Udemy, Coursera, and Skillshare can provide in-depth training on video editing software like Premiere Pro.\n* Adobe's official website also has a wealth of resources, including tutorials and documentation, for Premiere Pro.\n\nPlease note that these are general suggestions and not specific to your conversation history. If you'd like more tailored recommendations, I'd be happy to try and help you find more relevant resources.",
+          "latency_ms": 4763.9,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "e47becba",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "What degree did I graduate with?",
+          "question_date": "2023/05/30 (Tue) 23:40",
+          "expected": "Business Administration",
+          "sessions": 53,
+          "turns": 550,
+          "evidence": [
+            "answer_280352e9:4",
+            "answer_280352e9:5"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 1846.1,
+          "compile_latency_ms": 95.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 427,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[insert date",
+              "Repair Date",
+              "[user, 2026-10-06 21:43] [2023/05/23 (Tue) 13:25] I think this revised routine is more realistic for me. I'll try to stick to it and see how it goes.",
+              "[user, 2026-10-06 21:44] [2023/05/30 (Tue) 11:24] I'm definitely going to try to communicate more openly with my roommates and set boundaries.",
+              "[user, 2026-10-06 21:44] [2023/05/30 (Tue) 11:24] I feel much more confident in my ability to handle conflicts with my roommates now.",
+              "[user, 2026-10-06 21:44] [2023/05/30 (Tue) 11:27] I'm so glad I converted the guest room, since my sister stayed for two weeks last month and having that extra space was really helpful. Now, I'm trying to make the most of this new office s\u2026",
+              "[user, 2026-10-06 21:44] [2023/05/30 (Tue) 11:27] Yeah, I meant that my sister stayed in the guest room for two weeks last month, and now that she's gone, I converted the room into a home office. Thanks for clarifying!",
+              "[user, 2026-10-06 21:44] [2023/05/30 (Tue) 11:27] I'm thinking of having a dedicated area for working from home, and also a comfortable reading nook with a floor lamp and a plush armchair."
+            ]
+          },
+          "answer": "I'm unable to find any information about your graduation degree in the provided memory context. The context appears to contain conversations about your home office setup, roommates, and personal projects, but it does not mention your educational background or graduation degree.",
+          "latency_ms": 2200.8,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "gpt4_59149c77",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "How many days passed between my visit to the Museum of Modern Art (MoMA) and the 'Ancient Civilizations' exhibit at the Metropolitan Museum of Art?",
+          "question_date": "2023/02/01 (Wed) 10:20",
+          "expected": "7 days. 8 days (including the last day) is also acceptable.",
+          "sessions": 48,
+          "turns": 484,
+          "evidence": [
+            "answer_d00ba6d0_1:0",
+            "answer_d00ba6d0_2:6"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 1553.7,
+          "compile_latency_ms": 113.0,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 680,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "the Environmental Art Museum",
+              "the Environmental Art Museum's",
+              "the Brooklyn Museum",
+              "the American Museum of Natural History",
+              "the Recycled Art Gallery",
+              "[user, 2026-10-06 22:14] [2023/01/08 (Sun) 12:49] I'd like to explore Frida's cultural heritage and how it influenced her art. I'm particularly interested in her connection to Mexican folk art and how it shaped her unique style.",
+              "[user, 2026-10-06 22:14] [2023/01/11 (Wed) 10:38] Write me the \"Communicate with the Builder\" in 100 words.",
+              "[user, 2026-10-06 22:14] [2023/01/11 (Wed) 15:38] I think we've covered everything! It was a lot of fun chatting with you and helping you plan your beach town getaway with your friends. I hope you have an amazing time and make some unforge\u2026"
+            ]
+          },
+          "answer": "I'm unable to find any information in the provided context that directly answers the question about the number of days passed between your visit to the Museum of Modern Art (MoMA) and the 'Ancient Civilizations' exhibit at the Metropolitan Museum of Art. The context mentions various museums, but it does not specify which ones you visited or when.",
+          "latency_ms": 2762.8,
+          "judge": false,
+          "judge_reason": "non_answer"
+        }
+      ],
+      "valid": true,
+      "client_calls": 5910,
+      "client_failures": 0
+    }
+  },
+  "all_suites_valid": true,
+  "canonical_baseline_targets": {
+    "retrieval_latency_ms": "<10.0ms (via B375)",
+    "llm_generation_latency_s": "<1.0s (via B374)",
+    "daemon_idle_rss_mb": "<80MB (via B384)",
+    "token_compression_ratio": "50%-70% bulk, 100% bypass on sub-budget (B374)",
+    "ask_eval_overall": ">=0.90"
+  },
+  "longmemeval_judge": {
+    "enabled": true,
+    "prompts": "official evaluate_qa.py get_anscheck_prompt",
+    "llm": {
+      "provider": "ollama",
+      "model": "gemma4:26b",
+      "base_url": "http://localhost:11434/v1",
+      "endpoint": "ollama /api/chat (num_ctx sized per prompt)",
+      "temperature": 0.0
+    },
+    "source": "isolated daemon config + CLI overrides",
+    "calls": 5
+  }
+}
