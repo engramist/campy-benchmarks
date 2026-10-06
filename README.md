@@ -12,6 +12,7 @@ This repository is an isolated consumer harness that tests HippoCampy strictly o
 4. **ARC Bridge (`arc_bridge/`):** Integrates memory-transfer diagnostics from the sibling `ARC_AGI` repo.
 5. **LoCoMo-10 (`locomo10/`, `--suite locomo10`):** the published LoCoMo dataset (Maharana et al., ACL 2024): 10 long conversations, 5,882 turns, 1,986 questions. Not part of `--suite all`, because a full run takes hours on a local model.
 6. **LongMemEval (`longmemeval/`, `--suite longmemeval`):** the published LongMemEval dataset (Wu et al., ICLR 2025): 500 questions over user–assistant chat histories, in 6 types plus abstention. Each question has its own history, so each runs on its own fresh store. Not part of `--suite all`.
+7. **DMR (`dmr/`, `--suite dmr`):** Deep Memory Retrieval (Packer et al., MemGPT, 2023), released as MSC-Self-Instruct: 500 questions, each about something a speaker said in 4 earlier Multi-Session Chat sessions. Each question runs on its own fresh store. Not part of `--suite all`.
 
 ## Quickstart
 
@@ -26,6 +27,7 @@ python check_repeat.py
 python check_qa_judge.py
 python check_longmemeval.py
 python check_report.py
+python check_dmr.py
 
 # Before trusting a judge model: grade the ~600 hand-labelled answers with it
 python check_qa_judge.py --live --judge-model gemma4:26b
@@ -309,6 +311,43 @@ categories, so a subset stays balanced. `--lme-types a,b` filters by category
 (`abstention` is its own; `knowledge-update` excludes its abstention
 questions). `--smoke` is 7 questions. Not supported with LongMemEval yet:
 `--baselines` and `--repeat`.
+
+## DMR (`--suite dmr`)
+
+**Data:** `msc_self_instruct.jsonl` from HuggingFace (`MemGPT/MSC-Self-Instruct`,
+Apache-2.0). It's downloaded into `data/dmr/` on first use and pinned by
+sha256; `DMR_PATH` points at an existing copy.
+
+**Protocol (per question, on a fresh isolated daemon; `--isolated` is required):**
+- **Ingestion:** the 4 earlier sessions only, as role `user`, with the session,
+  its distance from the current session and the speaker in the text:
+  `[Session 2, 7 days 8 hours ago] Speaker 1: ...`.
+  - Never ingested: the current session 5, the persona lists and the summaries,
+    because they state the answer verbatim.
+  - Speakers alternate from Speaker 1 (the turns carry no speaker id).
+- **Question:** addressed to the speaker it asks about,
+  `Speaker 2 asks Speaker 1: <question>`, because the questions say "you".
+  - That speaker is the one whose earlier turn contains the gold answer.
+  - When no turn contains it, the question is asked verbatim.
+- **Judge:** LoCoMo-10's CORRECT/WRONG prompt. A non-answer counts as wrong
+  without a judge call.
+
+**Metrics:**
+
+| Metric | What it is |
+|---|---|
+| `judge_accuracy` | **Headline.** The share of answers the judge marks correct. |
+| `f1` | Token F1 against the gold answer (LoCoMo's normalization). |
+| `evidence_recall` | The dataset has no evidence labels. The labels here are derived: the earlier turns containing the normalized gold answer. Recall covers only the questions where such a turn exists (`evidence_labelled`). |
+
+**Reading the numbers:** published DMR scores sit near the full-context
+ceiling (MemGPT 93.4%, Zep 94.8%; GPT-4 Turbo with the whole conversation in
+context scores 94.4%). The histories are short, about 50 turns, so DMR checks
+basic recall and separates systems little. LongMemEval and LoCoMo-10 are the
+harder tests.
+
+**Subsets:** `--dmr-questions N` takes the first N questions; `--smoke` takes 5.
+`--baselines` and `--repeat` aren't supported with DMR yet.
 
 ## Publishing results (`RESULTS.md`)
 
