@@ -8,4 +8,43 @@ Published datasets are what to quote. The fixtures are regression tests for this
 
 | suite | kind | subset | metrics | baselines on the first metric (same LLM, same judge) | LLM / judge | hippocampy | run |
 |---|---|---|---|---|---|---|---|
-| _no counted runs yet_ | | | | | | | |
+| LoCoMo-10 | published dataset | 1 conv, 60 q | judge accuracy: **0.354**<br>F1: **0.089**<br>adversarial abstention: **0.083**<br>evidence recall: **0.397** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-locomo10-conv26-q60.json](results/published/2026-10-06-locomo10-conv26-q60.json) |
+| LongMemEval | published dataset | oracle, 35 q | accuracy: **0.400**<br>task-averaged accuracy: **0.400**<br>evidence recall: **0.496** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-longmemeval-oracle-q35.json](results/published/2026-10-06-longmemeval-oracle-q35.json) |
+
+## LoCoMo-10
+
+Maharana et al., ACL 2024. Judge accuracy is this harness's own prompt (categories 1-4); compare across runs with the same judge model, not with published numbers.
+
+| date | subset | judge accuracy | F1 | adversarial abstention | evidence recall | repeat | LLM / judge | hippocampy | harness | file |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-06 | 1 conv, 60 q | 0.354 | 0.089 | 0.083 | 0.397 | 1 | llama3.1:8b / gemma4:26b | `98ec223` | `e7694d8` | [2026-10-06-locomo10-conv26-q60.json](results/published/2026-10-06-locomo10-conv26-q60.json) |
+
+Newest counted run, by category:
+
+| category | abstention | evidence_recall | f1 | judge_accuracy | n |
+|---|---|---|---|---|---|
+| multi_hop | – | 0.083 | 0.070 | 0.000 | 12 |
+| temporal | – | 0.583 | 0.114 | 0.417 | 12 |
+| open_domain | – | 0.200 | 0.033 | 0.333 | 12 |
+| single_hop | – | 0.583 | 0.139 | 0.667 | 12 |
+| adversarial | 0.083 | 0.500 | – | – | 12 |
+
+## LongMemEval
+
+Wu et al., ICLR 2025. Official per-type judge prompts; the paper's judge is GPT-4o. The `oracle` variant holds only the evidence sessions, `s` about 40 sessions per question.
+
+| date | subset | accuracy | task-averaged accuracy | evidence recall | repeat | LLM / judge | hippocampy | harness | file |
+|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-06 | oracle, 35 q | 0.400 | 0.400 | 0.496 | 1 | llama3.1:8b / gemma4:26b | `98ec223` | `e7694d8` | [2026-10-06-longmemeval-oracle-q35.json](results/published/2026-10-06-longmemeval-oracle-q35.json) |
+
+Newest counted run, by category:
+
+| category | accuracy | evidence_recall | n |
+|---|---|---|---|
+| abstention | 0.400 | 0.875 | 5 |
+| knowledge-update | 0.600 | 0.467 | 5 |
+| multi-session | 0.400 | 0.637 | 5 |
+| single-session-assistant | 0.200 | 0.000 | 5 |
+| single-session-preference | 0.400 | 0.467 | 5 |
+| single-session-user | 0.600 | 0.600 | 5 |
+| temporal-reasoning | 0.200 | 0.500 | 5 |
