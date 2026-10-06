@@ -35,8 +35,12 @@ SUITES: Dict[str, Tuple[str, str, List[Tuple[str, str]], str]] = {
         "Wu et al., ICLR 2025. Official per-type judge prompts; the paper's judge is GPT-4o. "
         "The `oracle` variant holds only the evidence sessions, `s` about 40 sessions per question."),
     "dmr": ("DMR (MSC-Self-Instruct)", "published dataset", [
-        ("accuracy", "judge accuracy"), ("evidence_recall", "evidence recall")],
-        "Deep Memory Retrieval (Packer et al., MemGPT, 2023): questions over Multi-Session Chat histories."),
+        ("judge_accuracy", "judge accuracy"), ("f1", "F1"), ("evidence_recall", "evidence recall")],
+        "Deep Memory Retrieval (Packer et al., MemGPT, 2023): 500 questions, each over 4 earlier "
+        "Multi-Session Chat sessions. Judge: LoCoMo-10's prompt. Evidence labels are derived (turns "
+        "containing the answer), so recall covers only the questions where the answer is quoted. "
+        "Published scores are near the full-context ceiling (MemGPT 93.4%, Zep 94.8%, GPT-4 Turbo "
+        "full context 94.4%), so DMR separates systems little."),
     "locomo": ("LoCoMo fixture", "hand-written fixture", [
         ("judge_accuracy", "judge accuracy"), ("judge_deprecation_accuracy", "judge deprecation accuracy"),
         ("accuracy", "lexical accuracy")],
