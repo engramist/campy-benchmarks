@@ -110,6 +110,8 @@ def aggregate(details: List[Dict[str, Any]]) -> Dict[str, Any]:
                                   if d.get("evidence_recall") is not None]),
         # questions whose evidence Campy could store only in part (see INGEST_MAX_CHARS)
         "evidence_over_ingest_limit": sum(1 for d in details if d.get("evidence_over_ingest_limit")),
+        # questions whose daemon failed twice (scored wrong, never judged)
+        "errors": sum(1 for d in details if d.get("error")),
         "by_category": by_cat,
     }
 

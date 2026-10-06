@@ -24,7 +24,8 @@ from typing import Any, Callable, ContextManager, Dict, List, Optional
 
 from longmemeval.dataset import ensure_dataset, load_questions, sha256
 from longmemeval.scoring import INGEST_MAX_CHARS, aggregate, evidence_recall
-from mcp_client import CampyMCPClient
+from fresh_store import run_on_fresh_store
+from mcp_client import CampyClientError, CampyMCPClient
 from records import bundle_texts, summarize_bundle
 
 SMOKE_DEFAULTS = {"variant": "oracle", "max_questions": 7}
@@ -60,25 +61,26 @@ def run_longmemeval(new_store: Callable[[], ContextManager[CampyMCPClient]],
     for n, q in enumerate(questions, 1):
         log(f"    [{n}/{len(questions)}] {q.question_id} ({q.category}, "
             f"{sum(len(s.turns) for s in q.sessions)} turns)")
-        with new_store() as client:
+        turn_text = {f"{s.session_id}:{i}": turn_content(s.date, t.content)
+                     for s in q.sessions for i, t in enumerate(s.turns)}
+        rec: Dict[str, Any] = {
+            "id": q.question_id, "question_type": q.question_type, "category": q.category,
+            "abstention": q.abstention, "question": q.question, "question_date": q.question_date,
+            "expected": q.answer, "sessions": len(q.sessions),
+            "turns": sum(len(s.turns) for s in q.sessions), "evidence": q.evidence_ids(),
+            # evidence turns longer than Campy stores (the rest of the turn is dropped)
+            "evidence_over_ingest_limit": sum(len(turn_text[e]) > INGEST_MAX_CHARS
+                                              for e in q.evidence_ids()),
+        }
+
+        def body(client: CampyMCPClient, q=q, rec=rec, turn_text=turn_text) -> None:
             t0 = time.perf_counter()
             for s in q.sessions:
                 for t in s.turns:
                     client.notify_turn(role=t.role, content=turn_content(s.date, t.content),
                                        session_id=f"lme_{q.question_id}_{s.session_id}")
             client.run_sweep()
-            ingest_s += time.perf_counter() - t0
-            turn_text = {f"{s.session_id}:{i}": turn_content(s.date, t.content)
-                         for s in q.sessions for i, t in enumerate(s.turns)}
-            rec: Dict[str, Any] = {
-                "id": q.question_id, "question_type": q.question_type, "category": q.category,
-                "abstention": q.abstention, "question": q.question, "question_date": q.question_date,
-                "expected": q.answer, "sessions": len(q.sessions),
-                "turns": sum(len(s.turns) for s in q.sessions), "evidence": q.evidence_ids(),
-                # evidence turns longer than Campy stores (the rest of the turn is dropped)
-                "evidence_over_ingest_limit": sum(len(turn_text[e]) > INGEST_MAX_CHARS
-                                                  for e in q.evidence_ids()),
-            }
+            rec["ingest_seconds"] = round(time.perf_counter() - t0, 1)
             t1 = time.perf_counter()
             ctx = client.compile_context(ask_text(q))
             rec["compile_latency_ms"] = round((time.perf_counter() - t1) * 1000.0, 1)
@@ -87,14 +89,26 @@ def run_longmemeval(new_store: Callable[[], ContextManager[CampyMCPClient]],
             t2 = time.perf_counter()
             rec["answer"] = client.ask(ask_text(q), session_id=f"lme_{q.question_id}_eval")
             rec["latency_ms"] = round((time.perf_counter() - t2) * 1000.0, 1)
+
+        err = run_on_fresh_store(new_store, body, q.question_id, log=log)
+        if err is not None:
+            # the daemon failed twice: no measurement, scored wrong, never judged
+            rec.update({"error": err, "answer": "", "evidence_recall": None, "latency_ms": None,
+                        "judge": False, "judge_reason": "error"})
+            details.append(rec)
+            continue
+        ingest_s += rec["ingest_seconds"]
         rec["judge"] = None  # filled by run_all.finalize_longmemeval
         details.append(rec)
+    if details and all(d.get("error") for d in details):
+        raise CampyClientError(f"every question failed; the last: {details[-1]['error']}")
     return {
         "suite": "longmemeval",
         "dataset": {"variant": variant, "file": str(path), "sha256": sha256(path)[:16], "options": opts,
                     "questions": len(details), "turns": sum(d["turns"] for d in details)},
         **aggregate(details),
         "ingest_seconds": round(ingest_s, 1),
-        "avg_latency_ms": round(sum(d["latency_ms"] for d in details) / max(1, len(details)), 1),
+        "avg_latency_ms": round(sum(lat) / len(lat), 1) if (lat := [d["latency_ms"] for d in details
+                                                                     if d.get("latency_ms") is not None]) else None,
         "details": details,
     }

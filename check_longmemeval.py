@@ -27,7 +27,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from longmemeval.dataset import load_questions  # noqa: E402
-from longmemeval.scoring import aggregate, anscheck_prompt, evidence_recall, judge_record  # noqa: E402
+from longmemeval.scoring import aggregate, anscheck_prompt, evidence_recall, judge_details, judge_record  # noqa: E402
 
 failures = []
 
@@ -155,6 +155,71 @@ with tempfile.TemporaryDirectory() as tmp:
     check(evidence_recall(["s:1", "s:2"], tt, ["[user, x] [2023/05/10] I live in Austin."]) == 0.5,
           "recall is per evidence turn")
     check(evidence_recall(["nope"], tt, []) is None, "unknown evidence ids give None")
+
+    # --- a daemon that fails costs one question, not the run -------------------
+    from contextlib import contextmanager
+
+    from longmemeval.runner import run_longmemeval
+    from mcp_client import CampyClientError
+
+    class _Client:
+        def __init__(self, left):
+            self.left = left  # question id -> failures still to inject
+
+        def notify_turn(self, role, content, session_id):
+            for qid, n in self.left.items():
+                if n > 0 and session_id.rsplit("_", 1)[0] == f"lme_{qid}":  # lme_<qid>_<session id>
+                    self.left[qid] -= 1
+                    raise CampyClientError("notify_turn: adapter reported daemon offline")
+
+        def run_sweep(self):
+            pass
+
+        def compile_context(self, q):
+            return {}
+
+        def ask(self, q, session_id=None):
+            return "an answer"
+
+    def store_factory(plan):
+        """plan: question id -> how many of its stores fail"""
+        left, opened = dict(plan), []
+
+        @contextmanager
+        def new_store():
+            c = _Client(left)
+            opened.append(c)
+            yield c
+        return new_store, opened
+
+    first3 = [q.question_id for q in load_questions(path, max_questions=3)]
+    os.environ["LONGMEMEVAL_PATH"] = str(path)
+    new_store, opened = store_factory({first3[1]: 2})
+    out = run_longmemeval(new_store, {"variant": "oracle", "max_questions": 3}, log=lambda *a: None)
+    errs = [d for d in out["details"] if d.get("error")]
+    check(len(out["details"]) == 3, "every question is recorded")
+    check([d["id"] for d in errs] == [first3[1]] and errs[0]["judge"] is False and out["errors"] == 1,
+          f"a question whose daemon fails twice is an error, scored wrong: {[d['id'] for d in errs]}")
+    check(len(opened) == 4, f"one retry on a fresh store: {len(opened)} stores for 3 questions")
+    n_judged = judge_details(out["details"], FakeJudge("yes"))
+    check(errs[0]["judge"] is False and n_judged == 2, "an errored question never reaches the judge")
+
+    new_store, opened = store_factory({first3[2]: 1})
+    out = run_longmemeval(new_store, {"variant": "oracle", "max_questions": 3}, log=lambda *a: None)
+    check(out["errors"] == 0, "a question that works on the retry is not an error")
+
+    class _Dead:
+        def __enter__(self):
+            raise CampyClientError("isolated daemon failed to start")
+
+        def __exit__(self, *a):
+            return False
+    try:
+        run_longmemeval(lambda: _Dead(), {"variant": "oracle", "max_questions": 2}, log=lambda *a: None)
+        check(False, "a run where every question fails must be invalid")
+    except CampyClientError:
+        pass
+    del os.environ["LONGMEMEVAL_PATH"]
 
     # --- end to end (mock mode) ------------------------------------------------
     env = {k: v for k, v in os.environ.items() if k != "CAMPY_MCP_CMD"}

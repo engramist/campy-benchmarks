@@ -565,11 +565,19 @@ def main():
                                        base_config=provenance.base_config_path(
                                            provenance.hippocampy_repo_from_cmd(mcp_cmd)),
                                        keep_store=args.keep_store, ready_timeout=args.daemon_ready_timeout)
-                    d.start()
                     c = None
                     try:
+                        try:
+                            d.start()
+                        except RuntimeError as e:  # never became ready: a daemon failure, retryable
+                            raise CampyClientError(f"isolated daemon failed to start: {e}") from e
                         c = CampyMCPClient(mcp_cmd=mcp_cmd, env=d.client_env())
                         yield c
+                    except CampyClientError:
+                        # keep the failed question's store and daemon logs for diagnosis
+                        d.keep_store = True
+                        print(f"      !! kept the failed store: {d.home}")
+                        raise
                     finally:
                         if c is not None:
                             client.stats["calls"] += c.stats["calls"]
