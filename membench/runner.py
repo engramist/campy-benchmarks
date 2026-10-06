@@ -1,6 +1,6 @@
 """
 campy-benchmarks / membench / runner.py
-MemBench Benchmark Runner: Evaluates Multi-Session Persona Fact Retention, Contradiction Arbitration & Token Savings.
+MemBench fixture runner (hand-written personas, not a published dataset): Evaluates Multi-Session Persona Fact Retention, Contradiction Arbitration & Token Savings.
 
 Scoring is scorer v2 (scoring.py). `accuracy` replaces the old
 fact_precision/fact_recall pair, which were the same number computed twice.

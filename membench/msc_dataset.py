@@ -1,6 +1,7 @@
 """
 campy-benchmarks / membench / msc_dataset.py
-Multi-Session Chat (MSC) Dataset for Persona Retention and Contradiction Arbitration.
+Hand-written personas in the style of Multi-Session Chat (MSC), for persona
+retention and contradiction arbitration. Not MSC data: see dmr/ for that.
 """
 
 from __future__ import annotations

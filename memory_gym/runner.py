@@ -1,6 +1,6 @@
 """
 campy-benchmarks / memory_gym / runner.py
-MemoryGym Benchmark Runner: Evaluates 2D Spatial/Temporal Persistence over extended step horizons.
+MemoryGym fixture runner (always the simulated environment; see README): Evaluates 2D Spatial/Temporal Persistence over extended step horizons.
 """
 
 from __future__ import annotations
