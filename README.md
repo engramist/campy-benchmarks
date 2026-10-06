@@ -11,6 +11,7 @@ This repository is an isolated consumer harness that tests HippoCampy strictly o
 3. **MemBench (`membench/`):** Multi-Session Chat (MSC) persona memory and contradictory belief resolution.
 4. **ARC Bridge (`arc_bridge/`):** Integrates memory-transfer diagnostics from the sibling `ARC_AGI` repo.
 5. **LoCoMo-10 (`locomo10/`, `--suite locomo10`):** the published LoCoMo dataset (Maharana et al., ACL 2024): 10 long conversations, 5,882 turns, 1,986 questions. Not part of `--suite all`, because a full run takes hours on a local model.
+6. **LongMemEval (`longmemeval/`, `--suite longmemeval`):** the published LongMemEval dataset (Wu et al., ICLR 2025): 500 questions over user–assistant chat histories, in 6 types plus abstention. Each question has its own history, so each runs on its own fresh store. Not part of `--suite all`.
 
 ## Quickstart
 
@@ -23,6 +24,7 @@ python check_scorers.py
 python check_suite_order_independence.py
 python check_repeat.py
 python check_qa_judge.py
+python check_longmemeval.py
 
 # Before trusting a judge model: grade the ~600 hand-labelled answers with it
 python check_qa_judge.py --live --judge-model gemma4:26b
@@ -40,6 +42,10 @@ python run_all.py --baseline --isolated --baselines all
 # The published LoCoMo benchmark: start with one conversation, then scale up
 python check_locomo10.py      # downloads + verifies the dataset, checks scoring
 python run_all.py --baseline --isolated --suite locomo10 --baselines all --locomo10-conversations 1
+
+# LongMemEval: the oracle variant (evidence sessions only), a balanced subset first
+python check_longmemeval.py
+python run_all.py --baseline --isolated --suite longmemeval --lme-questions 35 --judge-model gemma4:26b
 
 # Before trusting a change: 3 runs, each on a fresh store (see "Repeated runs")
 python run_all.py --baseline --isolated --repeat 3
@@ -252,6 +258,56 @@ Campy's store holds.
 round-robin across categories, so a subset stays balanced) and
 `--locomo10-categories 1,2,3,4`. `--smoke` defaults to 1 conversation and 25
 questions. `--compare` warns when the subset or judge model differs.
+
+## LongMemEval (`--suite longmemeval`)
+
+**Data:** the cleaned release on HuggingFace (`xiaowu0162/longmemeval-cleaned`,
+MIT license), downloaded into `data/` on first use; `LONGMEMEVAL_PATH` points
+at an existing copy. The file's sha256 is recorded in the results. Variants
+(`--lme-variant`):
+- `oracle` (default): only the sessions that hold the evidence, 1–6 per
+  question. It isolates reading and reasoning from search.
+- `s`: about 40 sessions and 115k tokens per question; the evidence is among
+  distractor sessions. This is the variant papers usually report. It's
+  expensive here: each question writes about 500 turns to a fresh store.
+- `m`: about 500 sessions per question. Not practical on a local model.
+
+**Protocol (per question):**
+- **Fresh store.** A new isolated daemon per question (`--isolated` is
+  required with a real daemon). Each question has its own history, and the
+  histories contradict each other.
+- **Ingestion:** the sessions in date order, every turn with its real role
+  (`user` / `assistant`) and the session date as a text prefix:
+  `[2023/05/20 (Sat) 02:21] …`. `notify_turn` has no timestamp parameter.
+  Consolidation settles once, after the last session.
+- **Question:** `compile_context` (retrieval diagnostic), then `ask` with the
+  question date in front, as the official generation prompt does:
+  `(Current date: 2023/05/30 (Tue) 23:40) How many …`.
+- **Judge:** the official per-type yes/no prompts (`evaluate_qa.py`),
+  copied verbatim: temporal-reasoning tolerates off-by-one counts,
+  knowledge-update accepts an answer that also mentions the old value,
+  preference questions are graded against a rubric, and `_abs` questions
+  pass when the answer says the question can't be answered. A non-answer
+  ("No relevant context was found in memory") is wrong without a judge call,
+  except on abstention questions. The judge is `--judge-model`, else the
+  baselines' LLM. The paper uses GPT-4o, so the numbers compare across runs
+  of this harness with the same judge model, not directly with published
+  ones.
+
+**Metrics:**
+
+| Metric | What it is |
+|---|---|
+| `accuracy` | **Headline.** The share of questions the judge marks correct. |
+| `task_averaged_accuracy` | The mean of the 7 per-category accuracies (6 types + abstention). Small categories count as much as large ones. |
+| `evidence_recall` | The share of the `has_answer` turns that `compile_context` surfaced. Not defined for abstention questions. Campy stores at most 4,000 characters of a turn (`ingestion.max_ingest_chars`), and assistant turns are often longer, so a turn counts as found when its opening, or 80% of the words of its stored part, is in one item. Evidence past that cut isn't in the store, though recall still counts the turn; `evidence_over_ingest_limit` counts the questions with such a turn. |
+| `by_category` | Each metric above per category: single-session-user, single-session-assistant, single-session-preference, temporal-reasoning, knowledge-update, multi-session, abstention. |
+
+**Subsets:** `--lme-questions N` takes N questions round-robin across the 7
+categories, so a subset stays balanced. `--lme-types a,b` filters by category
+(`abstention` is its own; `knowledge-update` excludes its abstention
+questions). `--smoke` is 7 questions. Not supported with LongMemEval yet:
+`--baselines` and `--repeat`.
 
 ## Result files and provenance
 
