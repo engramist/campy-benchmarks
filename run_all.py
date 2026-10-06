@@ -14,6 +14,7 @@ import os
 import shlex
 import sys
 import time
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Optional
@@ -29,6 +30,8 @@ from isolation import IsolatedDaemon
 from llm_client import BaselineLLM, LLMError
 from locomo10.runner import locomo10_options, run_locomo10
 from locomo10.scoring import aggregate as locomo10_aggregate, judge_details, JUDGE_TEMPLATE
+from longmemeval.runner import lme_options, run_longmemeval
+from longmemeval.scoring import aggregate as lme_aggregate, judge_details as lme_judge_details
 from mcp_client import CampyMCPClient, CampyClientError
 from locomo.runner import run_locomo
 from memory_gym.runner import run_memory_gym
@@ -183,6 +186,12 @@ def print_summary_table(results: Dict[str, Any]) -> None:
         if "locomo10" in suites:
             l10 = suites["locomo10"]
             table.add_row("LoCoMo-10", f"F1: {l10.get('f1')} | Adv. abstain: {l10.get('adversarial_abstention')} | Evidence recall: {l10.get('evidence_recall')}", f"Judge: {l10.get('judge_accuracy')}", f"{l10.get('avg_latency_ms')} ms")
+        if "longmemeval" in suites:
+            lme = suites["longmemeval"]
+            cats = ", ".join(f"{k}: {v['accuracy']}" for k, v in (lme.get("by_category") or {}).items())
+            table.add_row("LongMemEval", f"{lme.get('dataset', {}).get('variant')} | Evidence recall: "
+                          f"{lme.get('evidence_recall')} | {cats}", f"Acc: {lme.get('accuracy')}",
+                          f"{lme.get('avg_latency_ms')} ms")
         if "arc_bridge" in suites:
             arc = suites["arc_bridge"]
             table.add_row("ARC Bridge", f"Transfer: {arc.get('rule_transfer_rate')} | Disappear: {arc.get('disappeared_entity_recall')}", "-", f"{arc.get('hot_path_latency_ms')} ms")
@@ -263,6 +272,34 @@ def finalize_locomo10(results: Dict[str, Any], args, isolated) -> None:
     results["locomo10_judge"] = info
 
 
+def finalize_longmemeval(results: Dict[str, Any], args, isolated, mcp_cmd) -> None:
+    """Grade LongMemEval answers with the official per-type prompts
+    (longmemeval/scoring.py), then recompute the metrics."""
+    res = results.get("suites", {}).get("longmemeval")
+    if not res or not res.get("valid"):
+        return
+    info: Dict[str, Any] = {"enabled": False, "prompts": "official evaluate_qa.py get_anscheck_prompt"}
+    if args.judge == "none":
+        info["note"] = "--judge none"
+    elif not mcp_cmd:
+        info["note"] = "skipped: mock run (no CAMPY_MCP_CMD), the answers are canned"
+    else:
+        try:
+            judge_llm, _, source = resolve_baseline_llm(
+                args, mcp_cmd, isolated,
+                overrides=(args.judge_provider or args.baseline_provider,
+                           args.judge_model or args.baseline_model,
+                           args.judge_base_url or args.baseline_base_url))
+            info.update({"enabled": True, "llm": judge_llm.describe(), "source": source})
+            print(f"\n[+] LongMemEval judge: {judge_llm.describe()['model']}")
+            info["calls"] = lme_judge_details(res["details"], judge_llm)
+        except LLMError as e:
+            info["error"] = str(e)[:500]
+            print(f"    !! judge failed ({e}); LongMemEval accuracy stays null")
+    res.update(lme_aggregate(res["details"]))
+    results["longmemeval_judge"] = info
+
+
 def print_baseline_table(results: Dict[str, Any]) -> None:
     """Campy next to each baseline, per QA suite, plus the per-probe cross-tab."""
     bl = results.get("baselines", {})
@@ -327,7 +364,14 @@ def main():
                              "(needs --isolated with a real daemon)")
     parser.add_argument("--trace-context", action="store_true",
                         help="LoCoMo: also call compile_context per probe and record what it retrieved (extra daemon calls)")
-    parser.add_argument("--suite", choices=["all", "locomo", "memory_gym", "membench", "arc", "locomo10"], default="all",
+    parser.add_argument("--lme-variant", choices=["oracle", "s", "m"], default="oracle",
+                        help="LongMemEval: oracle (evidence sessions only), s (~40 sessions/question) or m")
+    parser.add_argument("--lme-questions", type=int, default=None,
+                        help="LongMemEval: first N questions, interleaved across the 7 categories")
+    parser.add_argument("--lme-types", type=lambda s: s.split(","), default=None,
+                        help="LongMemEval: comma list of question types / 'abstention'")
+    parser.add_argument("--suite", choices=["all", "locomo", "memory_gym", "membench", "arc", "locomo10",
+                                            "longmemeval"], default="all",
                         help="'all' = the four fixture suites. locomo10 = the published LoCoMo dataset "
                              "(hours on a local model; not in 'all')")
     parser.add_argument("--locomo10-conversations", type=int, default=None,
@@ -368,8 +412,10 @@ def main():
         parser.error("--baselines-only needs --baselines")
     if args.repeat < 1:
         parser.error("--repeat must be at least 1")
-    if args.repeat > 1 and (baseline_names or args.suite == "locomo10"):
-        parser.error("--repeat > 1 is not supported with --baselines or --suite locomo10 yet")
+    if args.suite == "longmemeval" and baseline_names:
+        parser.error("--baselines are not implemented for --suite longmemeval yet")
+    if args.repeat > 1 and (baseline_names or args.suite in ("locomo10", "longmemeval")):
+        parser.error("--repeat > 1 is not supported with --baselines, --suite locomo10 or longmemeval yet")
 
     mcp_cmd = os.environ.get("CAMPY_MCP_CMD")
     print(f"=== Campy Benchmark Harness (B381) ===")
@@ -394,6 +440,10 @@ def main():
         parser.error("a real daemon needs --isolated (a throwaway store). Without it the fixture "
                      "turns are written into your personal ~/.campy memory; pass --shared-store "
                      "only if that is really what you want")
+    if args.suite == "longmemeval" and mcp_cmd and not args.isolated:
+        # every question has its own history about "the user": one store for
+        # all of them would let one question's history answer another's
+        parser.error("--suite longmemeval needs --isolated (a fresh store per question)")
     if args.shared_store and not args.baselines_only:
         print("[!] --shared-store: this run reads and writes the personal ~/.campy store, and earlier "
               "runs' data is in it. Use --isolated for a clean, reproducible store.")
@@ -401,6 +451,7 @@ def main():
     suites_to_run = ["locomo", "memory_gym", "membench", "arc"] if args.suite == "all" else [args.suite]
     campy_suites = [] if args.baselines_only else suites_to_run
     l10_opts = locomo10_options(args, args.smoke)
+    lme_opts = lme_options(args, args.smoke)
 
     def run_once(run_no: int):
         """Start the daemon (fresh isolated store if --isolated), run the
@@ -463,6 +514,36 @@ def main():
             if "locomo10" in campy_suites:
                 run_suite("locomo10", f"LoCoMo-10 (published dataset; {l10_opts})",
                           lambda c, smoke, trace_context: run_locomo10(c, smoke, True, l10_opts))
+            if "longmemeval" in campy_suites:
+                @contextmanager
+                def fresh_store():
+                    """A new isolated daemon (empty store) per question; the
+                    mock client in a mock run."""
+                    if not args.isolated:
+                        client.reset_mock_state()
+                        yield client
+                        return
+                    d = IsolatedDaemon(python=args.daemon_python or shlex.split(mcp_cmd)[0],
+                                       base_config=provenance.base_config_path(
+                                           provenance.hippocampy_repo_from_cmd(mcp_cmd)),
+                                       keep_store=args.keep_store, ready_timeout=args.daemon_ready_timeout)
+                    d.start()
+                    c = None
+                    try:
+                        c = CampyMCPClient(mcp_cmd=mcp_cmd, env=d.client_env())
+                        yield c
+                    finally:
+                        if c is not None:
+                            client.stats["calls"] += c.stats["calls"]
+                            client.stats["failures"] += c.stats["failures"]
+                            c.close()
+                        d.stop()
+                        if args.keep_store:
+                            print(f"      store kept: {d.home}")
+
+                run_suite("longmemeval", f"LongMemEval (published dataset; {lme_opts})",
+                          lambda c, smoke, trace_context: run_longmemeval(fresh_store, lme_opts,
+                                                                          log=lambda m: print(m, flush=True)))
         finally:
             client.close()
             if isolated:
@@ -554,6 +635,8 @@ def main():
         results["qa_judge"] = judge_info
     if "locomo10" in suites_to_run:
         finalize_locomo10(results, args, isolated)
+    if "longmemeval" in suites_to_run:
+        finalize_longmemeval(results, args, isolated, mcp_cmd)
     if baseline_names and executed_suites:
         results["campy_vs_baselines"] = compare_to_campy(executed_suites, results["baselines"])
 
