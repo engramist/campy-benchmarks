@@ -1,0 +1,1045 @@
+{
+  "timestamp": "2026-10-06T03:48:00.065910+00:00",
+  "provenance": {
+    "scorer_version": 4,
+    "argv": [
+      "run_all.py",
+      "--isolated",
+      "--judge-model",
+      "gemma4:26b",
+      "--out",
+      "results/r9-fixtures-limit20.json"
+    ],
+    "harness": {
+      "path": "/Users/djshelton/Desktop/GitProjects/campy-benchmarks",
+      "commit": "9edfebc2181d7aff41ee21316efe34c4abdae35c",
+      "branch": "master",
+      "dirty": true
+    },
+    "hippocampy": {
+      "path": "/Users/djshelton/Desktop/GitProjects/hippocampy",
+      "commit": "babe6d31d0c994bffd8c9c5b0f73c857e4d12838",
+      "branch": "main",
+      "dirty": false
+    },
+    "daemon_config": {
+      "source": "isolated (written by harness)",
+      "derived_from": "/tmp/bench-limit-20.toml",
+      "sha256": "20abea7b62ce1cb5ae27c55e931b84760d026523bb94072cd6c9981b382c52c2",
+      "llm_provider": "ollama",
+      "llm_model": "llama3.1:8b",
+      "llm_step_overrides": {},
+      "embeddings_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "compression_model": null
+    },
+    "store": {
+      "isolated": true,
+      "campy_home": "(deleted after run)",
+      "web_port": 49501,
+      "config_overrides": {
+        "capture.enabled": false,
+        "capture.codex.enabled": false,
+        "capture.claude_code.enabled": false,
+        "capture.vscode.enabled": false,
+        "daemon.restart_interval_hours": 0,
+        "watchdog.enabled": false,
+        "web.port": 49501,
+        "server.bind_host": "127.0.0.1",
+        "activity.log_path": "/tmp/campy-bench-oue4lc4n/activity.log"
+      },
+      "daemon_ready_seconds": 2.0,
+      "activity_log_lines": 634
+    },
+    "dataset_sha": {
+      "locomo": "dbbe2514f617d524",
+      "membench": "5ba306db91543c61",
+      "locomo10": "79fa87e90f040813@3eb6f2c5"
+    },
+    "python": "3.12.13",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "mode": "standard",
+  "mcp_configured": true,
+  "suites": {
+    "locomo": {
+      "suite": "locomo",
+      "scenarios": 25,
+      "probes": 28,
+      "accuracy": 0.9643,
+      "exact_match": 0.9643,
+      "f1": 0.2525,
+      "deprecation_accuracy": 0.963,
+      "deprecation_probes": 27,
+      "avg_latency_ms": 1398.06,
+      "details": [
+        {
+          "id": "p1_current_db",
+          "scenario": "locomo_01_db_migration",
+          "question": "What is our active production database engine and version?",
+          "expected": "PostgreSQL 16",
+          "answer": "Our active production database engine is PostgreSQL, and the version is 16.",
+          "passed": false,
+          "reason": "missing_current_value",
+          "exact_match": false,
+          "f1": 0.2857,
+          "is_deprecation": true,
+          "latency_ms": 778.6,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p2_deprecated_check",
+          "scenario": "locomo_01_db_migration",
+          "question": "Can we deploy the new payment service on PostgreSQL 14?",
+          "expected": "No, PostgreSQL 14 is deprecated; use PostgreSQL 16.",
+          "answer": "Based on the provided memory context, I can see that the user has mentioned that the service uses PostgreSQL 14 hosted on AWS RDS, but also that there has been a critical update to migrate to PostgreSQL 16. The constraint is to not use PostgreSQL 14 anymore.\n\nTherefore, I would say that it is not recommended to deploy the new payment service on PostgreSQL 14, as it is no longer the target database version. The correct target is PostgreSQL 16.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.1591,
+          "is_deprecation": true,
+          "latency_ms": 2273.9,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p3_analytics_pk",
+          "scenario": "locomo_01_db_migration",
+          "question": "What primary key format is required for analytics tables?",
+          "expected": "BIGINT sequence IDs for new analytics tables (the earlier rule for all tables is UUID primary keys)",
+          "answer": "Based on the provided memory context, the primary key format required for analytics tables is a UUID primary key, as stated in the conversation on 2026-10-06 03:23. However, there is a later update that specifies new analytics tables should use BIGINT sequence IDs. Since the constraint is to use UUID primary keys for all tables, and the update only applies to new analytics tables, it can be inferred that the primary key format for existing analytics tables is still UUID, while new analytics tables should use BIGINT sequence IDs.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.2752,
+          "is_deprecation": false,
+          "latency_ms": 3177.1,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p4_auth_algo",
+          "scenario": "locomo_02_auth_evolution",
+          "question": "What algorithm is required for signing authentication tokens?",
+          "expected": "RS256 asymmetric keys via JWKS",
+          "answer": "Based on the provided memory context, the algorithm required for signing authentication tokens is RS256 (RSA with SHA-256) with rotation via JWKS (JSON Web Key Set). This is the result of the security audit and final rollout, which deprecated symmetric HS256 tokens due to key distribution risks.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.1132,
+          "is_deprecation": true,
+          "latency_ms": 1610.2,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p5_hs256_rejection",
+          "scenario": "locomo_02_auth_evolution",
+          "question": "Is an HS256 signed token acceptable for internal APIs?",
+          "expected": "No, HS256 is forbidden/deprecated.",
+          "answer": "Based on the provided memory context, I can see that there is a constraint to not accept HS256 tokens under any circumstances, as stated in the final rollout conversation. This constraint supersedes the earlier mention of using symmetric HS256 tokens.\n\nTherefore, the answer to the query is: No, an HS256 signed token is not acceptable for internal APIs.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.0952,
+          "is_deprecation": true,
+          "latency_ms": 1920.4,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p6_cache_engine",
+          "scenario": "locomo_03_cache_strategy",
+          "question": "What system do we use for caching and distributed locks?",
+          "expected": "Redis cluster on port 6379",
+          "answer": "Based on the provided memory context, we use a Redis cluster on port 6379 for both caching and distributed locks, as per the architecture change mentioned on 2026-10-06 03:25.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.2703,
+          "is_deprecation": true,
+          "latency_ms": 1189.0,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_4_active",
+          "scenario": "locomo_04_api_format",
+          "question": "What is the current required tool for api_format?",
+          "expected": "GraphQL",
+          "answer": "The current required tool for api_format is GraphQL.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.2222,
+          "is_deprecation": true,
+          "latency_ms": 667.9,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_5_active",
+          "scenario": "locomo_05_container_orchestration",
+          "question": "What is the current required tool for container_orchestration?",
+          "expected": "Kubernetes k8s",
+          "answer": "Based on the provided memory context, the current required tool for container_orchestration is Kubernetes k8s. This is stated in the most recent conversation entry, where the user explicitly states that Kubernetes k8s has replaced Nomad and should be used strictly for container_orchestration.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.0909,
+          "is_deprecation": true,
+          "latency_ms": 1502.9,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_6_active",
+          "scenario": "locomo_06_logging_backend",
+          "question": "What is the current required tool for logging_backend?",
+          "expected": "Vector to OpenSearch",
+          "answer": "The current required tool for logging_backend is Vector to OpenSearch.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.4615,
+          "is_deprecation": true,
+          "latency_ms": 773.1,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_7_active",
+          "scenario": "locomo_07_python_version",
+          "question": "What is the current required tool for python_version?",
+          "expected": "Python 3.12",
+          "answer": "The current required tool for python_version is Python 3.12.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.4615,
+          "is_deprecation": true,
+          "latency_ms": 749.3,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_8_active",
+          "scenario": "locomo_08_ci_provider",
+          "question": "What is the current required tool for ci_provider?",
+          "expected": "GitHub Actions",
+          "answer": "The current required tool for ci_provider is GitHub Actions. This is based on the final decision made on 2026-10-06 03:27, which superseded the earlier constraints and requirements.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.125,
+          "is_deprecation": true,
+          "latency_ms": 1232.1,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_9_active",
+          "scenario": "locomo_09_message_broker",
+          "question": "What is the current required tool for message_broker?",
+          "expected": "Apache Kafka",
+          "answer": "The current required tool for message_broker is Apache Kafka, as per the final decision made on 2026-10-06 03:28.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.1739,
+          "is_deprecation": true,
+          "latency_ms": 1120.8,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_10_active",
+          "scenario": "locomo_10_rpc_framework",
+          "question": "What is the current required tool for rpc_framework?",
+          "expected": "gRPC with Protobuf v3",
+          "answer": "The current required tool for rpc_framework is gRPC with Protobuf v3.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.5333,
+          "is_deprecation": true,
+          "latency_ms": 1056.0,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_11_active",
+          "scenario": "locomo_11_cloud_region",
+          "question": "What is the current required tool for cloud_region?",
+          "expected": "eu-central-1",
+          "answer": "The current required tool for cloud_region is eu-central-1.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.4615,
+          "is_deprecation": true,
+          "latency_ms": 914.6,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_12_active",
+          "scenario": "locomo_12_monitoring",
+          "question": "What is the current required tool for monitoring?",
+          "expected": "Prometheus with Grafana",
+          "answer": "Based on the provided context, the current required tool for monitoring is Prometheus with Grafana. This is stated in the most recent conversation entry, which supersedes the earlier decisions to use Nagios, Graphite, and then Graphite again.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.15,
+          "is_deprecation": true,
+          "latency_ms": 1398.0,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_13_active",
+          "scenario": "locomo_13_code_formatter",
+          "question": "What is the current required tool for code_formatter?",
+          "expected": "Ruff and Black",
+          "answer": "Based on the memory context, the current required tool for code_formatter is Ruff and Black. This is the most recent constraint mentioned in the conversation, superseding earlier decisions to use autopep8, yapf, and other tools.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.1579,
+          "is_deprecation": true,
+          "latency_ms": 1450.3,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_14_active",
+          "scenario": "locomo_14_storage_tier",
+          "question": "What is the current required tool for storage_tier?",
+          "expected": "Ceph Object Storage",
+          "answer": "Based on the provided memory context, the current required tool for storage_tier is Ceph Object Storage. This is stated in the final decision made on 2026-10-06 03:31, which supersedes the previous decisions to use S3 Standard and S3 Glacier.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.1333,
+          "is_deprecation": true,
+          "latency_ms": 1876.5,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_15_active",
+          "scenario": "locomo_15_tls_version",
+          "question": "What is the current required tool for tls_version?",
+          "expected": "Strict TLS 1.3",
+          "answer": "The current required tool for tls_version is Strict TLS 1.3.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.5333,
+          "is_deprecation": true,
+          "latency_ms": 1054.9,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_16_active",
+          "scenario": "locomo_16_css_framework",
+          "question": "What is the current required tool for css_framework?",
+          "expected": "Tailwind CSS v3",
+          "answer": "The current required tool for css_framework is Tailwind CSS v3.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.4615,
+          "is_deprecation": true,
+          "latency_ms": 764.7,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_17_active",
+          "scenario": "locomo_17_build_system",
+          "question": "What is the current required tool for build_system?",
+          "expected": "Hatch / UV",
+          "answer": "The current required tool for build_system is Hatch / UV.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.3636,
+          "is_deprecation": true,
+          "latency_ms": 1093.7,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_18_active",
+          "scenario": "locomo_18_dns_provider",
+          "question": "What is the current required tool for dns_provider?",
+          "expected": "Cloudflare DNS",
+          "answer": "Based on the provided memory context, the current required tool for dns_provider is Cloudflare DNS. This is stated in the final decision made on 2026-10-06 03:33.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.129,
+          "is_deprecation": true,
+          "latency_ms": 1407.9,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_19_active",
+          "scenario": "locomo_19_search_engine",
+          "question": "What is the current required tool for search_engine?",
+          "expected": "Kuzu Hybrid Search",
+          "answer": "Based on the provided memory context, the current required tool for search_engine is Kuzu Hybrid Search. This is stated in the final decision made on 2026-10-06 03:33, which supersedes earlier decisions and constraints.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.1538,
+          "is_deprecation": true,
+          "latency_ms": 1709.7,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_20_active",
+          "scenario": "locomo_20_serialization",
+          "question": "What is the current required tool for serialization?",
+          "expected": "Protobuf",
+          "answer": "Based on the provided memory context, the current required tool for serialization is Protobuf. This is stated in the final decision made on 2026-10-06 03:34, where it is specified that Protobuf should be used for serialization and that Pickle and MessagePack should not be used.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.0408,
+          "is_deprecation": true,
+          "latency_ms": 1959.0,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_21_active",
+          "scenario": "locomo_21_tracing",
+          "question": "What is the current required tool for tracing?",
+          "expected": "OpenTelemetry OTel",
+          "answer": "Based on the conversation history, the current required tool for tracing is OpenTelemetry OTel. This is the most recent constraint mentioned, superseding the earlier decision to use Jaeger standalone and then Zipkin.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.1176,
+          "is_deprecation": true,
+          "latency_ms": 1559.0,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_22_active",
+          "scenario": "locomo_22_testing_framework",
+          "question": "What is the current required tool for testing_framework?",
+          "expected": "pytest",
+          "answer": "The current required tool for testing_framework is pytest.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.2222,
+          "is_deprecation": true,
+          "latency_ms": 1163.3,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_23_active",
+          "scenario": "locomo_23_frontend_framework",
+          "question": "What is the current required tool for frontend_framework?",
+          "expected": "React 19 with Next.js",
+          "answer": "Based on the provided memory context, the current required tool for frontend_framework is React 19 with Next.js. This is stated in the final decision made on 2026-10-06 03:36.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.2703,
+          "is_deprecation": true,
+          "latency_ms": 2075.3,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_24_active",
+          "scenario": "locomo_24_secrets_manager",
+          "question": "What is the current required tool for secrets_manager?",
+          "expected": "Infisical",
+          "answer": "Based on the provided memory context, the current required tool for secrets_manager is Infisical, as per the final decision made on 2026-10-06 03:36.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.0741,
+          "is_deprecation": true,
+          "latency_ms": 1433.6,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_25_active",
+          "scenario": "locomo_25_os_base_image",
+          "question": "What is the current required tool for os_base_image?",
+          "expected": "Debian 12 Bookworm slim",
+          "answer": "The current required tool for os_base_image is Debian 12 Bookworm slim.",
+          "passed": true,
+          "reason": "ok",
+          "exact_match": true,
+          "f1": 0.5333,
+          "is_deprecation": true,
+          "latency_ms": 1233.8,
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        }
+      ],
+      "valid": true,
+      "client_calls": 382,
+      "client_failures": 0,
+      "judge_accuracy": 1.0,
+      "judge_deprecation_accuracy": 1.0,
+      "judge_disagreements": [
+        {
+          "id": "p1_current_db",
+          "lexical": false,
+          "llm_judge": true,
+          "lexical_reason": "missing_current_value"
+        }
+      ]
+    },
+    "memory_gym": {
+      "suite": "memory_gym",
+      "env": "MysteryPath-v0",
+      "episodes": 20,
+      "max_steps": 500,
+      "total_steps": 560,
+      "success_rate": 1.0,
+      "step_efficiency": 1.0,
+      "retention_500_steps": 1.0,
+      "avg_step_latency_ms": 1.21,
+      "avg_retrieve_latency_ms": 35.09,
+      "details": [
+        {
+          "episode": 0,
+          "session_id": "memgym_mysterypath_ep0",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep0: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (1, 1) -> (1, 2) -> (1, 3) -> (2, 3) -> (2, 4) -> (3, 4) -> (3, 5) -> (4, 5) -> (5, 5) -> (6, 5) -> (6, 6) -> (6, 7) -> (7, 7) -> (7,\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 33.0
+        },
+        {
+          "episode": 1,
+          "session_id": "memgym_mysterypath_ep1",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep1: MysteryPath navigation sequence is: (0, 0) -> (1, 0) -> (2, 0) -> (3, 0) -> (3, 1) -> (4, 1) -> (4, 2) -> (4, 3) -> (4, 4) -> (5, 4) -> (6, 4) -> (7, 4) -> (7, 5) -> (8, 5) -> (9, 5) -> (10\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 36.1
+        },
+        {
+          "episode": 2,
+          "session_id": "memgym_mysterypath_ep2",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep2: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (1, 1) -> (2, 1) -> (3, 1) -> (3, 2) -> (3, 3) -> (4, 3) -> (5, 3) -> (5, 4) -> (6, 4) -> (7, 4) -> (8, 4) -> (9, 4) -> (9, 5) -> (10\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 31.0
+        },
+        {
+          "episode": 3,
+          "session_id": "memgym_mysterypath_ep3",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep3: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (0, 2) -> (1, 2) -> (1, 3) -> (1, 4) -> (1, 5) -> (1, 6) -> (2, 6) -> (2, 7) -> (3, 7) -> (3, 8) -> (3, 9) -> (4, 9) -> (4, 10) -> (4\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 30.7
+        },
+        {
+          "episode": 4,
+          "session_id": "memgym_mysterypath_ep4",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep4: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (1, 1) -> (2, 1) -> (3, 1) -> (3, 2) -> (4, 2) -> (5, 2) -> (5, 3) -> (6, 3) -> (7, 3) -> (8, 3) -> (9, 3) -> (10, 3) -> (11, 3) -> (\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 36.9
+        },
+        {
+          "episode": 5,
+          "session_id": "memgym_mysterypath_ep5",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep5: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (0, 2) -> (0, 3) -> (0, 4) -> (0, 5) -> (1, 5) -> (1, 6) -> (2, 6) -> (2, 7) -> (2, 8) -> (3, 8) -> (4, 8) -> (5, 8) -> (5, 9) -> (6,\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 45.5
+        },
+        {
+          "episode": 6,
+          "session_id": "memgym_mysterypath_ep6",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep6: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (1, 1) -> (2, 1) -> (2, 2) -> (3, 2) -> (4, 2) -> (4, 3) -> (5, 3) -> (6, 3) -> (6, 4) -> (7, 4) -> (8, 4) -> (8, 5) -> (9, 5) -> (9,\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 34.9
+        },
+        {
+          "episode": 7,
+          "session_id": "memgym_mysterypath_ep7",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep7: MysteryPath navigation sequence is: (0, 0) -> (1, 0) -> (2, 0) -> (2, 1) -> (3, 1) -> (4, 1) -> (5, 1) -> (6, 1) -> (7, 1) -> (7, 2) -> (7, 3) -> (8, 3) -> (9, 3) -> (9, 4) -> (10, 4) -> (1\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 35.0
+        },
+        {
+          "episode": 8,
+          "session_id": "memgym_mysterypath_ep8",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep8: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (0, 2) -> (1, 2) -> (2, 2) -> (3, 2) -> (4, 2) -> (5, 2) -> (5, 3) -> (6, 3) -> (6, 4) -> (6, 5) -> (7, 5) -> (7, 6) -> (8, 6) -> (9,\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 35.9
+        },
+        {
+          "episode": 9,
+          "session_id": "memgym_mysterypath_ep9",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep9: MysteryPath navigation sequence is: (0, 0) -> (1, 0) -> (2, 0) -> (2, 1) -> (3, 1) -> (3, 2) -> (4, 2) -> (5, 2) -> (6, 2) -> (6, 3) -> (7, 3) -> (8, 3) -> (9, 3) -> (10, 3) -> (11, 3) -> (\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 33.6
+        },
+        {
+          "episode": 10,
+          "session_id": "memgym_mysterypath_ep10",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep10: MysteryPath navigation sequence is: (0, 0) -> (1, 0) -> (2, 0) -> (2, 1) -> (2, 2) -> (2, 3) -> (3, 3) -> (4, 3) -> (4, 4) -> (5, 4) -> (6, 4) -> (6, 5) -> (6, 6) -> (7, 6) -> (7, 7) -> (7\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 36.2
+        },
+        {
+          "episode": 11,
+          "session_id": "memgym_mysterypath_ep11",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep11: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (0, 2) -> (1, 2) -> (1, 3) -> (2, 3) -> (2, 4) -> (2, 5) -> (2, 6) -> (2, 7) -> (3, 7) -> (4, 7) -> (4, 8) -> (4, 9) -> (4, 10) -> (\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 36.6
+        },
+        {
+          "episode": 12,
+          "session_id": "memgym_mysterypath_ep12",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep12: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (1, 1) -> (2, 1) -> (2, 2) -> (3, 2) -> (4, 2) -> (4, 3) -> (4, 4) -> (4, 5) -> (5, 5) -> (6, 5) -> (6, 6) -> (6, 7) -> (7, 7) -> (7\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 37.4
+        },
+        {
+          "episode": 13,
+          "session_id": "memgym_mysterypath_ep13",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep13: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (0, 2) -> (1, 2) -> (2, 2) -> (2, 3) -> (3, 3) -> (3, 4) -> (4, 4) -> (4, 5) -> (5, 5) -> (5, 6) -> (6, 6) -> (6, 7) -> (6, 8) -> (7\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 37.1
+        },
+        {
+          "episode": 14,
+          "session_id": "memgym_mysterypath_ep14",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep14: MysteryPath navigation sequence is: (0, 0) -> (1, 0) -> (2, 0) -> (2, 1) -> (3, 1) -> (3, 2) -> (3, 3) -> (4, 3) -> (4, 4) -> (4, 5) -> (4, 6) -> (4, 7) -> (4, 8) -> (5, 8) -> (6, 8) -> (7\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 34.4
+        },
+        {
+          "episode": 15,
+          "session_id": "memgym_mysterypath_ep15",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep15: MysteryPath navigation sequence is: (0, 0) -> (1, 0) -> (1, 1) -> (1, 2) -> (1, 3) -> (1, 4) -> (1, 5) -> (1, 6) -> (1, 7) -> (2, 7) -> (3, 7) -> (3, 8) -> (3, 9) -> (3, 10) -> (3, 11) -> \u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 32.1
+        },
+        {
+          "episode": 16,
+          "session_id": "memgym_mysterypath_ep16",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep16: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (0, 2) -> (0, 3) -> (1, 3) -> (2, 3) -> (2, 4) -> (2, 5) -> (3, 5) -> (3, 6) -> (3, 7) -> (3, 8) -> (4, 8) -> (4, 9) -> (5, 9) -> (6\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 31.6
+        },
+        {
+          "episode": 17,
+          "session_id": "memgym_mysterypath_ep17",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep17: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (0, 2) -> (1, 2) -> (2, 2) -> (2, 3) -> (2, 4) -> (3, 4) -> (3, 5) -> (3, 6) -> (4, 6) -> (4, 7) -> (4, 8) -> (4, 9) -> (4, 10) -> (\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 33.7
+        },
+        {
+          "episode": 18,
+          "session_id": "memgym_mysterypath_ep18",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep18: MysteryPath navigation sequence is: (0, 0) -> (0, 1) -> (0, 2) -> (1, 2) -> (2, 2) -> (2, 3) -> (3, 3) -> (4, 3) -> (4, 4) -> (5, 4) -> (6, 4) -> (6, 5) -> (7, 5) -> (8, 5) -> (8, 6) -> (9\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 31.9
+        },
+        {
+          "episode": 19,
+          "session_id": "memgym_mysterypath_ep19",
+          "path_len": 29,
+          "recalled_len": 29,
+          "recalled_exact": true,
+          "recall_source": "current_truth",
+          "recalled_text": "Observation at Step 0 for memgym_mysterypath_ep19: MysteryPath navigation sequence is: (0, 0) -> (1, 0) -> (1, 1) -> (2, 1) -> (3, 1) -> (4, 1) -> (4, 2) -> (5, 2) -> (5, 3) -> (5, 4) -> (5, 5) -> (5, 6) -> (5, 7) -> (6, 7) -> (6, 8) -> (7\u2026",
+          "steps": 28,
+          "success": true,
+          "retrieve_latency_ms": 38.3
+        }
+      ],
+      "valid": true,
+      "client_calls": 100,
+      "client_failures": 0
+    },
+    "membench": {
+      "suite": "membench",
+      "personas": 5,
+      "total_probes": 6,
+      "accuracy": 1.0,
+      "contradiction_score": 1.0,
+      "contradiction_probes": 5,
+      "raw_tokens_avg": 102.6,
+      "bundle_tokens_avg": 271.0,
+      "token_savings_pct": 0.0,
+      "avg_latency_ms": 1386.13,
+      "avg_compile_latency_ms": 33.9,
+      "details": [
+        {
+          "id": "p_alex_diet",
+          "persona": "msc_alex",
+          "question": "What is Alex's current diet? Are they vegan or pescatarian?",
+          "expected": "pescatarian",
+          "answer": "Based on the conversation history, Alex initially stated they follow a strict vegan diet on October 6, 2026, at 03:41. However, in the same conversation, they later updated their dietary preference to a pescatarian diet, stating they now eat fish, also on October 6, 2026, at 03:41. Therefore, Alex's current diet is pescatarian.",
+          "passed": true,
+          "reason": "ok",
+          "is_contradiction": true,
+          "ask_latency_ms": 2201.1,
+          "compile_latency_ms": 35.1,
+          "context": {
+            "total_token_estimate": 192,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 4
+              }
+            ],
+            "top_items": [
+              "vegan",
+              "[user, 2026-10-06 03:36] Update: Vault dev is deprecated; migrate secrets_manager to AWS Secrets Manager.",
+              "[user, 2026-10-06 03:37] Update: Ubuntu 18.04 is deprecated; migrate os_base_image to CentOS 7.",
+              "[user, 2026-10-06 03:41] Hi! I'm Alex. I live in Seattle and I follow a strict vegan diet. I also have 2 cats.",
+              "[user, 2026-10-06 03:41] Major life update: After my doctor visit, I am no longer vegan. I have switched to a pescatarian diet and eat fish now."
+            ]
+          },
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_alex_city",
+          "persona": "msc_alex",
+          "question": "Where does Alex live?",
+          "expected": "Seattle",
+          "answer": "Alex lives in Seattle.",
+          "passed": true,
+          "reason": "ok",
+          "is_contradiction": false,
+          "ask_latency_ms": 473.9,
+          "compile_latency_ms": 28.0,
+          "context": {
+            "total_token_estimate": 107,
+            "sections": [
+              {
+                "type": null,
+                "items": 1
+              },
+              {
+                "type": null,
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "Alex",
+              "[user, 2026-10-06 03:41] Hi! I'm Alex. I live in Seattle and I follow a strict vegan diet. I also have 2 cats."
+            ]
+          },
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_jordan_editor",
+          "persona": "msc_jordan",
+          "question": "What primary code editor does Jordan use?",
+          "expected": "VS Code (with Cursor for AI assistance)",
+          "answer": "Based on the provided context, I can answer the query about Jordan's primary code editor.\n\nJordan's primary code editor is VS Code. This information is contained in the conversation memory, specifically in the message where Jordan says, \"Update: I stopped using Vim. I fully transitioned to VS Code with Cursor for AI assistance.\"",
+          "passed": true,
+          "reason": "ok",
+          "is_contradiction": true,
+          "ask_latency_ms": 2358.2,
+          "compile_latency_ms": 36.0,
+          "context": {
+            "total_token_estimate": 505,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 9
+              }
+            ],
+            "top_items": [
+              "Jordan",
+              "editor plugins",
+              "your editor",
+              "[user, 2026-10-06 03:23] Our service uses PostgreSQL 14 hosted on AWS RDS. Constraint: all tables must use UUID primary keys.",
+              "[user, 2026-10-06 03:23] CRITICAL UPDATE: We have completely migrated from PostgreSQL 14 to PostgreSQL 16. Constraint: do NOT use PostgreSQL 14 anymore, all new deployments target PostgreSQL 16.",
+              "[user, 2026-10-06 03:30] Constraint for code_formatter: we use autopep8.",
+              "[user, 2026-10-06 03:30] Final decision: yapf has been replaced by Ruff and Black. Constraint: strictly use Ruff and Black for code_formatter, do NOT use autopep8 or yapf.",
+              "[user, 2026-10-06 03:36] Update: Vault dev is deprecated; migrate secrets_manager to AWS Secrets Manager."
+            ]
+          },
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_taylor_3",
+          "persona": "msc_taylor",
+          "question": "What is Taylor's favorite coffee?",
+          "expected": "Cold brew with cinnamon",
+          "answer": "Taylor's favorite coffee is Cold brew with cinnamon.",
+          "passed": true,
+          "reason": "ok",
+          "is_contradiction": true,
+          "ask_latency_ms": 916.9,
+          "compile_latency_ms": 30.4,
+          "context": {
+            "total_token_estimate": 99,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 03:36] Update: Vault dev is deprecated; migrate secrets_manager to AWS Secrets Manager.",
+              "[user, 2026-10-06 03:37] Update: Ubuntu 18.04 is deprecated; migrate os_base_image to CentOS 7.",
+              "[user, 2026-10-06 03:43] Hi, I'm Taylor. My favorite coffee is Oat milk latte.",
+              "[user, 2026-10-06 03:43] Update: I switched my favorite coffee. It is now Cold brew with cinnamon, no longer Oat milk latte."
+            ]
+          },
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_morgan_4",
+          "persona": "msc_morgan",
+          "question": "What is Morgan's exercise routine?",
+          "expected": "Olympic weightlifting",
+          "answer": "Morgan's current exercise routine is Olympic weightlifting.",
+          "passed": true,
+          "reason": "ok",
+          "is_contradiction": true,
+          "ask_latency_ms": 782.4,
+          "compile_latency_ms": 33.8,
+          "context": {
+            "total_token_estimate": 112,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-06 03:36] Update: Vault dev is deprecated; migrate secrets_manager to AWS Secrets Manager.",
+              "[user, 2026-10-06 03:37] Update: Ubuntu 18.04 is deprecated; migrate os_base_image to CentOS 7.",
+              "[user, 2026-10-06 03:43] Hi, I'm Morgan. My exercise routine is Marathon running.",
+              "[user, 2026-10-06 03:44] Working on daily tasks.",
+              "[user, 2026-10-06 03:44] Update: I switched my exercise routine. It is now Olympic weightlifting, no longer Marathon running."
+            ]
+          },
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        },
+        {
+          "id": "p_casey_5",
+          "persona": "msc_casey",
+          "question": "What is Casey's cloud preference?",
+          "expected": "Google Cloud Run serverless",
+          "answer": "Based on the conversation history, Casey's cloud preference is currently Google Cloud Run serverless. This is the most recent update to their cloud preference, which supersedes their earlier preference for AWS ECS.",
+          "passed": true,
+          "reason": "ok",
+          "is_contradiction": true,
+          "ask_latency_ms": 1584.3,
+          "compile_latency_ms": 40.1,
+          "context": {
+            "total_token_estimate": 340,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 7
+              }
+            ],
+            "top_items": [
+              "my cloud preference",
+              "Google Cloud Run serverless",
+              "[user, 2026-10-06 03:29] Constraint for cloud_region: we use us-east-1.",
+              "[user, 2026-10-06 03:29] Update: us-east-1 is deprecated; migrate cloud_region to us-west-2.",
+              "[user, 2026-10-06 03:29] Final decision: us-west-2 has been replaced by eu-central-1. Constraint: strictly use eu-central-1 for cloud_region, do NOT use us-east-1 or us-west-2.",
+              "[user, 2026-10-06 03:36] Update: Vault dev is deprecated; migrate secrets_manager to AWS Secrets Manager.",
+              "[user, 2026-10-06 03:37] Update: Ubuntu 18.04 is deprecated; migrate os_base_image to CentOS 7.",
+              "[user, 2026-10-06 03:44] Hi, I'm Casey. My cloud preference is AWS ECS."
+            ]
+          },
+          "llm_judge": true,
+          "llm_judge_reason": "judge_correct"
+        }
+      ],
+      "valid": true,
+      "client_calls": 119,
+      "client_failures": 0,
+      "judge_accuracy": 1.0,
+      "judge_contradiction_score": 1.0,
+      "judge_disagreements": []
+    },
+    "arc_bridge": {
+      "suite": "arc_bridge",
+      "sibling_repo_present": true,
+      "sibling_tests_executed": true,
+      "hot_path_latency_ms": 25.92,
+      "rule_transfer_rate": 1.0,
+      "disappeared_entity_recall": 1.0,
+      "target_hot_path_ms": "<5.0ms (cached), <50ms (fresh)",
+      "details": {
+        "rule_transfer": {
+          "games_found": {
+            "game_a": true,
+            "game_b": true
+          },
+          "hits": [
+            "Game_B rule: red pixels fall downward. Mechanic: gravity_pull.",
+            "Game_A rule: blue pixels move right when adjacent to green. Mechanic: gravity_pull.",
+            "Constraint",
+            "Step",
+            "GitHub Actions"
+          ]
+        },
+        "disappeared_entity": {
+          "recalled": true,
+          "hits": [
+            "Entity E12: yellow key located at (4, 7). Frame 12: occluded by moving wall.",
+            "Entity E12",
+            "Security audit complete. Update constraint: symmetric HS256 is deprecated due to key distribution risks. We must migrate to RS256 asymmetric keys.",
+            "UUID primary keys",
+            "HS256"
+          ]
+        }
+      },
+      "valid": true,
+      "client_calls": 31,
+      "client_failures": 0
+    }
+  },
+  "all_suites_valid": true,
+  "canonical_baseline_targets": {
+    "retrieval_latency_ms": "<10.0ms (via B375)",
+    "llm_generation_latency_s": "<1.0s (via B374)",
+    "daemon_idle_rss_mb": "<80MB (via B384)",
+    "token_compression_ratio": "50%-70% bulk, 100% bypass on sub-budget (B374)",
+    "ask_eval_overall": ">=0.90"
+  },
+  "qa_judge": {
+    "enabled": true,
+    "llm": {
+      "provider": "ollama",
+      "model": "gemma4:26b",
+      "base_url": "http://localhost:11434/v1",
+      "endpoint": "ollama /api/chat (num_ctx sized per prompt)",
+      "temperature": 0.0
+    },
+    "source": "/tmp/bench-limit-20.toml + CLI overrides",
+    "template_sha256": "8fac37bbdb485bce",
+    "calls": 34
+  }
+}
