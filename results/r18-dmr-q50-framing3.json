@@ -1,0 +1,2224 @@
+{
+  "timestamp": "2026-10-07T06:59:41.137441+00:00",
+  "provenance": {
+    "scorer_version": 4,
+    "argv": [
+      "run_all.py",
+      "--baseline",
+      "--isolated",
+      "--judge-model",
+      "gemma4:26b",
+      "--suite",
+      "dmr",
+      "--dmr-questions",
+      "50",
+      "--out",
+      "results/r18-dmr-q50-framing3.json"
+    ],
+    "harness": {
+      "path": "/private/tmp/cb-pub3",
+      "commit": "00c14f5097df98dc7fd8c759d810d88ff05570ac",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "hippocampy": {
+      "path": "/Users/djshelton/Desktop/GitProjects/hippocampy",
+      "commit": "367d35f2bbcb4ecd8ddd44173f790595a53a7c58",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "daemon_config": {
+      "source": "isolated (written by harness)",
+      "derived_from": "/Users/djshelton/.campy/config.toml",
+      "sha256": "225333f4fc8f512dbfb296e02be65c935712fc473e75298cf1bb1436429d7466",
+      "llm_provider": "ollama",
+      "llm_model": "llama3.1:8b",
+      "llm_step_overrides": {},
+      "embeddings_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "compression_model": null
+    },
+    "store": {
+      "isolated": true,
+      "campy_home": "(deleted after run)",
+      "web_port": 54237,
+      "config_overrides": {
+        "capture.enabled": false,
+        "capture.codex.enabled": false,
+        "capture.claude_code.enabled": false,
+        "capture.vscode.enabled": false,
+        "daemon.restart_interval_hours": 0,
+        "watchdog.enabled": false,
+        "web.port": 54237,
+        "server.bind_host": "127.0.0.1",
+        "activity.log_path": "/tmp/campy-bench-2sy3x5i9/activity.log"
+      },
+      "daemon_ready_seconds": 2.0,
+      "activity_log_lines": 2
+    },
+    "dataset_sha": {
+      "locomo": "dbbe2514f617d524",
+      "membench": "5ba306db91543c61",
+      "locomo10": "79fa87e90f040813@3eb6f2c5"
+    },
+    "python": "3.12.13",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "mode": "standard",
+  "mcp_configured": true,
+  "suites": {
+    "dmr": {
+      "suite": "dmr",
+      "dataset": {
+        "file": "/private/tmp/cb-pub3/data/dmr/msc_self_instruct.jsonl",
+        "sha256": "d3dbea36848b41dc",
+        "options": {
+          "max_questions": 50
+        },
+        "question_framing": 3,
+        "questions": 50,
+        "turns": 2552
+      },
+      "questions": 50,
+      "judge_accuracy": 0.62,
+      "f1": 0.1893,
+      "evidence_recall": 0.5309,
+      "evidence_labelled": 27,
+      "errors": 0,
+      "ingest_seconds": 5953.5,
+      "avg_latency_ms": 1939.8,
+      "details": [
+        {
+          "id": "valid_1",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about music? What was the artist you mentioned you could get into? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about music? What was the artist you mentioned you could get into?",
+          "expected": "Taylor Swift!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:12"
+          ],
+          "ingest_seconds": 103.2,
+          "compile_latency_ms": 62.4,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 385,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "1, 7 days",
+              "Speaker",
+              "[user, 2026-10-07 05:16] [Session 1, 7 days 8 hours ago] Speaker 1: Great. In my spare time I do volunteer work.",
+              "[user, 2026-10-07 05:16] [Session 1, 7 days 8 hours ago] Speaker 1: A little bit. I can get into taylor swift.",
+              "[user, 2026-10-07 05:16] [Session 2, 2 days 8 hours ago] Speaker 1: I'm not super into wrestling.",
+              "[user, 2026-10-07 05:16] [Session 2, 2 days 8 hours ago] Speaker 2: Ah, now that makes sense. I guess it's like an engineer that doesn't like to fix stuff around the house. Well, work is work, I guess.",
+              "[user, 2026-10-07 05:16] [Session 3, 2 days 4 hours ago] Speaker 2: Yeah between the both of us, could probably get a country song written about our distresses...perhaps Taylor Swift could perform it.",
+              "[user, 2026-10-07 05:16] [Session 3, 2 days 4 hours ago] Speaker 2: Yes!! Can't wait to get back in the saddle with the restoration. One of the one's I am working on is a convertible."
+            ]
+          },
+          "answer": "Speaker 1 mentioned earlier that they \"can get into Taylor Swift.\"",
+          "latency_ms": 1442.1,
+          "f1": 0.3077,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_2",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our jobs and expenses? What was that one thing you said you did to save money? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our jobs and expenses? What was that one thing you said you did to save money?",
+          "expected": "I eat a fresh and raw diet to save on groceries.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 133.1,
+          "compile_latency_ms": 63.5,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 921,
+            "sections": [
+              {
+                "type": null,
+                "items": 8
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "worthwile expenses",
+              "money",
+              "much money",
+              "Speaker 2",
+              "3, 2 days",
+              "2, 8 days 1 hour ago",
+              "Session 2, 8 days 1 hour ago",
+              "Session 3, 2 days 1 hour ago"
+            ]
+          },
+          "answer": "Speaker 1 said: \"I know previously you have said you want to learn how to save using coupons my wife would be more and happy to give you some tips if you like.\"",
+          "latency_ms": 2185.5,
+          "f1": 0.1463,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_0",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our work lives? What was that field you said you used to work in? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our work lives? What was that field you said you used to work in?",
+          "expected": "I used to work in the human services field.",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:8"
+          ],
+          "ingest_seconds": 103.3,
+          "compile_latency_ms": 66.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 791,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "work",
+              "free time",
+              "about 20",
+              "I've read about 20 books this year",
+              "1, 6 days",
+              "free time",
+              "[user, 2026-10-07 05:20] [Session 1, 6 days 12 hours ago] Speaker 2: I am good, I just got off work and tired, I have two jobs.",
+              "[user, 2026-10-07 05:20] [Session 1, 6 days 12 hours ago] Speaker 2: I work in the movies as well."
+            ]
+          },
+          "answer": "Speaker 1 said earlier: \"I used to work in the human services field.\"",
+          "latency_ms": 1817.7,
+          "f1": 0.8,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_10",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our studies and working part-time? What was the fast food place you said you're working at? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our studies and working part-time? What was the fast food place you said you're working at?",
+          "expected": "Burger King!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 54,
+          "evidence": [
+            "1:4"
+          ],
+          "ingest_seconds": 133.7,
+          "compile_latency_ms": 66.8,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 762,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "your studies",
+              "my studies",
+              "my free time",
+              "2, 6 days",
+              "Speaker 1",
+              "[user, 2026-10-07 05:22] [Session 1, 6 days 6 hours ago] Speaker 1: Yes, I am studying education and working part time.",
+              "[user, 2026-10-07 05:22] [Session 2, 6 days 3 hours ago] Speaker 1: We can even have slumber parties to watch a movie after if the dorm allows sleeping over. Idk, I have to find out. But like a once a week slumber party with food and a mov\u2026",
+              "[user, 2026-10-07 05:22] [Session 2, 6 days 3 hours ago] Speaker 1: Yeah. I am working on getting my childhood education degree concentration in my favorite subject, math. But I have to take English and Bio and Art. I won't be teaching any\u2026"
+            ]
+          },
+          "answer": "Speaker 1 said: \"I am working part time.\" However, there is no specific information about the fast food place where Speaker 1 is working.",
+          "latency_ms": 2195.6,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_7",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our favorite ways to relax? What was the distance you mentioned you liked to walk for a small workout? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our favorite ways to relax? What was the distance you mentioned you liked to walk for a small workout?",
+          "expected": "Three miles!",
+          "answerer": "Speaker 1",
+          "answerer_source": "default",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 113.3,
+          "compile_latency_ms": 72.6,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 467,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "my favorite high end restaurant",
+              "1, 11 days",
+              "2, 5 days",
+              "[user, 2026-10-07 05:24] [Session 1, 11 days 4 hours ago] Speaker 1: Same. I try to get a small workout in a three mile walk for me is key.",
+              "[user, 2026-10-07 05:24] [Session 1, 11 days 4 hours ago] Speaker 2: Awesome! Walking like that you might live forever like me!!",
+              "[user, 2026-10-07 05:25] [Session 1, 11 days 4 hours ago] Speaker 1: That's true. My favorite way to unwind is reading a book.",
+              "[user, 2026-10-07 05:25] [Session 2, 5 days 4 hours ago] Speaker 2: Oh a bottle isn't that much. Remember I'm 100. I don't work. I have wine with my lunch and if it is a good bottle, that is my beverage for the day.",
+              "[user, 2026-10-07 05:25] [Session 2, 5 days 4 hours ago] Speaker 2: I have had some cigars I like, but never got into it. Maybe that has helped me live a long time."
+            ]
+          },
+          "answer": "According to our conversation, you mentioned that a three-mile walk is key for a small workout.",
+          "latency_ms": 1659.8,
+          "f1": 0.0,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_6",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our pets? What kind of pet do you have? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our pets? What kind of pet do you have?",
+          "expected": "I have a cat.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 148.6,
+          "compile_latency_ms": 63.8,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 729,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "very kind",
+              "about 15 years",
+              "2, 7 days 1 hour ago",
+              "Session 2, 7 days 1 hour ago",
+              "Speaker 1",
+              "Session 1, 7 days 7 hours ago",
+              "[user, 2026-10-07 05:26] [Session 1, 7 days 7 hours ago] Speaker 1: What do you like to do in your spare time? I bird watch.",
+              "[user, 2026-10-07 05:26] [Session 1, 7 days 7 hours ago] Speaker 2: Oh man sorry about that, I'm 33 and love giving back I grew up poor"
+            ]
+          },
+          "answer": "I don't have any information about Speaker 1's pet. The conversation only mentions Speaker 1's past volunteer work at an animal shelter, but it doesn't mention having a pet.",
+          "latency_ms": 2205.3,
+          "f1": 0.1379,
+          "judge": false,
+          "reason": "non_answer"
+        },
+        {
+          "id": "valid_14",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our favorite movies? What was yours? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our favorite movies? What was yours?",
+          "expected": "Clueless!",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:13",
+            "2:3",
+            "3:3"
+          ],
+          "ingest_seconds": 108.3,
+          "compile_latency_ms": 56.3,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 426,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "writing about that",
+              "2, 6 days",
+              "1, 6 days",
+              "[user, 2026-10-07 05:29] [Session 1, 6 days 13 hours ago] Speaker 1: My favorite movie is clueless.",
+              "[user, 2026-10-07 05:29] [Session 1, 6 days 13 hours ago] Speaker 2: Oh I hope so! That would be awesome.",
+              "[user, 2026-10-07 05:29] [Session 2, 6 days 9 hours ago] Speaker 1: I might be able to offer some tips haha. Since you love Friday, you might even think about writing about that!",
+              "[user, 2026-10-07 05:29] [Session 3, 6 days 7 hours ago] Speaker 2: i have. I like blue planety better. which is your favorite\"",
+              "[user, 2026-10-07 05:29] [Session 4, 7 hours ago] Speaker 1: Trust me anyone can learn how to knit."
+            ]
+          },
+          "answer": "I don't have enough information to answer the question. The conversation mentions discussing favorite movies, but Speaker 2's response to that specific question is not present in the memory context.",
+          "latency_ms": 1852.5,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_11",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your pet? What kind of animal is it? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your pet? What kind of animal is it?",
+          "expected": "It's a cow!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 113.6,
+          "compile_latency_ms": 55.9,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 805,
+            "sections": [
+              {
+                "type": null,
+                "items": 7
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "time",
+              "about three years",
+              "my pet cow",
+              "Speaker 1",
+              "1 day ago",
+              "1, 8 days ago",
+              "2, 7 days ago",
+              "[user, 2026-10-07 05:31] [Session 1, 8 days ago] Speaker 1: The only company I have is my pet cow."
+            ]
+          },
+          "answer": "Speaker 1 said earlier: \"My pet cow is sick.\"",
+          "latency_ms": 1697.4,
+          "f1": 0.1818,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_13",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your hobbies? How old were you when you first learned to play guitar? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your hobbies? How old were you when you first learned to play guitar?",
+          "expected": "I was three!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:0"
+          ],
+          "ingest_seconds": 118.4,
+          "compile_latency_ms": 68.6,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 502,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Speaker 1",
+              "1, 7 days",
+              "2, 7 days",
+              "Session 2, 7 days 8 hours ago",
+              "[user, 2026-10-07 05:33] [Session 1, 7 days 12 hours ago] Speaker 1: Hello! I was three when I learned to play guitar!",
+              "[user, 2026-10-07 05:33] [Session 1, 7 days 12 hours ago] Speaker 1: Great! I like music too and that's why I play guitar.",
+              "[user, 2026-10-07 05:33] [Session 1, 7 days 12 hours ago] Speaker 2: I've a sister who is 10 years older than me",
+              "[user, 2026-10-07 05:33] [Session 2, 7 days 8 hours ago] Speaker 1: I learned how to play a Rascal Flats song on my guitar."
+            ]
+          },
+          "answer": "Speaker 1 said: \"I was three when I learned to play guitar!\"",
+          "latency_ms": 1577.5,
+          "f1": 0.4,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_12",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our post-retirement plans? What did I tell you I wanted to learn in my free time? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our post-retirement plans? What did I tell you I wanted to learn in my free time?",
+          "expected": "You mentioned you'd like to go to culinary school!",
+          "answerer": "Speaker 2",
+          "answerer_source": "persona",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 108.6,
+          "compile_latency_ms": 71.3,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 538,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "2, 7 days 1 hour ago",
+              "Speaker 2",
+              "Speaker 1",
+              "1, 7 days",
+              "[user, 2026-10-07 05:35] [Session 1, 7 days 8 hours ago] Speaker 1: I have never had earl grey shortbread only the tea.",
+              "[user, 2026-10-07 05:35] [Session 1, 7 days 8 hours ago] Speaker 2: I put it in the shortbread.",
+              "[user, 2026-10-07 05:35] [Session 2, 7 days 1 hour ago] Speaker 1: No, it's about class and race relations in the United States. Definitely a big topic at the moment.",
+              "[user, 2026-10-07 05:35] [Session 3, 7 days ago] Speaker 1: Cookies! I can't even tell you how many batches of cookies I have made over the years. My grandkids love them."
+            ]
+          },
+          "answer": "I'm sorry, but I don't have enough information to answer the question. The conversation history doesn't mention anything about post-retirement plans or what Speaker 2 wanted to learn in their free time.",
+          "latency_ms": 2054.8,
+          "f1": 0.1026,
+          "judge": false,
+          "reason": "non_answer"
+        },
+        {
+          "id": "valid_19",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our jobs? What was it you said you did for a living? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our jobs? What was it you said you did for a living?",
+          "expected": "Construction, like my dad.",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:10"
+          ],
+          "ingest_seconds": 103.5,
+          "compile_latency_ms": 61.5,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 419,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "1, 2 days",
+              "Speaker",
+              "[user, 2026-10-07 05:37] [Session 1, 2 days 14 hours ago] Speaker 2: Nice! I work as a custodian. Not too glamorous but it pays the bills haha",
+              "[user, 2026-10-07 05:37] [Session 2, 2 days 8 hours ago] Speaker 1: Nice. Is Dylan a favorite of yours? I haven't been much into music in a long time but sometimes I wish I listened to more.",
+              "[user, 2026-10-07 05:37] [Session 3, 2 days 4 hours ago] Speaker 1: I watched a really cool Youtube video about how Cellos are made.",
+              "[user, 2026-10-07 05:37] [Session 3, 2 days 4 hours ago] Speaker 1: I tend to bounce around. I think I get hooked by the personalities and then sort of get tired of them. But right now I'm listening to one that talks about unsolved crimes.",
+              "[user, 2026-10-07 05:37] [Session 3, 2 days 4 hours ago] Speaker 1: I work for someone. I got the job through my dad. They company and owner have been good to my family so I'm happy to work for him.",
+              "[user, 2026-10-07 05:37] [Session 4, 2 days ago] Speaker 1: I've just watched another really interesting video about how guitars are made."
+            ]
+          },
+          "answer": "Speaker 1 said: \"I work for someone. I got the job through my dad. They company and owner have been good to my family so I'm happy to work for him.\"",
+          "latency_ms": 1966.8,
+          "f1": 0.1212,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_15",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your dad's outdoor show? What was it called again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your dad's outdoor show? What was it called again?",
+          "expected": "Jim Shockey!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 48,
+          "evidence": [
+            "1:10"
+          ],
+          "ingest_seconds": 123.2,
+          "compile_latency_ms": 67.8,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 499,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Time",
+              "Speaker 1",
+              "1, 5 days",
+              "2, 5 days",
+              "[user, 2026-10-07 05:39] [Session 1, 5 days 17 hours ago] Speaker 1: Hey how are you today",
+              "[user, 2026-10-07 05:39] [Session 1, 5 days 17 hours ago] Speaker 1: My dad did he has his own outdoor show its possible you have seen it",
+              "[user, 2026-10-07 05:39] [Session 1, 5 days 17 hours ago] Speaker 2: I love that show! I watch it between studying.",
+              "[user, 2026-10-07 05:39] [Session 1, 5 days 17 hours ago] Speaker 2: That must have been hard. My parents were always hiking with me."
+            ]
+          },
+          "answer": "Speaker 1 said earlier: \"My dad did he has his own outdoor show its possible you have seen it\"",
+          "latency_ms": 1696.0,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_17",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your concerts? What was that specific color of the hat you mentioned you later on? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your concerts? What was that specific color of the hat you mentioned you later on?",
+          "expected": "Yellow!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:2",
+            "1:8"
+          ],
+          "ingest_seconds": 108.5,
+          "compile_latency_ms": 68.5,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 507,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "1, 19 days",
+              "Session 1, 19 days 3 hours ago",
+              "2, 12 days",
+              "[user, 2026-10-07 05:41] [Session 1, 19 days 3 hours ago] Speaker 1: Great! I wear a yellow construction worker hat to aerosmith concerts.",
+              "[user, 2026-10-07 05:41] [Session 1, 19 days 3 hours ago] Speaker 2: I love car racing. I'm not crazy about lawyers though.",
+              "[user, 2026-10-07 05:41] [Session 2, 12 days 3 hours ago] Speaker 1: Maybe she should get something like arroz con pollo, rice with chicken. I get that a lot. It has a delicious sauce, and some good vegetables, also. The chicken is usually\u2026",
+              "[user, 2026-10-07 05:41] [Session 2, 12 days 3 hours ago] Speaker 2: Yum, that sounds incredible! I'll suggest that to her and I may just have to get that for myslef.",
+              "[user, 2026-10-07 05:41] [Session 3, 7 days 3 hours ago] Speaker 2: Oh wow what an incredible first date that is. Im sure she will have an amazing time let me know how it goes for you."
+            ]
+          },
+          "answer": "Speaker 1 said: \"I wear a yellow construction worker hat to Aerosmith concerts.\"",
+          "latency_ms": 1686.6,
+          "f1": 0.1538,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_18",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our parents? What did you tell me your dad does for a living? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our parents? What did you tell me your dad does for a living?",
+          "expected": "He's an army soldier.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 118.6,
+          "compile_latency_ms": 70.4,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 672,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "your dad",
+              "1, 8 days",
+              "Session 1, 8 days 4 hours ago",
+              "2, 6 days",
+              "2 hours ago",
+              "[user, 2026-10-07 05:43] [Session 1, 8 days 4 hours ago] Speaker 1: Sorry to hear that. My dad is an army soldier.",
+              "[user, 2026-10-07 05:43] [Session 1, 8 days 4 hours ago] Speaker 2: It is hot. But thankfully not humid today.",
+              "[user, 2026-10-07 05:43] [Session 2, 6 days 4 hours ago] Speaker 1: The weather changes a lot here in Boston. They say even the weather experts can't predict more than three days ahead. So I am not going to pretend that I know anything mor\u2026"
+            ]
+          },
+          "answer": "My dad is an army soldier.",
+          "latency_ms": 1552.8,
+          "f1": 0.5,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_23",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your family? What line of work was your father in? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your family? What line of work was your father in?",
+          "expected": "He was a manager at Home Depot.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 128.6,
+          "compile_latency_ms": 67.7,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 897,
+            "sections": [
+              {
+                "type": null,
+                "items": 8
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "my family",
+              "my father",
+              "part-time",
+              "Speaker 1",
+              "1, 14 days",
+              "Session 1, 14 days 7 hours ago",
+              "2, 10 days",
+              "Session 2, 10 days 7 hours ago"
+            ]
+          },
+          "answer": "Speaker 1 said: \"My father was manager there.\" (referring to Home Depot)",
+          "latency_ms": 1904.6,
+          "f1": 0.4444,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_20",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our childhood fears? Can you recall what used to scare you when your grandfather told stories? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our childhood fears? Can you recall what used to scare you when your grandfather told stories?",
+          "expected": "Yeah, he used to tell World War II stories that absolutely scared me!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 138.6,
+          "compile_latency_ms": 64.0,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 465,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Speaker 2",
+              "1 hour ago",
+              "Session 1, 8 hours ago",
+              "[user, 2026-10-07 05:47] [Session 1, 8 hours ago] Speaker 1: Oh that's cool. I don't like reading though",
+              "[user, 2026-10-07 05:47] [Session 1, 8 hours ago] Speaker 1: I hate reading so much I dropped out of high school!",
+              "[user, 2026-10-07 05:47] [Session 1, 8 hours ago] Speaker 2: As a kid I was always bothered by this bright orange lamp my parents had",
+              "[user, 2026-10-07 05:47] [Session 1, 8 hours ago] Speaker 1: That sounds scary. I was scared by my grandfather telling wwii stories",
+              "[user, 2026-10-07 05:47] [Session 4, 1 hour ago] Speaker 1: Hey I know some people and I may know a good affordable place you could rent for your business."
+            ]
+          },
+          "answer": "Speaker 1 said: \"That sounds scary. I was scared by my grandfather telling WWII stories.\"",
+          "latency_ms": 1616.2,
+          "f1": 0.2143,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_24",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our music preferences? What was that one band you said you were into apart from Metallica? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our music preferences? What was that one band you said you were into apart from Metallica?",
+          "expected": "Aerosmith!",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:11",
+            "2:9",
+            "2:11"
+          ],
+          "ingest_seconds": 108.5,
+          "compile_latency_ms": 70.2,
+          "evidence_recall": 0.3333,
+          "context": {
+            "total_token_estimate": 556,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "one of my favorites",
+              "Speaker 2",
+              "2, 10 days",
+              "1, 17 days",
+              "[user, 2026-10-07 05:49] [Session 1, 17 days 7 hours ago] Speaker 1: Metal. Mainly metallica. I also love old school rap. Tupac is where it is at.",
+              "[user, 2026-10-07 05:49] [Session 1, 17 days 7 hours ago] Speaker 2: Nice. I listen to a lot of aerosmith, they're my favorite.",
+              "[user, 2026-10-07 05:49] [Session 1, 17 days 7 hours ago] Speaker 1: I like them too. Dream on is one of my favorites",
+              "[user, 2026-10-07 05:49] [Session 2, 10 days 7 hours ago] Speaker 1: Squid is another one of my favorites. It can be difficult to cook though. I am actually growing away from Aerosmith. I listened to them wayyyy too much this week."
+            ]
+          },
+          "answer": "I've found the relevant conversation. Speaker 2 said: \"Nice. I listen to a lot of aerosmith, they're my favorite.\"",
+          "latency_ms": 1879.8,
+          "f1": 0.1111,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_28",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our pets? What is the name of your dog again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our pets? What is the name of your dog again?",
+          "expected": "Trooper!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 49,
+          "evidence": [
+            "1:6"
+          ],
+          "ingest_seconds": 123.3,
+          "compile_latency_ms": 63.1,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 672,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "my dog",
+              "Speaker 1",
+              "1, 14 days ago",
+              "Session 1, 14 days ago",
+              "Speaker 2",
+              "2, 13 days ago",
+              "[user, 2026-10-07 05:51] [Session 1, 14 days ago] Speaker 1: Oh you are a farmer? What do you grow? Winter is coming too soon!",
+              "[user, 2026-10-07 05:51] [Session 1, 14 days ago] Speaker 1: He is a black lab named is trooper, he is a great hiking buddy!"
+            ]
+          },
+          "answer": "Speaker 1 said: \"He is a black lab named Trooper, he is a great hiking buddy!\"",
+          "latency_ms": 1756.9,
+          "f1": 0.1333,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_29",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your sons and their peculiar interests? What's the favorite play area of your fifth son in the house? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your sons and their peculiar interests? What's the favorite play area of your fifth son in the house?",
+          "expected": "The attic!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:12"
+          ],
+          "ingest_seconds": 108.2,
+          "compile_latency_ms": 81.9,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 533,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "1, 18 days",
+              "Session 1, 18 days 5 hours ago",
+              "2, 11 days",
+              "Session 2, 11 days 5 hours ago",
+              "[user, 2026-10-07 05:53] [Session 1, 18 days 5 hours ago] Speaker 2: Sure, but you have to get in line. My grey dog barnaby is dying too.",
+              "[user, 2026-10-07 05:53] [Session 1, 18 days 5 hours ago] Speaker 1: You know my fifth son keeps asking me for a dog. It is just too much.",
+              "[user, 2026-10-07 05:53] [Session 1, 18 days 5 hours ago] Speaker 2: He can have mine. Barnaby needs a new home.",
+              "[user, 2026-10-07 05:53] [Session 1, 18 days 5 hours ago] Speaker 1: I've to decline, my fifth son is my least favorite ; we keep him in the attic."
+            ]
+          },
+          "answer": "Speaker 1 said earlier: \"we keep him in the attic.\"",
+          "latency_ms": 1631.0,
+          "f1": 0.2,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_31",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our hobbies? You mentioned you enjoy doing something outdoors on sunny days, what was it? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our hobbies? You mentioned you enjoy doing something outdoors on sunny days, what was it?",
+          "expected": "Lawn mowing!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:6"
+          ],
+          "ingest_seconds": 133.5,
+          "compile_latency_ms": 68.6,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 733,
+            "sections": [
+              {
+                "type": null,
+                "items": 7
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "sunny days",
+              "time",
+              "something",
+              "Speaker 1",
+              "1, 11 days",
+              "Speaker 2",
+              "2, 11 days",
+              "[user, 2026-10-07 05:55] [Session 1, 11 days 12 hours ago] Speaker 1: Yes it sucks loosing I also enjoy lawn mowing on sunny days."
+            ]
+          },
+          "answer": "You mentioned you enjoy doing something outdoors on sunny days, what was it?\n\nYou said: \"I also enjoy lawn mowing on sunny days.\"",
+          "latency_ms": 1885.1,
+          "f1": 0.16,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_34",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your birthday? How old did you say you were turning? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your birthday? How old did you say you were turning?",
+          "expected": "I said I was turning 83.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 118.6,
+          "compile_latency_ms": 58.5,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 842,
+            "sections": [
+              {
+                "type": null,
+                "items": 8
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "about a year",
+              "2, 2 days",
+              "Session 2, 2 days 5 hours ago",
+              "Speaker 1",
+              "1, 6 days",
+              "1 hour ago",
+              "Session 1, 6 days",
+              "Session 1, 6 days 5 hours ago"
+            ]
+          },
+          "answer": "Speaker 1 said: \"I turn 83 in a month.\"",
+          "latency_ms": 1717.2,
+          "f1": 0.4286,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_37",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our favorite music? What type of music did I mention I listen to all the time in my big truck? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our favorite music? What type of music did I mention I listen to all the time in my big truck?",
+          "expected": "Country music!",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:7"
+          ],
+          "ingest_seconds": 98.6,
+          "compile_latency_ms": 63.5,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 533,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "big dogs",
+              "your truck",
+              "1, 6 days",
+              "1 hour ago",
+              "[user, 2026-10-07 05:59] [Session 1, 6 days 10 hours ago] Speaker 2: I live line dancing to country music, that's all I listen too",
+              "[user, 2026-10-07 05:59] [Session 1, 6 days 10 hours ago] Speaker 2: Cool! I'm always playing country in my big truck!",
+              "[user, 2026-10-07 05:59] [Session 2, 10 hours ago] Speaker 1: I'm thinking about buying a truck.",
+              "[user, 2026-10-07 05:59] [Session 2, 10 hours ago] Speaker 1: That would be nice. My gas mileage isn't great. I wish I could carpool so it wasn't so wasteful."
+            ]
+          },
+          "answer": "You mentioned earlier that you're always playing country music in your big truck.",
+          "latency_ms": 1612.8,
+          "f1": 0.2667,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_38",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about my job? Do you happen to recall how much I told you I make annually? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about my job? Do you happen to recall how much I told you I make annually?",
+          "expected": "About 15k.",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:15"
+          ],
+          "ingest_seconds": 138.7,
+          "compile_latency_ms": 59.3,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 691,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "your job",
+              "one step at a time",
+              "2, 5 days",
+              "2 hours ago",
+              "1, 5 days",
+              "[user, 2026-10-07 06:01] [Session 1, 5 days 7 hours ago] Speaker 1: Whats your average salary I need to know since my family grows",
+              "[user, 2026-10-07 06:01] [Session 1, 5 days 7 hours ago] Speaker 2: About 15k. I spend most of that on weekend clubs and raves though.",
+              "[user, 2026-10-07 06:01] [Session 3, 5 days ago] Speaker 2: I might need to read that! Especially with how much I owe in student loans, it might give me some ideas of how to improve my finances."
+            ]
+          },
+          "answer": "Speaker 2: About 15k. I spend most of that on weekend clubs and raves though.",
+          "latency_ms": 1909.7,
+          "f1": 0.25,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_39",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that one time we talked about me working out on your farm? How many acres did you say your farm was again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that one time we talked about me working out on your farm? How many acres did you say your farm was again?",
+          "expected": "I didn't mention the exact amount, but I did say that it was quite a few acres!",
+          "answerer": "Speaker 1",
+          "answerer_source": "default",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 118.4,
+          "compile_latency_ms": 61.9,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 498,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "a few acres",
+              "2 miles",
+              "2 hours ago",
+              "Session 3, 1 day 2 hours ago",
+              "[user, 2026-10-07 06:04] [Session 1, 1 day 11 hours ago] Speaker 2: Hey, I am in high school and I want to be a physical therapist.",
+              "[user, 2026-10-07 06:04] [Session 1, 1 day 11 hours ago] Speaker 1: Great, I hope you like music, I rock out when I work!",
+              "[user, 2026-10-07 06:04] [Session 1, 1 day 11 hours ago] Speaker 1: I get my exercise tending the farm!",
+              "[user, 2026-10-07 06:04] [Session 1, 1 day 11 hours ago] Speaker 1: Come run a few laps here, it is quite a few acres!"
+            ]
+          },
+          "answer": "Speaker 1 said: \"Come run a few laps here, it is quite a few acres!\"",
+          "latency_ms": 1612.0,
+          "f1": 0.2857,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_43",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our likes and our backgrounds, you had mentioned something that scares you. What was that again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our likes and our backgrounds, you had mentioned something that scares you. What was that again?",
+          "expected": "Scorpions!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 49,
+          "evidence": [
+            "1:6"
+          ],
+          "ingest_seconds": 103.4,
+          "compile_latency_ms": 70.4,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 733,
+            "sections": [
+              {
+                "type": null,
+                "items": 7
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "something",
+              "time",
+              "about a month",
+              "2, 7 days",
+              "1, 13 days",
+              "1 hour ago",
+              "Session 1, 13 days 8 hours ago",
+              "[user, 2026-10-07 06:06] [Session 1, 13 days 8 hours ago] Speaker 2: I just watched snoop and martha"
+            ]
+          },
+          "answer": "I don't have any information about Speaker 1 mentioning something that scares them. The conversation history only shows Speaker 1 mentioning that walking their dog is a chore, but not anything that scares them.",
+          "latency_ms": 2045.0,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_42",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our hobbies and you told me about a band you see every year? Which band was it again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our hobbies and you told me about a band you see every year? Which band was it again?",
+          "expected": "The Rolling Stones!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 133.4,
+          "compile_latency_ms": 69.4,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 553,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "about 2 miles",
+              "time",
+              "1, 5 days",
+              "Speaker 1's phone",
+              "[user, 2026-10-07 06:07] [Session 1, 5 days 10 hours ago] Speaker 2: How wonderful. Life is precious spend as much time with them as possible.",
+              "[user, 2026-10-07 06:07] [Session 1, 5 days 10 hours ago] Speaker 1: Yea but I love time to my self as well like every year I see rolling stones",
+              "[user, 2026-10-07 06:07] [Session 2, 10 hours ago] Speaker 1: Ups and downs. She is pretty tired some days. She has a great spirit about it though, so that's pretty admirable",
+              "[user, 2026-10-07 06:07] [Session 2, 10 hours ago] Speaker 2: That's great that she's staying positive. That mindset always helped me get through the hard times! Sometimes positive thinking helps more than you'd think!"
+            ]
+          },
+          "answer": "Speaker 1 said: \"every year I see Rolling Stones\"",
+          "latency_ms": 1558.3,
+          "f1": 0.3636,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_44",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about me possibly moving in with you? How many bedrooms did you say your house has? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about me possibly moving in with you? How many bedrooms did you say your house has?",
+          "expected": "It has 3 bedrooms!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 103.4,
+          "compile_latency_ms": 66.2,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 511,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Time",
+              "book about a saga of excellence",
+              "1, 11 days",
+              "2, 6 days",
+              "[user, 2026-10-07 06:10] [Session 1, 11 days 10 hours ago] Speaker 1: I just finished spending some time watching birdy fly with my cats.",
+              "[user, 2026-10-07 06:10] [Session 1, 11 days 10 hours ago] Speaker 2: I am 7 and I've powers that no one knows about",
+              "[user, 2026-10-07 06:10] [Session 1, 11 days 10 hours ago] Speaker 1: Yeah I have a house with 3 bedrooms and I am the only one here",
+              "[user, 2026-10-07 06:10] [Session 1, 11 days 10 hours ago] Speaker 2: Wow that's a huge house"
+            ]
+          },
+          "answer": "Speaker 1 said earlier: \"Yeah I have a house with 3 bedrooms and I am the only one here.\"",
+          "latency_ms": 1676.3,
+          "f1": 0.2,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_45",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our pets during a rainy day? Where were you staying then where busy streets could be a danger to your cat? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our pets during a rainy day? Where were you staying then where busy streets could be a danger to your cat?",
+          "expected": "Beijing!",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "2:11"
+          ],
+          "ingest_seconds": 103.3,
+          "compile_latency_ms": 71.2,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 588,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "2, 6 days",
+              "Speaker 1",
+              "1, 9 days",
+              "Session 1, 9 days 6 hours ago",
+              "[user, 2026-10-07 06:11] [Session 1, 9 days 6 hours ago] Speaker 2: Ma. I was gonna finish a roof today. At least the cats will not miss me",
+              "[user, 2026-10-07 06:11] [Session 1, 9 days 6 hours ago] Speaker 1: My cat just got out, I hope she comes home soon the streets are busy.",
+              "[user, 2026-10-07 06:11] [Session 1, 9 days 6 hours ago] Speaker 1: Ya the streets of bejing aren't kind to a little kitten.",
+              "[user, 2026-10-07 06:11] [Session 2, 6 days 6 hours ago] Speaker 2: I have six cats. Some would say that is too many cats to have but I really value all of them and enjoy having all of them around at all times."
+            ]
+          },
+          "answer": "I don't have enough information to answer the question directly. However, I can try to piece together the relevant information from the conversation.\n\nFrom the conversation, I see that Speaker 1 mentioned that the streets of Beijing aren't kind to a little kitten. This suggests that Speaker 1 was staying in Beijing at the time.\n\nHowever, I don't see any direct mention of where Speaker 2 was staying. Speaker 2 mentioned having six cats and acquiring some of them from a breeder, but I don't see any specific mention of a location.\n\nIf you'd like, I can try to ask Speaker 1 for clarification on where they were staying, but I don't have enough information to answer the question directly.",
+          "latency_ms": 3929.7,
+          "f1": 0.0182,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_46",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that one time we talked about our hobbies? What was that one thing you like to compete in? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that one time we talked about our hobbies? What was that one thing you like to compete in?",
+          "expected": "Dog agility!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:8"
+          ],
+          "ingest_seconds": 123.5,
+          "compile_latency_ms": 75.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 468,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "an hour earlier",
+              "1, 13 days",
+              "2, 13 days",
+              "[user, 2026-10-07 06:13] [Session 1, 13 days 8 hours ago] Speaker 1: Do you have a hobby? Mine is competing in dog agility. Makes the time pass...",
+              "[user, 2026-10-07 06:13] [Session 1, 13 days 8 hours ago] Speaker 1: Good decision! I usually do not care about fashion, but I like doing hair color.",
+              "[user, 2026-10-07 06:13] [Session 2, 13 days 4 hours ago] Speaker 2: Well, I do like art class. I would like to go into art or design when I'm older.",
+              "[user, 2026-10-07 06:13] [Session 2, 13 days 4 hours ago] Speaker 2: I like all types but my favorite are sculpture and pottery.",
+              "[user, 2026-10-07 06:13] [Session 2, 13 days 4 hours ago] Speaker 2: Yeah, I am trying to be more responsible when it comes to completing my chores on time as well as keeping my grades up."
+            ]
+          },
+          "answer": "Speaker 1 said: \"Makes the time pass... competing in dog agility.\"",
+          "latency_ms": 1555.4,
+          "f1": 0.3333,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_47",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our personal interests and ambitions? What was that career you told me you were interested in pursuing? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our personal interests and ambitions? What was that career you told me you were interested in pursuing?",
+          "expected": "A lawyer!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:4",
+            "1:6"
+          ],
+          "ingest_seconds": 118.5,
+          "compile_latency_ms": 69.5,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 205,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-07 06:15] [Session 1, 19 hours ago] Speaker 1: I would love to move to a big city and become a lawyer",
+              "[user, 2026-10-07 06:15] [Session 2, 16 hours ago] Speaker 1: I'm so jealous! Maybe I should just move to NYC lol",
+              "[user, 2026-10-07 06:15] [Session 2, 16 hours ago] Speaker 2: Yes! That would be so cool! So many things to do and so many people from everywhere!",
+              "[user, 2026-10-07 06:15] [Session 3, 9 hours ago] Speaker 2: Its going great next week are my finals and i am feeling good about them.",
+              "[user, 2026-10-07 06:15] [Session 4, 7 hours ago] Speaker 2: Seems like once you get started, the time just starts getting shorter and shorter. Would love to see you graduate!",
+              "[user, 2026-10-07 06:15] [Session 4, 7 hours ago] Speaker 1: What was it that you are studying again? I always seem to forget for some reason."
+            ]
+          },
+          "answer": "Speaker 1 said: \"I would love to move to a big city and become a lawyer.\"",
+          "latency_ms": 1496.1,
+          "f1": 0.1429,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_49",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our musical interests? What was the instrument you said you played last year but didn't enjoy? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our musical interests? What was the instrument you said you played last year but didn't enjoy?",
+          "expected": "The violin!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:12"
+          ],
+          "ingest_seconds": 128.5,
+          "compile_latency_ms": 71.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 750,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "last year",
+              "your last trip",
+              "2, 10 days 1 hour ago",
+              "1, 10 days",
+              "Speaker 2",
+              "2 hours ago",
+              "[user, 2026-10-07 06:17] [Session 1, 10 days 2 hours ago] Speaker 2: No! I'll start violin as a new hobby, like my father.",
+              "[user, 2026-10-07 06:17] [Session 1, 10 days 2 hours ago] Speaker 1: I did play the violin last year in band. I didn't like it"
+            ]
+          },
+          "answer": "Based on the conversation memory, Speaker 1 said: \"I did play the violin last year in band. I didn't like it.\"",
+          "latency_ms": 2022.8,
+          "f1": 0.1,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_50",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about where you're originally from? Can you remind me where that was? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about where you're originally from? Can you remind me where that was?",
+          "expected": "Yes, I originally come from Somalia.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 118.5,
+          "compile_latency_ms": 67.0,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 386,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "time",
+              "Speaker 1",
+              "[user, 2026-10-07 06:20] [Session 1, 23 hours ago] Speaker 1: That's ok! You have plenty of time to grow and learn. I'm from far away.",
+              "[user, 2026-10-07 06:20] [Session 1, 23 hours ago] Speaker 1: Oh honey no, guns aren't the answer.",
+              "[user, 2026-10-07 06:20] [Session 1, 23 hours ago] Speaker 1: You are only 4, you should not be worrying about this",
+              "[user, 2026-10-07 06:20] [Session 2, 16 hours ago] Speaker 2: Yes Milely! She listens to me tell stories about stuff when I'm waiting for Mom to come home. With Miley, I'm never alone!",
+              "[user, 2026-10-07 06:20] [Session 3, 10 hours ago] Speaker 2: If I don\u2019t get in maybe you could help me a little bit if you have the time.",
+              "[user, 2026-10-07 06:20] [Session 4, 7 hours ago] Speaker 1: I like seeing turtles, and hearing about them. Taking care of them, with my busy schedule, might be hard. I really love hearing about Miley. That turtle sounds like great company!"
+            ]
+          },
+          "answer": "Speaker 1 said: \"I'm from far away.\"",
+          "latency_ms": 1475.7,
+          "f1": 0.1538,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_55",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your studies? What was it that you majored in again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your studies? What was it that you majored in again?",
+          "expected": "Psychology.",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:12"
+          ],
+          "ingest_seconds": 118.4,
+          "compile_latency_ms": 68.7,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 423,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "1, 11 days",
+              "2, 6 days",
+              "[user, 2026-10-07 06:22] [Session 1, 11 days 12 hours ago] Speaker 1: Psychology. I read a lot of psych journals in my free time as well.",
+              "[user, 2026-10-07 06:22] [Session 1, 11 days 12 hours ago] Speaker 1: It was. Getting started on the phd next year.",
+              "[user, 2026-10-07 06:22] [Session 3, 12 hours ago] Speaker 1: I am excited, it's been a long time in the works. I think I will. I'm staying in town, so I think it will be a nice way to take a break from studying.",
+              "[user, 2026-10-07 06:22] [Session 3, 12 hours ago] Speaker 2: Yeah sounds like a plan, you need something else to take your mind off the everyday grind! So how many dogs do you tend to walk at a time? I can't imagine walking more than one \u2026",
+              "[user, 2026-10-07 06:22] [Session 4, 5 hours ago] Speaker 2: I would love to give it a go. I would need some life jackets though as I would be worried about not being able to swim.",
+              "[user, 2026-10-07 06:22] [Session 4, 5 hours ago] Speaker 2: What's your dream job? I did go to school, I studied geography."
+            ]
+          },
+          "answer": "I remember that time we talked about my studies. I said I majored in Psychology. I read a lot of psych journals in my free time as well.",
+          "latency_ms": 1876.3,
+          "f1": 0.0714,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_51",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our personal life changes? What was that place you mentioned, where your audio studio was located? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our personal life changes? What was that place you mentioned, where your audio studio was located?",
+          "expected": "California!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 46,
+          "evidence": [
+            "1:6"
+          ],
+          "ingest_seconds": 113.5,
+          "compile_latency_ms": 68.0,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 639,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "night life",
+              "Speaker 1",
+              "Session 1, 12 days 5 hours ago",
+              "Speaker 2",
+              "2, 12 days",
+              "[user, 2026-10-07 06:24] [Session 1, 12 days 5 hours ago] Speaker 2: Hello, leon. My dogs and I are doing well.",
+              "[user, 2026-10-07 06:24] [Session 1, 12 days 5 hours ago] Speaker 1: I think I need to move. My studio is tanking after the decline of the market.",
+              "[user, 2026-10-07 06:24] [Session 1, 12 days 5 hours ago] Speaker 2: Oh no. I'm moving soon as well. Due to personal reasons."
+            ]
+          },
+          "answer": "I don't recall mentioning a specific place where my audio studio was located. However, I did mention that my studio is \"tanking\" due to the decline of the market.",
+          "latency_ms": 2090.1,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "non_answer"
+        },
+        {
+          "id": "valid_58",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your pregnancy? You mentioned hoping your girls would have a certain dietary preference. What was it again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your pregnancy? You mentioned hoping your girls would have a certain dietary preference. What was it again?",
+          "expected": "Yes, I'm hoping they're Omnivores.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 133.5,
+          "compile_latency_ms": 85.5,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 614,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "only about two weeks ago",
+              "Speaker 1",
+              "1, 14 days",
+              "Speaker 2",
+              "2, 7 days",
+              "[user, 2026-10-07 06:26] [Session 1, 14 days 6 hours ago] Speaker 2: I had surgery a week ago now I've stranger powers",
+              "[user, 2026-10-07 06:26] [Session 1, 14 days 6 hours ago] Speaker 1: Wow, like what?! A week ago I just moved to my new house.",
+              "[user, 2026-10-07 06:26] [Session 1, 14 days 6 hours ago] Speaker 1: He is unique. He has been acting weird since finding out I'm pregnant."
+            ]
+          },
+          "answer": "I remember that conversation. You asked me about my hopes for my girls' dietary preferences, and I said: \"Two girls. I'm hoping they are omnivores like me.\"",
+          "latency_ms": 2106.0,
+          "f1": 0.1935,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_56",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our favorite foods? What was that one food you said was your favorite? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our favorite foods? What was that one food you said was your favorite?",
+          "expected": "Cheeseburgers!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:2"
+          ],
+          "ingest_seconds": 128.7,
+          "compile_latency_ms": 69.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 708,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "food",
+              "time",
+              "more time",
+              "1, 12 days",
+              "2, 7 days",
+              "more time",
+              "[user, 2026-10-07 06:28] [Session 1, 12 days 13 hours ago] Speaker 2: Good today. Just cooking some mexican food. I cooking but am not very good.",
+              "[user, 2026-10-07 06:28] [Session 1, 12 days 13 hours ago] Speaker 1: Oh I like mexican food, but my favorite food are cheeseburgers"
+            ]
+          },
+          "answer": "Speaker 1 said earlier: \"Oh I like mexican food, but my favorite food are cheeseburgers.\"",
+          "latency_ms": 1765.6,
+          "f1": 0.125,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_59",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about you winning something? What was it that you won from? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about you winning something? What was it that you won from?",
+          "expected": "A Twitter contest!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:8"
+          ],
+          "ingest_seconds": 98.4,
+          "compile_latency_ms": 61.3,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 594,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "about 5 years",
+              "1, 8 days",
+              "Speaker 2",
+              "2, 8 days",
+              "[user, 2026-10-07 06:30] [Session 1, 8 days 9 hours ago] Speaker 1: Try to win one off of a twitter contest. I did, and enjoy twitter.",
+              "[user, 2026-10-07 06:30] [Session 1, 8 days 9 hours ago] Speaker 2: I didn't know there was a twitter contest",
+              "[user, 2026-10-07 06:30] [Session 1, 8 days 9 hours ago] Speaker 1: Yes I am a woman. I used to raise wild frogs.",
+              "[user, 2026-10-07 06:30] [Session 1, 8 days 9 hours ago] Speaker 2: Oh I love frogs, and frog legs"
+            ]
+          },
+          "answer": "Speaker 1 said earlier: \"Apparently it takes about 5 years to recoup the cost, but then it starts paying you for your energy!\"",
+          "latency_ms": 1923.1,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_60",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our jobs? Can you remind me what age I started working in construction? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our jobs? Can you remind me what age I started working in construction?",
+          "expected": "You started when you were 16.",
+          "answerer": "Speaker 2",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 123.6,
+          "compile_latency_ms": 69.0,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 673,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "construction",
+              "time",
+              "Speaker 2",
+              "Speaker 1",
+              "Session 1, 13 hours ago",
+              "[user, 2026-10-07 06:32] [Session 1, 13 hours ago] Speaker 2: I work in construction. Started when I was 16.",
+              "[user, 2026-10-07 06:32] [Session 1, 13 hours ago] Speaker 1: I do not tell anyone about it. They will come take me away.",
+              "[user, 2026-10-07 06:32] [Session 2, 7 hours ago] Speaker 1: good shout! I probably enjoy the classic chicken tacos the best, how about you? you seem to be quite the connoisseur"
+            ]
+          },
+          "answer": "I can answer that question. According to what you said earlier, you started working in construction when you were 16.",
+          "latency_ms": 1839.8,
+          "f1": 0.4615,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_61",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about having a salad after our run? What was the type of dressing I suggested we have with it? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about having a salad after our run? What was the type of dressing I suggested we have with it?",
+          "expected": "You didn't suggest a specific type of dressing, you only asked me about my favorite dressing.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 138.7,
+          "compile_latency_ms": 68.9,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 622,
+            "sections": [
+              {
+                "type": null,
+                "items": 5
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "about 5 weeks or so",
+              "Maybe not a good time",
+              "1, 5 days",
+              "Speaker 2",
+              "2, 3 days",
+              "[user, 2026-10-07 06:34] [Session 1, 5 days 11 hours ago] Speaker 1: Hi. Just got done with my training run. Training for a marathon.",
+              "[user, 2026-10-07 06:34] [Session 1, 5 days 11 hours ago] Speaker 1: Okay. That is a plan. We should meet for a run.",
+              "[user, 2026-10-07 06:34] [Session 1, 5 days 11 hours ago] Speaker 2: I can cook for us after our run. I need the practice haha!"
+            ]
+          },
+          "answer": "Speaker 1 said: \"Maybe a lite dressing with it.\"",
+          "latency_ms": 1609.8,
+          "f1": 0.087,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_62",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our hobbies and you mentioned yours? What was that job you wished you could get, even in jest? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our hobbies and you mentioned yours? What was that job you wished you could get, even in jest?",
+          "expected": "Hooters!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:8"
+          ],
+          "ingest_seconds": 113.7,
+          "compile_latency_ms": 71.6,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 518,
+            "sections": [
+              {
+                "type": null,
+                "items": 3
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Speaker 1",
+              "1, 5 days",
+              "2, 5 days",
+              "[user, 2026-10-07 06:36] [Session 1, 5 days 13 hours ago] Speaker 1: Hello. Do you like painting? I used to be a painter, it was a good life.",
+              "[user, 2026-10-07 06:36] [Session 1, 5 days 13 hours ago] Speaker 1: I wish I could buy a car. I cannot afford it on a housekeeper wage.",
+              "[user, 2026-10-07 06:36] [Session 1, 5 days 13 hours ago] Speaker 2: Maybe you should find a second job.",
+              "[user, 2026-10-07 06:36] [Session 1, 5 days 13 hours ago] Speaker 2: Then it wasn't your calling, it is mine.",
+              "[user, 2026-10-07 06:36] [Session 2, 5 days 10 hours ago] Speaker 1: I can't even imagine trying to coach little ones! How old are the ones you coach? I remember when mine were little and played sports! The attention span was awful! They'd\u2026"
+            ]
+          },
+          "answer": "I don't have any memory of Speaker 1 mentioning a job they wished they could get, even in jest, during the conversation. However, I do have a memory of Speaker 1 saying they wish they could buy a car, but that they cannot afford it on a housekeeper wage.",
+          "latency_ms": 2367.4,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_63",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about the music I like to play? What unique instrument do I use in my Scottish black metal band? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about the music I like to play? What unique instrument do I use in my Scottish black metal band?",
+          "expected": "Electric bagpipes!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:10"
+          ],
+          "ingest_seconds": 83.3,
+          "compile_latency_ms": 66.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 553,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "black metal",
+              "Scottish",
+              "Speaker 1",
+              "1, 7 days",
+              "[user, 2026-10-07 06:38] [Session 1, 7 days 8 hours ago] Speaker 2: I am doing well. About to go to my job at burger king.",
+              "[user, 2026-10-07 06:38] [Session 1, 7 days 8 hours ago] Speaker 2: I play music. I'm going to be a rockstar.",
+              "[user, 2026-10-07 06:38] [Session 1, 7 days 8 hours ago] Speaker 2: Scottish black metal. I play electric bag pipes.",
+              "[user, 2026-10-07 06:38] [Session 2, 2 days 8 hours ago] Speaker 2: Thanks for the feedback! Its hard to find gigs that like Scottish metal played with a bagpipe. Sure, I write all of my own music. Have you ever heard of \"Shake your Bum Bu\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, Speaker 1 (that's me) said earlier: \"So do I!  You do have a fair amount of musical talent!  writing, singing, playing an instrument.  I wish I could do any of those!\"\n\nHowever, to answer the specific question about the unique instrument used in Speaker 2's Scottish black metal band, I should refer to the earlier conversation. In Session 1, 7 days 8 hours ago, Speaker 2 said: \"Scottish black metal. I play electric bag pipes.\"\n\nSo, the answer to the question is: electric bag pipes.",
+          "latency_ms": 3509.2,
+          "f1": 0.0238,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_65",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about the weather in our respective locations? What was the one thing you said you didn't like about the weather in Texas? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about the weather in our respective locations? What was the one thing you said you didn't like about the weather in Texas?",
+          "expected": "The humidity!",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:9"
+          ],
+          "ingest_seconds": 108.4,
+          "compile_latency_ms": 70.4,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 558,
+            "sections": [
+              {
+                "type": null,
+                "items": 4
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "texas",
+              "one day",
+              "2, 5 days",
+              "1, 8 days",
+              "[user, 2026-10-07 06:40] [Session 1, 8 days 4 hours ago] Speaker 1: Hawaii. Moved here from texas and love the blue ocean and skies here",
+              "[user, 2026-10-07 06:40] [Session 1, 8 days 4 hours ago] Speaker 2: I d love to see america. I hope to work there one day. I live in india.",
+              "[user, 2026-10-07 06:40] [Session 2, 5 days 4 hours ago] Speaker 1: Yeah the weather here is amazing, it's one of the best tings about Hawaii! Unless you decide to go way up near the top of the volcanos you'll never see snow either.",
+              "[user, 2026-10-07 06:40] [Session 2, 5 days 4 hours ago] Speaker 2: Yeah, and I imagine there would be lots of places to practice my swimming. I'm more used to pool swimming, but I would love to practice some open water swimming."
+            ]
+          },
+          "answer": "I don't have enough information to answer the question. The conversation about the weather in Texas doesn't exist in the provided memory context.",
+          "latency_ms": 1825.8,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_66",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our languages skills? How many languages did you say you could speak? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our languages skills? How many languages did you say you could speak?",
+          "expected": "I can speak 2 languages, Spanish and English.",
+          "answerer": "Speaker 2",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 118.5,
+          "compile_latency_ms": 65.3,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 827,
+            "sections": [
+              {
+                "type": null,
+                "items": 8
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "about half",
+              "About 3 years",
+              "2, 3 days",
+              "2 hours ago",
+              "Speaker 1",
+              "1, 3 days",
+              "1 day ago",
+              "Session 1, 3 days"
+            ]
+          },
+          "answer": "I can answer the question based on the conversation memory. Speaker 2 said: \"I'm up to three.\"",
+          "latency_ms": 1885.6,
+          "f1": 0.2727,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_69",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we chatted about our favorite TV shows? Can you remind me what yours was again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we chatted about our favorite TV shows? Can you remind me what yours was again?",
+          "expected": "The Walking Dead!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 49,
+          "evidence": [
+            "1:8",
+            "3:8"
+          ],
+          "ingest_seconds": 128.5,
+          "compile_latency_ms": 72.2,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 798,
+            "sections": [
+              {
+                "type": null,
+                "items": 7
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "our first time",
+              "Session 2, 1 day 5 hours ago",
+              "Speaker 2",
+              "1 day",
+              "1, 3 days",
+              "1 day 5 hours ago",
+              "Session 1, 3 days 5 hours ago",
+              "[user, 2026-10-07 06:44] [Session 1, 3 days 5 hours ago] Speaker 2: Very nice I go to the park for that. Do you like movies, my favorite is friday"
+            ]
+          },
+          "answer": "I remember that conversation about our favorite TV shows. You asked me about my favorite show, and I said: \"I always liked Maggie the best.\"",
+          "latency_ms": 2064.4,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_68",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about me wanting to be a dog just like Pluto? What's the reason you gave saying why I could definitely go to Disney? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about me wanting to be a dog just like Pluto? What's the reason you gave saying why I could definitely go to Disney?",
+          "expected": "Because Pluto is a dog and he is in Disney!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 113.4,
+          "compile_latency_ms": 72.2,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 870,
+            "sections": [
+              {
+                "type": null,
+                "items": 8
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "I want to be a dog just like him!",
+              "Pluto",
+              "Disney",
+              "pluto abc song!",
+              "disney ruff",
+              "1, 3 days",
+              "Nothing just singing and looking at my building blocks!",
+              "Session 1, 3 days 13 hours ago"
+            ]
+          },
+          "answer": "I don't have any memory of a conversation where I gave a reason why you could definitely go to Disney. However, I do recall a conversation where you mentioned wanting to go to Disney, and I responded by saying \"Disney has dogs! Pluto is a dog!\" but then I mentioned my preference for Mickey Mouse.",
+          "latency_ms": 2746.7,
+          "f1": 0.1379,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_70",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that one time we talked about our jobs? What was it that you just got hired as? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that one time we talked about our jobs? What was it that you just got hired as?",
+          "expected": "I got hired as a life coach!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 143.7,
+          "compile_latency_ms": 61.7,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 414,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "2 weeks",
+              "Speaker",
+              "[user, 2026-10-07 06:48] [Session 1, 4 days 8 hours ago] Speaker 1: I just got hired yesterday as a life coach, thanks for asking",
+              "[user, 2026-10-07 06:48] [Session 1, 4 days 8 hours ago] Speaker 1: I got really into running after I beat cancer",
+              "[user, 2026-10-07 06:48] [Session 1, 4 days 8 hours ago] Speaker 1: Just determined. I'm not taking my second chance for granted",
+              "[user, 2026-10-07 06:48] [Session 1, 4 days 8 hours ago] Speaker 2: Yes, a new little one on the way too",
+              "[user, 2026-10-07 06:48] [Session 2, 1 day 8 hours ago] Speaker 1: I was a part-time athletic trainer. I feel like my experience as an athletic trainer is what landed me this job. I know that the people interviewing me were impressed by my\u2026",
+              "[user, 2026-10-07 06:48] [Session 4, 4 hours ago] Speaker 2: A lot of work on your plate? Hope that means you've been getting lots of new clients!"
+            ]
+          },
+          "answer": "I just got hired yesterday as a life coach, thanks for asking.",
+          "latency_ms": 1530.1,
+          "f1": 0.7059,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_77",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our jobs? Can you remind me what year you said you finished school? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our jobs? Can you remind me what year you said you finished school?",
+          "expected": "Yeah, I finished school in 1995.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 153.7,
+          "compile_latency_ms": 85.9,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 747,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "1, 3 days",
+              "about two years",
+              "free time",
+              "school",
+              "nursing school",
+              "2 hours ago",
+              "[user, 2026-10-07 06:51] [Session 1, 3 days 5 hours ago] Speaker 2: Hi! I do but I rarely have time to listen in between school and work.",
+              "[user, 2026-10-07 06:51] [Session 1, 3 days 5 hours ago] Speaker 2: First year, I just moved here with my best friend for school too."
+            ]
+          },
+          "answer": "I remember that conversation. You said, \"I'm going to take this time to look into school as well.\"",
+          "latency_ms": 1827.4,
+          "f1": 0.1667,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_73",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about baking cookies? Can you tell me again what my peanut butter cookie recipe was? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about baking cookies? Can you tell me again what my peanut butter cookie recipe was?",
+          "expected": "It was 1 cup of peanut butter, 1 cup of sugar, and 1 egg. Mix and roll them, then bake for 10-12 minutes.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 51,
+          "evidence": [],
+          "ingest_seconds": 143.5,
+          "compile_latency_ms": 69.1,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 1003,
+            "sections": [
+              {
+                "type": null,
+                "items": 10
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "one smart cookie",
+              "baking",
+              "baking and running",
+              "cookies",
+              "PB cookies",
+              "dog cookies",
+              "1, 8 days",
+              "1 day ago"
+            ]
+          },
+          "answer": "Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 (you) had a conversation about it earlier. According to the conversation, Speaker 2 shared the recipe with you, which is:\n\n1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10-12 mins.\n\nThis is what you said earlier in response to Speaker 2's question about sharing the recipe.",
+          "latency_ms": 3007.8,
+          "f1": 0.32,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_79",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our ideal Saturdays? What was that thing you said you liked to do? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our ideal Saturdays? What was that thing you said you liked to do?",
+          "expected": "Have a bottle of wine.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 108.4,
+          "compile_latency_ms": 68.2,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 423,
+            "sections": [
+              {
+                "type": null,
+                "items": 2
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Speaker 1",
+              "1, 4 days",
+              "[user, 2026-10-07 06:56] [Session 1, 4 days 9 hours ago] Speaker 2: That sounds like a nice time. I like to try to be active myself. I love walks.",
+              "[user, 2026-10-07 06:56] [Session 1, 4 days 9 hours ago] Speaker 1: Seeing a kid learn is my passion.",
+              "[user, 2026-10-07 06:56] [Session 1, 4 days 9 hours ago] Speaker 2: That's just great. We need more educators like you in the system.",
+              "[user, 2026-10-07 06:56] [Session 3, 4 days 2 hours ago] Speaker 1: Mine too! We get into it at towards the end of our American history class, but only for a couple weeks and I wish I had more time to get into it in greater depth.",
+              "[user, 2026-10-07 06:56] [Session 3, 4 days 2 hours ago] Speaker 1: I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn't known about the walking path it had until recently!",
+              "[user, 2026-10-07 06:56] [Session 4, 4 days ago] Speaker 2: I absolutely love German Shepherds but my wife already said no to that. I think we will have a hard time compromising on this one. Maybe we should just get a cat instead haha...ki\u2026"
+            ]
+          },
+          "answer": "I don't have any memory of a conversation about ideal Saturdays. However, I do recall a conversation about activities. In Session 3, 4 days 2 hours ago, you mentioned going on a wonderful walk along the Detroit river and discovering a walking path there.",
+          "latency_ms": 2179.6,
+          "f1": 0.0952,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_80",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your dogs? How many do you have again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your dogs? How many do you have again?",
+          "expected": "I have 3 dogs!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 48,
+          "evidence": [],
+          "ingest_seconds": 98.2,
+          "compile_latency_ms": 56.0,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 677,
+            "sections": [
+              {
+                "type": null,
+                "items": 6
+              },
+              {
+                "type": null,
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "what dogs",
+              "Speaker 1",
+              "1, 10 days",
+              "Speaker 2",
+              "2, 7 days",
+              "2, 7 days",
+              "[user, 2026-10-07 06:58] [Session 1, 10 days 3 hours ago] Speaker 1: Sure! You can be friends with my 3 dogs too if you aren't allergic",
+              "[user, 2026-10-07 06:58] [Session 1, 10 days 3 hours ago] Speaker 1: I'm always walking my dogs so gym activities are fun for me"
+            ]
+          },
+          "answer": "Speaker 1 said: \"Sure! You can be friends with my 3 dogs too if you aren't allergic\" (from Session 1, 10 days ago).",
+          "latency_ms": 1958.2,
+          "f1": 0.1481,
+          "judge": true,
+          "reason": "judge_correct"
+        }
+      ],
+      "valid": true,
+      "client_calls": 3858,
+      "client_failures": 0
+    }
+  },
+  "all_suites_valid": true,
+  "canonical_baseline_targets": {
+    "retrieval_latency_ms": "<10.0ms (via B375)",
+    "llm_generation_latency_s": "<1.0s (via B374)",
+    "daemon_idle_rss_mb": "<80MB (via B384)",
+    "token_compression_ratio": "50%-70% bulk, 100% bypass on sub-budget (B374)",
+    "ask_eval_overall": ">=0.90"
+  },
+  "dmr_judge": {
+    "enabled": true,
+    "prompt": "locomo10 JUDGE_TEMPLATE",
+    "llm": {
+      "provider": "ollama",
+      "model": "gemma4:26b",
+      "base_url": "http://localhost:11434/v1",
+      "endpoint": "ollama /api/chat (num_ctx sized per prompt)",
+      "temperature": 0.0
+    },
+    "source": "isolated daemon config + CLI overrides",
+    "calls": 47
+  }
+}

@@ -1,0 +1,73 @@
+=== Campy Benchmark Harness (B381) ===
+Timestamp: 2026-10-07T05:16:44.103188+00:00Z
+Mode: STANDARD
+Target MCP Server: /Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/python -m campy.adapters.mcp_server
+[+] Starting isolated daemon (base config: /Users/djshelton/.campy/config.toml)...
+    ready in 2.0s at /tmp/campy-bench-2sy3x5i9
+
+[+] Running DMR / MSC-Self-Instruct (published dataset; {'max_questions': 50})...
+    [1/50] valid_1 (50 turns)
+    [2/50] valid_2 (50 turns)
+    [3/50] valid_0 (52 turns)
+    [4/50] valid_10 (54 turns)
+    [5/50] valid_7 (50 turns)
+    [6/50] valid_6 (52 turns)
+    [7/50] valid_14 (52 turns)
+    [8/50] valid_11 (50 turns)
+    [9/50] valid_13 (52 turns)
+    [10/50] valid_12 (50 turns)
+    [11/50] valid_19 (50 turns)
+    [12/50] valid_15 (48 turns)
+    [13/50] valid_17 (52 turns)
+    [14/50] valid_18 (52 turns)
+    [15/50] valid_23 (52 turns)
+    [16/50] valid_20 (52 turns)
+    [17/50] valid_24 (50 turns)
+    [18/50] valid_28 (49 turns)
+    [19/50] valid_29 (52 turns)
+    [20/50] valid_31 (52 turns)
+    [21/50] valid_34 (52 turns)
+    [22/50] valid_37 (52 turns)
+    [23/50] valid_38 (52 turns)
+    [24/50] valid_39 (52 turns)
+    [25/50] valid_43 (49 turns)
+    [26/50] valid_42 (52 turns)
+    [27/50] valid_44 (52 turns)
+    [28/50] valid_45 (50 turns)
+    [29/50] valid_46 (50 turns)
+    [30/50] valid_47 (52 turns)
+    [31/50] valid_49 (52 turns)
+    [32/50] valid_50 (52 turns)
+    [33/50] valid_55 (52 turns)
+    [34/50] valid_51 (46 turns)
+    [35/50] valid_58 (52 turns)
+    [36/50] valid_56 (52 turns)
+    [37/50] valid_59 (52 turns)
+    [38/50] valid_60 (52 turns)
+    [39/50] valid_61 (52 turns)
+    [40/50] valid_62 (52 turns)
+    [41/50] valid_63 (50 turns)
+    [42/50] valid_65 (50 turns)
+    [43/50] valid_66 (52 turns)
+    [44/50] valid_69 (49 turns)
+    [45/50] valid_68 (50 turns)
+    [46/50] valid_70 (52 turns)
+    [47/50] valid_77 (50 turns)
+    [48/50] valid_73 (51 turns)
+    [49/50] valid_79 (52 turns)
+    [50/50] valid_80 (48 turns)
+    Completed in 6174.47s (calls=3858, failures=0, valid=True)
+
+[+] DMR judge: gemma4:26b
+                         Campy Benchmark Results (FULL)                         
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃ Suite                   ┃ Key Metrics             ┃ Score / Rate ┃ Latency   ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━┩
+│ DMR (MSC-Self-Instruct) │ F1: 0.1893 | Evidence   │ Acc: 0.62    │ 1939.8 ms │
+│                         │ recall: 0.5309 (27      │              │           │
+│                         │ labelled)               │              │           │
+└─────────────────────────┴─────────────────────────┴──────────────┴───────────┘
+
+[+] Recorded results (with per-probe details) to /private/tmp/cb-pub3/results/r18-dmr-q50-framing3.json
+
+Harness execution complete.
