@@ -41,7 +41,8 @@ def summarize_bundle(ctx: Any, max_items: int = 8) -> Dict[str, Any]:
     for sec in sections:
         content = sec.get("content", []) if isinstance(sec, dict) else []
         content = content if isinstance(content, list) else [content]
-        summary.append({"type": sec.get("section_type") if isinstance(sec, dict) else None,
+        # the daemon serializes BundleSection.section_type as "type"
+        summary.append({"type": (sec.get("type") or sec.get("section_type")) if isinstance(sec, dict) else None,
                         "items": len(content)})
         for item in content:
             if len(items) >= max_items:
