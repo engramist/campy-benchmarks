@@ -9,7 +9,7 @@ Published datasets are what to quote. The fixtures are regression tests for this
 | suite | kind | subset | metrics | baselines on the first metric (same LLM, same judge) | LLM / judge | hippocampy | run |
 |---|---|---|---|---|---|---|---|
 | LoCoMo-10 | published dataset | 1 conv, 60 q | judge accuracy: **0.396**<br>F1: **0.104**<br>adversarial abstention: **0.167**<br>evidence recall: **0.411** | – | llama3.1:8b / gemma4:26b | `71041ab` | [2026-10-06-locomo10-conv26-q60-b470.json](results/published/2026-10-06-locomo10-conv26-q60-b470.json) |
-| LongMemEval | published dataset | oracle, 35 q | accuracy: **0.400**<br>task-averaged accuracy: **0.400**<br>evidence recall: **0.496** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-longmemeval-oracle-q35.json](results/published/2026-10-06-longmemeval-oracle-q35.json) |
+| LongMemEval | published dataset | oracle, 35 q | accuracy: **0.457**<br>task-averaged accuracy: **0.457**<br>evidence recall: **0.525** | – | llama3.1:8b / gemma4:26b | `952786d` | [2026-10-07-longmemeval-oracle-q35-b471.json](results/published/2026-10-07-longmemeval-oracle-q35-b471.json) |
 | LongMemEval | published dataset | s, 7 q | accuracy: **0.429**<br>task-averaged accuracy: **0.429**<br>evidence recall: **0.139** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-longmemeval-s-q7.json](results/published/2026-10-06-longmemeval-s-q7.json) |
 | DMR (MSC-Self-Instruct) | published dataset | 50 q | judge accuracy: **0.500**<br>F1: **0.173**<br>evidence recall: **0.531** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-dmr-q50.json](results/published/2026-10-06-dmr-q50.json) |
 
@@ -40,18 +40,19 @@ Wu et al., ICLR 2025. Official per-type judge prompts; the paper's judge is GPT-
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-10-06 | oracle, 35 q | 0.400 | 0.400 | 0.496 | 1 | llama3.1:8b / gemma4:26b | `98ec223` | `e7694d8` | [2026-10-06-longmemeval-oracle-q35.json](results/published/2026-10-06-longmemeval-oracle-q35.json) |
 | 2026-10-06 | s, 7 q | 0.429 | 0.429 | 0.139 | 1 | llama3.1:8b / gemma4:26b | `98ec223` | `e7694d8` | [2026-10-06-longmemeval-s-q7.json](results/published/2026-10-06-longmemeval-s-q7.json) |
+| 2026-10-07 | oracle, 35 q | 0.457 | 0.457 | 0.525 | 1 | llama3.1:8b / gemma4:26b | `952786d` | `ac804b9` | [2026-10-07-longmemeval-oracle-q35-b471.json](results/published/2026-10-07-longmemeval-oracle-q35-b471.json) |
 
 Newest counted run, by category:
 
 | category | accuracy | evidence_recall | n |
 |---|---|---|---|
-| abstention | 1 | – | 1 |
-| knowledge-update | 1 | 0.500 | 1 |
-| multi-session | 0.000 | 0.333 | 1 |
-| single-session-assistant | 0.000 | 0.000 | 1 |
-| single-session-preference | 1 | 0.000 | 1 |
-| single-session-user | 0.000 | 0.000 | 1 |
-| temporal-reasoning | 0.000 | 0.000 | 1 |
+| abstention | 0.400 | 0.875 | 5 |
+| knowledge-update | 0.600 | 0.467 | 5 |
+| multi-session | 0.400 | 0.637 | 5 |
+| single-session-assistant | 0.400 | 0.200 | 5 |
+| single-session-preference | 0.600 | 0.467 | 5 |
+| single-session-user | 0.600 | 0.600 | 5 |
+| temporal-reasoning | 0.200 | 0.500 | 5 |
 
 ## DMR (MSC-Self-Instruct)
 
