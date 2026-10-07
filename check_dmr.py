@@ -110,8 +110,14 @@ with tempfile.TemporaryDirectory() as tmp:
     check(ask_text(q0) == 'Speaker 1 asks Speaker 2 ("you" means Speaker 2): ' + q0.question
           + " Answer with what Speaker 2 said earlier.", ask_text(q0))
     check(qs[1].answerer == "Speaker 1" and qs[1].evidence_ids() == ["1:0"], "answer said by Speaker 1")
-    check(qs[2].answerer is None and qs[2].evidence_ids() == [] and ask_text(qs[2]) == qs[2].question,
-          "a paraphrased answer has no derived evidence and the question stays verbatim")
+    check(qs[2].evidence_ids() == [] and qs[2].answerer_source in ("persona", "default")
+          and ask_text(qs[2]).startswith("Speaker "),
+          "a paraphrased answer has no derived evidence, but the question is still framed")
+    check(qs[2].answerer == "Speaker 1" and qs[2].answerer_source == "persona",
+          f"the answerer falls back to the persona lists: {qs[2].answerer} {qs[2].answerer_source}")
+    from dmr.dataset import parse_record
+    bare = parse_record({**RECORDS[2], "personas": [["nothing"], ["here"]]}, 9)
+    check(bare.answerer == "Speaker 1" and bare.answerer_source == "default", "then to Speaker 1")
     check(len(load_questions(path, max_questions=2)) == 2, "max_questions")
 
     stores = []

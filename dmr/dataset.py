@@ -18,7 +18,9 @@ One record (JSONL line):
 The dataset has no evidence labels. `evidence_ids()` marks the earlier turns
 whose text contains the normalized gold answer: a derived, approximate label
 (None when the answer is paraphrased). The same match picks the answering
-speaker, who the question is addressed to.
+speaker, who the question is addressed to; when no turn quotes the answer,
+the speaker whose persona sentences share most words with it (personas are
+never ingested), else Speaker 1.
 
 The file is pinned by sha256; DMR_PATH points at an existing copy.
 """
@@ -62,7 +64,8 @@ class DMRQuestion:
     question: str
     answer: str
     sessions: List[DMRSession]
-    answerer: Optional[str] = None  # the speaker whose earlier turn holds the answer
+    answerer: Optional[str] = None  # the speaker the question is addressed to
+    answerer_source: str = "turn"  # turn | persona | default (how `answerer` was found)
     evidence: List[str] = field(default_factory=list)  # "session:turn", derived
 
     def evidence_ids(self) -> List[str]:
@@ -117,6 +120,25 @@ def _locate_answer(sessions: List[DMRSession], answer: str):
     return [f"{si}:{ti}" for si, ti, sp in hits if sp == answerer], answerer
 
 
+_WORDS = re.compile(r"[a-z0-9]+")
+_STOP = set("i a an the my me to of and or in on at for is am are was it that this with".split())
+
+
+def _persona_speaker(rec: dict, answer: str) -> Optional[str]:
+    """The speaker whose persona sentences share the most words with the
+    answer (the persona lists are never ingested; they only say who is
+    asked). None when neither shares a content word."""
+    want = set(_WORDS.findall(answer.lower())) - _STOP
+    lists = rec.get("personas") or []
+    best, best_n = None, 0
+    for i, sentences in enumerate(lists[:2]):
+        text = " ".join(str(x) for x in (sentences or [])).lower()
+        n = len(want & set(_WORDS.findall(text)))
+        if n > best_n:
+            best, best_n = f"Speaker {i + 1}", n
+    return best
+
+
 def parse_record(rec: dict, n: int) -> DMRQuestion:
     sessions = []
     for k, sess in enumerate(rec["previous_dialogs"], 1):
@@ -126,6 +148,11 @@ def parse_record(rec: dict, n: int) -> DMRQuestion:
     qid = str((rec.get("metadata") or {}).get("initial_data_id") or f"dmr_{n}")
     q = DMRQuestion(qid, str(si["B"]), str(si["A"]), sessions)
     q.evidence, q.answerer = _locate_answer(sessions, q.answer)
+    if q.answerer is None:
+        # no earlier turn quotes the answer: still tell the model who "you" is
+        q.answerer = _persona_speaker(rec, q.answer)
+        q.answerer_source = "persona" if q.answerer else "default"
+        q.answerer = q.answerer or "Speaker 1"  # 21 of the 27 located answerers in R16
     return q
 
 
