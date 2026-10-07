@@ -69,6 +69,15 @@ with tempfile.TemporaryDirectory() as tmp:
     check("accuracy: **0.500**" in head and "accuracy: **0.420**" in head,
           "each LongMemEval variant keeps its own headline row")
 
+    rep = result("2026-10-08T00:00:00Z", 0.40, sha="2" * 40)  # a second run of new.json's code
+    (Path(tmp) / "new_run2.json").write_text(json.dumps(rep))
+    out = subprocess.run([sys.executable, str(HERE / "report.py"), *sorted(str(p) for p in Path(tmp).glob("*.json"))],
+                         capture_output=True, text=True).stdout
+    head = out.split("## Headline")[1].split("\n## ")[0]
+    check("accuracy: **0.450** (mean of 2, 0.400–0.500)" in head,
+          "repeat runs of the same code are averaged in the headline")
+    (Path(tmp) / "new_run2.json").unlink()
+
     (Path(tmp) / "only_mock.json").write_text(json.dumps(result("2026-10-07T00:00:00Z", 1.0, mcp=False)))
     out = subprocess.run([sys.executable, str(HERE / "report.py"), str(Path(tmp) / "only_mock.json")],
                          capture_output=True, text=True).stdout

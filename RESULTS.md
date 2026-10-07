@@ -8,7 +8,7 @@ Published datasets are what to quote. The fixtures are regression tests for this
 
 | suite | kind | subset | metrics | baselines on the first metric (same LLM, same judge) | LLM / judge | hippocampy | run |
 |---|---|---|---|---|---|---|---|
-| LoCoMo-10 | published dataset | 1 conv, 60 q | judge accuracy: **0.396**<br>F1: **0.104**<br>adversarial abstention: **0.167**<br>evidence recall: **0.411** | – | llama3.1:8b / gemma4:26b | `71041ab` | [2026-10-06-locomo10-conv26-q60-b470.json](results/published/2026-10-06-locomo10-conv26-q60-b470.json) |
+| LoCoMo-10 | published dataset | 1 conv, 60 q | judge accuracy: **0.389** (mean of 3, 0.375–0.396)<br>F1: **0.105** (mean of 3, 0.104–0.106)<br>adversarial abstention: **0.139** (mean of 3, 0.083–0.167)<br>evidence recall: **0.411** (mean of 3, 0.411–0.411) | – | llama3.1:8b / gemma4:26b | `71041ab` | [2026-10-06-locomo10-conv26-q60-b470.json](results/published/2026-10-06-locomo10-conv26-q60-b470.json) [2026-10-07-locomo10-conv26-q60-after-b470-run2.json](results/published/2026-10-07-locomo10-conv26-q60-after-b470-run2.json) [2026-10-07-locomo10-conv26-q60-after-b470-run3.json](results/published/2026-10-07-locomo10-conv26-q60-after-b470-run3.json) |
 | LongMemEval | published dataset | oracle, 35 q | accuracy: **0.457**<br>task-averaged accuracy: **0.457**<br>evidence recall: **0.525** | – | llama3.1:8b / gemma4:26b | `952786d` | [2026-10-07-longmemeval-oracle-q35-b471.json](results/published/2026-10-07-longmemeval-oracle-q35-b471.json) |
 | LongMemEval | published dataset | s, 7 q | accuracy: **0.429**<br>task-averaged accuracy: **0.429**<br>evidence recall: **0.139** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-longmemeval-s-q7.json](results/published/2026-10-06-longmemeval-s-q7.json) |
 | DMR (MSC-Self-Instruct) | published dataset | 50 q | judge accuracy: **0.500**<br>F1: **0.173**<br>evidence recall: **0.531** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-dmr-q50.json](results/published/2026-10-06-dmr-q50.json) |
@@ -21,16 +21,20 @@ Maharana et al., ACL 2024. Judge accuracy is this harness's own prompt (categori
 |---|---|---|---|---|---|---|---|---|---|---|
 | 2026-10-06 | 1 conv, 60 q | 0.354 | 0.089 | 0.083 | 0.397 | 1 | llama3.1:8b / gemma4:26b | `98ec223` | `e7694d8` | [2026-10-06-locomo10-conv26-q60.json](results/published/2026-10-06-locomo10-conv26-q60.json) |
 | 2026-10-06 | 1 conv, 60 q | 0.396 | 0.104 | 0.167 | 0.411 | 1 | llama3.1:8b / gemma4:26b | `71041ab` | `e7694d8` | [2026-10-06-locomo10-conv26-q60-b470.json](results/published/2026-10-06-locomo10-conv26-q60-b470.json) |
+| 2026-10-07 | 1 conv, 60 q | 0.354 | 0.090 | 0.250 | 0.397 | 1 | llama3.1:8b / gemma4:26b | `98ec223` | `ac804b9` | [2026-10-07-locomo10-conv26-q60-before-b470-run2.json](results/published/2026-10-07-locomo10-conv26-q60-before-b470-run2.json) |
+| 2026-10-07 | 1 conv, 60 q | 0.333 | 0.090 | 0.167 | 0.397 | 1 | llama3.1:8b / gemma4:26b | `98ec223` | `ac804b9` | [2026-10-07-locomo10-conv26-q60-before-b470-run3.json](results/published/2026-10-07-locomo10-conv26-q60-before-b470-run3.json) |
+| 2026-10-07 | 1 conv, 60 q | 0.375 | 0.106 | 0.167 | 0.411 | 1 | llama3.1:8b / gemma4:26b | `71041ab` | `ac804b9` | [2026-10-07-locomo10-conv26-q60-after-b470-run2.json](results/published/2026-10-07-locomo10-conv26-q60-after-b470-run2.json) |
+| 2026-10-07 | 1 conv, 60 q | 0.396 | 0.104 | 0.083 | 0.411 | 1 | llama3.1:8b / gemma4:26b | `71041ab` | `ac804b9` | [2026-10-07-locomo10-conv26-q60-after-b470-run3.json](results/published/2026-10-07-locomo10-conv26-q60-after-b470-run3.json) |
 
 Newest counted run, by category:
 
 | category | abstention | evidence_recall | f1 | judge_accuracy | n |
 |---|---|---|---|---|---|
-| multi_hop | – | 0.153 | 0.099 | 0.000 | 12 |
-| temporal | – | 0.583 | 0.145 | 0.417 | 12 |
-| open_domain | – | 0.200 | 0.034 | 0.500 | 12 |
-| single_hop | – | 0.583 | 0.139 | 0.667 | 12 |
-| adversarial | 0.167 | 0.500 | – | – | 12 |
+| multi_hop | – | 0.153 | 0.097 | 0.000 | 12 |
+| temporal | – | 0.583 | 0.142 | 0.417 | 12 |
+| open_domain | – | 0.200 | 0.036 | 0.500 | 12 |
+| single_hop | – | 0.583 | 0.143 | 0.667 | 12 |
+| adversarial | 0.083 | 0.500 | – | – | 12 |
 
 ## LongMemEval
 

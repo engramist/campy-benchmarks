@@ -115,11 +115,29 @@ def variant(key: str, s: Dict[str, Any]) -> Any:
     return ds.get("variant") if key == "longmemeval" else None
 
 
-def headline_row(w, key: str, r: Dict[str, Any]) -> None:
+def commit_of(r: Dict[str, Any]) -> Optional[str]:
+    return ((r.get("provenance") or {}).get("hippocampy") or {}).get("commit")
+
+
+def metric_cell(label: str, values: List[float]) -> str:
+    """One run: the value. Several runs of the same code: mean, run count, range."""
+    if len(values) == 1:
+        return f"{label}: **{fmt(values[0])}**"
+    mean = sum(values) / len(values)
+    return f"{label}: **{fmt(mean)}** (mean of {len(values)}, {fmt(min(values))}–{fmt(max(values))})"
+
+
+def headline_row(w, key: str, r: Dict[str, Any], same: Optional[List[Dict[str, Any]]] = None) -> None:
     s = r["suites"][key]
     title, kind, metrics, _ = SUITES[key]
     prov = r.get("provenance") or {}
-    mets = "<br>".join(f"{label}: **{fmt(s.get(m))}**" for m, label in metrics if s.get(m) is not None)
+    runs = same or [r]
+    cells = []
+    for m, label in metrics:
+        vals = [x["suites"][key].get(m) for x in runs if x["suites"][key].get(m) is not None]
+        if vals:
+            cells.append(metric_cell(label, vals))
+    mets = "<br>".join(cells)
     bl = []
     for name, data in (r.get("baselines") or {}).items():
         if name != "config" and isinstance(data, dict) and isinstance(data.get(key), dict):
@@ -129,7 +147,7 @@ def headline_row(w, key: str, r: Dict[str, Any]) -> None:
     llm = (prov.get("daemon_config") or {}).get("llm_model") or "?"
     w(f"| {title} | {kind} | {subset(key, s)} | {mets} | {'<br>'.join(bl) or '–'} | "
       f"{llm} / {judge_model(r, key)} | `{short((prov.get('hippocampy') or {}).get('commit'))}` | "
-      f"[{Path(r['_file']).name}]({r['_file']}) |")
+      + " ".join(f"[{Path(x['_file']).name}]({x['_file']})" for x in runs) + " |")
 
 
 def main(paths: List[str]) -> int:
@@ -163,7 +181,10 @@ def main(paths: List[str]) -> int:
         for r in have:
             newest[variant(key, r["suites"][key])] = r
         for r in newest.values():
-            headline_row(w, key, r)
+            # repeat runs of the same code on the same subset: report their mean
+            same = [x for x in have if variant(key, x["suites"][key]) == variant(key, r["suites"][key])
+                    and commit_of(x) == commit_of(r) and subset(key, x["suites"][key]) == subset(key, r["suites"][key])]
+            headline_row(w, key, r, same)
     w("")
 
     for key in ORDER:
