@@ -1,0 +1,62 @@
+=== Campy Benchmark Harness (B381) ===
+Timestamp: 2026-10-06T23:14:10.941809+00:00Z
+Mode: STANDARD
+Target MCP Server: /Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/python -m campy.adapters.mcp_server
+[+] Starting isolated daemon (base config: /Users/djshelton/.campy/config.toml)...
+    ready in 2.0s at /tmp/campy-bench-95go3f19
+
+[+] Running LongMemEval (published dataset; {'variant': 'oracle', 'max_questions': 35, 'types': None})...
+    [1/35] gpt4_70e84552_abs (abstention, 24 turns)
+    [2/35] 6a1eabeb (knowledge-update, 24 turns)
+    [3/35] 0a995998 (multi-session, 34 turns)
+    [4/35] 7161e7e2 (single-session-assistant, 14 turns)
+    [5/35] 8a2466db (single-session-preference, 18 turns)
+    [6/35] e47becba (single-session-user, 12 turns)
+    [7/35] gpt4_2655b836 (temporal-reasoning, 36 turns)
+    [8/35] gpt4_93159ced_abs (abstention, 24 turns)
+    [9/35] 6aeb4375 (knowledge-update, 24 turns)
+    [10/35] 6d550036 (multi-session, 44 turns)
+    [11/35] c4f10528 (single-session-assistant, 14 turns)
+    [12/35] 06878be2 (single-session-preference, 16 turns)
+    [13/35] 118b2229 (single-session-user, 12 turns)
+    [14/35] gpt4_2487a7cb (temporal-reasoning, 24 turns)
+    [15/35] 982b5123_abs (abstention, 24 turns)
+    [16/35] 830ce83f (knowledge-update, 24 turns)
+    [17/35] gpt4_59c863d7 (multi-session, 46 turns)
+    [18/35] 89527b6b (single-session-assistant, 2 turns)
+    [19/35] 75832dbd (single-session-preference, 12 turns)
+    [20/35] 51a45a95 (single-session-user, 12 turns)
+    [21/35] gpt4_76048e76 (temporal-reasoning, 24 turns)
+    [22/35] c8090214_abs (abstention, 24 turns)
+    [23/35] 852ce960 (knowledge-update, 24 turns)
+    [24/35] b5ef892d (multi-session, 36 turns)
+    [25/35] e9327a54 (single-session-assistant, 14 turns)
+    [26/35] 0edc2aef (single-session-preference, 20 turns)
+    [27/35] 58bf7951 (single-session-user, 12 turns)
+    [28/35] gpt4_2312f94c (temporal-reasoning, 24 turns)
+    [29/35] gpt4_c27434e8_abs (abstention, 22 turns)
+    [30/35] 945e3d21 (knowledge-update, 24 turns)
+    [31/35] e831120c (multi-session, 24 turns)
+    [32/35] 4c36ccef (single-session-assistant, 8 turns)
+    [33/35] 35a27287 (single-session-preference, 14 turns)
+    [34/35] 1e043500 (single-session-user, 12 turns)
+    [35/35] 0bb5a684 (temporal-reasoning, 24 turns)
+    Completed in 3672.31s (calls=1530, failures=0, valid=True)
+
+[+] LongMemEval judge: gemma4:26b
+                         Campy Benchmark Results (FULL)                         
+┏━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃ Suite       ┃ Key Metrics                         ┃ Score / Rate ┃ Latency   ┃
+┡━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━┩
+│ LongMemEval │ oracle | Evidence recall: 0.525 |   │ Acc: 0.4571  │ 2562.1 ms │
+│             │ abstention: 0.4, knowledge-update:  │              │           │
+│             │ 0.6, multi-session: 0.4,            │              │           │
+│             │ single-session-assistant: 0.4,      │              │           │
+│             │ single-session-preference: 0.6,     │              │           │
+│             │ single-session-user: 0.6,           │              │           │
+│             │ temporal-reasoning: 0.2             │              │           │
+└─────────────┴─────────────────────────────────────┴──────────────┴───────────┘
+
+[+] Recorded results (with per-probe details) to /private/tmp/cb-pub2/results/r14-lme-oracle-q35-b471.json
+
+Harness execution complete.
