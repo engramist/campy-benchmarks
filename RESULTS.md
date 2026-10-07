@@ -11,7 +11,7 @@ Published datasets are what to quote. The fixtures are regression tests for this
 | LoCoMo-10 | published dataset | 1 conv, 60 q | judge accuracy: **0.389** (mean of 3, 0.375–0.396)<br>F1: **0.105** (mean of 3, 0.104–0.106)<br>adversarial abstention: **0.139** (mean of 3, 0.083–0.167)<br>evidence recall: **0.411** (mean of 3, 0.411–0.411) | – | llama3.1:8b / gemma4:26b | `71041ab` | [2026-10-06-locomo10-conv26-q60-b470.json](results/published/2026-10-06-locomo10-conv26-q60-b470.json) [2026-10-07-locomo10-conv26-q60-after-b470-run2.json](results/published/2026-10-07-locomo10-conv26-q60-after-b470-run2.json) [2026-10-07-locomo10-conv26-q60-after-b470-run3.json](results/published/2026-10-07-locomo10-conv26-q60-after-b470-run3.json) |
 | LongMemEval | published dataset | oracle, 35 q | accuracy: **0.457**<br>task-averaged accuracy: **0.457**<br>evidence recall: **0.525** | – | llama3.1:8b / gemma4:26b | `952786d` | [2026-10-07-longmemeval-oracle-q35-b471.json](results/published/2026-10-07-longmemeval-oracle-q35-b471.json) |
 | LongMemEval | published dataset | s, 7 q | accuracy: **0.429**<br>task-averaged accuracy: **0.429**<br>evidence recall: **0.139** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-longmemeval-s-q7.json](results/published/2026-10-06-longmemeval-s-q7.json) |
-| DMR (MSC-Self-Instruct) | published dataset | 50 q | judge accuracy: **0.500**<br>F1: **0.173**<br>evidence recall: **0.531** | – | llama3.1:8b / gemma4:26b | `98ec223` | [2026-10-06-dmr-q50.json](results/published/2026-10-06-dmr-q50.json) |
+| DMR (MSC-Self-Instruct) | published dataset | 50 q | judge accuracy: **0.500**<br>F1: **0.179**<br>evidence recall: **0.531** | – | llama3.1:8b / gemma4:26b | `952786d` | [2026-10-07-dmr-q50-framing2.json](results/published/2026-10-07-dmr-q50-framing2.json) |
 
 ## LoCoMo-10
 
@@ -65,3 +65,4 @@ Deep Memory Retrieval (Packer et al., MemGPT, 2023): 500 questions, each over 4 
 | date | subset | judge accuracy | F1 | evidence recall | repeat | LLM / judge | hippocampy | harness | file |
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-10-06 | 50 q | 0.500 | 0.173 | 0.531 | 1 | llama3.1:8b / gemma4:26b | `98ec223` | `e7694d8` | [2026-10-06-dmr-q50.json](results/published/2026-10-06-dmr-q50.json) |
+| 2026-10-07 | 50 q | 0.500 | 0.179 | 0.531 | 1 | llama3.1:8b / gemma4:26b | `952786d` | `ac804b9` | [2026-10-07-dmr-q50-framing2.json](results/published/2026-10-07-dmr-q50-framing2.json) |

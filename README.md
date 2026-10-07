@@ -331,8 +331,11 @@ sha256; `DMR_PATH` points at an existing copy.
   framing the answering model read "you" as itself (R13a: "I don't have a
   pet... between you and another user"). Results from before this framing
   (2026-10-06, judge 0.500) are not comparable with later ones.
-  - That speaker is the one whose earlier turn contains the gold answer.
-  - When no turn contains it, the question is asked verbatim.
+  - That speaker is the one whose earlier turn contains the gold answer;
+    failing that, the one whose persona sentences share the most words with it
+    (the personas are never ingested); failing that, Speaker 1. Results record
+    `answerer_source` per question and `dataset.question_framing` (3: every
+    question framed; 2: only those with a quoting turn, 2026-10-07 R16).
 - **Judge:** LoCoMo-10's CORRECT/WRONG prompt. A non-answer counts as wrong
   without a judge call.
 

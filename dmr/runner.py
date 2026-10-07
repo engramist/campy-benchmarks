@@ -67,7 +67,7 @@ def run_dmr(new_store: Callable[[], ContextManager[CampyMCPClient]],
         turn_text = {f"{s.index}:{i}": turn_content(s, t) for s in q.sessions for i, t in enumerate(s.turns)}
         rec: Dict[str, Any] = {
             "id": q.question_id, "question": ask_text(q), "raw_question": q.question,
-            "expected": q.answer, "answerer": q.answerer, "turns": turns, "evidence": q.evidence_ids(),
+            "expected": q.answer, "answerer": q.answerer, "answerer_source": q.answerer_source, "turns": turns, "evidence": q.evidence_ids(),
         }
         def body(client: CampyMCPClient, q=q, rec=rec, turn_text=turn_text) -> None:
             t0 = time.perf_counter()
@@ -102,8 +102,9 @@ def run_dmr(new_store: Callable[[], ContextManager[CampyMCPClient]],
         raise CampyClientError(f"every question failed; the last: {details[-1]['error']}")
     return {
         "suite": "dmr",
-        # 2: "you" named in the question framing (ask_text); 1 (unrecorded): before
-        "dataset": {"file": str(path), "sha256": sha256(path)[:16], "options": opts, "question_framing": 2,
+        # 3: every question framed (answerer from turns, else personas, else Speaker 1);
+        # 2: framed only when a turn quotes the answer; 1 (unrecorded): no framing
+        "dataset": {"file": str(path), "sha256": sha256(path)[:16], "options": opts, "question_framing": 3,
                     "questions": len(details), "turns": sum(d["turns"] for d in details)},
         **aggregate(details),
         "ingest_seconds": round(ingest_s, 1),
