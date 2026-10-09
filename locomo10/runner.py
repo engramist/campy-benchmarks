@@ -45,21 +45,32 @@ def session_id(sample_id: str, session: int) -> str:
 
 
 def run_locomo10(client: CampyMCPClient, smoke: bool = False, trace_context: bool = True,
-                 opts: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+                 opts: Optional[Dict[str, Any]] = None, turn_metadata: str = "text") -> Dict[str, Any]:
     """trace_context here defaults ON: evidence recall is this suite's main
-    retrieval diagnostic (one compile_context call per question)."""
+    retrieval diagnostic (one compile_context call per question).
+
+    turn_metadata: "text" writes "[date] Speaker: text" as the turn;
+    "fields" writes the text alone, with the speaker and the session date in
+    notify_turn's speaker/occurred_at (hippocampy B472)."""
     opts = opts or {}
     convs = load_conversations(ensure_dataset(), **opts)
     details: List[Dict[str, Any]] = []
     ingest_s = 0.0
     for conv in convs:
         t0 = time.perf_counter()
+        fields = turn_metadata == "fields"
         for turn in conv.turns():
-            client.notify_turn(role="user", content=turn.content(),
-                               session_id=session_id(conv.sample_id, turn.session))
+            if fields:
+                client.notify_turn(role="user", content=turn.body(),
+                                   session_id=session_id(conv.sample_id, turn.session),
+                                   speaker=turn.speaker, occurred_at=turn.occurred_at())
+            else:
+                client.notify_turn(role="user", content=turn.content(),
+                                   session_id=session_id(conv.sample_id, turn.session))
         client.run_sweep()  # settle once per conversation, before its questions
         ingest_s += time.perf_counter() - t0
-        turn_text = {t.dia_id: t.content() for t in conv.turns()}
+        # what was stored, so evidence recall finds it in the bundle
+        turn_text = {t.dia_id: (t.body() if fields else t.content()) for t in conv.turns()}
         for q in conv.questions:
             rec: Dict[str, Any] = {
                 "id": q.id, "conversation": conv.sample_id, "category": q.category,
@@ -81,6 +92,7 @@ def run_locomo10(client: CampyMCPClient, smoke: bool = False, trace_context: boo
     return {
         "suite": "locomo10",
         "dataset": {"conversations": [c.sample_id for c in convs], "options": opts,
+                    "turn_metadata": turn_metadata,
                     "turns": sum(1 for c in convs for _ in c.turns())},
         **aggregate(details),
         "ingest_seconds": round(ingest_s, 1),

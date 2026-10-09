@@ -396,6 +396,11 @@ def main():
                              "using the personal ~/.campy daemon; needs hippocampy with CAMPY_HOME support")
     parser.add_argument("--daemon-python", type=str, default=None,
                         help="With --isolated: python that runs campy.brain_daemon (default: first word of CAMPY_MCP_CMD)")
+    parser.add_argument("--turn-metadata", choices=["text", "fields"], default="text",
+                        help="LoCoMo-10, LongMemEval, DMR: how a turn's speaker and date reach Campy. "
+                             "text (default, as before): written into the turn, e.g. '[date] Name: ...'; "
+                             "fields: the turn's text alone, with notify_turn's speaker/occurred_at "
+                             "(hippocampy B472; needs a daemon that has them)")
     parser.add_argument("--keep-store", action="store_true",
                         help="With --isolated: keep the temp CAMPY_HOME for inspection instead of deleting it")
     parser.add_argument("--daemon-ready-timeout", type=float, default=900.0,
@@ -557,7 +562,8 @@ def main():
                 run_suite("arc_bridge", "ARC Bridge Suite (World Model & Memory Transfer)", run_arc_bridge)
             if "locomo10" in campy_suites:
                 run_suite("locomo10", f"LoCoMo-10 (published dataset; {l10_opts})",
-                          lambda c, smoke, trace_context: run_locomo10(c, smoke, True, l10_opts))
+                          lambda c, smoke, trace_context: run_locomo10(c, smoke, True, l10_opts,
+                                                                       turn_metadata=args.turn_metadata))
             if "longmemeval" in campy_suites or "dmr" in campy_suites:
                 @contextmanager
                 def fresh_store():
@@ -598,11 +604,13 @@ def main():
             if "dmr" in campy_suites:
                 run_suite("dmr", f"DMR / MSC-Self-Instruct (published dataset; {dmr_opts})",
                           lambda c, smoke, trace_context: run_dmr(fresh_store, dmr_opts,
-                                                                  log=lambda m: print(m, flush=True)))
+                                                                  log=lambda m: print(m, flush=True),
+                                                                  turn_metadata=args.turn_metadata))
             if "longmemeval" in campy_suites:
                 run_suite("longmemeval", f"LongMemEval (published dataset; {lme_opts})",
                           lambda c, smoke, trace_context: run_longmemeval(fresh_store, lme_opts,
-                                                                          log=lambda m: print(m, flush=True)))
+                                                                          log=lambda m: print(m, flush=True),
+                                                                          turn_metadata=args.turn_metadata))
         finally:
             client.close()
             if isolated:

@@ -20,6 +20,7 @@ model -- subset with --lme-questions.
 from __future__ import annotations
 
 import time
+from datetime import datetime
 from typing import Any, Callable, ContextManager, Dict, List, Optional
 
 from longmemeval.dataset import ensure_dataset, load_questions, sha256
@@ -46,13 +47,27 @@ def turn_content(date: str, content: str) -> str:
     return f"[{date}] {content}"
 
 
+def occurred_at(date: str) -> Optional[str]:
+    """A released session date as ISO 8601 ("2023/05/30 (Tue) 04:10" ->
+    2023-05-30T04:10:00), or None when it doesn't parse."""
+    try:
+        return datetime.strptime(date.strip(), "%Y/%m/%d (%a) %H:%M").isoformat()
+    except ValueError:
+        return None
+
+
 def ask_text(q) -> str:
     return f"(Current date: {q.question_date}) {q.question}"
 
 
 def run_longmemeval(new_store: Callable[[], ContextManager[CampyMCPClient]],
-                    opts: Optional[Dict[str, Any]] = None, log=print) -> Dict[str, Any]:
+                    opts: Optional[Dict[str, Any]] = None, log=print,
+                    turn_metadata: str = "text") -> Dict[str, Any]:
+    """turn_metadata: "text" writes "[date] content" as the turn; "fields"
+    writes the content alone, with the session date in notify_turn's
+    occurred_at (hippocampy B472). The speaker is the role either way."""
     opts = dict(opts or {})
+    fields = turn_metadata == "fields"
     variant = opts.pop("variant", "oracle")
     path = ensure_dataset(variant, log=log)
     questions = load_questions(path, **opts)
@@ -61,7 +76,7 @@ def run_longmemeval(new_store: Callable[[], ContextManager[CampyMCPClient]],
     for n, q in enumerate(questions, 1):
         log(f"    [{n}/{len(questions)}] {q.question_id} ({q.category}, "
             f"{sum(len(s.turns) for s in q.sessions)} turns)")
-        turn_text = {f"{s.session_id}:{i}": turn_content(s.date, t.content)
+        turn_text = {f"{s.session_id}:{i}": (t.content if fields else turn_content(s.date, t.content))
                      for s in q.sessions for i, t in enumerate(s.turns)}
         rec: Dict[str, Any] = {
             "id": q.question_id, "question_type": q.question_type, "category": q.category,
@@ -77,8 +92,13 @@ def run_longmemeval(new_store: Callable[[], ContextManager[CampyMCPClient]],
             t0 = time.perf_counter()
             for s in q.sessions:
                 for t in s.turns:
-                    client.notify_turn(role=t.role, content=turn_content(s.date, t.content),
-                                       session_id=f"lme_{q.question_id}_{s.session_id}")
+                    if fields:
+                        client.notify_turn(role=t.role, content=t.content,
+                                           session_id=f"lme_{q.question_id}_{s.session_id}",
+                                           occurred_at=occurred_at(s.date))
+                    else:
+                        client.notify_turn(role=t.role, content=turn_content(s.date, t.content),
+                                           session_id=f"lme_{q.question_id}_{s.session_id}")
             client.run_sweep()
             rec["ingest_seconds"] = round(time.perf_counter() - t0, 1)
             t1 = time.perf_counter()
@@ -107,6 +127,7 @@ def run_longmemeval(new_store: Callable[[], ContextManager[CampyMCPClient]],
     return {
         "suite": "longmemeval",
         "dataset": {"variant": variant, "file": str(path), "sha256": sha256(path)[:16], "options": opts,
+                    "turn_metadata": turn_metadata,
                     "questions": len(details), "turns": sum(d["turns"] for d in details)},
         **aggregate(details),
         "ingest_seconds": round(ingest_s, 1),

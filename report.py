@@ -76,6 +76,12 @@ def short(sha: Optional[str]) -> str:
 
 def subset(key: str, s: Dict[str, Any]) -> str:
     ds = s.get("dataset") if isinstance(s.get("dataset"), dict) else {}
+    # hippocampy B472: speaker and date sent as fields, not in the text
+    tag = ", turn fields" if ds.get("turn_metadata") == "fields" else ""
+    return _subset(key, s, ds) + tag
+
+
+def _subset(key: str, s: Dict[str, Any], ds: Dict[str, Any]) -> str:
     if key == "locomo10":
         return f"{len(ds.get('conversations') or [])} conv, {s.get('questions')} q"
     if key == "longmemeval":
@@ -111,8 +117,10 @@ def countable(r: Dict[str, Any]) -> Optional[str]:
 
 
 def variant(key: str, s: Dict[str, Any]) -> Any:
+    """What gets its own headline row: a LongMemEval variant, and (B472) a
+    run that sent speaker and date as fields rather than in the text."""
     ds = s.get("dataset") if isinstance(s.get("dataset"), dict) else {}
-    return ds.get("variant") if key == "longmemeval" else None
+    return (ds.get("variant") if key == "longmemeval" else None, ds.get("turn_metadata") or "text")
 
 
 def commit_of(r: Dict[str, Any]) -> Optional[str]:

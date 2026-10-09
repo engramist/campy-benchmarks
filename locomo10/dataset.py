@@ -13,6 +13,7 @@ a sha256 so every run scores the same bytes. Cite:
 from __future__ import annotations
 
 import hashlib
+from datetime import datetime
 import json
 import os
 import shutil
@@ -101,13 +102,26 @@ class L10Turn:
     image_caption: Optional[str] = None
 
     def content(self) -> str:
-        """What gets written to memory: the session date and speaker are part
-        of the text (notify_turn has no timestamp parameter, and temporal
-        questions need the date)."""
-        s = f"[{self.date_time}] {self.speaker}: {self.text}"
+        """What gets written to memory with --turn-metadata text: the session
+        date and speaker are part of the text (temporal questions need the
+        date)."""
+        return f"[{self.date_time}] {self.speaker}: {self.body()}"
+
+    def body(self) -> str:
+        """The turn without the date and speaker, for --turn-metadata fields
+        (hippocampy B472: they go in notify_turn's speaker/occurred_at)."""
+        s = self.text
         if self.image_caption:
             s += f" [shares an image: {self.image_caption}]"
         return s
+
+    def occurred_at(self) -> Optional[str]:
+        """The session's date as ISO 8601 ("1:56 pm on 8 May, 2023" ->
+        2023-05-08T13:56:00), or None when it doesn't parse."""
+        try:
+            return datetime.strptime(self.date_time.strip(), "%I:%M %p on %d %B, %Y").isoformat()
+        except ValueError:
+            return None
 
 
 @dataclass
