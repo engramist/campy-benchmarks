@@ -1,7 +1,8 @@
 """
 campy-benchmarks / baselines.py
-Reference points for the QA suites (LoCoMo, MemBench). A Campy score means
-little alone: these say how much of it memory is responsible for.
+Reference points for the QA suites (LoCoMo, MemBench, LoCoMo-10, LongMemEval,
+DMR). A Campy score means little alone: these say how much of it memory is
+responsible for.
 
   no_memory     The question alone, with a plain "answer as best you can"
                 prompt. Measures how guessable each probe is from the LLM's
@@ -12,6 +13,12 @@ little alone: these say how much of it memory is responsible for.
   naive_rag     Top-k raw turns by embedding similarity to the question
                 (same embedder as Campy), shown oldest-first. The simplest
                 retrieval system; Campy's consolidation/graph should beat it.
+
+LongMemEval and DMR give every question its own history (Campy gets a fresh
+store per question), so full_context and naive_rag see only that question's
+turns. LongMemEval `s` full context is ~115k tokens per question: the LLM's
+context window must hold it (llm_client sizes num_ctx up to 128k); a record
+whose prompt estimate exceeds its num_ctx is flagged `context_overflow`.
 
 The context-bearing baselines use Campy's own `ask` system prompt, item
 wrapping (<retrieved_memory>) and empty/non-empty instruction lines, and the
@@ -36,7 +43,7 @@ from records import snippet
 from scoring import compute_f1, contains_current_value, judge
 
 BASELINE_NAMES = ("no_memory", "full_context", "naive_rag")
-QA_SUITES = ("locomo", "membench", "locomo10")
+QA_SUITES = ("locomo", "membench", "locomo10", "longmemeval", "dmr")
 
 # Copied from campy/brain/thalamus/ask.py (_ASK_SYSTEM_PROMPT, _bundle_to_prompt)
 # and memory_formatter.py (_DATA_BOUNDARY_TEMPLATE). Keep in sync by hand --
@@ -115,6 +122,29 @@ def suite_events(suite: str, smoke: bool, opts: Optional[Dict[str, Any]] = None)
                     yield Turn(n, f"msc_{persona.id}_s{s_idx}", t["role"], t["content"]); n += 1
             for p in persona.probes:
                 yield Probe(p.id, p.question, p.expected_active, p.kind, p.accept, p.stale, p.is_contradiction)
+    elif suite == "longmemeval":
+        from longmemeval.dataset import ensure_dataset as lme_dataset, load_questions as lme_questions
+        from longmemeval.runner import ask_text as lme_ask, turn_content as lme_turn
+        o = dict(opts or {})
+        variant = o.pop("variant", "oracle")
+        for q in lme_questions(lme_dataset(variant, log=lambda *a: None), **o):
+            for s in q.sessions:
+                for i, t in enumerate(s.turns):
+                    yield Turn(n, f"lme_{q.question_id}_{s.session_id}", t.role, lme_turn(s.date, t.content),
+                               {"group": q.question_id, "eid": f"{s.session_id}:{i}"}); n += 1
+            yield Probe(q.question_id, lme_ask(q), q.answer, "longmemeval", [], [], q.abstention,
+                        {"group": q.question_id, "raw_question": q.question, "question_type": q.question_type,
+                         "category": q.category, "abstention": q.abstention, "evidence": q.evidence_ids()})
+    elif suite == "dmr":
+        from dmr.dataset import ensure_dataset as dmr_dataset, load_questions as dmr_questions
+        from dmr.runner import ask_text as dmr_ask, turn_content as dmr_turn
+        for q in dmr_questions(dmr_dataset(log=lambda *a: None), **(opts or {})):
+            for s in q.sessions:
+                for i, t in enumerate(s.turns):
+                    yield Turn(n, f"dmr_{q.question_id}_s{s.index}", "user", dmr_turn(s, t),
+                               {"group": q.question_id, "eid": f"{s.index}:{i}"}); n += 1
+            yield Probe(q.question_id, dmr_ask(q), q.answer, "dmr", [], [], False,
+                        {"group": q.question_id, "raw_question": q.question, "evidence": q.evidence_ids()})
     else:
         raise ValueError(f"no baselines for suite {suite!r}")
 
@@ -226,12 +256,29 @@ def memory_prompt(question: str, items: List[Turn], source: str) -> str:
 # Runner
 # ---------------------------------------------------------------------------
 
-def _aggregate(suite: str, details: List[Dict[str, Any]]) -> Dict[str, Any]:
+def _cost(details: List[Dict[str, Any]]) -> Dict[str, Any]:
+    return {"avg_prompt_tokens_est": round(sum(d["prompt_tokens_est"] for d in details) / max(1, len(details)), 1),
+            "avg_latency_ms": round(sum(d["latency_ms"] for d in details) / max(1, len(details)), 1)}
+
+
+def aggregate_suite(suite: str, details: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """A judged suite's metrics (LoCoMo-10, LongMemEval, DMR): recomputed
+    after the judge has run (run_all.finalize_*)."""
     if suite == "locomo10":
         from locomo10.scoring import aggregate
-        return {**aggregate(details),
-                "avg_prompt_tokens_est": round(sum(d["prompt_tokens_est"] for d in details) / max(1, len(details)), 1),
-                "avg_latency_ms": round(sum(d["latency_ms"] for d in details) / max(1, len(details)), 1)}
+    elif suite == "longmemeval":
+        from longmemeval.scoring import aggregate
+    else:
+        from dmr.scoring import aggregate
+    out = {**aggregate(details), **_cost(details)}
+    if suite in ("longmemeval", "dmr"):
+        out["context_overflow"] = sum(1 for d in details if d.get("context_overflow"))
+    return out
+
+
+def _aggregate(suite: str, details: List[Dict[str, Any]]) -> Dict[str, Any]:
+    if suite in ("locomo10", "longmemeval", "dmr"):
+        return aggregate_suite(suite, details)
     n = len(details)
     flagged = [d for d in details if d["flagged"]]
     flag_key = "deprecation_accuracy" if suite == "locomo" else "contradiction_score"
@@ -265,19 +312,25 @@ def run_baseline(name: str, suite: str, llm: BaselineLLM, smoke: bool,
             messages = [{"role": "system", "content": NO_MEMORY_SYSTEM_PROMPT},
                         {"role": "user", "content": ev.question}]
         else:
+            group = ev.meta.get("group")
+            # LongMemEval/DMR: each question has its own history
+            pool = [t for t in seen if t.meta.get("group") == group] if group else seen
             if name == "full_context":
                 # LoCoMo-10: the question's own conversation only (all ten
                 # together are ~200k tokens) -- the standard full-context setup.
                 sid = ev.meta.get("sample_id")
-                items = [t for t in seen if t.meta.get("sample_id") == sid] if sid else list(seen)
+                items = [t for t in pool if t.meta.get("sample_id") == sid] if sid else list(pool)
             else:
-                items = sorted(retriever.top_k(ev.question, seen, k), key=lambda t: t.index)
+                items = sorted(retriever.top_k(ev.question, pool, k), key=lambda t: t.index)
             messages = [{"role": "system", "content": ASK_SYSTEM_PROMPT},
                         {"role": "user", "content": memory_prompt(ev.question, items, name)}]
         res = llm.chat(messages)
         answer = res["text"]
         if ev.kind == "locomo10":
             details.append(_locomo10_record(name, ev, answer, items, res))
+            continue
+        if ev.kind in ("longmemeval", "dmr"):
+            details.append(_own_history_record(name, ev, answer, items, res))
             continue
         passed, reason = judge(answer, ev.kind, ev.accept, ev.stale)
         rec: Dict[str, Any] = {
@@ -323,6 +376,33 @@ def _locomo10_record(name: str, ev: Probe, answer: str, items: List[Turn], res: 
     return rec
 
 
+def _own_history_record(name: str, ev: Probe, answer: str, items: List[Turn],
+                        res: Dict[str, Any]) -> Dict[str, Any]:
+    """A LongMemEval or DMR baseline answer, in the Campy runner's record
+    shape, so the suite's own judge and aggregate grade it."""
+    ev_ids = ev.meta["evidence"]
+    got = {t.meta.get("eid") for t in items}
+    recall = None if name == "no_memory" or not ev_ids else round(sum(e in got for e in ev_ids) / len(ev_ids), 4)
+    rec: Dict[str, Any] = {
+        "id": ev.id, "expected": ev.expected, "answer": answer, "evidence": ev_ids, "evidence_recall": recall,
+        "context_turns": len(items), "prompt_tokens_est": res["prompt_tokens_est"], "num_ctx": res["num_ctx"],
+        "latency_ms": res["latency_ms"], "judge": None,
+        # the prompt may not have fit: Ollama drops the oldest tokens silently
+        "context_overflow": bool(res["num_ctx"] and res["prompt_tokens_est"] > res["num_ctx"]),
+    }
+    if ev.kind == "longmemeval":
+        # LongMemEval's judge reads the question without the date line
+        rec.update({"question": ev.meta["raw_question"], "question_type": ev.meta["question_type"],
+                    "category": ev.meta["category"], "abstention": ev.meta["abstention"]})
+    else:
+        from dmr.scoring import f1
+        rec.update({"question": ev.question, "raw_question": ev.meta["raw_question"],
+                    "f1": f1(answer, ev.expected)})
+    if name == "naive_rag":
+        rec["retrieved"] = sorted(got)
+    return rec
+
+
 def run_all_baselines(names: List[str], suites: List[str], llm: BaselineLLM, smoke: bool,
                       retriever_kind: str = "auto", embed_model: Optional[str] = None,
                       k: int = 5, log: Callable[[str], None] = print,
@@ -330,7 +410,8 @@ def run_all_baselines(names: List[str], suites: List[str], llm: BaselineLLM, smo
     out: Dict[str, Any] = {"config": {
         "llm": llm.describe(), "rag_k": k,
         "scope": "per-suite turns; LoCoMo-10 full_context = the question's own conversation, "
-                 "naive_rag = all turns written so far (the corpus Campy's store holds)",
+                 "naive_rag = all turns written so far (the corpus Campy's store holds); "
+                 "LongMemEval and DMR: the question's own history only",
     }}
     retriever = None
     retriever_error = None
@@ -363,14 +444,19 @@ def run_all_baselines(names: List[str], suites: List[str], llm: BaselineLLM, smo
     return out
 
 
+def _passed(d: Dict[str, Any]) -> Optional[bool]:
+    """LoCoMo/MemBench/LoCoMo-10 records say `passed`; LongMemEval and DMR, `judge`."""
+    return d["passed"] if "passed" in d else d.get("judge")
+
+
 def compare_to_campy(campy_suites: Dict[str, Any], baselines: Dict[str, Any]) -> Dict[str, Any]:
     """Per-probe cross-tab, the actionable part: which probes a baseline
     passes that Campy fails (and vice versa), and which probes pass with no
     memory at all (not testing memory)."""
     out: Dict[str, Any] = {}
     for suite in QA_SUITES:
-        campy = {d["id"]: d["passed"] for d in campy_suites.get(suite, {}).get("details", [])
-                 if d.get("passed") is not None}
+        campy = {d["id"]: _passed(d) for d in campy_suites.get(suite, {}).get("details", [])
+                 if _passed(d) is not None}
         if not campy:
             continue
         suite_out: Dict[str, Any] = {}
@@ -378,7 +464,7 @@ def compare_to_campy(campy_suites: Dict[str, Any], baselines: Dict[str, Any]) ->
             b = baselines.get(name, {}).get(suite, {})
             if not b.get("valid"):
                 continue
-            bp = {d["id"]: d["passed"] for d in b["details"] if d.get("passed") is not None}
+            bp = {d["id"]: _passed(d) for d in b["details"] if _passed(d) is not None}
             common = [i for i in campy if i in bp]
             suite_out[name] = {
                 "baseline_passes_campy_fails": [i for i in common if bp[i] and not campy[i]],
@@ -386,9 +472,10 @@ def compare_to_campy(campy_suites: Dict[str, Any], baselines: Dict[str, Any]) ->
             }
         nm = baselines.get("no_memory", {}).get(suite, {})
         if nm.get("valid"):
-            # LoCoMo-10 adversarial (category 5) is excluded: declining is the
-            # right answer, and a system with no memory declines by default.
+            # LoCoMo-10 adversarial (category 5) and LongMemEval abstention are
+            # excluded: declining is the right answer, and a system with no
+            # memory declines by default.
             suite_out["guessable_without_memory"] = [d["id"] for d in nm["details"]
-                                                     if d["passed"] and d.get("category") != 5]
+                                                     if _passed(d) and d.get("category") not in (5, "abstention")]
         out[suite] = suite_out
     return out
