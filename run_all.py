@@ -25,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import provenance
 import qa_judge
 import repeats
-from baselines import BASELINE_NAMES, QA_SUITES, compare_to_campy, run_all_baselines
+from baselines import BASELINE_NAMES, QA_SUITES, aggregate_suite, compare_to_campy, run_all_baselines
 from isolation import IsolatedDaemon
 from llm_client import BaselineLLM, LLMError
 from locomo10.runner import locomo10_options, run_locomo10
@@ -279,60 +279,62 @@ def finalize_locomo10(results: Dict[str, Any], args, isolated) -> None:
     results["locomo10_judge"] = info
 
 
-def finalize_dmr(results: Dict[str, Any], args, isolated, mcp_cmd) -> None:
-    """Grade DMR answers with LoCoMo-10's judge (dmr/scoring.py), then
-    recompute the metrics."""
-    res = results.get("suites", {}).get("dmr")
-    if not res or not res.get("valid"):
+def _finalize_own_history(results: Dict[str, Any], args, isolated, mcp_cmd, suite: str, label: str,
+                          info: Dict[str, Any], judge_details_fn) -> None:
+    """Grade a LongMemEval or DMR run -- Campy's answers and each baseline's,
+    with the same judge -- then recompute their metrics. Campy's answers
+    are canned in a mock run and are not judged; baseline answers come
+    from the real LLM and are."""
+    targets = []
+    campy = results.get("suites", {}).get(suite)
+    if campy and campy.get("valid"):
+        targets.append(("campy", campy))
+    for name, per_suite in (results.get("baselines") or {}).items():
+        if name != "config" and (per_suite.get(suite) or {}).get("valid"):
+            targets.append((name, per_suite[suite]))
+    if not targets:
         return
-    info: Dict[str, Any] = {"enabled": False, "prompt": "locomo10 JUDGE_TEMPLATE"}
+    judged = [(n, r) for n, r in targets if n != "campy" or mcp_cmd]
     if args.judge == "none":
         info["note"] = "--judge none"
-    elif not mcp_cmd:
+    elif not judged:
         info["note"] = "skipped: mock run (no CAMPY_MCP_CMD), the answers are canned"
     else:
+        if len(judged) < len(targets):
+            info["note"] = "Campy not judged: mock run (no CAMPY_MCP_CMD), its answers are canned"
         try:
             judge_llm, _, source = resolve_baseline_llm(
-                args, mcp_cmd, isolated,
+                args, mcp_cmd or os.environ.get("CAMPY_MCP_CMD"), isolated,
                 overrides=(args.judge_provider or args.baseline_provider,
                            args.judge_model or args.baseline_model,
                            args.judge_base_url or args.baseline_base_url))
-            info.update({"enabled": True, "llm": judge_llm.describe(), "source": source})
-            print(f"\n[+] DMR judge: {judge_llm.describe()['model']}")
-            info["calls"] = dmr_judge_details(res["details"], judge_llm)
+            info.update({"enabled": True, "llm": judge_llm.describe(), "source": source, "calls": 0})
+            print(f"\n[+] {label} judge: {judge_llm.describe()['model']} over {[n for n, _ in judged]}")
+            for name, res in judged:
+                n = judge_details_fn(res["details"], judge_llm)
+                info["calls"] += n
+                print(f"    judged {name}: {n} calls")
         except LLMError as e:
             info["error"] = str(e)[:500]
-            print(f"    !! judge failed ({e}); DMR accuracy stays null")
-    res.update(dmr_aggregate(res["details"]))
-    results["dmr_judge"] = info
+            print(f"    !! judge failed ({e}); {label} accuracy stays null")
+    for name, res in targets:
+        res.update(aggregate_suite(suite, res["details"]) if name != "campy" else
+                   (lme_aggregate if suite == "longmemeval" else dmr_aggregate)(res["details"]))
+    results[f"{suite}_judge"] = info
+
+
+def finalize_dmr(results: Dict[str, Any], args, isolated, mcp_cmd) -> None:
+    """Grade DMR answers with LoCoMo-10's judge (dmr/scoring.py)."""
+    _finalize_own_history(results, args, isolated, mcp_cmd, "dmr", "DMR",
+                          {"enabled": False, "prompt": "locomo10 JUDGE_TEMPLATE"}, dmr_judge_details)
 
 
 def finalize_longmemeval(results: Dict[str, Any], args, isolated, mcp_cmd) -> None:
     """Grade LongMemEval answers with the official per-type prompts
-    (longmemeval/scoring.py), then recompute the metrics."""
-    res = results.get("suites", {}).get("longmemeval")
-    if not res or not res.get("valid"):
-        return
-    info: Dict[str, Any] = {"enabled": False, "prompts": "official evaluate_qa.py get_anscheck_prompt"}
-    if args.judge == "none":
-        info["note"] = "--judge none"
-    elif not mcp_cmd:
-        info["note"] = "skipped: mock run (no CAMPY_MCP_CMD), the answers are canned"
-    else:
-        try:
-            judge_llm, _, source = resolve_baseline_llm(
-                args, mcp_cmd, isolated,
-                overrides=(args.judge_provider or args.baseline_provider,
-                           args.judge_model or args.baseline_model,
-                           args.judge_base_url or args.baseline_base_url))
-            info.update({"enabled": True, "llm": judge_llm.describe(), "source": source})
-            print(f"\n[+] LongMemEval judge: {judge_llm.describe()['model']}")
-            info["calls"] = lme_judge_details(res["details"], judge_llm)
-        except LLMError as e:
-            info["error"] = str(e)[:500]
-            print(f"    !! judge failed ({e}); LongMemEval accuracy stays null")
-    res.update(lme_aggregate(res["details"]))
-    results["longmemeval_judge"] = info
+    (longmemeval/scoring.py)."""
+    _finalize_own_history(results, args, isolated, mcp_cmd, "longmemeval", "LongMemEval",
+                          {"enabled": False, "prompts": "official evaluate_qa.py get_anscheck_prompt"},
+                          lme_judge_details)
 
 
 def print_baseline_table(results: Dict[str, Any]) -> None:
@@ -345,6 +347,11 @@ def print_baseline_table(results: Dict[str, Any]) -> None:
         campy = results.get("suites", {}).get(suite, {})
         if suite == "locomo10":
             metrics = ("judge_accuracy", "f1", "adversarial_abstention", "evidence_recall", "avg_prompt_tokens_est")
+        elif suite == "longmemeval":
+            metrics = ("accuracy", "task_averaged_accuracy", "evidence_recall", "avg_prompt_tokens_est",
+                       "context_overflow")
+        elif suite == "dmr":
+            metrics = ("judge_accuracy", "f1", "evidence_recall", "avg_prompt_tokens_est", "context_overflow")
         else:
             flag = "deprecation_accuracy" if suite == "locomo" else "contradiction_score"
             metrics = ("accuracy", flag, "judge_accuracy", "avg_prompt_tokens_est")
@@ -425,7 +432,8 @@ def main():
                         help="A stronger judge than the answering model is recommended")
     parser.add_argument("--judge-base-url", type=str, default=None)
     parser.add_argument("--baselines", type=str, default=None,
-                        help="Reference systems to score on the QA suites (LoCoMo, MemBench) with the same LLM "
+                        help="Reference systems to score on the QA suites (LoCoMo, MemBench, LoCoMo-10, "
+                             "LongMemEval, DMR) with the same LLM "
                              "and judge: 'all' or a comma list of " + ", ".join(BASELINE_NAMES))
     parser.add_argument("--baselines-only", action="store_true",
                         help="Run only --baselines (no daemon needed)")
@@ -449,8 +457,6 @@ def main():
         parser.error("--baselines-only needs --baselines")
     if args.repeat < 1:
         parser.error("--repeat must be at least 1")
-    if args.suite in ("longmemeval", "dmr") and baseline_names:
-        parser.error(f"--baselines are not implemented for --suite {args.suite} yet")
     if args.repeat > 1 and (baseline_names or args.suite in ("locomo10", "longmemeval", "dmr")):
         parser.error("--repeat > 1 is not supported with --baselines, --suite locomo10, longmemeval or dmr yet")
 
@@ -679,7 +685,7 @@ def main():
         print(f"    LLM: {llm.describe()} (from {llm_source})")
         bl = run_all_baselines(baseline_names, qa_suites, llm, args.smoke,
                                retriever_kind=args.rag_retriever, embed_model=embed_model, k=args.rag_k,
-                               suite_opts={"locomo10": l10_opts})
+                               suite_opts={"locomo10": l10_opts, "longmemeval": lme_opts, "dmr": dmr_opts})
         bl["config"]["llm_source"] = llm_source
         for name in baseline_names:
             judge_run(bl.get(name) or {}, f"baseline {name}")
