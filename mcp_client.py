@@ -334,8 +334,16 @@ class CampyMCPClient:
 
         return {"status": "unknown_tool", "name": name}
 
-    def notify_turn(self, role: str, content: str, session_id: str = "benchmark") -> Dict[str, Any]:
-        return self.call_tool("notify_turn", {"role": role, "content": content, "session_id": session_id})
+    def notify_turn(self, role: str, content: str, session_id: str = "benchmark",
+                    speaker: Optional[str] = None, occurred_at: Optional[str] = None) -> Dict[str, Any]:
+        """speaker/occurred_at (hippocampy B472): who said it and when it
+        happened, as fields; sent only when given."""
+        args: Dict[str, Any] = {"role": role, "content": content, "session_id": session_id}
+        if speaker:
+            args["speaker"] = speaker
+        if occurred_at:
+            args["occurred_at"] = occurred_at
+        return self.call_tool("notify_turn", args)
 
     def current_truth(self, query: str) -> Dict[str, Any]:
         return self.call_tool("current_truth", {"query": query})

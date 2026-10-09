@@ -19,7 +19,9 @@ The judge runs later (run_all.finalize_dmr).
 
 from __future__ import annotations
 
+import re
 import time
+from datetime import datetime, timedelta
 from typing import Any, Callable, ContextManager, Dict, List, Optional
 
 from dmr.dataset import ensure_dataset, load_questions, sha256
@@ -41,6 +43,25 @@ def turn_content(session, turn) -> str:
     return f"[Session {session.index}, {session.time_back}] {turn.speaker}: {turn.text}"
 
 
+# DMR gives each earlier session only its distance back from the current one
+# ("7 days 8 hours ago"). With --turn-metadata fields, a session's
+# occurred_at is that distance before this fixed, arbitrary "now" (no DMR
+# question asks for a date, so only the order and spacing matter).
+DMR_NOW = datetime(2023, 1, 1, 12, 0)
+_UNITS = {"minute": 60, "hour": 3600, "day": 86400, "week": 7 * 86400, "month": 30 * 86400,
+          "year": 365 * 86400}
+
+
+def occurred_at(session) -> Optional[str]:
+    """`time_back` ("7 days 8 hours ago", "2 weeks ago") as an ISO time
+    before DMR_NOW, or None when it doesn't parse."""
+    pairs = re.findall(r"(\d+)\s*(minute|hour|day|week|month|year)s?", session.time_back or "", re.I)
+    if not pairs:
+        return None
+    seconds = sum(int(n) * _UNITS[u.lower()] for n, u in pairs)
+    return (DMR_NOW - timedelta(seconds=seconds)).isoformat()
+
+
 def ask_text(q) -> str:
     """The question, with who is asking whom. DMR questions say "you" (the
     speaker being asked), and answered as is, the memory's own model reads
@@ -55,8 +76,12 @@ def ask_text(q) -> str:
 
 
 def run_dmr(new_store: Callable[[], ContextManager[CampyMCPClient]],
-            opts: Optional[Dict[str, Any]] = None, log=print) -> Dict[str, Any]:
+            opts: Optional[Dict[str, Any]] = None, log=print, turn_metadata: str = "text") -> Dict[str, Any]:
+    """turn_metadata: "text" writes "[Session n, time back] Speaker k: text";
+    "fields" writes the text alone, with the speaker and the session's time
+    in notify_turn's speaker/occurred_at (hippocampy B472)."""
     opts = dict(opts or {})
+    fields = turn_metadata == "fields"
     path = ensure_dataset(log=log)
     questions = load_questions(path, **opts)
     details: List[Dict[str, Any]] = []
@@ -64,7 +89,8 @@ def run_dmr(new_store: Callable[[], ContextManager[CampyMCPClient]],
     for n, q in enumerate(questions, 1):
         turns = sum(len(s.turns) for s in q.sessions)
         log(f"    [{n}/{len(questions)}] {q.question_id} ({turns} turns)")
-        turn_text = {f"{s.index}:{i}": turn_content(s, t) for s in q.sessions for i, t in enumerate(s.turns)}
+        turn_text = {f"{s.index}:{i}": (t.text if fields else turn_content(s, t))
+                     for s in q.sessions for i, t in enumerate(s.turns)}
         rec: Dict[str, Any] = {
             "id": q.question_id, "question": ask_text(q), "raw_question": q.question,
             "expected": q.answer, "answerer": q.answerer, "answerer_source": q.answerer_source, "turns": turns, "evidence": q.evidence_ids(),
@@ -73,8 +99,13 @@ def run_dmr(new_store: Callable[[], ContextManager[CampyMCPClient]],
             t0 = time.perf_counter()
             for s in q.sessions:
                 for t in s.turns:
-                    client.notify_turn(role="user", content=turn_content(s, t),
-                                       session_id=f"dmr_{q.question_id}_s{s.index}")
+                    if fields:
+                        client.notify_turn(role="user", content=t.text,
+                                           session_id=f"dmr_{q.question_id}_s{s.index}",
+                                           speaker=t.speaker, occurred_at=occurred_at(s))
+                    else:
+                        client.notify_turn(role="user", content=turn_content(s, t),
+                                           session_id=f"dmr_{q.question_id}_s{s.index}")
             client.run_sweep()
             rec["ingest_seconds"] = round(time.perf_counter() - t0, 1)
             t1 = time.perf_counter()
@@ -107,6 +138,7 @@ def run_dmr(new_store: Callable[[], ContextManager[CampyMCPClient]],
         # 3: every question framed (answerer from turns, else personas, else Speaker 1);
         # 2: framed only when a turn quotes the answer; 1 (unrecorded): no framing
         "dataset": {"file": str(path), "sha256": sha256(path)[:16], "options": opts, "question_framing": 3,
+                    "turn_metadata": turn_metadata,
                     "questions": len(details), "turns": sum(d["turns"] for d in details)},
         **aggregate(details),
         "ingest_seconds": round(ingest_s, 1),
