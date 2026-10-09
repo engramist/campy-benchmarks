@@ -83,6 +83,8 @@ def run_dmr(new_store: Callable[[], ContextManager[CampyMCPClient]],
             rec["evidence_recall"] = (evidence_recall_from_texts(rec["evidence"], turn_text, bundle_texts(ctx))
                                       if rec["evidence"] else None)
             rec["context"] = summarize_bundle(ctx)
+            if getattr(client, "campy_home", None):
+                rec["store"] = client.campy_home  # --keep-store: this question's store
             t2 = time.perf_counter()
             rec["answer"] = client.ask(rec["question"], session_id=f"dmr_{q.question_id}_eval")
             rec["latency_ms"] = round((time.perf_counter() - t2) * 1000.0, 1)

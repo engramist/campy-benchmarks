@@ -572,6 +572,8 @@ def main():
                         except RuntimeError as e:  # never became ready: a daemon failure, retryable
                             raise CampyClientError(f"isolated daemon failed to start: {e}") from e
                         c = CampyMCPClient(mcp_cmd=mcp_cmd, env=d.client_env())
+                        if args.keep_store:
+                            c.campy_home = str(d.home)  # recorded per question (diagnostics replay it)
                         yield c
                     except CampyClientError:
                         # keep the failed question's store and daemon logs for diagnosis
