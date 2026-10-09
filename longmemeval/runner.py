@@ -86,6 +86,8 @@ def run_longmemeval(new_store: Callable[[], ContextManager[CampyMCPClient]],
             rec["compile_latency_ms"] = round((time.perf_counter() - t1) * 1000.0, 1)
             rec["evidence_recall"] = evidence_recall(rec["evidence"], turn_text, bundle_texts(ctx))
             rec["context"] = summarize_bundle(ctx)
+            if getattr(client, "campy_home", None):
+                rec["store"] = client.campy_home  # --keep-store: this question's store
             t2 = time.perf_counter()
             rec["answer"] = client.ask(ask_text(q), session_id=f"lme_{q.question_id}_eval")
             rec["latency_ms"] = round((time.perf_counter() - t2) * 1000.0, 1)
