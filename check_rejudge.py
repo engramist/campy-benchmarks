@@ -142,10 +142,42 @@ def rescoring() -> None:
           f"rejudge with votes=3 uses the tiebreak: {d2['rejudge']['targets']}")
 
 
+def judge_errors() -> None:
+    """A judge call that errors (e.g. Ollama aborting a repeating generation) is retried
+    once; a second error records a WRONG verdict marked judge_error instead of raising."""
+    from llm_client import LLMError
+    from locomo10.scoring import JUDGE_MAX_TOKENS, judge_one
+
+    class Flaky:
+        def __init__(self, errors: int):
+            self.errors, self.calls, self.caps = errors, 0, []
+
+        def chat(self, messages, max_tokens=None):
+            self.calls += 1
+            self.caps.append(max_tokens)
+            if self.calls <= self.errors:
+                raise LLMError("HTTP 500: prediction aborted, token repeat limit reached")
+            return {"text": "CORRECT"}
+
+    once = Flaky(1)
+    r = judge_one(once, "q", "gold", "ans")
+    check(r["judge"] is True and once.calls == 2, f"one error is retried: {r}, calls={once.calls}")
+    check(once.caps == [JUDGE_MAX_TOKENS] * 2, f"judge calls are capped: {once.caps}")
+    twice = Flaky(5)
+    try:
+        r = judge_one(twice, "q", "gold", "ans", votes=3)
+    except LLMError as e:
+        check(False, f"a repeated judge error must not raise: {e}")
+    else:
+        check(r["judge"] is False and r.get("reason") == "judge_error",
+              f"a repeated judge error is recorded as judge_error: {r}")
+
+
 def main() -> int:
     prompts()
     voting()
     rescoring()
+    judge_errors()
     if failures:
         print(f"FAIL -- {len(failures)} judge robustness checks failed:")
         for f in failures:
