@@ -1,0 +1,145 @@
+=== Campy Benchmark Harness (B381) ===
+Timestamp: 2026-10-09T22:05:55.253360+00:00Z
+Mode: STANDARD
+Target MCP Server: /Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/python -m campy.adapters.mcp_server
+[+] Starting isolated daemon (base config: /Users/djshelton/.campy/config.toml)...
+    ready in 2.0s at /tmp/campy-bench-czq5jf0t
+
+[+] Running DMR / MSC-Self-Instruct (published dataset; {'max_questions': 50})...
+    [1/50] valid_1 (50 turns)
+      store kept: /tmp/campy-bench-8uyzncjp
+    [2/50] valid_2 (50 turns)
+      store kept: /tmp/campy-bench-pagjp5r2
+    [3/50] valid_0 (52 turns)
+      store kept: /tmp/campy-bench-kw9i9_2j
+    [4/50] valid_10 (54 turns)
+      store kept: /tmp/campy-bench-gdaparry
+    [5/50] valid_7 (50 turns)
+      store kept: /tmp/campy-bench-7k07yjgj
+    [6/50] valid_6 (52 turns)
+      store kept: /tmp/campy-bench-gpielgpr
+    [7/50] valid_14 (52 turns)
+      store kept: /tmp/campy-bench-1eb04e11
+    [8/50] valid_11 (50 turns)
+      store kept: /tmp/campy-bench-7zsg4w0b
+    [9/50] valid_13 (52 turns)
+      store kept: /tmp/campy-bench-w9r40d02
+    [10/50] valid_12 (50 turns)
+      store kept: /tmp/campy-bench-pl5weeko
+    [11/50] valid_19 (50 turns)
+      store kept: /tmp/campy-bench-ud38px48
+    [12/50] valid_15 (48 turns)
+      store kept: /tmp/campy-bench-guztu1v4
+    [13/50] valid_17 (52 turns)
+      store kept: /tmp/campy-bench-4bjeh7cz
+    [14/50] valid_18 (52 turns)
+      store kept: /tmp/campy-bench-210wurws
+    [15/50] valid_23 (52 turns)
+      store kept: /tmp/campy-bench-c24lzg6v
+    [16/50] valid_20 (52 turns)
+      store kept: /tmp/campy-bench-z4la4bgs
+    [17/50] valid_24 (50 turns)
+      store kept: /tmp/campy-bench-hs3mzdig
+    [18/50] valid_28 (49 turns)
+      store kept: /tmp/campy-bench-c7gw1irj
+    [19/50] valid_29 (52 turns)
+      store kept: /tmp/campy-bench-xwwtoihy
+    [20/50] valid_31 (52 turns)
+      store kept: /tmp/campy-bench-7v3kmbml
+    [21/50] valid_34 (52 turns)
+      store kept: /tmp/campy-bench-67jzyazq
+    [22/50] valid_37 (52 turns)
+      store kept: /tmp/campy-bench-3mzzrd21
+    [23/50] valid_38 (52 turns)
+      store kept: /tmp/campy-bench-rzq0rnwp
+    [24/50] valid_39 (52 turns)
+      store kept: /tmp/campy-bench-f99wxo30
+    [25/50] valid_43 (49 turns)
+      store kept: /tmp/campy-bench-mdy_9jiz
+    [26/50] valid_42 (52 turns)
+      store kept: /tmp/campy-bench-zveiq_dg
+    [27/50] valid_44 (52 turns)
+      store kept: /tmp/campy-bench-7_fxycwz
+    [28/50] valid_45 (50 turns)
+      store kept: /tmp/campy-bench-zo698s8u
+    [29/50] valid_46 (50 turns)
+      store kept: /tmp/campy-bench-_awcqs6m
+    [30/50] valid_47 (52 turns)
+      store kept: /tmp/campy-bench-e265vkdm
+    [31/50] valid_49 (52 turns)
+      store kept: /tmp/campy-bench-r1x31ujc
+    [32/50] valid_50 (52 turns)
+      store kept: /tmp/campy-bench-181mjh9v
+    [33/50] valid_55 (52 turns)
+      store kept: /tmp/campy-bench-s6zmr41v
+    [34/50] valid_51 (46 turns)
+      store kept: /tmp/campy-bench-8nqqg7rj
+    [35/50] valid_58 (52 turns)
+      store kept: /tmp/campy-bench-2_h2zp0m
+    [36/50] valid_56 (52 turns)
+      store kept: /tmp/campy-bench-yr_0plrt
+    [37/50] valid_59 (52 turns)
+      store kept: /tmp/campy-bench-qhxh189t
+    [38/50] valid_60 (52 turns)
+      store kept: /tmp/campy-bench-uop08e1c
+    [39/50] valid_61 (52 turns)
+      store kept: /tmp/campy-bench-y9r718m7
+    [40/50] valid_62 (52 turns)
+      store kept: /tmp/campy-bench-h4gkkz2r
+    [41/50] valid_63 (50 turns)
+      store kept: /tmp/campy-bench-bj1ofxno
+    [42/50] valid_65 (50 turns)
+      store kept: /tmp/campy-bench-ps2b1lm4
+    [43/50] valid_66 (52 turns)
+      store kept: /tmp/campy-bench-l82jlnn4
+    [44/50] valid_69 (49 turns)
+      store kept: /tmp/campy-bench-a9bkzoer
+    [45/50] valid_68 (50 turns)
+      store kept: /tmp/campy-bench-i0y6yl0s
+    [46/50] valid_70 (52 turns)
+      store kept: /tmp/campy-bench-19xb2rq9
+    [47/50] valid_77 (50 turns)
+      store kept: /tmp/campy-bench-na9f3tqw
+    [48/50] valid_73 (51 turns)
+      store kept: /tmp/campy-bench-2_pddftz
+    [49/50] valid_79 (52 turns)
+      store kept: /tmp/campy-bench-y911j8t0
+    [50/50] valid_80 (48 turns)
+      store kept: /tmp/campy-bench-49g2qec0
+    Completed in 6529.77s (calls=3929, failures=0, valid=True)
+
+[+] Running baselines ['no_memory', 'full_context', 'naive_rag'] on ['dmr'] (after the Campy suites, so they don't compete with the daemon for the LLM)...
+    LLM: {'provider': 'ollama', 'model': 'llama3.1:8b', 'base_url': 'http://localhost:11434/v1', 'endpoint': 'ollama /api/chat (num_ctx sized per prompt)', 'temperature': 0.0} (from isolated daemon config)
+    baseline no_memory / dmr ...
+    baseline full_context / dmr ...
+    baseline naive_rag / dmr ...
+
+[+] DMR judge: gemma4:26b over ['campy', 'no_memory', 'full_context', 'naive_rag']
+    judged campy: 45 calls
+    judged no_memory: 49 calls
+    judged full_context: 50 calls
+    judged naive_rag: 45 calls
+                         Campy Benchmark Results (FULL)                         
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃ Suite                   ┃ Key Metrics             ┃ Score / Rate ┃ Latency   ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━┩
+│ DMR (MSC-Self-Instruct) │ F1: 0.1806 | Evidence   │ Acc: 0.62    │ 1896.7 ms │
+│                         │ recall: 0.5309 (27      │              │           │
+│                         │ labelled)               │              │           │
+└─────────────────────────┴─────────────────────────┴──────────────┴───────────┘
+
+### Campy vs baselines (same LLM, same judge)
+| Suite | Metric | Campy | no_memory | full_context | naive_rag |
+|---|---|---|---|---|---|
+| dmr | judge_accuracy | 0.62 | 0.12 | 0.8 | 0.58 |
+| dmr | f1 | 0.1806 | 0.0962 | 0.2406 | 0.1754 |
+| dmr | evidence_recall | 0.5309 | None | 1.0 | 0.5988 |
+| dmr | avg_prompt_tokens_est | - | 71.1 | 3403.8 | 490.1 |
+| dmr | context_overflow | - | 0 | 0 | 0 |
+- dmr: pass with NO memory (not testing memory): ['valid_10', 'valid_7', 'valid_37', 'valid_44', 'valid_65', 'valid_80']
+- dmr: naive_rag passes but Campy fails: ['valid_10', 'valid_12', 'valid_50', 'valid_59', 'valid_62', 'valid_65', 'valid_77']
+- dmr: full_context passes but Campy fails: ['valid_2', 'valid_10', 'valid_12', 'valid_19', 'valid_43', 'valid_50', 'valid_59', 'valid_65', 'valid_69', 'valid_77']
+
+[+] Recorded results (with per-probe details) to /private/tmp/cb-r20/results/r20a-dmr-q50-baselines.json
+
+Harness execution complete.

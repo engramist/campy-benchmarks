@@ -1,0 +1,32 @@
+
+=== total over 50 stores ===
+
+=== 50 stores ===
+nodes: GistExample 5875, Message 2552, Concept 2047, SchemaOrgType 400, GistClass 350, Session 200, WorkSummary 200, MainQuest 50, Lesson 20, Constraint 10
+edges: SENT_IN 2552, FOLLOWED_BY 2352, ALTERNATIVE_TO 943, ROUTES_TO 400, CO_OCCURS_WITH 355, CHOSEN_OVER 233, WORKING_ON 200, EXTENDS 162, REPLACES 132, LEARNED 20, WARM_NODE 13, ESTABLISHED_IN 10, ESTABLISHED 10, REIFIED_AS 10, REQUIRES 9, IMPLEMENTS 2
+concepts: 2047  confidence_low: 1673 (82%)
+  split into variants: 2 concepts in 1 groups (0%)
+  harness-prefix junk: 79  time phrases: 517 (25%)
+  by gist: {'-': 1784, 'PlannedEvent': 130, 'Category': 62, 'Magnitude': 29, 'Agent': 16, 'PhysicalThing': 14, 'Restriction': 10, 'Event': 2}
+  by schema.org type: {'-': 1784, 'Action': 130, 'DefinedTerm': 62, 'QuantitativeValue': 29, 'Organization': 15, 'Product': 14, 'Demand': 10, 'Event': 2, 'Person': 1}
+  literal properties on Concept: archived, concept_id, confidence, confidence_low, created_at, embedding_dim, embedding_model, flagged_for_review, gist_class, last_accessed_at, pathway_strength, salience_score, schema_org_type, text_raw
+
+  examples from /tmp/campy-bench-8uyzncjp:
+    variant_examples: {}
+    junk_prefix_examples: ['Speaker']
+    time_phrase_examples: ['1, 7 days', '2, 2 days', '3, 2 days', '4 hours ago', '4, 2 days ago', '6 months', '7 days', '8 hours ago', 'Session 3, 2 days 4 hours ago', 'a few hours', 'each week', 'last 7 years', 'today', 'tonight', 'your day']
+    top_labels: ['your day', 'the summer', 'taylor swift', 'each week', '1, 7 days', 'a few hours', 'A little bit', 'mechanics', '8 hours ago', 'today', 'Mustang', 'my car', 'Speaker', '4 hours ago', 'wrestlers', 'whooped', '7 days', '4, 2 days ago', 'an amazing ride', 'working on my car']
+
+  examples from /tmp/campy-bench-pagjp5r2:
+    variant_examples: {}
+    junk_prefix_examples: ['Speaker', 'Speaker 2']
+    time_phrase_examples: ['1 hour ago', '1, 14 days', '2, 8 days 1 hour ago', '3, 2 days', 'Session 2, 8 days 1 hour ago', 'Session 3, 2 days 1 hour ago', 'a tough month', 'every year', 'the week']
+    top_labels: ['1 hour ago', '2, 8 days 1 hour ago', '1, 14 days', 'Session 2, 8 days 1 hour ago', 'Speaker 2', '3, 2 days', 'every year', 'this weekend', 'a tough month', 'big plans', 'your new job', 'your move', 'lots', 'business', 'hospitals', 'couponing group', 'things', 'job', 'Speaker', 'worthwile expenses']
+
+  examples from /tmp/campy-bench-kw9i9_2j:
+    variant_examples: {}
+    junk_prefix_examples: ['Speaker']
+    time_phrase_examples: ['1, 6 days', '12 hours ago', '4 hours ago', '9 hours ago', "I've read about 20 books this year", 'today', 'years ago', 'your last stunt gig']
+    top_labels: ['12 hours ago', '1, 6 days', '4 hours ago', 'Speaker', 'free time', 'Stephen King', 'your last stunt gig', 'free visits', 'IT', 'The Butterfly Garden', 'part', 'his movies', 'something', 'Fatal Charm', 'what sorts', 'work', 'about 20', '9 hours ago', 'Kindle Unlimited', 'book']
+
+written: results/r20a-graph-audit.json
