@@ -23,6 +23,14 @@ floor) cannot outscore it. The variants test that.
   vec        vector channel only
   fts        FTS channel only (all terms)
   fts_nohdf  FTS channel only, high-df terms dropped
+  rerank     base, then the best --rerank-n candidates re-ordered by a
+             cross-encoder (hippocampy B477, plan M2.1) before the cut. The
+             candidates are the stage's gated, de-duplicated list, as the
+             stage has it after the B459 gate and before the top-`limit` cut.
+             Scores "<speaker>: <text>", as the stage does for a turn that
+             names a speaker; the speaker comes from the dataset turn with the
+             same text (a store ingested with --turn-metadata keeps the bare
+             text in the lexical table). Skipped if the model cannot load.
 
 Not replayed: the B463 successor bridge (adds superseding statements; LoCoMo
 has almost none), the user-role filter (LoCoMo turns are all `user`), and
@@ -50,7 +58,8 @@ from campy.brain.hippocampus.graph.vector_store import _fts_match_expression, ft
 from locomo10.dataset import ensure_dataset, load_conversations
 
 MIN_SCORE, ECHO, RRF_K = 0.30, 0.985, 60  # GraphGateway._bundle_conversation
-VARIANTS = ("base", "nohdf", "noname", "vec", "fts", "fts_nohdf")
+VARIANTS = ("base", "nohdf", "noname", "vec", "fts", "fts_nohdf", "rerank")
+RERANK_MODEL, RERANK_N = "Xenova/ms-marco-MiniLM-L-6-v2", 50
 
 
 def norm(t: str) -> str:
@@ -74,6 +83,7 @@ class Store:
         sqlite_vec.load(self.conn)
         self.text = dict(self.conn.execute("SELECT uri, text FROM lexical WHERE uri LIKE '%/Message/%'"))
         self.n = len(self.text)
+        self.speaker: dict = {}  # uri -> speaker, filled by main() for the rerank variant
 
     def vector_hits(self, question: str, limit: int) -> list:
         q = sqlite_vec.serialize_float32(list(emb.embed(question, model_name=self.model)))
@@ -105,7 +115,24 @@ def nohdf_match(store: Store, question: str, hdf: float) -> str | None:
     return " OR ".join(f'"{t}"' for t in kept)
 
 
-def stage(store: Store, question: str, limit: int, variant: str, hdf: float) -> list:
+_RERANK: dict = {}
+
+
+def cross_scores(model: str, question: str, texts: list) -> list:
+    """Cross-encoder scores (fastembed/ONNX, CPU), loaded once; [] if unavailable."""
+    if model not in _RERANK:
+        try:
+            from fastembed.rerank.cross_encoder import TextCrossEncoder
+            _RERANK[model] = TextCrossEncoder(model_name=model, providers=["CPUExecutionProvider"])
+        except Exception as e:
+            print(f"rerank variant unavailable: {e}")
+            _RERANK[model] = None
+    enc = _RERANK[model]
+    return [float(x) for x in enc.rerank(question, texts)] if enc else []
+
+
+def stage(store: Store, question: str, limit: int, variant: str, hdf: float,
+          rerank_model: str = RERANK_MODEL, rerank_n: int = RERANK_N) -> list:
     """The URIs the conversation stage would return (top `limit` by fused score)."""
     vec = [] if variant in ("fts", "fts_nohdf") else store.vector_hits(question, limit)
     if variant == "vec":
@@ -139,7 +166,15 @@ def stage(store: Store, question: str, limit: int, variant: str, hdf: float) -> 
         key = norm(text)
         if key not in best or score > best[key][0]:
             best[key] = (score, u)
-    return [u for _, u in sorted(best.values(), key=lambda su: -su[0])[:limit]]
+    cands = [u for _, u in sorted(best.values(), key=lambda su: -su[0])]
+    if variant == "rerank":
+        window = cands[: max(1, rerank_n)]
+        scores = cross_scores(rerank_model, question, [f"{store.speaker[u]}: {store.text.get(u, '')}" if u in store.speaker
+                                    else store.text.get(u, "") for u in window])
+        if scores:
+            window = [u for _, u in sorted(zip(scores, window), key=lambda su: -su[0])]
+            cands = window + cands[len(window):]
+    return cands[:limit]
 
 
 def main() -> int:
@@ -148,6 +183,8 @@ def main() -> int:
     ap.add_argument("results", type=Path)
     ap.add_argument("--limits", default="6,12,20")
     ap.add_argument("--hdf", type=float, default=0.2, help="nohdf: drop terms in more than this share of Messages")
+    ap.add_argument("--rerank-model", default=RERANK_MODEL, help="rerank: cross-encoder checkpoint")
+    ap.add_argument("--rerank-n", type=int, default=RERANK_N, help="rerank: candidates re-ordered before the cut")
     ap.add_argument("--show", action="store_true", help="per-question rows")
     args = ap.parse_args()
     limits = [int(x) for x in args.limits.split(",")]
@@ -158,6 +195,10 @@ def main() -> int:
         by_text.setdefault(norm(t), []).append(u)
     details = json.loads(args.results.read_text())["suites"]["locomo10"]["details"]
     convs = {c.sample_id: c for c in load_conversations(ensure_dataset(log=lambda *a: None))}
+    speaker_of = {norm(t.text): t.speaker for c in convs.values() for t in c.turns() if t.speaker}
+    for u, t in store.text.items():
+        if norm(t) in speaker_of:
+            store.speaker[u] = speaker_of[norm(t)]
     print(f"store: {args.store}  messages: {store.n}  model: {store.model}  hdf: {args.hdf}")
 
     totals = {(v, k): 0 for v in VARIANTS for k in limits}
@@ -169,7 +210,9 @@ def main() -> int:
             continue
         conv = convs.get(d.get("conversation"))
         turn_of = {t.dia_id: t for t in conv.turns()} if conv else {}
-        ev = [set(by_text.get(norm(turn_of[e].content()), [])) for e in d.get("evidence") or [] if e in turn_of]
+        # content() carries the date/speaker stamp; a --turn-metadata store holds the bare text
+        ev = [set(by_text.get(norm(turn_of[e].content()), []) or by_text.get(norm(turn_of[e].text), []))
+              for e in d.get("evidence") or [] if e in turn_of]
         ev = [s for s in ev if s]
         if not ev:
             continue
@@ -180,7 +223,7 @@ def main() -> int:
         row = []
         for k in limits:
             for v in VARIANTS:
-                got = set(stage(store, d["question"], k, v, args.hdf))
+                got = set(stage(store, d["question"], k, v, args.hdf, args.rerank_model, args.rerank_n))
                 hits = sum(1 for s in ev if s & got)
                 totals[(v, k)] += hits
                 q_any[(v, k)] += hits > 0
