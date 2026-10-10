@@ -1,0 +1,15 @@
+
+=== /tmp/campy-bench-01kaj7su ===
+nodes: GistExample 648, Message 419, Concept 215, Session 19, WorkSummary 19, Label 13, SchemaOrgType 8, GistClass 7, MainQuest 1, Lesson 1
+edges: SENT_IN 419, FOLLOWED_BY 400, EXTENDS 90, ALTERNATIVE_TO 62, CO_OCCURS_WITH 31, WORKING_ON 19, WARM_NODE 18, CHOSEN_OVER 14, HAS_ALT_LABEL 13, ROUTES_TO 8, REQUIRES 3, LEARNED 1, ENABLES 1, REPLACES 1, IMPLEMENTS 1
+concepts: 215  confidence_low: 139 (65%)
+  split into variants: 2 concepts in 1 groups (1%)
+  harness-prefix junk: 0  time phrases: 17 (8%)
+  by gist: {'-': 178, 'PlannedEvent': 24, 'Agent': 4, 'Event': 2, 'Restriction': 3, 'PhysicalThing': 2, 'Magnitude': 1, 'Category': 1}
+  by schema.org type: {'-': 178, 'Action': 24, 'Organization': 2, 'Event': 2, 'Demand': 3, 'Product': 2, 'Person': 2, 'QuantitativeValue': 1, 'DefinedTerm': 1}
+  literal properties on Concept: archived, concept_id, confidence, confidence_low, created_at, embedding_dim, embedding_model, flagged_for_review, gist_class, last_accessed_at, pathway_strength, salience_score, schema_org_type, text_raw
+  variant_examples: {'self acceptance': ['great - self-acceptance', 'self-acceptance']}
+  time_phrase_examples: ['5 years', 'Last Friday', 'Last weekend', 'Pride Month', 'The day', 'last - hope', 'last Saturday', 'last week', 'next month', 'next time', 'our last chat', 'this month', 'this summer', 'this week', 'two days ago', 'two weekends ago', 'yesterday']
+  top_labels: ['support', 'next month', 'adoption', 'counseling and support groups', 'your transition', 'our family camping trip', 'Melanie', 'Mel', 'summer', 'Caroline', 'campaigns', 'adoption agencies', 'counseling', 'My goal', 'The day', 'painting', 'What', 'something', 'acceptance', 'My own journey', 'pottery', 'my dream', 'love', 'your plan', 'last Saturday', 'platforms', 'our community', 'children', 'Last weekend', 'mental health jobs', 'myself', 'yourself', 'community', 'last week', 'LGBTQ community', 'my story', 'more platforms', 'your story', 'kids', 'Last Friday', 'mental health work', 'LGBTQ', 'her first steps', 'Your drive', 'your wedding', 'my soul', 'fresh air', "life's challenges", 'just a precaution', 'your event']
+
+written: results/r22a-graph-audit.json

@@ -1,0 +1,124 @@
+=== Campy Benchmark Harness (B381) ===
+Timestamp: 2026-10-10T07:29:41.347993+00:00Z
+Mode: STANDARD
+Target MCP Server: /Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/python -m campy.adapters.mcp_server
+[+] Starting isolated daemon (base config: /Users/djshelton/.campy/config.toml)...
+    ready in 2.0s at /tmp/campy-bench-00qy51lt
+
+[+] Running DMR / MSC-Self-Instruct (published dataset; {'max_questions': 50})...
+    [1/50] valid_1 (50 turns)
+      store kept: /tmp/campy-bench-t37jx3e5
+    [2/50] valid_2 (50 turns)
+      store kept: /tmp/campy-bench-5h3fs5be
+    [3/50] valid_0 (52 turns)
+      store kept: /tmp/campy-bench-psq5n5qm
+    [4/50] valid_10 (54 turns)
+      store kept: /tmp/campy-bench-bvijx1qk
+    [5/50] valid_7 (50 turns)
+      store kept: /tmp/campy-bench-b6vsdtj2
+    [6/50] valid_6 (52 turns)
+      store kept: /tmp/campy-bench-5udjyhk3
+    [7/50] valid_14 (52 turns)
+      store kept: /tmp/campy-bench-b4e00b8c
+    [8/50] valid_11 (50 turns)
+      store kept: /tmp/campy-bench-hizkudgy
+    [9/50] valid_13 (52 turns)
+      store kept: /tmp/campy-bench-6x2dlcsb
+    [10/50] valid_12 (50 turns)
+      store kept: /tmp/campy-bench-5c1hto0w
+    [11/50] valid_19 (50 turns)
+      store kept: /tmp/campy-bench-8yadsxsj
+    [12/50] valid_15 (48 turns)
+      store kept: /tmp/campy-bench-_hmckn0v
+    [13/50] valid_17 (52 turns)
+      store kept: /tmp/campy-bench-_r99bdmt
+    [14/50] valid_18 (52 turns)
+      store kept: /tmp/campy-bench-bk6bcg_b
+    [15/50] valid_23 (52 turns)
+      store kept: /tmp/campy-bench-q7ofakil
+    [16/50] valid_20 (52 turns)
+      store kept: /tmp/campy-bench-6bahr63b
+    [17/50] valid_24 (50 turns)
+      store kept: /tmp/campy-bench-c814ryil
+    [18/50] valid_28 (49 turns)
+      store kept: /tmp/campy-bench-f31eoy7p
+    [19/50] valid_29 (52 turns)
+      store kept: /tmp/campy-bench-nyh0824k
+    [20/50] valid_31 (52 turns)
+      store kept: /tmp/campy-bench-zhckc9z4
+    [21/50] valid_34 (52 turns)
+      store kept: /tmp/campy-bench-9itmd05t
+    [22/50] valid_37 (52 turns)
+      store kept: /tmp/campy-bench-45er27b_
+    [23/50] valid_38 (52 turns)
+      store kept: /tmp/campy-bench-kflaa8t8
+    [24/50] valid_39 (52 turns)
+      store kept: /tmp/campy-bench-mso7pfat
+    [25/50] valid_43 (49 turns)
+      store kept: /tmp/campy-bench-23v1qfba
+    [26/50] valid_42 (52 turns)
+      store kept: /tmp/campy-bench-icae2wwd
+    [27/50] valid_44 (52 turns)
+      store kept: /tmp/campy-bench-u8hye_0s
+    [28/50] valid_45 (50 turns)
+      store kept: /tmp/campy-bench-nglcp75a
+    [29/50] valid_46 (50 turns)
+      store kept: /tmp/campy-bench-ikp5a04x
+    [30/50] valid_47 (52 turns)
+      store kept: /tmp/campy-bench-xkk8yyhy
+    [31/50] valid_49 (52 turns)
+      store kept: /tmp/campy-bench-a5kaukm3
+    [32/50] valid_50 (52 turns)
+      store kept: /tmp/campy-bench-elgnsvtq
+    [33/50] valid_55 (52 turns)
+      store kept: /tmp/campy-bench-ymd906x2
+    [34/50] valid_51 (46 turns)
+      store kept: /tmp/campy-bench-1ai8v9zo
+    [35/50] valid_58 (52 turns)
+      store kept: /tmp/campy-bench-3qi2rqam
+    [36/50] valid_56 (52 turns)
+      store kept: /tmp/campy-bench-yg4rll_6
+    [37/50] valid_59 (52 turns)
+      store kept: /tmp/campy-bench-mreq2l3s
+    [38/50] valid_60 (52 turns)
+      store kept: /tmp/campy-bench-j1gpm0dd
+    [39/50] valid_61 (52 turns)
+      store kept: /tmp/campy-bench-6v_wfv2x
+    [40/50] valid_62 (52 turns)
+      store kept: /tmp/campy-bench-k9vtzxd7
+    [41/50] valid_63 (50 turns)
+      store kept: /tmp/campy-bench-cs8c8v84
+    [42/50] valid_65 (50 turns)
+      store kept: /tmp/campy-bench-db77u717
+    [43/50] valid_66 (52 turns)
+      store kept: /tmp/campy-bench-r52gengk
+    [44/50] valid_69 (49 turns)
+      store kept: /tmp/campy-bench-oyu5tyj5
+    [45/50] valid_68 (50 turns)
+      store kept: /tmp/campy-bench-mz_tmnqm
+    [46/50] valid_70 (52 turns)
+      store kept: /tmp/campy-bench-42wj35d6
+    [47/50] valid_77 (50 turns)
+      store kept: /tmp/campy-bench-bs39oi3z
+    [48/50] valid_73 (51 turns)
+      store kept: /tmp/campy-bench-7zh1qruk
+    [49/50] valid_79 (52 turns)
+      store kept: /tmp/campy-bench-hx2_gcca
+    [50/50] valid_80 (48 turns)
+      store kept: /tmp/campy-bench-s7fbw0he
+    Completed in 2537.18s (calls=3141, failures=0, valid=True)
+
+[+] DMR judge: gemma4:26b over ['campy']
+    judged campy: 45 calls
+                         Campy Benchmark Results (FULL)                         
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃ Suite                   ┃ Key Metrics             ┃ Score / Rate ┃ Latency   ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━┩
+│ DMR (MSC-Self-Instruct) │ F1: 0.167 | Evidence    │ Acc: 0.42    │ 1344.3 ms │
+│                         │ recall: 0.4012 (27      │              │           │
+│                         │ labelled)               │              │           │
+└─────────────────────────┴─────────────────────────┴──────────────┴───────────┘
+
+[+] Recorded results (with per-probe details) to /private/tmp/cb-q/results/r22b-dmr-q50-fields-p2.json
+
+Harness execution complete.

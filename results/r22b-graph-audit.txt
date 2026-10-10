@@ -1,0 +1,32 @@
+
+=== total over 50 stores ===
+
+=== 50 stores ===
+nodes: Message 2552, GistExample 1883, Concept 1143, SchemaOrgType 400, GistClass 350, Session 200, WorkSummary 200, MainQuest 50, Label 25, Lesson 21, Constraint 4
+edges: SENT_IN 2552, FOLLOWED_BY 2352, ALTERNATIVE_TO 429, ROUTES_TO 400, WORKING_ON 200, CO_OCCURS_WITH 132, EXTENDS 69, CHOSEN_OVER 45, HAS_ALT_LABEL 25, LEARNED 21, REPLACES 17, WARM_NODE 13, REQUIRES 6, ESTABLISHED_IN 4, ESTABLISHED 4, REIFIED_AS 4, CONTAINS_LESSON 1, IMPLEMENTS 1
+concepts: 1143  confidence_low: 1113 (97%)
+  split into variants: 0 concepts in 0 groups (0%)
+  harness-prefix junk: 0  time phrases: 115 (10%)
+  by gist: {'-': 826, 'PlannedEvent': 174, 'Category': 75, 'Magnitude': 22, 'Agent': 17, 'PhysicalThing': 16, 'Restriction': 12, 'Event': 1}
+  by schema.org type: {'-': 826, 'Action': 174, 'DefinedTerm': 75, 'QuantitativeValue': 22, 'Product': 16, 'Organization': 15, 'Demand': 12, 'Person': 2, 'Event': 1}
+  literal properties on Concept: archived, concept_id, confidence, confidence_low, created_at, embedding_dim, embedding_model, flagged_for_review, gist_class, last_accessed_at, pathway_strength, salience_score, schema_org_type, text_raw
+
+  examples from /tmp/campy-bench-t37jx3e5:
+    variant_examples: {}
+    junk_prefix_examples: []
+    time_phrase_examples: ['6 months', 'a few hours', 'today', 'tonight', 'your day', 'your day job', 'your next restoration project']
+    top_labels: ['your day', 'your next restoration project', 'today', 'mechanics', 'daily', 'your dogs', 'a few hours', 'word', 'What kind', 'stuff', 'my spare time', 'Something', 'What', 'volunteer work', 'the summer', 'Mustang', 'work', 'wrestlers', '6 months', 'tonight']
+
+  examples from /tmp/campy-bench-5h3fs5be:
+    variant_examples: {}
+    junk_prefix_examples: []
+    time_phrase_examples: ['a tough month', 'the week']
+    top_labels: ['our new neighbours', 'My job', 'their group', 'a tough month', 'this weekend', 'your new job', 'big plans', 'your move', 'money', 'you should come over too if your not busy!', 'much money', 'school', 'coupons', 'the week', 'Work', 'Definitely something', 'business', 'coupon', 'another baby', 'your money']
+
+  examples from /tmp/campy-bench-psq5n5qm:
+    variant_examples: {}
+    junk_prefix_examples: []
+    time_phrase_examples: ['today', 'your last stunt gig']
+    top_labels: ['free time', 'home depot', 'Stephen King', 'My dad', 'your last stunt gig', 'Billy Straight', 'older home depot', 'The Butterfly Garden', 'my toy r us', 'other type', 'apps', 'what', 'anything', 'fun', 'Libby', 'today', 'Fatal Charm']
+
+written: results/r22b-graph-audit.json
