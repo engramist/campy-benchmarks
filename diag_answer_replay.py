@@ -32,6 +32,19 @@ separate "fewer turns" from "earlier turns" from "turn order":
         results/r20a-dmr.json results/r24b-dmr-q50-fields.json --judge-model gemma4:26b --show
     ~/Desktop/GitProjects/hippocampy/.venv/bin/python diag_answer_replay.py \\
         results/r24a-locomo10-q60-fields.json --store <R24a's kept store> --judge-model gemma4:26b
+
+Replaying a branch's code (M0.4) and another answer model (M0.5):
+
+  --hippocampy <path>   run the worker with PYTHONPATH=<path> in front, so the
+                        campy package under <path> (a git worktree of a branch)
+                        is imported instead of the installed one. The worker
+                        records the campy.__file__ it imported, so you can see
+                        which code answered; a path that does not take effect
+                        is an error.
+  --llm-model <name>    set [llm].model in the COPIED store's config.toml
+                        (the kept store is never written).
+
+eval_gate.py runs the `asis` replay for two trees and prints the gate table.
 """
 
 from __future__ import annotations
@@ -45,6 +58,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -82,8 +96,9 @@ def _with_limit(config: dict, limit: int) -> dict:
     return cfg
 
 
-def worker(questions: list, variants: list) -> list:
+def worker(questions: list, variants: list) -> dict:
     """In a subprocess with CAMPY_HOME set to a copy of one kept store."""
+    import campy
     from campy.brain.brainstem.config import load_config
     from campy.brain.hippocampus.graph.oxigraph_client import OxigraphClient
     from campy.brain.thalamus import ask as ask_mod
@@ -120,9 +135,11 @@ def worker(questions: list, variants: list) -> list:
             ask_mod.compile_bundle = compile_variant
             cfg = _with_limit(config, _limit_of(v)) if _limit_of(v) else config
             meta: dict = {}
+            t0 = time.perf_counter()
             answer = await ask_mod.run_ask(question, "diag_eval", db, cfg, capture=False, meta=meta)
             out[v] = {"answer": answer, "sections": seen.get("sections"), "prompt": seen.get("prompt"),
-                      "compressed": meta.get("compression_bypassed") is False}
+                      "compressed": meta.get("compression_bypassed") is False,
+                      "latency_ms": round((time.perf_counter() - t0) * 1000)}
         return out
 
     def get_llm(cfg):
@@ -144,25 +161,136 @@ def worker(questions: list, variants: list) -> list:
 
     ask_mod._get_llm = get_llm
     try:
-        return asyncio.run(run_all())
+        return {"campy_file": str(campy.__file__), "llm_model": (config.get("llm") or {}).get("model"),
+                "rows": asyncio.run(run_all())}
     finally:
         ask_mod.compile_bundle, ask_mod._get_llm = real_compile, real_get_llm
 
 
-def replay(store: Path, questions: list, variants: list) -> list:
-    """One subprocess on a copy of `store` for all of `questions`."""
+def set_llm_model(config_toml: Path, model: str) -> None:
+    """Set [llm].model in `config_toml` (a COPY), keeping the rest of the file."""
+    import re
+    import tomllib
+    if not config_toml.exists():
+        raise RuntimeError(f"--llm-model: {config_toml} does not exist in the store copy")
+    lines = config_toml.read_text().splitlines(keepends=True)
+    new = f'model = "{model}"\n'
+    head = next((i for i, l in enumerate(lines) if re.match(r"\s*\[llm\]\s*(#.*)?$", l)), None)
+    if head is None:
+        lines += ["\n", "[llm]\n", new]
+    else:
+        end = next((i for i in range(head + 1, len(lines)) if re.match(r"\s*\[", lines[i])), len(lines))
+        at = next((i for i in range(head + 1, end) if re.match(r"\s*model\s*=", lines[i])), None)
+        if at is None:
+            lines.insert(head + 1, new)
+        else:
+            lines[at] = new
+    config_toml.write_text("".join(lines))
+    got = tomllib.loads(config_toml.read_text()).get("llm", {}).get("model")
+    if got != model:
+        raise RuntimeError(f"--llm-model: wrote {model!r} but [llm].model reads {got!r}")
+
+
+def replay(store: Path, questions: list, variants: list, hippocampy: Path | None = None,
+           llm_model: str | None = None, info: dict | None = None) -> list:
+    """One subprocess on a copy of `store` for all of `questions`.
+
+    hippocampy: a tree whose `campy` package the worker imports (PYTHONPATH in
+    front); None = whatever is installed. llm_model: [llm].model for the copy.
+    info, if given, receives the worker's `campy_file` and `llm_model`."""
     with tempfile.TemporaryDirectory(prefix="diag-replay-") as tmp:
         home = Path(tmp) / "store"
         shutil.copytree(store, home, ignore=shutil.ignore_patterns("*.pid", "*.sock", "*.lock"))
+        if llm_model:
+            set_llm_model(home / "config.toml", llm_model)
         qfile = Path(tmp) / "questions.json"
         qfile.write_text(json.dumps(questions))
         env = {**os.environ, "CAMPY_HOME": str(home)}
+        if hippocampy is not None:
+            tree = Path(hippocampy).resolve()
+            if not (tree / "campy" / "__init__.py").exists():
+                raise RuntimeError(f"--hippocampy {tree}: no campy/__init__.py there")
+            env["PYTHONPATH"] = os.pathsep.join(filter(None, [str(tree), env.get("PYTHONPATH")]))
+        # cwd = the temp dir: load_config looks at ./campy.toml before $CAMPY_HOME/config.toml,
+        # so running from a checkout would silently replace the store's config.
         proc = subprocess.run([sys.executable, str(Path(__file__).resolve()), "--worker", str(qfile),
                                "--variants", ",".join(variants)],
-                              env=env, capture_output=True, text=True, timeout=3600 * 4)
+                              env=env, cwd=tmp, capture_output=True, text=True, timeout=3600 * 4)
         if proc.returncode != 0:
             raise RuntimeError(proc.stderr[-1500:])
-        return json.loads(proc.stdout.strip().splitlines()[-1])
+        out = json.loads(proc.stdout.strip().splitlines()[-1])
+        if hippocampy is not None:
+            tree = Path(hippocampy).resolve()
+            if not Path(out["campy_file"]).resolve().is_relative_to(tree):
+                raise RuntimeError(f"--hippocampy {tree} did not take effect: the worker imported "
+                                   f"campy from {out['campy_file']}")
+        if info is not None:
+            info.update(campy_file=out["campy_file"], llm_model=out.get("llm_model"))
+        return out["rows"]
+
+
+def make_passed(judge):
+    """passed(d, answer) with `judge` (a BaselineLLM). Verdicts are cached on
+    (question, expected, answer): two trees that give the same answer get the same
+    verdict, so judge noise cannot show up as a gained or lost question."""
+    from locomo10.scoring import judge_one, score_answer
+    from qa_judge import is_non_answer
+    cache: dict = {}
+
+    def passed(d: dict, answer: str) -> bool:
+        if d.get("category") == 5:  # LoCoMo-10 adversarial: declining is right
+            return bool(score_answer(answer, d["expected"], 5)["passed"])
+        if not answer.strip() or is_non_answer(answer):
+            return False
+        key = (d["question"], d["expected"], answer)
+        if key not in cache:
+            cache[key] = judge_one(judge, d["question"], d["expected"], answer)["judge"]
+        return cache[key]
+    return passed
+
+
+def run_passed(d: dict) -> bool:
+    return bool(d.get("passed") if d.get("category") == 5 else d.get("judge"))
+
+
+def replay_result(path: Path, variants: list, passed, store: Path | None = None, ids=(),
+                  hippocampy: Path | None = None, llm_model: str | None = None,
+                  show: bool = False, log=print) -> tuple:
+    """Replay one result file. Returns (suite, options, rows, info, same) where rows hold, per
+    question, run_passed and variants[v] = {answer, passed, latency_ms, ...}."""
+    data = json.loads(Path(path).read_text())
+    suites = data["suites"]
+    suite = "dmr" if "dmr" in suites else "locomo10"
+    options = (suites[suite].get("dataset") or {}).get("options") or {}
+    details = [d for d in suites[suite]["details"] if not ids or d["id"] in ids]
+    groups: dict = {}  # store -> records
+    for d in details:
+        st = store if suite == "locomo10" else Path(d.get("store") or "")
+        if st is None or not (Path(st) / "brain.db").exists():
+            log(f"{Path(path).name} {d['id']}: no kept store ({st}), skipped")
+            continue
+        groups.setdefault(Path(st), []).append(d)
+    rows, same, info = [], 0, {}
+    for st, ds in groups.items():
+        try:
+            got = replay(st, [d["question"] for d in ds], variants, hippocampy, llm_model, info)
+        except Exception as e:  # one bad store must not end the run
+            log(f"{Path(path).name} {st}: replay failed: {str(e)[-300:]}")
+            continue
+        for d, g in zip(ds, got):
+            row = {"id": d["id"], "category": d.get("category"), "run_passed": run_passed(d),
+                   "run_answer": d.get("answer"), "expected": d["expected"], "variants": {}}
+            for v in variants:
+                row["variants"][v] = {**g[v], "passed": passed(d, g[v]["answer"])}
+            same += g.get("asis", {}).get("answer", "").strip() == (d.get("answer") or "").strip()
+            rows.append(row)
+            if show:
+                marks = " ".join(f"{v}={'Y' if row['variants'][v]['passed'] else '-'}" for v in variants)
+                log(f"{d['id']:<10} run={'Y' if row['run_passed'] else '-'} {marks}  gold: {str(d['expected'])[:60]}")
+                for v in variants:
+                    log(f"{'':<12}{v:<10} {row['variants'][v]['sections']}  "
+                        f"{row['variants'][v]['answer'][:110]!r}")
+    return suite, options, rows, info, same
 
 
 def main() -> int:
@@ -176,6 +304,9 @@ def main() -> int:
     ap.add_argument("--judge-base-url", default=None)
     ap.add_argument("--show", action="store_true", help="per-question verdicts and answers")
     ap.add_argument("--out", type=Path, help="write every answer and verdict as JSON")
+    ap.add_argument("--hippocampy", type=Path,
+                    help="a hippocampy tree (e.g. a git worktree of a branch) whose campy package the worker imports")
+    ap.add_argument("--llm-model", help="answer model: sets [llm].model in the copied store's config.toml")
     ap.add_argument("--worker", help=argparse.SUPPRESS)
     args = ap.parse_args()
     variants = [v for v in args.variants.split(",") if v]
@@ -189,60 +320,21 @@ def main() -> int:
         ap.error("give at least one results file")
 
     from llm_client import BaselineLLM
-    from locomo10.scoring import judge_one, score_answer
-    from qa_judge import is_non_answer
 
     judge = BaselineLLM(args.judge_provider, args.judge_model, args.judge_base_url)
+    passed = make_passed(judge)
     ids = {i for i in args.ids.split(",") if i}
-
-    def passed(d: dict, answer: str) -> bool:
-        if d.get("category") == 5:  # LoCoMo-10 adversarial: declining is right
-            return bool(score_answer(answer, d["expected"], 5)["passed"])
-        if not answer.strip() or is_non_answer(answer):
-            return False
-        return judge_one(judge, d["question"], d["expected"], answer)["judge"]
-
-    def run_passed(d: dict) -> bool:
-        return bool(d.get("passed") if d.get("category") == 5 else d.get("judge"))
 
     report = {}
     for path in args.results:
-        suites = json.loads(path.read_text())["suites"]
-        suite = "dmr" if "dmr" in suites else "locomo10"
-        details = [d for d in suites[suite]["details"] if not ids or d["id"] in ids]
-        groups: dict = {}  # store -> records
-        for d in details:
-            store = args.store if suite == "locomo10" else Path(d.get("store") or "")
-            if store is None or not (store / "brain.db").exists():
-                print(f"{path.name} {d['id']}: no kept store ({store}), skipped")
-                continue
-            groups.setdefault(store, []).append(d)
-        rows, tally, same = [], {v: [0, 0] for v in variants}, 0
-        for store, ds in groups.items():
-            try:
-                got = replay(store, [d["question"] for d in ds], variants)
-            except Exception as e:  # one bad store must not end the run
-                print(f"{path.name} {store}: replay failed: {str(e)[-300:]}")
-                continue
-            for d, g in zip(ds, got):
-                row = {"id": d["id"], "category": d.get("category"), "run_passed": run_passed(d),
-                       "run_answer": d.get("answer"), "expected": d["expected"], "variants": {}}
-                for v in variants:
-                    ok = passed(d, g[v]["answer"])
-                    tally[v][0] += ok
-                    tally[v][1] += 1
-                    row["variants"][v] = {**g[v], "passed": ok}
-                same += g.get("asis", {}).get("answer", "").strip() == (d.get("answer") or "").strip()
-                rows.append(row)
-                if args.show:
-                    marks = " ".join(f"{v}={'Y' if row['variants'][v]['passed'] else '-'}" for v in variants)
-                    print(f"{d['id']:<10} run={'Y' if row['run_passed'] else '-'} {marks}  gold: {str(d['expected'])[:60]}")
-                    for v in variants:
-                        print(f"{'':<12}{v:<10} {row['variants'][v]['sections']}  "
-                              f"{row['variants'][v]['answer'][:110]!r}")
+        suite, _opts, rows, info, same = replay_result(path, variants, passed, args.store, ids,
+                                                        args.hippocampy, args.llm_model, args.show)
         n = len(rows)
+        tally = {v: [sum(r["variants"][v]["passed"] for r in rows), n] for v in variants}
         print(f"\n{path.name} ({suite}): {n} questions replayed; run score on them "
               f"{sum(r['run_passed'] for r in rows) / n if n else 0:.3f}")
+        if info:
+            print(f"  code: {info.get('campy_file')}   answer model: {info.get('llm_model')}")
         if "asis" in variants:
             print(f"  asis reproduced the run's answer verbatim on {same}/{n}")
         for v in variants:

@@ -78,6 +78,24 @@ with tempfile.TemporaryDirectory() as tmp:
           "repeat runs of the same code are averaged in the headline")
     (Path(tmp) / "new_run2.json").unlink()
 
+    # M0.2: a held-out split is its own row and says so
+    d_dev = result("2026-10-09T00:00:00Z", 0.60, sha="2" * 40)
+    d_dev["suites"] = {"dmr": {"valid": True, "judge_accuracy": 0.60, "questions": 50,
+                               "dataset": {"options": {"max_questions": 50}}}}
+    d_held = result("2026-10-09T01:00:00Z", 0.30, sha="2" * 40)
+    d_held["suites"] = {"dmr": {"valid": True, "judge_accuracy": 0.30, "questions": 50,
+                                "dataset": {"options": {"max_questions": 50, "offset": 50}}}}
+    for n, r in (("dmr_dev.json", d_dev), ("dmr_held.json", d_held)):
+        (Path(tmp) / n).write_text(json.dumps(r))
+    out = subprocess.run([sys.executable, str(HERE / "report.py"), str(Path(tmp) / "dmr_dev.json"),
+                          str(Path(tmp) / "dmr_held.json")], capture_output=True, text=True).stdout
+    head = out.split("## Headline")[1].split("\n## ")[0]
+    check(head.count("DMR (MSC-Self-Instruct)") == 2,
+          "dev and held-out DMR runs are separate headline rows")
+    check("offset 50" in head, "the held-out row names its selection")
+    for n in ("dmr_dev.json", "dmr_held.json"):
+        (Path(tmp) / n).unlink()
+
     (Path(tmp) / "only_mock.json").write_text(json.dumps(result("2026-10-07T00:00:00Z", 1.0, mcp=False)))
     out = subprocess.run([sys.executable, str(HERE / "report.py"), str(Path(tmp) / "only_mock.json")],
                          capture_output=True, text=True).stdout

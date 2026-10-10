@@ -119,6 +119,18 @@ with tempfile.TemporaryDirectory() as tmp:
     bare = parse_record({**RECORDS[2], "personas": [["nothing"], ["here"]]}, 9)
     check(bare.answerer == "Speaker 1" and bare.answerer_source == "default", "then to Speaker 1")
     check(len(load_questions(path, max_questions=2)) == 2, "max_questions")
+    # M0.2: held-out selection
+    held = load_questions(path, offset=1)
+    check([q.question_id for q in held] == [q.question_id for q in qs[1:]], "offset skips the first N records")
+    check([q.question_id for q in load_questions(path, max_questions=1, offset=1)] == [qs[1].question_id],
+          "offset + max_questions")
+    check(load_questions(path, offset=0) and len(load_questions(path, offset=99)) == 0, "offset 0 is all; past the end is empty")
+    from dmr.runner import dmr_options
+    from types import SimpleNamespace as NS
+    check(dmr_options(NS(dmr_questions=50, dmr_offset=50), False) == {"max_questions": 50, "offset": 50},
+          "run_all options carry the offset")
+    check(dmr_options(NS(dmr_questions=50, dmr_offset=None), False) == {"max_questions": 50},
+          "no offset: options unchanged, so existing runs keep their identity")
 
     stores = []
 

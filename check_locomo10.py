@@ -23,7 +23,7 @@ from __future__ import annotations
 import collections
 import sys
 
-from locomo10.dataset import ensure_dataset, load_conversations
+from locomo10.dataset import DatasetError, ensure_dataset, load_conversations
 from locomo10.scoring import STEMMED, abstention, evidence_recall_from_texts, locomo_f1
 
 
@@ -46,6 +46,26 @@ def main() -> int:
 
     sub = load_conversations(path, conversations=1, max_questions=25)[0].questions
     check("balanced subset", collections.Counter(q.category for q in sub) == {1: 5, 2: 5, 3: 5, 4: 5, 5: 5})
+
+    # M0.2: held-out selection by sample_id
+    second = load_conversations(path, conversation_ids=["conv-30"])
+    check("conversation_ids picks by sample_id", [c.sample_id for c in second] == ["conv-30"],
+          str([c.sample_id for c in second]))
+    check("conv-30 is the second conversation", convs[1].sample_id == "conv-30")
+    check("ids honour the order given and max_questions",
+          [c.sample_id for c in load_conversations(path, conversation_ids=["conv-30", "conv-26"], max_questions=5)]
+          == ["conv-30", "conv-26"]
+          and all(len(c.questions) == 5 for c in load_conversations(path, conversation_ids=["conv-30"], max_questions=5)))
+    try:
+        load_conversations(path, conversation_ids=["conv-nope"])
+        check("unknown id raises", False)
+    except DatasetError:
+        pass
+    from locomo10.runner import locomo10_options
+    from types import SimpleNamespace as NS
+    o = locomo10_options(NS(locomo10_conversation_ids=["conv-30"], locomo10_max_questions=60), False)
+    check("run_all options carry the ids", o.get("conversation_ids") == ["conv-30"], str(o))
+    check("no ids: options unchanged", "conversation_ids" not in locomo10_options(NS(), False))
 
     # F1 (unstemmed values; with nltk installed stemming can only raise overlap here)
     def close(a, b):

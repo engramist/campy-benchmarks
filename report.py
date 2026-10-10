@@ -78,6 +78,9 @@ def subset(key: str, s: Dict[str, Any]) -> str:
     ds = s.get("dataset") if isinstance(s.get("dataset"), dict) else {}
     # hippocampy B472: speaker and date sent as fields, not in the text
     tag = ", turn fields" if ds.get("turn_metadata") == "fields" else ""
+    sel = selection(ds)
+    if sel:  # a held-out split is not the dev split: say which (and keep rows apart)
+        tag += f", {sel}"
     return _subset(key, s, ds) + tag
 
 
@@ -116,11 +119,23 @@ def countable(r: Dict[str, Any]) -> Optional[str]:
     return None
 
 
+def selection(ds: Dict[str, Any]) -> str:
+    """The held-out selection a run used (M0.2): '' for the default first-N."""
+    o = ds.get("options") or {}
+    bits = []
+    if o.get("offset"):
+        bits.append(f"offset {o['offset']}")
+    if o.get("conversation_ids"):
+        bits.append("conv " + "+".join(o["conversation_ids"]))
+    return ", ".join(bits)
+
+
 def variant(key: str, s: Dict[str, Any]) -> Any:
     """What gets its own headline row: a LongMemEval variant, and (B472) a
     run that sent speaker and date as fields rather than in the text."""
     ds = s.get("dataset") if isinstance(s.get("dataset"), dict) else {}
-    return (ds.get("variant") if key == "longmemeval" else None, ds.get("turn_metadata") or "text")
+    return (ds.get("variant") if key == "longmemeval" else None, ds.get("turn_metadata") or "text",
+            selection(ds))
 
 
 def commit_of(r: Dict[str, Any]) -> Optional[str]:

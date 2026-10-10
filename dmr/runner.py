@@ -36,7 +36,10 @@ SMOKE_QUESTIONS = 5
 
 def dmr_options(args, smoke: bool) -> Dict[str, Any]:
     n = getattr(args, "dmr_questions", None)
-    return {"max_questions": n if n is not None else (SMOKE_QUESTIONS if smoke else None)}
+    opts = {"max_questions": n if n is not None else (SMOKE_QUESTIONS if smoke else None)}
+    if getattr(args, "dmr_offset", None):  # only when set: keeps old runs' options identical
+        opts["offset"] = args.dmr_offset
+    return opts
 
 
 def turn_content(session, turn) -> str:

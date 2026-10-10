@@ -164,10 +164,19 @@ def _interleave_by_category(qs: List[L10Question]) -> List[L10Question]:
 
 def load_conversations(path: Path, conversations: Optional[int] = None,
                        max_questions: Optional[int] = None,
-                       categories: Optional[List[int]] = None) -> List[L10Conversation]:
+                       categories: Optional[List[int]] = None,
+                       conversation_ids: Optional[List[str]] = None) -> List[L10Conversation]:
+    """`conversation_ids` picks conversations by sample_id, in the order given
+    (held-out split); it replaces `conversations` (the first N)."""
     data = json.loads(Path(path).read_text())
+    if conversation_ids:
+        by_id = {s["sample_id"]: s for s in data}
+        missing = [i for i in conversation_ids if i not in by_id]
+        if missing:
+            raise DatasetError(f"unknown LoCoMo-10 sample_id(s) {missing}; have {sorted(by_id)}")
+        data = [by_id[i] for i in conversation_ids]
     out: List[L10Conversation] = []
-    for sample in data[: conversations or len(data)]:
+    for sample in data[: (None if conversation_ids else conversations) or len(data)]:
         conv = sample["conversation"]
         sessions: List[List[L10Turn]] = []
         n = 1

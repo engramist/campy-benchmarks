@@ -33,6 +33,8 @@ def locomo10_options(args, smoke: bool) -> Dict[str, Any]:
         "max_questions": getattr(args, "locomo10_max_questions", None),
         "categories": getattr(args, "locomo10_categories", None),
     }
+    if getattr(args, "locomo10_conversation_ids", None):  # only when set: old runs' options unchanged
+        opts["conversation_ids"] = args.locomo10_conversation_ids
     if smoke:
         for k, v in SMOKE_DEFAULTS.items():
             if opts[k] is None:
