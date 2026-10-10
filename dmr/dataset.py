@@ -156,10 +156,16 @@ def parse_record(rec: dict, n: int) -> DMRQuestion:
     return q
 
 
-def load_questions(path: Path, max_questions: Optional[int] = None) -> List[DMRQuestion]:
+def load_questions(path: Path, max_questions: Optional[int] = None,
+                   offset: Optional[int] = None) -> List[DMRQuestion]:
+    """`offset` skips the first N records (held-out split: offset 50 is
+    questions 50..). The fallback id `dmr_<n>` keeps the record's file index."""
     qs = []
+    skip = offset or 0
     with open(path) as f:
         for n, line in enumerate(f):
+            if n < skip:
+                continue
             if line.strip():
                 qs.append(parse_record(json.loads(line), n))
             if max_questions and len(qs) >= max_questions:

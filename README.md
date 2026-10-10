@@ -259,7 +259,9 @@ Campy's store holds.
 
 **Subsets:** `--locomo10-conversations N`, `--locomo10-max-questions N` (taken
 round-robin across categories, so a subset stays balanced) and
-`--locomo10-categories 1,2,3,4`. `--smoke` defaults to 1 conversation and 25
+`--locomo10-categories 1,2,3,4`. `--locomo10-conversation-ids conv-30` picks
+conversations by `sample_id` (a held-out split; it replaces
+`--locomo10-conversations`, and the report keeps such runs on their own row). `--smoke` defaults to 1 conversation and 25
 questions. `--compare` warns when the subset or judge model differs.
 
 ## LongMemEval (`--suite longmemeval`)
@@ -353,7 +355,8 @@ context scores 94.4%). The histories are short, about 50 turns, so DMR checks
 basic recall and separates systems little. LongMemEval and LoCoMo-10 are the
 harder tests.
 
-**Subsets:** `--dmr-questions N` takes the first N questions; `--smoke` takes 5.
+**Subsets:** `--dmr-questions N` takes the first N questions, after skipping
+`--dmr-offset N` records (held-out: `--dmr-offset 50 --dmr-questions 50`); `--smoke` takes 5.
 `--baselines` and `--repeat` aren't supported with DMR yet.
 
 ## Publishing results (`RESULTS.md`)

@@ -417,6 +417,8 @@ def main():
                         help="LongMemEval: first N questions, interleaved across the 7 categories")
     parser.add_argument("--dmr-questions", type=int, default=None,
                         help="DMR: the first N of the 500 questions (--smoke: 5)")
+    parser.add_argument("--dmr-offset", type=int, default=None,
+                        help="DMR: skip the first N records (held-out split: --dmr-offset 50 --dmr-questions 50)")
     parser.add_argument("--lme-types", type=lambda s: s.split(","), default=None,
                         help="LongMemEval: comma list of question types / 'abstention'")
     parser.add_argument("--suite", choices=["all", "locomo", "memory_gym", "membench", "arc", "locomo10",
@@ -425,6 +427,10 @@ def main():
                              "(hours on a local model; not in 'all')")
     parser.add_argument("--locomo10-conversations", type=int, default=None,
                         help="LoCoMo-10: first N of the 10 conversations (smoke default 1)")
+    parser.add_argument("--locomo10-conversation-ids", type=lambda s: [x for x in s.split(",") if x],
+                        default=None,
+                        help="LoCoMo-10: comma-separated sample_ids (e.g. conv-30, the second conversation); "
+                             "replaces --locomo10-conversations")
     parser.add_argument("--locomo10-max-questions", type=int, default=None,
                         help="LoCoMo-10: at most N questions per conversation (smoke default 25)")
     parser.add_argument("--locomo10-categories", type=lambda s: [int(x) for x in s.split(",")], default=None,
