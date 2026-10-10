@@ -1,0 +1,612 @@
+valid_1    run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Taylor Swift!
+            asis      [['semantic', 2], ['conversation', 6]]  'Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            nosem     [['conversation', 6]]  'I can get into Taylor Swift.'
+            convonly  [['conversation', 6]]  'I can get into Taylor Swift.'
+            chrono    [['semantic', 2], ['conversation', 6]]  'Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            top3      [['semantic', 2], ['conversation', 3]]  'I remember that conversation about music. You mentioned earlier that you could get into Taylor Swift.'
+valid_2    run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: I eat a fresh and raw diet to save on groceries.
+            asis      [['semantic', 8], ['conversation', 6]]  'I remember that conversation. You said to Speaker 2: "I know previously you have said you want to learn how to'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            chrono    [['semantic', 8], ['conversation', 6]]  'I remember that conversation. You said to Speaker 2: "I know previously you have said you want to learn how to'
+            top3      [['semantic', 8], ['conversation', 3]]  'Speaker 1 said: "If you\'d like I can show you how to coupon to help save money when you go back in school."'
+valid_0    run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: I used to work in the human services field.
+            asis      [['semantic', 6], ['conversation', 6]]  'Speaker 1 said earlier: "I used to work in the human services field."'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I used to work in the human services field."'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I used to work in the human services field."'
+            chrono    [['semantic', 6], ['conversation', 6]]  'Speaker 1 said earlier: "I used to work in the human services field."'
+            top3      [['semantic', 6], ['conversation', 3]]  'Speaker 1 said: "I used to work in the human services field."'
+valid_10   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Burger King!
+            asis      [['semantic', 5], ['conversation', 6]]  'Speaker 1 said: "I am working part time." However, there is no specific information about the fast food place '
+            nosem     [['conversation', 6]]  'I am studying education and working part time.'
+            convonly  [['conversation', 6]]  'I am studying education and working part time.'
+            chrono    [['semantic', 5], ['conversation', 6]]  'Speaker 1 said: "I am working part time." However, there is no specific information about the fast food place '
+            top3      [['semantic', 5], ['conversation', 3]]  'Speaker 1 said: "I am working at a fast food place."'
+valid_7    run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Three miles!
+            asis      [['semantic', 3], ['conversation', 6]]  'According to our conversation, you mentioned that a three-mile walk is key for a small workout.'
+            nosem     [['conversation', 6]]  'Speaker 1 mentioned earlier that a three-mile walk is key for a small workout.'
+            convonly  [['conversation', 6]]  'Speaker 1 mentioned earlier that a three-mile walk is key for a small workout.'
+            chrono    [['semantic', 3], ['conversation', 6]]  'According to our conversation, you mentioned that a three-mile walk is key for a small workout.'
+            top3      [['semantic', 3], ['conversation', 3]]  'Based on the conversation memory, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+valid_6    run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: I have a cat.
+            asis      [['semantic', 6], ['conversation', 6]]  "I don't have any information about Speaker 1's pet in the provided memory context. The conversation mentions v"
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I have. I used to volunteer at an animal shelter, but that requires me to chase animals aroun'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I have. I used to volunteer at an animal shelter, but that requires me to chase animals aroun'
+            chrono    [['semantic', 6], ['conversation', 6]]  "I don't have any information about Speaker 1's pet in the provided memory context. The conversation mentions v"
+            top3      [['semantic', 6], ['conversation', 3]]  "I don't have any information about Speaker 1's pet. The conversation only mentions bird watching, but it's Spe"
+valid_14   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Clueless!
+            asis      [['semantic', 3], ['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions discussing favorite movies, "
+            nosem     [['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions favorite movies, but Speaker"
+            convonly  [['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions favorite movies, but Speaker"
+            chrono    [['semantic', 3], ['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions discussing favorite movies, "
+            top3      [['semantic', 3], ['conversation', 3]]  "I don't have any memory of Speaker 2 mentioning their favorite movie earlier in the conversation. The conversa"
+valid_11   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: It's a cow!
+            asis      [['semantic', 7], ['conversation', 6]]  'Speaker 1 said earlier: "My pet cow is sick."'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "The only company I have is my pet cow."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "The only company I have is my pet cow."'
+            chrono    [['semantic', 7], ['conversation', 6]]  'Speaker 1 said earlier: "My pet cow is sick."'
+            top3      [['semantic', 7], ['conversation', 3]]  'Speaker 1 said: "My pet cow is sick." (from Session 2, 7 days ago)'
+valid_13   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: I was three!
+            asis      [['semantic', 4], ['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            chrono    [['semantic', 4], ['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            top3      [['semantic', 4], ['conversation', 3]]  'Speaker 1 said: "Hello! I was three when I learned to play guitar!"'
+valid_12   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: You mentioned you'd like to go to culinary school!
+            asis      [['semantic', 4], ['conversation', 6]]  "I'm sorry, but I don't have enough information to answer the question. The conversation history doesn't mentio"
+            nosem     [['conversation', 6]]  "I'm afraid I don't have any memory of a conversation about post-retirement plans or what you wanted to learn i"
+            convonly  [['conversation', 6]]  "I'm afraid I don't have any memory of a conversation about post-retirement plans or what you wanted to learn i"
+            chrono    [['semantic', 4], ['conversation', 6]]  "I'm sorry, but I don't have enough information to answer the question. The conversation history doesn't mentio"
+            top3      [['semantic', 4], ['conversation', 3]]  "I'm Campy, the AI memory assistant. Based on the provided context, I don't have any information about a conver"
+valid_19   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Construction, like my dad.
+            asis      [['semantic', 2], ['conversation', 6]]  'I remember now. I said, "I work for someone. I got the job through my dad. They company and owner have been go'
+            nosem     [['conversation', 6]]  'I remember that time we talked about our jobs. You said, "I work for someone. I got the job through my dad. Th'
+            convonly  [['conversation', 6]]  'I remember that time we talked about our jobs. You said, "I work for someone. I got the job through my dad. Th'
+            chrono    [['semantic', 2], ['conversation', 6]]  'I remember now. I said, "I work for someone. I got the job through my dad. They company and owner have been go'
+            top3      [['semantic', 2], ['conversation', 3]]  "I don't have any information about what I said about my job. The conversation only mentions Speaker 2's job as"
+valid_15   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Jim Shockey!
+            asis      [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "My dad did he has his own outdoor show its possible you have seen it"'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "My dad did he has his own outdoor show its possible you have seen it"'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "My dad did he has his own outdoor show its possible you have seen it"'
+            chrono    [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "My dad did he has his own outdoor show its possible you have seen it"'
+            top3      [['semantic', 4], ['conversation', 3]]  'Speaker 1 said earlier: "My dad did he has his own outdoor show its possible you have seen it"'
+valid_17   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Yellow!
+            asis      [['semantic', 3], ['conversation', 6]]  'Speaker 1 said: "I wear a yellow construction worker hat to Aerosmith concerts."'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier that the hat they wear to Aerosmith concerts is yellow.'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier that the hat they wear to Aerosmith concerts is yellow.'
+            chrono    [['semantic', 3], ['conversation', 6]]  'Speaker 1 said: "I wear a yellow construction worker hat to Aerosmith concerts."'
+            top3      [['semantic', 3], ['conversation', 3]]  'Speaker 1 mentioned wearing a yellow construction worker hat to Aerosmith concerts.'
+valid_18   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: He's an army soldier.
+            asis      [['semantic', 5], ['conversation', 6]]  'My dad is an army soldier.'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "My dad is an army soldier."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "My dad is an army soldier."'
+            chrono    [['semantic', 5], ['conversation', 6]]  'My dad is an army soldier.'
+            top3      [['semantic', 5], ['conversation', 3]]  'Speaker 1 told Speaker 2 that their dad is an army soldier.'
+valid_23   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: He was a manager at Home Depot.
+            asis      [['semantic', 8], ['conversation', 6]]  'Speaker 1 said: "My father was manager there." (from Session 1, 14 days 7 hours ago)'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            chrono    [['semantic', 8], ['conversation', 6]]  'Speaker 1 said: "My father was manager there." (referring to Home Depot)'
+            top3      [['semantic', 8], ['conversation', 3]]  'Speaker 1 said: "My father was manager there." (from Session 1, 14 days 7 hours ago)'
+valid_20   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=-  gold: Yeah, he used to tell World War II stories that absolutely s
+            asis      [['semantic', 3], ['conversation', 6]]  'Speaker 1 said earlier: "That sounds scary. I was scared by my grandfather telling WWII stories."'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "That sounds scary. I was scared by my grandfather telling WWII stories."'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "That sounds scary. I was scared by my grandfather telling WWII stories."'
+            chrono    [['semantic', 3], ['conversation', 6]]  'Speaker 1 said earlier: "That sounds scary. I was scared by my grandfather telling WWII stories."'
+            top3      [['semantic', 3], ['conversation', 3]]  "I don't have any information about Speaker 1's childhood fears or what used to scare them when their grandfath"
+valid_24   run=Y asis=Y nosem=- convonly=- chrono=Y top3=Y  gold: Aerosmith!
+            asis      [['semantic', 4], ['conversation', 6]]  'Speaker 2 said: "Nice. I listen to a lot of aerosmith, they\'re my favorite."'
+            nosem     [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning a band apart from Metallica in a previous conversation. The co"
+            convonly  [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning a band apart from Metallica in a previous conversation. The co"
+            chrono    [['semantic', 4], ['conversation', 6]]  'I\'ve found the relevant conversation. Speaker 2 said: "Nice. I listen to a lot of aerosmith, they\'re my favori'
+            top3      [['semantic', 4], ['conversation', 3]]  'Speaker 2 said: "Nice. I listen to a lot of Aerosmith, they\'re my favorite."'
+valid_28   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Trooper!
+            asis      [['semantic', 6], ['conversation', 6]]  'Speaker 1 said: "He is a black lab named Trooper, he is a great hiking buddy!"'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "He is a black lab named Trooper, he is a great hiking buddy!"'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "He is a black lab named Trooper, he is a great hiking buddy!"'
+            chrono    [['semantic', 6], ['conversation', 6]]  'Speaker 1 said: "He is a black lab named Trooper, he is a great hiking buddy!"'
+            top3      [['semantic', 6], ['conversation', 3]]  'Speaker 1 said: "He is a black lab named Trooper, he is a great hiking buddy!"'
+valid_29   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=-  gold: The attic!
+            asis      [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "we keep him in the attic."'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "we keep him in the attic."'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "we keep him in the attic."'
+            chrono    [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "we keep him in the attic."'
+            top3      [['semantic', 4], ['conversation', 3]]  "I don't have any information about the favorite play area of your fifth son in the house. The conversation onl"
+valid_31   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Lawn mowing!
+            asis      [['semantic', 7], ['conversation', 6]]  'You mentioned you enjoy doing something outdoors on sunny days, what was it?\n\nYou said: "I also enjoy lawn mow'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I also enjoy lawn mowing on sunny days."'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I also enjoy lawn mowing on sunny days."'
+            chrono    [['semantic', 7], ['conversation', 6]]  'You mentioned you enjoy doing something outdoors on sunny days, what was it?\n\nYou said: "I also enjoy lawn mow'
+            top3      [['semantic', 7], ['conversation', 3]]  'You mentioned you enjoy lawn mowing on sunny days.'
+valid_34   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: I said I was turning 83.
+            asis      [['semantic', 8], ['conversation', 6]]  'I turn 83 in a month.'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            chrono    [['semantic', 8], ['conversation', 6]]  'I turn 83 in a month.'
+            top3      [['semantic', 8], ['conversation', 3]]  'Speaker 1 said: "I turn 83 in a month."'
+valid_37   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Country music!
+            asis      [['semantic', 4], ['conversation', 6]]  "You mentioned earlier that you're always playing country music in your big truck!"
+            nosem     [['conversation', 6]]  'You mentioned earlier that you always play country music in your big truck.'
+            convonly  [['conversation', 6]]  'You mentioned earlier that you always play country music in your big truck.'
+            chrono    [['semantic', 4], ['conversation', 6]]  "You mentioned earlier that you're always playing country music in your big truck!"
+            top3      [['semantic', 4], ['conversation', 3]]  "I remember that conversation. You mentioned that you're always playing country music in your big truck."
+valid_38   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: About 15k.
+            asis      [['semantic', 5], ['conversation', 6]]  'I recall that Speaker 1 asked about your average salary, and you replied: "About 15k. I spend most of that on '
+            nosem     [['conversation', 6]]  'Speaker 2 said: "About 15k."'
+            convonly  [['conversation', 6]]  'Speaker 2 said: "About 15k."'
+            chrono    [['semantic', 5], ['conversation', 6]]  'I recall that Speaker 1 asked about your average salary, and you replied: "About 15k. I spend most of that on '
+            top3      [['semantic', 5], ['conversation', 3]]  'Speaker 2: About 15k. I spend most of that on weekend clubs and raves though.'
+valid_39   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=-  gold: I didn't mention the exact amount, but I did say that it was
+            asis      [['semantic', 4], ['conversation', 6]]  'Speaker 1 said: "Come run a few laps here, it is quite a few acres!"'
+            nosem     [['conversation', 6]]  'I said: "Come run a few laps here, it is quite a few acres!"'
+            convonly  [['conversation', 6]]  'I said: "Come run a few laps here, it is quite a few acres!"'
+            chrono    [['semantic', 4], ['conversation', 6]]  'Speaker 1 said: "Come run a few laps here, it is quite a few acres!"'
+            top3      [['semantic', 4], ['conversation', 3]]  'I remember that conversation. You asked about working out on my farm, and I said that I get my exercise tendin'
+valid_43   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Scorpions!
+            asis      [['semantic', 7], ['conversation', 6]]  "I don't have any information about Speaker 1 mentioning something that scares them. The conversation history o"
+            nosem     [['conversation', 6]]  "I'm afraid I don't have any information about Speaker 1 mentioning something that scares them. The conversatio"
+            convonly  [['conversation', 6]]  "I'm afraid I don't have any information about Speaker 1 mentioning something that scares them. The conversatio"
+            chrono    [['semantic', 7], ['conversation', 6]]  "I don't have any information about Speaker 1 mentioning something that scares them. The conversation history o"
+            top3      [['semantic', 7], ['conversation', 3]]  "I don't have any information about Speaker 1 mentioning something that scares them. The conversation only show"
+valid_42   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: The Rolling Stones!
+            asis      [['semantic', 4], ['conversation', 6]]  'I remember now. I told you that I see the Rolling Stones every year.'
+            nosem     [['conversation', 6]]  'I remember now. I told you that I love to spend time to myself, and every year I see the Rolling Stones.'
+            convonly  [['conversation', 6]]  'I remember now. I told you that I love to spend time to myself, and every year I see the Rolling Stones.'
+            chrono    [['semantic', 4], ['conversation', 6]]  'I remember now. I told you that I see the Rolling Stones every year.'
+            top3      [['semantic', 4], ['conversation', 3]]  "The band you're referring to is the Rolling Stones. I mentioned that I see them every year."
+valid_44   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: It has 3 bedrooms!
+            asis      [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "Yeah I have a house with 3 bedrooms and I am the only one here."'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "Yeah I have a house with 3 bedrooms and I am the only one here."'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "Yeah I have a house with 3 bedrooms and I am the only one here."'
+            chrono    [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "Yeah I have a house with 3 bedrooms and I am the only one here."'
+            top3      [['semantic', 4], ['conversation', 3]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+r20a-dmr-q50-baselines.json valid_45: replay failed: libc++abi: terminating due to uncaught exception of type std::__1::system_error: recursive_mutex lock failed: Invalid argument
+
+valid_46   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Dog agility!
+            asis      [['semantic', 3], ['conversation', 6]]  'Speaker 1 said: "Makes the time pass... competing in dog agility."'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "Makes the time pass... competing in dog agility."'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "Makes the time pass... competing in dog agility."'
+            chrono    [['semantic', 3], ['conversation', 6]]  'Speaker 1 said: "Makes the time pass... competing in dog agility."'
+            top3      [['semantic', 3], ['conversation', 3]]  'Based on the conversation history, Speaker 1 mentioned earlier that their hobby is competing in dog agility.'
+valid_47   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: A lawyer!
+            asis      [['conversation', 6]]  'Speaker 1 said: "I would love to move to a big city and become a lawyer."'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I would love to move to a big city and become a lawyer."'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I would love to move to a big city and become a lawyer."'
+            chrono    [['conversation', 6]]  'Speaker 1 said: "I would love to move to a big city and become a lawyer."'
+            top3      [['conversation', 3]]  'Speaker 1 said: "I would love to move to a big city and become a lawyer."'
+valid_49   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: The violin!
+            asis      [['semantic', 6], ['conversation', 6]]  'Based on the conversation memory, Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+            chrono    [['semantic', 6], ['conversation', 6]]  'Based on the conversation memory, Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+            top3      [['semantic', 6], ['conversation', 3]]  'Based on the conversation memory, Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+valid_50   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Yes, I originally come from Somalia.
+            asis      [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "I\'m from far away."'
+            nosem     [['conversation', 6]]  "I'm from far away."
+            convonly  [['conversation', 6]]  "I'm from far away."
+            chrono    [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "I\'m from far away."'
+            top3      [['semantic', 2], ['conversation', 3]]  "I'm from far away."
+valid_55   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Psychology.
+            asis      [['semantic', 2], ['conversation', 6]]  'I remember that time we talked about my studies. I said I majored in Psychology. I read a lot of psych journal'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "Psychology. I read a lot of psych journals in my free time as well."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "Psychology. I read a lot of psych journals in my free time as well."'
+            chrono    [['semantic', 2], ['conversation', 6]]  'I remember that time we talked about my studies. I said I majored in Psychology. I read a lot of psych journal'
+            top3      [['semantic', 2], ['conversation', 3]]  'I remember that time we talked about my studies. I said I majored in Psychology. I read a lot of psych journal'
+valid_51   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: California!
+            asis      [['semantic', 5], ['conversation', 6]]  "I don't recall mentioning a specific place where my audio studio was located. However, I did mention that my s"
+            nosem     [['conversation', 6]]  "I don't recall mentioning a specific place where my audio studio was located. However, I did mention that my s"
+            convonly  [['conversation', 6]]  "I don't recall mentioning a specific place where my audio studio was located. However, I did mention that my s"
+            chrono    [['semantic', 5], ['conversation', 6]]  "I don't recall mentioning a specific place where my audio studio was located. However, I did mention that my s"
+            top3      [['semantic', 5], ['conversation', 3]]  'Speaker 1 said: "My studio is tanking after the decline of the market."'
+valid_58   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=-  gold: Yes, I'm hoping they're Omnivores.
+            asis      [['semantic', 5], ['conversation', 6]]  'I remember that conversation. You asked me about my hopes for my girls\' dietary preferences, and I said: "Two '
+            nosem     [['conversation', 6]]  'I remember that conversation. You asked me about my hopes for my girls\' dietary preferences, and I said: "Two '
+            convonly  [['conversation', 6]]  'I remember that conversation. You asked me about my hopes for my girls\' dietary preferences, and I said: "Two '
+            chrono    [['semantic', 5], ['conversation', 6]]  'I remember that conversation. You asked me about my hopes for my girls\' dietary preferences, and I said: "Two '
+            top3      [['semantic', 5], ['conversation', 3]]  "I'm sorry, but I don't have enough information to answer the question. The context provided mentions Speaker 1"
+valid_56   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Cheeseburgers!
+            asis      [['semantic', 6], ['conversation', 6]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            chrono    [['semantic', 6], ['conversation', 6]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            top3      [['semantic', 6], ['conversation', 3]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+valid_59   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: A Twitter contest!
+            asis      [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "Apparently it takes about 5 years to recoup the cost, but then it starts paying you f'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "It did cost a little bit to set it up, I can\'t remember the name of the company to be honest,'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "It did cost a little bit to set it up, I can\'t remember the name of the company to be honest,'
+            chrono    [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "Apparently it takes about 5 years to recoup the cost, but then it starts paying you f'
+            top3      [['semantic', 4], ['conversation', 3]]  "I don't have enough information to answer the question. The conversation mentions a Twitter contest, but it do"
+valid_60   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: You started when you were 16.
+            asis      [['semantic', 5], ['conversation', 6]]  'I can answer that question. According to what you said earlier, you started working in construction when you w'
+            nosem     [['conversation', 6]]  'You started working in construction when you were 16.'
+            convonly  [['conversation', 6]]  'You started working in construction when you were 16.'
+            chrono    [['semantic', 5], ['conversation', 6]]  'I can answer that question. According to what you said earlier, you started working in construction when you w'
+            top3      [['semantic', 5], ['conversation', 3]]  'I can answer that question. Speaker 2 said: "I work in construction. Started when I was 16."'
+valid_61   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: You didn't suggest a specific type of dressing, you only ask
+            asis      [['semantic', 5], ['conversation', 6]]  'Speaker 1 said: "Maybe a lite dressing with it."'
+            nosem     [['conversation', 6]]  "I don't have any memory of a conversation about having a salad after a run, specifically discussing the type o"
+            convonly  [['conversation', 6]]  "I don't have any memory of a conversation about having a salad after a run, specifically discussing the type o"
+            chrono    [['semantic', 5], ['conversation', 6]]  'Speaker 1 said: "Maybe a lite dressing with it."'
+            top3      [['semantic', 5], ['conversation', 3]]  "I'm afraid I don't have enough information to answer the question. The context provided doesn't mention anythi"
+valid_62   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Hooters!
+            asis      [['semantic', 3], ['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning a job they wished they could get, even in jest, during the con"
+            nosem     [['conversation', 6]]  "I don't recall discussing hobbies or a job I wished I could get in jest. However, I did mention that I used to"
+            convonly  [['conversation', 6]]  "I don't recall discussing hobbies or a job I wished I could get in jest. However, I did mention that I used to"
+            chrono    [['semantic', 3], ['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning a job they wished they could get, even in jest, during the con"
+            top3      [['semantic', 3], ['conversation', 3]]  "I remember that conversation. Speaker 1 mentioned that they used to be a painter, but that's not what they wis"
+valid_63   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Electric bagpipes!
+            asis      [['semantic', 4], ['conversation', 6]]  'I remember our conversation about your music. You mentioned that you play Scottish black metal and that you us'
+            nosem     [['conversation', 6]]  'I remember that conversation! You said, "I play Scottish black metal. I play electric bag pipes."'
+            convonly  [['conversation', 6]]  'I remember that conversation! You said, "I play Scottish black metal. I play electric bag pipes."'
+            chrono    [['semantic', 4], ['conversation', 6]]  'I remember our conversation about your music. You mentioned that you play Scottish black metal and that you us'
+            top3      [['semantic', 4], ['conversation', 3]]  'You said earlier that the unique instrument you use in your Scottish black metal band is the electric bag pipe'
+valid_65   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: The humidity!
+            asis      [['semantic', 4], ['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions Texas, but it doesn't contai"
+            nosem     [['conversation', 6]]  "I don't have any memory of Speaker 2 discussing the weather in Texas or mentioning something they didn't like "
+            convonly  [['conversation', 6]]  "I don't have any memory of Speaker 2 discussing the weather in Texas or mentioning something they didn't like "
+            chrono    [['semantic', 4], ['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions Texas, but it doesn't contai"
+            top3      [['semantic', 4], ['conversation', 3]]  "I don't have enough information to answer the question. The conversation only mentions Speaker 1 and Speaker 2"
+valid_66   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: I can speak 2 languages, Spanish and English.
+            asis      [['semantic', 8], ['conversation', 6]]  'I can answer the question based on the conversation memory. Speaker 2 said: "I\'m up to three."'
+            nosem     [['conversation', 6]]  'I remember that conversation. Speaker 2 said: "I\'m up to three."'
+            convonly  [['conversation', 6]]  'I remember that conversation. Speaker 2 said: "I\'m up to three."'
+            chrono    [['semantic', 8], ['conversation', 6]]  'I can answer that question. According to the conversation, Speaker 2 said: "I\'m up to three."'
+            top3      [['semantic', 8], ['conversation', 3]]  'I can answer the question based on the conversation memory. Speaker 2 said: "I\'m up to three."'
+valid_69   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: The Walking Dead!
+            asis      [['semantic', 7], ['conversation', 6]]  'I remember that conversation about our favorite TV shows. You asked me about my favorite show, and I said: "I '
+            nosem     [['conversation', 6]]  "I don't have any information about our conversation about favorite TV shows. The conversations I have access t"
+            convonly  [['conversation', 6]]  "I don't have any information about our conversation about favorite TV shows. The conversations I have access t"
+            chrono    [['semantic', 7], ['conversation', 6]]  'I remember that conversation about our favorite TV shows. You asked me about my favorite show, and I said: "I '
+            top3      [['semantic', 7], ['conversation', 3]]  'I remember that conversation! You asked me about my favorite TV show, and I said: "I love movies, I spend a lo'
+valid_68   run=Y asis=Y nosem=- convonly=- chrono=Y top3=-  gold: Because Pluto is a dog and he is in Disney!
+            asis      [['semantic', 8], ['conversation', 6]]  "I don't have any memory of a conversation where I gave a reason why you could definitely go to Disney. However"
+            nosem     [['conversation', 6]]  "I couldn't find any previous conversation where I (Speaker 1) gave a reason why you (Speaker 2) could definite"
+            convonly  [['conversation', 6]]  "I couldn't find any previous conversation where I (Speaker 1) gave a reason why you (Speaker 2) could definite"
+            chrono    [['semantic', 8], ['conversation', 6]]  "I don't have any memory of a conversation where I gave a reason why you could definitely go to Disney. However"
+            top3      [['semantic', 8], ['conversation', 3]]  "I don't have any memory of a conversation where I gave a reason why you could definitely go to Disney because "
+valid_70   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: I got hired as a life coach!
+            asis      [['semantic', 2], ['conversation', 6]]  'I just got hired yesterday as a life coach, thanks for asking.'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "I just got hired yesterday as a life coach, thanks for asking."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "I just got hired yesterday as a life coach, thanks for asking."'
+            chrono    [['semantic', 2], ['conversation', 6]]  'I just got hired yesterday as a life coach, thanks for asking.'
+            top3      [['semantic', 2], ['conversation', 3]]  'I just got hired yesterday as a life coach, thanks for asking.'
+valid_77   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Yeah, I finished school in 1995.
+            asis      [['semantic', 6], ['conversation', 6]]  'I remember that conversation. You said, "I\'m going to take this time to look into school as well."'
+            nosem     [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning a specific year they finished school. However, I do have a mem"
+            convonly  [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning a specific year they finished school. However, I do have a mem"
+            chrono    [['semantic', 6], ['conversation', 6]]  'I remember that conversation. You said, "I\'m going to take this time to look into school as well."'
+            top3      [['semantic', 6], ['conversation', 3]]  "I don't have any information about Speaker 1 mentioning a specific year they finished school. However, I do ha"
+valid_73   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=-  gold: It was 1 cup of peanut butter, 1 cup of sugar, and 1 egg. Mi
+            asis      [['semantic', 10], ['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 (you) had a conversation about it earlier. '
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10 12 mins."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10 12 mins."'
+            chrono    [['semantic', 10], ['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 (you) had a conversation about it earlier. '
+            top3      [['semantic', 10], ['conversation', 3]]  'Speaker 1 said: "Would you share? Cookies are my favorite to bake!"'
+valid_79   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Have a bottle of wine.
+            asis      [['semantic', 2], ['conversation', 6]]  "I don't have any memory of discussing ideal Saturdays with Speaker 2. However, I do recall mentioning a walk I"
+            nosem     [['conversation', 6]]  "I couldn't find any mention of Speaker 1 discussing their ideal Saturdays or what they like to do on them. How"
+            convonly  [['conversation', 6]]  "I couldn't find any mention of Speaker 1 discussing their ideal Saturdays or what they like to do on them. How"
+            chrono    [['semantic', 2], ['conversation', 6]]  "I don't have any memory of discussing ideal Saturdays with Speaker 2. However, I do recall mentioning a walk I"
+            top3      [['semantic', 2], ['conversation', 3]]  "I'm sorry, but I don't have enough information to answer the question. The conversation only mentions Speaker "
+valid_80   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: I have 3 dogs!
+            asis      [['semantic', 6], ['conversation', 6]]  'Speaker 1 said: "Sure! You can be friends with my 3 dogs too if you aren\'t allergic" (from Session 1, 10 days '
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs too if you aren\'t allergic"'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs too if you aren\'t allergic"'
+            chrono    [['semantic', 6], ['conversation', 6]]  'Speaker 1 said: "Sure! You can be friends with my 3 dogs too if you aren\'t allergic" (from Session 1, 10 days '
+            top3      [['semantic', 6], ['conversation', 3]]  'Speaker 1 said: "Sure! You can be friends with my 3 dogs too if you aren\'t allergic."'
+
+r20a-dmr-q50-baselines.json: 49 questions replayed; run accuracy on them 0.633
+  asis reproduced the run's answer verbatim on 49/49
+  asis      0.633  (31/49)
+  nosem     0.592  (29/49)
+  convonly  0.592  (29/49)
+  chrono    0.633  (31/49)
+  top3      0.510  (25/49)
+valid_1    run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Taylor Swift!
+            asis      [['conversation', 6]]  'Based on the conversation, Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            nosem     [['conversation', 6]]  'Based on the conversation, Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            convonly  [['conversation', 6]]  'Based on the conversation, Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            chrono    [['conversation', 6]]  'Based on the conversation, Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            top3      [['conversation', 3]]  'I remember that conversation. You mentioned earlier that you could get into Taylor Swift.'
+valid_2    run=- asis=- nosem=- convonly=- chrono=- top3=Y  gold: I eat a fresh and raw diet to save on groceries.
+            asis      [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            chrono    [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            top3      [['conversation', 3]]  "I don't have any information about a conversation about jobs and expenses. However, I do have a memory of a co"
+valid_0    run=- asis=- nosem=Y convonly=Y chrono=- top3=Y  gold: I used to work in the human services field.
+            asis      [['semantic', 2], ['conversation', 6]]  'You used to work in the human services field.'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I used to work in the human services field."'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I used to work in the human services field."'
+            chrono    [['semantic', 2], ['conversation', 6]]  'You used to work in the human services field.'
+            top3      [['semantic', 2], ['conversation', 3]]  'You said earlier that you used to work in the human services field.'
+valid_10   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Burger King!
+            asis      [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "I am working on getting my childhood education degree concentration in my favorite subject, m'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I am studying education and working part time." However, there is no mention of the specific '
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I am studying education and working part time." However, there is no mention of the specific '
+            chrono    [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "I am working on getting my childhood education degree concentration in my favorite subject, m'
+            top3      [['semantic', 2], ['conversation', 3]]  'Speaker 1 said: "I am working on getting my childhood education degree concentration in my favorite subject, m'
+valid_7    run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Three miles!
+            asis      [['conversation', 6]]  'According to the conversation, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+            nosem     [['conversation', 6]]  'According to the conversation, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+            convonly  [['conversation', 6]]  'According to the conversation, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+            chrono    [['conversation', 6]]  'According to the conversation, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+            top3      [['conversation', 3]]  'According to our conversation, you mentioned that a three-mile walk is key for a small workout.'
+valid_6    run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: I have a cat.
+            asis      [['conversation', 6]]  "I don't have any information about Speaker 1 mentioning a pet in our conversation. However, I do have a releva"
+            nosem     [['conversation', 6]]  "I don't have any information about Speaker 1 mentioning a pet in our conversation. However, I do have a releva"
+            convonly  [['conversation', 6]]  "I don't have any information about Speaker 1 mentioning a pet in our conversation. However, I do have a releva"
+            chrono    [['conversation', 6]]  "I don't have any information about Speaker 1 mentioning a pet in our conversation. However, I do have a releva"
+            top3      [['conversation', 3]]  "I'm afraid I don't have any information about Speaker 1's pet. The conversation only mentions bird watching, b"
+valid_14   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Clueless!
+            asis      [['conversation', 6]]  'Mine is Friday! Although I do love Clueless too!'
+            nosem     [['conversation', 6]]  'Mine is Friday! Although I do love Clueless too!'
+            convonly  [['conversation', 6]]  'Mine is Friday! Although I do love Clueless too!'
+            chrono    [['conversation', 6]]  'Mine is Friday! Although I do love Clueless too!'
+            top3      [['conversation', 3]]  'My favorite movie is Friday! Although I do love Clueless too!'
+valid_11   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: It's a cow!
+            asis      [['conversation', 6]]  'Speaker 1 said earlier: "My pet cow is sick. It was pretty serious because he wasn\'t eating. The vet said it w'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "My pet cow is sick. It was pretty serious because he wasn\'t eating. The vet said it w'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "My pet cow is sick. It was pretty serious because he wasn\'t eating. The vet said it w'
+            chrono    [['conversation', 6]]  'Speaker 1 said earlier: "My pet cow is sick. It was pretty serious because he wasn\'t eating. The vet said it w'
+            top3      [['conversation', 3]]  'Speaker 1 said earlier: "The only company I have is my pet cow."'
+valid_13   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: I was three!
+            asis      [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            chrono    [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            top3      [['conversation', 3]]  'You were three when you learned to play guitar!'
+valid_12   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: You mentioned you'd like to go to culinary school!
+            asis      [['semantic', 1], ['conversation', 6]]  "I don't have any information about Speaker 2's plans or interests in the provided context. The conversation on"
+            nosem     [['conversation', 6]]  "I don't have any information about Speaker 2's post-retirement plans or what they wanted to learn in their fre"
+            convonly  [['conversation', 6]]  "I don't have any information about Speaker 2's post-retirement plans or what they wanted to learn in their fre"
+            chrono    [['semantic', 1], ['conversation', 6]]  "I don't have any information about Speaker 2's plans or interests in the provided context. The conversation on"
+            top3      [['semantic', 1], ['conversation', 3]]  "I'm happy to help you recall your earlier conversation. According to our conversation, you mentioned that you "
+valid_19   run=- asis=- nosem=- convonly=- chrono=- top3=Y  gold: Construction, like my dad.
+            asis      [['conversation', 6]]  'Speaker 1 said: "I work for someone. I got the job through my dad. They company and owner have been good to my'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I work for someone. I got the job through my dad. They company and owner have been good to my'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I work for someone. I got the job through my dad. They company and owner have been good to my'
+            chrono    [['conversation', 6]]  'Speaker 1 said: "I work for someone. I got the job through my dad. They company and owner have been good to my'
+            top3      [['conversation', 3]]  "Construction, like my dad. What do you do when you aren't being a rock star."
+valid_15   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Jim Shockey!
+            asis      [['conversation', 6]]  "My dad did he has his own outdoor show, it's possible you have seen it."
+            nosem     [['conversation', 6]]  "My dad did he has his own outdoor show, it's possible you have seen it."
+            convonly  [['conversation', 6]]  "My dad did he has his own outdoor show, it's possible you have seen it."
+            chrono    [['conversation', 6]]  "My dad did he has his own outdoor show, it's possible you have seen it."
+            top3      [['conversation', 3]]  'Speaker 1 said earlier: "My dad did he has his own outdoor show its possible you have seen it"'
+valid_17   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Yellow!
+            asis      [['semantic', 1], ['conversation', 6]]  'Speaker 1 said earlier that the specific color of the hat they mentioned was yellow.'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier that the hat they wear to Aerosmith concerts is yellow.'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier that the hat they wear to Aerosmith concerts is yellow.'
+            chrono    [['semantic', 1], ['conversation', 6]]  'Speaker 1 said earlier that the specific color of the hat they mentioned was yellow.'
+            top3      [['semantic', 1], ['conversation', 3]]  'Speaker 1 said earlier that the specific color of the hat they mentioned was yellow. They said, "Great! I wear'
+valid_18   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: He's an army soldier.
+            asis      [['conversation', 6]]  'Speaker 1 said: "My dad is an army soldier."'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "My dad is an army soldier."'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "My dad is an army soldier."'
+            chrono    [['conversation', 6]]  'Speaker 1 said: "My dad is an army soldier."'
+            top3      [['conversation', 3]]  'My dad is an army soldier.'
+valid_23   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: He was a manager at Home Depot.
+            asis      [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            chrono    [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            top3      [['conversation', 3]]  'Speaker 1 said: "My father was manager at Home Depot."'
+valid_20   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Yeah, he used to tell World War II stories that absolutely s
+            asis      [['conversation', 6]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+            nosem     [['conversation', 6]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+            convonly  [['conversation', 6]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+            chrono    [['conversation', 6]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+            top3      [['conversation', 3]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+valid_24   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Aerosmith!
+            asis      [['conversation', 6]]  'Speaker 2 said: "I listen to a lot of Aerosmith, they\'re my favorite."'
+            nosem     [['conversation', 6]]  'Speaker 2 said: "I listen to a lot of Aerosmith, they\'re my favorite."'
+            convonly  [['conversation', 6]]  'Speaker 2 said: "I listen to a lot of Aerosmith, they\'re my favorite."'
+            chrono    [['conversation', 6]]  'Speaker 2 said: "I listen to a lot of Aerosmith, they\'re my favorite."'
+            top3      [['conversation', 3]]  'I remember that conversation. You said, "I listen to a lot of Aerosmith, they\'re my favorite."'
+valid_28   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Trooper!
+            asis      [['conversation', 6]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            chrono    [['conversation', 6]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            top3      [['conversation', 3]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+valid_29   run=- asis=- nosem=- convonly=- chrono=- top3=Y  gold: The attic!
+            asis      [['conversation', 6]]  'Speaker 1 said earlier: "We play video games together a lot. It holds all of their interest."'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "We play video games together a lot. It holds all of their interest."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "We play video games together a lot. It holds all of their interest."'
+            chrono    [['conversation', 6]]  'Speaker 1 said earlier: "We play video games together a lot. It holds all of their interest."'
+            top3      [['conversation', 3]]  "I've to decline, my fifth son is my least favorite ; we keep him in the attic."
+valid_31   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Lawn mowing!
+            asis      [['conversation', 6]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+            nosem     [['conversation', 6]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+            convonly  [['conversation', 6]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+            chrono    [['conversation', 6]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+            top3      [['conversation', 3]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+valid_34   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: I said I was turning 83.
+            asis      [['semantic', 1], ['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            chrono    [['semantic', 1], ['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            top3      [['semantic', 1], ['conversation', 3]]  'Speaker 1 said earlier: "I turn 83 in a month."'
+valid_37   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Country music!
+            asis      [['conversation', 6]]  "I remember that conversation. You mentioned that you live line dancing to country music, and that's all you li"
+            nosem     [['conversation', 6]]  "I remember that conversation. You mentioned that you live line dancing to country music, and that's all you li"
+            convonly  [['conversation', 6]]  "I remember that conversation. You mentioned that you live line dancing to country music, and that's all you li"
+            chrono    [['conversation', 6]]  "I remember that conversation. You mentioned that you live line dancing to country music, and that's all you li"
+            top3      [['conversation', 3]]  "You mentioned earlier that you live line dancing to country music, and that's all you listen to."
+valid_38   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: About 15k.
+            asis      [['conversation', 6]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+            nosem     [['conversation', 6]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+            convonly  [['conversation', 6]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+            chrono    [['conversation', 6]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+            top3      [['conversation', 3]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+valid_39   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: I didn't mention the exact amount, but I did say that it was
+            asis      [['conversation', 6]]  'According to our conversation, I said: "Come run a few laps here, it is quite a few acres!"'
+            nosem     [['conversation', 6]]  'According to our conversation, I said: "Come run a few laps here, it is quite a few acres!"'
+            convonly  [['conversation', 6]]  'According to our conversation, I said: "Come run a few laps here, it is quite a few acres!"'
+            chrono    [['conversation', 6]]  'According to our conversation, I said: "Come run a few laps here, it is quite a few acres!"'
+            top3      [['conversation', 3]]  'Speaker 1 said: "Come run a few laps here, it is quite a few acres!"'
+valid_43   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Scorpions!
+            asis      [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning something that scares them. The conversation only mentions Spe"
+            nosem     [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning something that scares them. The conversation only mentions Spe"
+            convonly  [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning something that scares them. The conversation only mentions Spe"
+            chrono    [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning something that scares them. The conversation only mentions Spe"
+            top3      [['conversation', 3]]  "I'm sorry, but I don't have enough information to answer the question. The context provided only contains Spea"
+valid_42   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: The Rolling Stones!
+            asis      [['conversation', 6]]  'The band that Speaker 1 (you) see every year is the Rolling Stones.'
+            nosem     [['conversation', 6]]  'The band I see every year is the Rolling Stones.'
+            convonly  [['conversation', 6]]  'The band I see every year is the Rolling Stones.'
+            chrono    [['conversation', 6]]  'The band I see every year is the Rolling Stones.'
+            top3      [['conversation', 3]]  'The band that Speaker 1 (you) see every year is the Rolling Stones.'
+valid_44   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: It has 3 bedrooms!
+            asis      [['conversation', 6]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+            chrono    [['conversation', 6]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+            top3      [['conversation', 3]]  'My house has 3 bedrooms.'
+valid_45   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Beijing!
+            asis      [['conversation', 6]]  "I don't have any information about a specific conversation where Speaker 1 asked Speaker 2 about a rainy day a"
+            nosem     [['conversation', 6]]  "I don't have any information about a specific conversation where Speaker 1 asked Speaker 2 about a rainy day a"
+            convonly  [['conversation', 6]]  "I don't have any information about a specific conversation where Speaker 1 asked Speaker 2 about a rainy day a"
+            chrono    [['conversation', 6]]  "I don't have any information about a specific conversation where Speaker 1 asked Speaker 2 about a rainy day a"
+            top3      [['conversation', 3]]  'I\'m happy to help! Based on the conversation, Speaker 2 said: "Ma. I was gonna finish a roof today. At least t'
+valid_46   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Dog agility!
+            asis      [['conversation', 6]]  'Speaker 1 said earlier: "Mine is competing in dog agility. Makes the time pass..."'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "Mine is competing in dog agility. Makes the time pass..."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "Mine is competing in dog agility. Makes the time pass..."'
+            chrono    [['conversation', 6]]  'Speaker 1 said earlier: "Mine is competing in dog agility. Makes the time pass..."'
+            top3      [['conversation', 3]]  'You said: "Makes the time pass..." (referring to competing in dog agility).'
+valid_47   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: A lawyer!
+            asis      [['conversation', 6]]  'Speaker 1 said earlier: "I would love to move to a big city and become a lawyer."'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "I would love to move to a big city and become a lawyer."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "I would love to move to a big city and become a lawyer."'
+            chrono    [['conversation', 6]]  'Speaker 1 said earlier: "I would love to move to a big city and become a lawyer."'
+            top3      [['conversation', 3]]  'I remember that conversation. You told me that you would love to move to a big city and become a lawyer.'
+valid_49   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: The violin!
+            asis      [['semantic', 1], ['conversation', 6]]  'According to our conversation, you said: "I did play the violin last year in band. I didn\'t like it."'
+            nosem     [['conversation', 6]]  'I remember that conversation. You said, "I did play the violin last year in band. I didn\'t like it."'
+            convonly  [['conversation', 6]]  'I remember that conversation. You said, "I did play the violin last year in band. I didn\'t like it."'
+            chrono    [['semantic', 1], ['conversation', 6]]  'According to our conversation, you said: "I did play the violin last year in band. I didn\'t like it."'
+            top3      [['semantic', 1], ['conversation', 3]]  'Speaker 1 said earlier: "I did play the violin last year in band. I didn\'t like it."'
+valid_50   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Yes, I originally come from Somalia.
+            asis      [['conversation', 6]]  "I'm from far away."
+            nosem     [['conversation', 6]]  "I'm from far away."
+            convonly  [['conversation', 6]]  "I'm from far away."
+            chrono    [['conversation', 6]]  "I'm from far away."
+            top3      [['conversation', 3]]  "I'm from far away."
+valid_55   run=- asis=- nosem=Y convonly=Y chrono=- top3=-  gold: Psychology.
+            asis      [['semantic', 1], ['conversation', 6]]  'I remember that time we talked about my studies. You asked me what my dream job was, and I said I was excited '
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "Psychology. I read a lot of psych journals in my free time as well."'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "Psychology. I read a lot of psych journals in my free time as well."'
+            chrono    [['semantic', 1], ['conversation', 6]]  'I remember that time we talked about my studies. You asked me what my dream job was, and I said I was excited '
+            top3      [['semantic', 1], ['conversation', 3]]  'I remember that time we talked about my studies. I said I was getting started on my PhD next year.'
+valid_51   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: California!
+            asis      [['conversation', 6]]  'I think I need to move. My studio is tanking after the decline of the market.'
+            nosem     [['conversation', 6]]  'I think I need to move. My studio is tanking after the decline of the market.'
+            convonly  [['conversation', 6]]  'I think I need to move. My studio is tanking after the decline of the market.'
+            chrono    [['conversation', 6]]  'I think I need to move. My studio is tanking after the decline of the market.'
+            top3      [['conversation', 3]]  "I don't have any information about Speaker 1 mentioning a specific place where their audio studio was located."
+valid_58   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Yes, I'm hoping they're Omnivores.
+            asis      [['conversation', 6]]  'Speaker 1 mentioned earlier that they are hoping their girls would be omnivores, like them.'
+            nosem     [['conversation', 6]]  'Speaker 1 mentioned earlier that they are hoping their girls would be omnivores, like them.'
+            convonly  [['conversation', 6]]  'Speaker 1 mentioned earlier that they are hoping their girls would be omnivores, like them.'
+            chrono    [['conversation', 6]]  'Speaker 1 mentioned earlier that they are hoping their girls would be omnivores, like them.'
+            top3      [['conversation', 3]]  "I'm happy to help! According to our conversation, you mentioned that you're hoping your girls would be omnivor"
+valid_56   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: Cheeseburgers!
+            asis      [['semantic', 2], ['conversation', 6]]  'Speaker 1 said earlier: "my favorite food are cheeseburgers"'
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "my favorite food are cheeseburgers"'
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "my favorite food are cheeseburgers"'
+            chrono    [['semantic', 2], ['conversation', 6]]  'Speaker 1 said earlier: "my favorite food are cheeseburgers"'
+            top3      [['semantic', 2], ['conversation', 3]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+valid_59   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: A Twitter contest!
+            asis      [['conversation', 6]]  "I don't have any information about Speaker 1 winning something from an earlier conversation. The conversation "
+            nosem     [['conversation', 6]]  "I don't have any information about Speaker 1 winning something from an earlier conversation. The conversation "
+            convonly  [['conversation', 6]]  "I don't have any information about Speaker 1 winning something from an earlier conversation. The conversation "
+            chrono    [['conversation', 6]]  "I don't have any information about Speaker 1 winning something from an earlier conversation. The conversation "
+            top3      [['conversation', 3]]  "I don't have enough information to answer the question. The conversation mentions a Twitter contest, but it do"
+valid_60   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: You started when you were 16.
+            asis      [['conversation', 6]]  'You started working in construction when you were 16.'
+            nosem     [['conversation', 6]]  'You started working in construction when you were 16.'
+            convonly  [['conversation', 6]]  'You started working in construction when you were 16.'
+            chrono    [['conversation', 6]]  'You started working in construction when you were 16.'
+            top3      [['conversation', 3]]  'You started working in construction when you were 16.'
+valid_61   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: You didn't suggest a specific type of dressing, you only ask
+            asis      [['semantic', 3], ['conversation', 6]]  'Speaker 1 said earlier: "Maybe a lite dressing with it."'
+            nosem     [['conversation', 6]]  'According to the conversation, Speaker 1 said: "Maybe a lite dressing with it."'
+            convonly  [['conversation', 6]]  'According to the conversation, Speaker 1 said: "Maybe a lite dressing with it."'
+            chrono    [['semantic', 3], ['conversation', 6]]  'Speaker 1 said earlier: "Maybe a lite dressing with it."'
+            top3      [['semantic', 3], ['conversation', 3]]  'Speaker 1 said earlier: "Maybe a lite dressing with it."'
+valid_62   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Hooters!
+            asis      [['conversation', 6]]  'I wish I could buy a car. I cannot afford it on a housekeeper wage.'
+            nosem     [['conversation', 6]]  'I wish I could buy a car. I cannot afford it on a housekeeper wage.'
+            convonly  [['conversation', 6]]  'I wish I could buy a car. I cannot afford it on a housekeeper wage.'
+            chrono    [['conversation', 6]]  'I wish I could buy a car. I cannot afford it on a housekeeper wage.'
+            top3      [['conversation', 3]]  'I remember that conversation. You mentioned that you used to be a painter and that it was a good life.'
+valid_63   run=- asis=- nosem=- convonly=- chrono=- top3=Y  gold: Electric bagpipes!
+            asis      [['semantic', 1], ['conversation', 6]]  'You said: "So do I! You do have a fair amount of musical talent! Writing, singing, playing an instrument. I wi'
+            nosem     [['conversation', 6]]  'You mentioned earlier that I said: "So do I!  You do have a fair amount of musical talent!  writing, singing, '
+            convonly  [['conversation', 6]]  'You mentioned earlier that I said: "So do I!  You do have a fair amount of musical talent!  writing, singing, '
+            chrono    [['semantic', 1], ['conversation', 6]]  'You said: "So do I! You do have a fair amount of musical talent! Writing, singing, playing an instrument. I wi'
+            top3      [['semantic', 1], ['conversation', 3]]  'You said earlier that you play Scottish black metal on the electric bag pipes.'
+valid_65   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: The humidity!
+            asis      [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning something they didn't like about the weather in Texas. The con"
+            nosem     [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning something they didn't like about the weather in Texas. The con"
+            convonly  [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning something they didn't like about the weather in Texas. The con"
+            chrono    [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning something they didn't like about the weather in Texas. The con"
+            top3      [['conversation', 3]]  "I'm sorry, but it seems that the memory context does not contain any information about a conversation where Sp"
+valid_66   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: I can speak 2 languages, Spanish and English.
+            asis      [['conversation', 6]]  'I remember that conversation. You said, "I\'m up to three."'
+            nosem     [['conversation', 6]]  'I remember that conversation. You said, "I\'m up to three."'
+            convonly  [['conversation', 6]]  'I remember that conversation. You said, "I\'m up to three."'
+            chrono    [['conversation', 6]]  'I remember that conversation. You said, "I\'m up to three."'
+            top3      [['conversation', 3]]  'I can answer that question. Speaker 2 said: "I\'m up to three."'
+valid_69   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: The Walking Dead!
+            asis      [['conversation', 6]]  'I remember our conversation about TV shows. You asked me about my favorite, and I said "I always liked Maggie '
+            nosem     [['conversation', 6]]  'I remember our conversation about TV shows. You asked me about my favorite, and I said "I always liked Maggie '
+            convonly  [['conversation', 6]]  'I remember our conversation about TV shows. You asked me about my favorite, and I said "I always liked Maggie '
+            chrono    [['conversation', 6]]  'I remember our conversation about TV shows. You asked me about my favorite, and I said "I always liked Maggie '
+            top3      [['conversation', 3]]  "I don't have any information about Speaker 1 mentioning a favorite TV show in the provided context. However, I"
+valid_68   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Because Pluto is a dog and he is in Disney!
+            asis      [['semantic', 1], ['conversation', 6]]  "I don't have any memory of giving a reason why you could definitely go to Disney. The conversation only mentio"
+            nosem     [['conversation', 6]]  "I'm afraid I don't have any information about why you could definitely go to Disney. The conversation only men"
+            convonly  [['conversation', 6]]  "I'm afraid I don't have any information about why you could definitely go to Disney. The conversation only men"
+            chrono    [['semantic', 1], ['conversation', 6]]  "I don't have any memory of giving a reason why you could definitely go to Disney. The conversation only mentio"
+            top3      [['semantic', 1], ['conversation', 3]]  "I don't have any memory of Speaker 1 giving a reason why Speaker 2 could definitely go to Disney. In fact, Spe"
+valid_70   run=- asis=- nosem=- convonly=- chrono=- top3=Y  gold: I got hired as a life coach!
+            asis      [['conversation', 6]]  'Speaker 1 said earlier: "I was a part-time athletic trainer. I feel like my experience as an athletic trainer '
+            nosem     [['conversation', 6]]  'Speaker 1 said earlier: "I was a part-time athletic trainer. I feel like my experience as an athletic trainer '
+            convonly  [['conversation', 6]]  'Speaker 1 said earlier: "I was a part-time athletic trainer. I feel like my experience as an athletic trainer '
+            chrono    [['conversation', 6]]  'Speaker 1 said earlier: "I was a part-time athletic trainer. I feel like my experience as an athletic trainer '
+            top3      [['conversation', 3]]  'I just got hired yesterday as a life coach, thanks for asking.'
+valid_77   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Yeah, I finished school in 1995.
+            asis      [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "Not from my company, I\'ll have to file for unemployment benefits. I\'m going to take this time'
+            nosem     [['conversation', 6]]  'I said: "Not from my company, I\'ll have to file for unemployment benefits. I\'m going to take this time to look'
+            convonly  [['conversation', 6]]  'I said: "Not from my company, I\'ll have to file for unemployment benefits. I\'m going to take this time to look'
+            chrono    [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "Not from my company, I\'ll have to file for unemployment benefits. I\'m going to take this time'
+            top3      [['semantic', 2], ['conversation', 3]]  "I don't have any information about Speaker 1's job or education history. However, I do have a conversation fro"
+valid_73   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=Y  gold: It was 1 cup of peanut butter, 1 cup of sugar, and 1 egg. Mi
+            asis      [['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 shared the following earlier:\n\n1c pb, 1c su'
+            nosem     [['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 shared the following earlier:\n\n1c pb, 1c su'
+            convonly  [['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 shared the following earlier:\n\n1c pb, 1c su'
+            chrono    [['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 shared the following earlier:\n\n1c pb, 1c su'
+            top3      [['conversation', 3]]  'Speaker 1 said: "1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10 12 mins."'
+valid_79   run=- asis=- nosem=- convonly=- chrono=- top3=-  gold: Have a bottle of wine.
+            asis      [['conversation', 6]]  'Speaker 1 said: "I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn\'t known'
+            nosem     [['conversation', 6]]  'Speaker 1 said: "I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn\'t known'
+            convonly  [['conversation', 6]]  'Speaker 1 said: "I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn\'t known'
+            chrono    [['conversation', 6]]  'Speaker 1 said: "I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn\'t known'
+            top3      [['conversation', 3]]  'Speaker 1 said: "Mine too! We get into it at towards the end of our American history class, but only for a cou'
+valid_80   run=Y asis=Y nosem=Y convonly=Y chrono=Y top3=-  gold: I have 3 dogs!
+            asis      [['conversation', 6]]  'Speaker 2 asked how many dogs Speaker 1 has. Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs '
+            nosem     [['conversation', 6]]  'Speaker 2 asked how many dogs Speaker 1 has. Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs '
+            convonly  [['conversation', 6]]  'Speaker 2 asked how many dogs Speaker 1 has. Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs '
+            chrono    [['conversation', 6]]  'Speaker 2 asked how many dogs Speaker 1 has. Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs '
+            top3      [['conversation', 3]]  'I have a memory of our conversation. You asked how many dogs I have, and I said: "Well my dogs won\'t pull your'
+
+r24b-dmr-q50-fields.json: 50 questions replayed; run accuracy on them 0.500
+  asis reproduced the run's answer verbatim on 50/50
+  asis      0.500  (25/50)
+  nosem     0.540  (27/50)
+  convonly  0.540  (27/50)
+  chrono    0.500  (25/50)
+  top3      0.600  (30/50)
