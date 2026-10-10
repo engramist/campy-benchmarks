@@ -96,8 +96,9 @@ class BaselineLLM:
         except (urllib.error.URLError, TimeoutError, OSError) as e:
             raise LLMError(f"cannot reach {url}: {e}") from e
 
-    def chat(self, messages: List[Dict[str, str]]) -> Dict[str, Any]:
-        """Return {"text", "latency_ms", "prompt_tokens_est", "num_ctx"}."""
+    def chat(self, messages: List[Dict[str, str]], max_tokens: Optional[int] = None) -> Dict[str, Any]:
+        """Return {"text", "latency_ms", "prompt_tokens_est", "num_ctx"}. `max_tokens` caps the
+        reply (None = no cap, the default, so answering calls are unchanged)."""
         self.calls += 1
         prompt_tokens = sum(estimate_tokens(m["content"]) for m in messages)
         t0 = time.perf_counter()
@@ -109,15 +110,18 @@ class BaselineLLM:
             num_ctx = 4096
             while num_ctx < need and num_ctx < 131072:
                 num_ctx *= 2
+            options: Dict[str, Any] = {"temperature": 0.0, "num_ctx": num_ctx}
+            if max_tokens:
+                options["num_predict"] = int(max_tokens)
             data = self._post(f"{root}/api/chat", {
-                "model": self.model, "messages": messages, "stream": False,
-                "options": {"temperature": 0.0, "num_ctx": num_ctx},
+                "model": self.model, "messages": messages, "stream": False, "options": options,
             })
             text = (data.get("message") or {}).get("content", "")
         else:
-            data = self._post(f"{self.base_url}/chat/completions", {
-                "model": self.model, "messages": messages, "temperature": 0.0,
-            })
+            body: Dict[str, Any] = {"model": self.model, "messages": messages, "temperature": 0.0}
+            if max_tokens:
+                body["max_tokens"] = int(max_tokens)
+            data = self._post(f"{self.base_url}/chat/completions", body)
             try:
                 text = data["choices"][0]["message"]["content"] or ""
             except (KeyError, IndexError, TypeError) as e:

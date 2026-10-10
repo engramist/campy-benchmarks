@@ -157,11 +157,29 @@ def build_judge_prompt(question: str, gold: str, answer: str, persona: bool = Fa
     return f"{head}\n\n{rest}"
 
 
+JUDGE_MAX_TOKENS = 256  # the verdict is one word; a cap stops a degenerate generation
+JUDGE_ATTEMPTS = 2       # one retry, then the verdict is recorded as a judge error
+
+
 def _judge_call(judge_llm, question: str, gold: str, answer: str, persona: bool, variant: int) -> Dict[str, Any]:
-    res = judge_llm.chat([
+    from llm_client import LLMError
+    messages = [
         {"role": "system", "content": JUDGE_SYSTEM},
         {"role": "user", "content": build_judge_prompt(question, gold, answer, persona, variant)},
-    ])
+    ]
+    err = None
+    for _ in range(JUDGE_ATTEMPTS):
+        try:
+            try:
+                res = judge_llm.chat(messages, max_tokens=JUDGE_MAX_TOKENS)
+            except TypeError:  # a judge without the max_tokens argument (test fakes)
+                res = judge_llm.chat(messages)
+            break
+        except LLMError as e:  # e.g. Ollama aborting a repeating generation (HTTP 500)
+            err = e
+    else:
+        # one bad call must not end a run: WRONG, marked so it can be counted and re-judged
+        return {"judge": False, "judge_raw": str(err)[:200], "reason": "judge_error"}
     m = _VERDICT.search(res["text"].upper())
     if not m:
         return {"judge": False, "judge_raw": res["text"][:200], "reason": "judge_unparseable"}
