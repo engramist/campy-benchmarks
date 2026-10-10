@@ -1,0 +1,808 @@
+valid_1    run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Taylor Swift!
+            asis       [['semantic', 2], ['conversation', 6]]  'Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            nosem      [['conversation', 6]]  'I can get into Taylor Swift.'
+            convonly   [['conversation', 6]]  'I can get into Taylor Swift.'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'I remember that conversation about music. You mentioned earlier that you could get into Taylor Swift.'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Speaker 1 mentioned earlier that they could get into Taylor Swift.'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Speaker 1 mentioned earlier that they could get into Taylor Swift.'
+valid_2    run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: I eat a fresh and raw diet to save on groceries.
+            asis       [['semantic', 8], ['conversation', 6]]  'I remember that conversation. You said to Speaker 2: "I know previously you have said you want to learn how to'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            oldest3    [['semantic', 8], ['conversation', 3]]  'Speaker 1 said: "If you\'d like I can show you how to coupon to help save money when you go back in school."'
+            limit3     [['semantic', 8], ['conversation', 3]]  'Speaker 1 said: "If you\'d like I can show you how to coupon to help save money when you go back in school."'
+            limit4     [['semantic', 8], ['conversation', 4]]  'I remember that conversation. Speaker 2 asked for advice on saving money, and I said: "If you\'d like I can sho'
+            rankorder  [['semantic', 8], ['conversation', 6]]  'Based on the conversation history, Speaker 1 said: "If you\'d like I can show you how to coupon to help save mo'
+valid_0    run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: I used to work in the human services field.
+            asis       [['semantic', 6], ['conversation', 6]]  'Speaker 1 said earlier: "I used to work in the human services field."'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I used to work in the human services field."'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I used to work in the human services field."'
+            oldest3    [['semantic', 6], ['conversation', 3]]  'Speaker 1 said: "I used to work in the human services field."'
+            limit3     [['semantic', 6], ['conversation', 3]]  'Speaker 1 said: "I used to work in the human services field."'
+            limit4     [['semantic', 6], ['conversation', 4]]  'Speaker 1 said: "I used to work in the human services field."'
+            rankorder  [['semantic', 6], ['conversation', 6]]  'Speaker 1 said: "I used to work in the human services field."'
+valid_10   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Burger King!
+            asis       [['semantic', 5], ['conversation', 6]]  'Speaker 1 said: "I am working part time." However, there is no specific information about the fast food place '
+            nosem      [['conversation', 6]]  'I am studying education and working part time.'
+            convonly   [['conversation', 6]]  'I am studying education and working part time.'
+            oldest3    [['semantic', 5], ['conversation', 3]]  'Speaker 1 said: "I am working at a fast food place."'
+            limit3     [['semantic', 5], ['conversation', 3]]  'Speaker 1 said: "I am studying education and working part time."'
+            limit4     [['semantic', 5], ['conversation', 4]]  'Speaker 1 said: "I am studying education and working part time." However, there is no mention of the specific '
+            rankorder  [['semantic', 5], ['conversation', 6]]  'Speaker 1 said: "I am working at a fast food place."'
+valid_7    run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Three miles!
+            asis       [['semantic', 3], ['conversation', 6]]  'According to our conversation, you mentioned that a three-mile walk is key for a small workout.'
+            nosem      [['conversation', 6]]  'Speaker 1 mentioned earlier that a three-mile walk is key for a small workout.'
+            convonly   [['conversation', 6]]  'Speaker 1 mentioned earlier that a three-mile walk is key for a small workout.'
+            oldest3    [['semantic', 3], ['conversation', 3]]  'Based on the conversation memory, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+            limit3     [['semantic', 3], ['conversation', 3]]  'Based on the conversation memory, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+            limit4     [['semantic', 3], ['conversation', 4]]  'Based on the conversation memory, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'According to our conversation, you mentioned that a three-mile walk is key for a small workout.'
+valid_6    run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: I have a cat.
+            asis       [['semantic', 6], ['conversation', 6]]  "I don't have any information about Speaker 1's pet in the provided memory context. The conversation mentions v"
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I have. I used to volunteer at an animal shelter, but that requires me to chase animals aroun'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I have. I used to volunteer at an animal shelter, but that requires me to chase animals aroun'
+            oldest3    [['semantic', 6], ['conversation', 3]]  "I don't have any information about Speaker 1's pet. The conversation only mentions bird watching, but it's Spe"
+            limit3     [['semantic', 6], ['conversation', 3]]  "I don't have any information about Speaker 1's pet. The conversation only mentions bird watching, the soup kit"
+            limit4     [['semantic', 6], ['conversation', 4]]  "I don't have any information about Speaker 1's pet. The conversation only mentions bird watching and volunteer"
+            rankorder  [['semantic', 6], ['conversation', 6]]  "I don't have any information about Speaker 1's pet in the provided memory context. The conversation mentions v"
+valid_14   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Clueless!
+            asis       [['semantic', 3], ['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions discussing favorite movies, "
+            nosem      [['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions favorite movies, but Speaker"
+            convonly   [['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions favorite movies, but Speaker"
+            oldest3    [['semantic', 3], ['conversation', 3]]  "I don't have any memory of Speaker 2 mentioning their favorite movie earlier in the conversation. The conversa"
+            limit3     [['semantic', 3], ['conversation', 3]]  "I'm sorry, but I don't have enough information to answer the question. The conversation memory only shows a di"
+            limit4     [['semantic', 3], ['conversation', 4]]  "I don't have any memory of Speaker 2 mentioning their favorite movie earlier in the conversation. The conversa"
+            rankorder  [['semantic', 3], ['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions favorite movies, but I don't"
+valid_11   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: It's a cow!
+            asis       [['semantic', 7], ['conversation', 6]]  'Speaker 1 said earlier: "My pet cow is sick."'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "The only company I have is my pet cow."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "The only company I have is my pet cow."'
+            oldest3    [['semantic', 7], ['conversation', 3]]  'Speaker 1 said: "My pet cow is sick." (from Session 2, 7 days ago)'
+            limit3     [['semantic', 7], ['conversation', 3]]  'Speaker 1 said: "My pet cow is sick." (from Session 2, 7 days ago)'
+            limit4     [['semantic', 7], ['conversation', 4]]  'Speaker 1 said: "My pet cow is sick." (from Session 2, 7 days ago)'
+            rankorder  [['semantic', 7], ['conversation', 6]]  'Speaker 1 said: "My pet cow is sick." (from Session 2, 7 days ago)'
+valid_13   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: I was three!
+            asis       [['semantic', 4], ['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            oldest3    [['semantic', 4], ['conversation', 3]]  'Speaker 1 said: "Hello! I was three when I learned to play guitar!"'
+            limit3     [['semantic', 4], ['conversation', 3]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            limit4     [['semantic', 4], ['conversation', 4]]  'Speaker 1 said: "Hello! I was three when I learned to play guitar!"'
+            rankorder  [['semantic', 4], ['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+valid_12   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: You mentioned you'd like to go to culinary school!
+            asis       [['semantic', 4], ['conversation', 6]]  "I'm sorry, but I don't have enough information to answer the question. The conversation history doesn't mentio"
+            nosem      [['conversation', 6]]  "I'm afraid I don't have any memory of a conversation about post-retirement plans or what you wanted to learn i"
+            convonly   [['conversation', 6]]  "I'm afraid I don't have any memory of a conversation about post-retirement plans or what you wanted to learn i"
+            oldest3    [['semantic', 4], ['conversation', 3]]  "I'm Campy, the AI memory assistant. Based on the provided context, I don't have any information about a conver"
+            limit3     [['semantic', 4], ['conversation', 3]]  "I'm sorry, but I don't have enough information in the provided context to answer the question. The conversatio"
+            limit4     [['semantic', 4], ['conversation', 4]]  "I'm sorry, but I don't have enough information in the provided context to answer the question. The conversatio"
+            rankorder  [['semantic', 4], ['conversation', 6]]  "I don't have any information about Speaker 2's post-retirement plans or what they wanted to learn in their fre"
+valid_19   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Construction, like my dad.
+            asis       [['semantic', 2], ['conversation', 6]]  'I remember now. I said, "I work for someone. I got the job through my dad. They company and owner have been go'
+            nosem      [['conversation', 6]]  'I remember that time we talked about our jobs. You said, "I work for someone. I got the job through my dad. Th'
+            convonly   [['conversation', 6]]  'I remember that time we talked about our jobs. You said, "I work for someone. I got the job through my dad. Th'
+            oldest3    [['semantic', 2], ['conversation', 3]]  "I don't have any information about what I said about my job. The conversation only mentions Speaker 2's job as"
+            limit3     [['semantic', 2], ['conversation', 3]]  "I don't have any memory of a conversation where Speaker 1 mentioned their job. The conversation history only m"
+            limit4     [['semantic', 2], ['conversation', 4]]  'I remember what I said earlier. I work for someone. I got the job through my dad. They company and owner have '
+            rankorder  [['semantic', 2], ['conversation', 6]]  'I remember now. You said, "I work for someone. I got the job through my dad. They company and owner have been '
+r20a-dmr-q50-baselines.json /tmp/campy-bench-guztu1v4: replay failed: libc++abi: terminating due to uncaught exception of type std::__1::system_error: recursive_mutex lock failed: Invalid argument
+
+valid_17   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Yellow!
+            asis       [['semantic', 3], ['conversation', 6]]  'Speaker 1 said: "I wear a yellow construction worker hat to Aerosmith concerts."'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier that the hat they wear to Aerosmith concerts is yellow.'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier that the hat they wear to Aerosmith concerts is yellow.'
+            oldest3    [['semantic', 3], ['conversation', 3]]  'Speaker 1 mentioned wearing a yellow construction worker hat to Aerosmith concerts.'
+            limit3     [['semantic', 3], ['conversation', 3]]  'Speaker 1 mentioned wearing a yellow construction worker hat to Aerosmith concerts.'
+            limit4     [['semantic', 3], ['conversation', 4]]  'Speaker 1 said: "I wear a yellow construction worker hat to Aerosmith concerts."'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'Speaker 1 mentioned wearing a yellow construction worker hat to Aerosmith concerts.'
+valid_18   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: He's an army soldier.
+            asis       [['semantic', 5], ['conversation', 6]]  'My dad is an army soldier.'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "My dad is an army soldier."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "My dad is an army soldier."'
+            oldest3    [['semantic', 5], ['conversation', 3]]  'Speaker 1 told Speaker 2 that their dad is an army soldier.'
+            limit3     [['semantic', 5], ['conversation', 3]]  'Speaker 1 said: "My dad is an army soldier."'
+            limit4     [['semantic', 5], ['conversation', 4]]  'Speaker 1 said: "My dad is an army soldier."'
+            rankorder  [['semantic', 5], ['conversation', 6]]  'Speaker 1 said: "My dad is an army soldier."'
+valid_23   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=Y rankorder=Y  gold: He was a manager at Home Depot.
+            asis       [['semantic', 8], ['conversation', 6]]  'Speaker 1 said: "My father was manager there." (from Session 1, 14 days 7 hours ago)'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            oldest3    [['semantic', 8], ['conversation', 3]]  'Speaker 1 said: "My father was manager there." (from Session 1, 14 days 7 hours ago)'
+            limit3     [['semantic', 8], ['conversation', 3]]  'Speaker 1 said: "My father helps out too."'
+            limit4     [['semantic', 8], ['conversation', 4]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            rankorder  [['semantic', 8], ['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+valid_20   run=Y asis=Y nosem=Y convonly=Y oldest3=- limit3=Y limit4=Y rankorder=Y  gold: Yeah, he used to tell World War II stories that absolutely s
+            asis       [['semantic', 3], ['conversation', 6]]  'Speaker 1 said earlier: "That sounds scary. I was scared by my grandfather telling WWII stories."'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "That sounds scary. I was scared by my grandfather telling WWII stories."'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "That sounds scary. I was scared by my grandfather telling WWII stories."'
+            oldest3    [['semantic', 3], ['conversation', 3]]  "I don't have any information about Speaker 1's childhood fears or what used to scare them when their grandfath"
+            limit3     [['semantic', 3], ['conversation', 3]]  'Speaker 1 said earlier: "That sounds scary. I was scared by my grandfather telling WWII stories."'
+            limit4     [['semantic', 3], ['conversation', 4]]  'Speaker 1 said earlier: "That sounds scary. I was scared by my grandfather telling WWII stories."'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'Speaker 1 said: "That sounds scary. I was scared by my grandfather telling WWII stories."'
+valid_24   run=Y asis=Y nosem=- convonly=- oldest3=Y limit3=- limit4=- rankorder=-  gold: Aerosmith!
+            asis       [['semantic', 4], ['conversation', 6]]  'Speaker 2 said: "Nice. I listen to a lot of aerosmith, they\'re my favorite."'
+            nosem      [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning a band apart from Metallica in a previous conversation. The co"
+            convonly   [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning a band apart from Metallica in a previous conversation. The co"
+            oldest3    [['semantic', 4], ['conversation', 3]]  'Speaker 2 said: "Nice. I listen to a lot of Aerosmith, they\'re my favorite."'
+            limit3     [['semantic', 4], ['conversation', 3]]  'I\'m happy to help you recall the conversation. According to the conversation memory, Speaker 2 (you) said: "on'
+            limit4     [['semantic', 4], ['conversation', 4]]  'I\'ve searched the conversation history and found a relevant statement. Speaker 2 said: "one of my favorites" ('
+            rankorder  [['semantic', 4], ['conversation', 6]]  'I\'m happy to help you answer Speaker 1\'s question. According to the conversation, Speaker 2 said: "Nice. I lis'
+valid_28   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Trooper!
+            asis       [['semantic', 6], ['conversation', 6]]  'Speaker 1 said: "He is a black lab named Trooper, he is a great hiking buddy!"'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "He is a black lab named Trooper, he is a great hiking buddy!"'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "He is a black lab named Trooper, he is a great hiking buddy!"'
+            oldest3    [['semantic', 6], ['conversation', 3]]  'Speaker 1 said: "He is a black lab named Trooper, he is a great hiking buddy!"'
+            limit3     [['semantic', 6], ['conversation', 3]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            limit4     [['semantic', 6], ['conversation', 4]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            rankorder  [['semantic', 6], ['conversation', 6]]  "My dog's name is Trooper. He's a black lab and a great hiking buddy!"
+valid_29   run=Y asis=Y nosem=Y convonly=Y oldest3=- limit3=Y limit4=Y rankorder=Y  gold: The attic!
+            asis       [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "we keep him in the attic."'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "we keep him in the attic."'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "we keep him in the attic."'
+            oldest3    [['semantic', 4], ['conversation', 3]]  "I don't have any information about the favorite play area of your fifth son in the house. The conversation onl"
+            limit3     [['semantic', 4], ['conversation', 3]]  'Speaker 1 said: "we keep him in the attic."'
+            limit4     [['semantic', 4], ['conversation', 4]]  'Speaker 1 said earlier: "we keep him in the attic."'
+            rankorder  [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "I\'ve to decline, my fifth son is my least favorite ; we keep him in the attic."'
+valid_31   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Lawn mowing!
+            asis       [['semantic', 7], ['conversation', 6]]  'You mentioned you enjoy doing something outdoors on sunny days, what was it?\n\nYou said: "I also enjoy lawn mow'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I also enjoy lawn mowing on sunny days."'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I also enjoy lawn mowing on sunny days."'
+            oldest3    [['semantic', 7], ['conversation', 3]]  'You mentioned you enjoy lawn mowing on sunny days.'
+            limit3     [['semantic', 7], ['conversation', 3]]  'I remember that conversation. Speaker 1 said: "Yes it sucks loosing I also enjoy lawn mowing on sunny days."'
+            limit4     [['semantic', 7], ['conversation', 4]]  'Based on the conversation, Speaker 1 mentioned enjoying lawn mowing on sunny days and also mentioned liking or'
+            rankorder  [['semantic', 7], ['conversation', 6]]  'I remember that conversation. You (Speaker 1) mentioned that you enjoy lawn mowing on sunny days, and also tha'
+valid_34   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=Y rankorder=Y  gold: I said I was turning 83.
+            asis       [['semantic', 8], ['conversation', 6]]  'I turn 83 in a month.'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            oldest3    [['semantic', 8], ['conversation', 3]]  'Speaker 1 said: "I turn 83 in a month."'
+            limit3     [['semantic', 8], ['conversation', 3]]  'Speaker 1 said: "I am considering retiring on my 85th birthday."'
+            limit4     [['semantic', 8], ['conversation', 4]]  'Speaker 1 said: "I turn 83 in a month."'
+            rankorder  [['semantic', 8], ['conversation', 6]]  'I remember that time we talked about your birthday. You said you turn 83 in a month.'
+valid_37   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Country music!
+            asis       [['semantic', 4], ['conversation', 6]]  "You mentioned earlier that you're always playing country music in your big truck!"
+            nosem      [['conversation', 6]]  'You mentioned earlier that you always play country music in your big truck.'
+            convonly   [['conversation', 6]]  'You mentioned earlier that you always play country music in your big truck.'
+            oldest3    [['semantic', 4], ['conversation', 3]]  "I remember that conversation. You mentioned that you're always playing country music in your big truck."
+            limit3     [['semantic', 4], ['conversation', 3]]  "Based on the conversation memory, Speaker 1 asked about Speaker 2's favorite music, but Speaker 2 didn't menti"
+            limit4     [['semantic', 4], ['conversation', 4]]  'I remember that conversation. Speaker 1 asked about your favorite music, and you mentioned earlier that you li'
+            rankorder  [['semantic', 4], ['conversation', 6]]  "I remember that conversation! You mentioned earlier that you're always playing country music in your big truck"
+valid_38   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: About 15k.
+            asis       [['semantic', 5], ['conversation', 6]]  'I recall that Speaker 1 asked about your average salary, and you replied: "About 15k. I spend most of that on '
+            nosem      [['conversation', 6]]  'Speaker 2 said: "About 15k."'
+            convonly   [['conversation', 6]]  'Speaker 2 said: "About 15k."'
+            oldest3    [['semantic', 5], ['conversation', 3]]  'Speaker 2: About 15k. I spend most of that on weekend clubs and raves though.'
+            limit3     [['semantic', 5], ['conversation', 3]]  'Speaker 2: About 15k. I spend most of that on weekend clubs and raves though.'
+            limit4     [['semantic', 5], ['conversation', 4]]  'Speaker 2: About 15k. I spend most of that on weekend clubs and raves though.'
+            rankorder  [['semantic', 5], ['conversation', 6]]  'I recall that Speaker 1 asked you about your average salary, and you responded with: "About 15k. I spend most '
+valid_39   run=Y asis=Y nosem=Y convonly=Y oldest3=- limit3=Y limit4=Y rankorder=Y  gold: I didn't mention the exact amount, but I did say that it was
+            asis       [['semantic', 4], ['conversation', 6]]  'Speaker 1 said: "Come run a few laps here, it is quite a few acres!"'
+            nosem      [['conversation', 6]]  'I said: "Come run a few laps here, it is quite a few acres!"'
+            convonly   [['conversation', 6]]  'I said: "Come run a few laps here, it is quite a few acres!"'
+            oldest3    [['semantic', 4], ['conversation', 3]]  'I remember that conversation. You asked about working out on my farm, and I said that I get my exercise tendin'
+            limit3     [['semantic', 4], ['conversation', 3]]  'Speaker 1 said: "Come run a few laps here, it is quite a few acres!"'
+            limit4     [['semantic', 4], ['conversation', 4]]  'Speaker 1 said: "Come run a few laps here, it is quite a few acres!"'
+            rankorder  [['semantic', 4], ['conversation', 6]]  "I remember that conversation. You asked me about my farm, and I said it's quite a few acres."
+valid_43   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Scorpions!
+            asis       [['semantic', 7], ['conversation', 6]]  "I don't have any information about Speaker 1 mentioning something that scares them. The conversation history o"
+            nosem      [['conversation', 6]]  "I'm afraid I don't have any information about Speaker 1 mentioning something that scares them. The conversatio"
+            convonly   [['conversation', 6]]  "I'm afraid I don't have any information about Speaker 1 mentioning something that scares them. The conversatio"
+            oldest3    [['semantic', 7], ['conversation', 3]]  "I don't have any information about Speaker 1 mentioning something that scares them. The conversation only show"
+            limit3     [['semantic', 7], ['conversation', 3]]  "I don't have any information about what Speaker 1 mentioned as something that scares them. The conversation me"
+            limit4     [['semantic', 7], ['conversation', 4]]  "I don't have any memory of Speaker 1 mentioning something that scares them. The conversation history only show"
+            rankorder  [['semantic', 7], ['conversation', 6]]  "I don't have any information about Speaker 1 mentioning something that scares them. The conversation history o"
+valid_42   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: The Rolling Stones!
+            asis       [['semantic', 4], ['conversation', 6]]  'I remember now. I told you that I see the Rolling Stones every year.'
+            nosem      [['conversation', 6]]  'I remember now. I told you that I love to spend time to myself, and every year I see the Rolling Stones.'
+            convonly   [['conversation', 6]]  'I remember now. I told you that I love to spend time to myself, and every year I see the Rolling Stones.'
+            oldest3    [['semantic', 4], ['conversation', 3]]  "The band you're referring to is the Rolling Stones. I mentioned that I see them every year."
+            limit3     [['semantic', 4], ['conversation', 3]]  "The band you're referring to is the Rolling Stones. I mentioned that I see them every year."
+            limit4     [['semantic', 4], ['conversation', 4]]  'The band you see every year is the Rolling Stones.'
+            rankorder  [['semantic', 4], ['conversation', 6]]  "The band you're referring to is the Rolling Stones. I mentioned that I see them every year."
+valid_44   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: It has 3 bedrooms!
+            asis       [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "Yeah I have a house with 3 bedrooms and I am the only one here."'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "Yeah I have a house with 3 bedrooms and I am the only one here."'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "Yeah I have a house with 3 bedrooms and I am the only one here."'
+            oldest3    [['semantic', 4], ['conversation', 3]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+            limit3     [['semantic', 4], ['conversation', 3]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+            limit4     [['semantic', 4], ['conversation', 4]]  'Speaker 1 said: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+            rankorder  [['semantic', 4], ['conversation', 6]]  'Speaker 1 said: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+valid_45   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Beijing!
+            asis       [['semantic', 4], ['conversation', 6]]  "I don't have enough information to answer the question. The conversation about pets on a rainy day is not ment"
+            nosem      [['conversation', 6]]  "I don't have any information about a specific conversation where Speaker 1 asked Speaker 2 about a rainy day a"
+            convonly   [['conversation', 6]]  "I don't have any information about a specific conversation where Speaker 1 asked Speaker 2 about a rainy day a"
+            oldest3    [['semantic', 4], ['conversation', 3]]  'Based on the conversation memory, Speaker 2 said: "Ma. I was gonna finish a roof today. At least the cats will'
+            limit3     [['semantic', 4], ['conversation', 3]]  "I don't have enough information to answer the question. The context only mentions Speaker 1's conversation abo"
+            limit4     [['semantic', 4], ['conversation', 4]]  "I don't have any information about Speaker 2's response to the question about where they were staying during a"
+            rankorder  [['semantic', 4], ['conversation', 6]]  'I remember that conversation. You said: "Ma. I was gonna finish a roof today. At least the cats will not miss '
+valid_46   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Dog agility!
+            asis       [['semantic', 3], ['conversation', 6]]  'Speaker 1 said: "Makes the time pass... competing in dog agility."'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "Makes the time pass... competing in dog agility."'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "Makes the time pass... competing in dog agility."'
+            oldest3    [['semantic', 3], ['conversation', 3]]  'Based on the conversation history, Speaker 1 mentioned earlier that their hobby is competing in dog agility.'
+            limit3     [['semantic', 3], ['conversation', 3]]  'Based on the conversation history, Speaker 1 mentioned earlier that their hobby is competing in dog agility.'
+            limit4     [['semantic', 3], ['conversation', 4]]  'Based on the conversation history, Speaker 1 mentioned earlier that their hobby is competing in dog agility.'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'Speaker 1 said: "Makes the time pass... competing in dog agility."'
+valid_47   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=- rankorder=Y  gold: A lawyer!
+            asis       [['conversation', 6]]  'Speaker 1 said: "I would love to move to a big city and become a lawyer."'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I would love to move to a big city and become a lawyer."'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I would love to move to a big city and become a lawyer."'
+            oldest3    [['conversation', 3]]  'Speaker 1 said: "I would love to move to a big city and become a lawyer."'
+            limit3     [['conversation', 3]]  "I'm afraid I don't have any information about a conversation where we discussed personal interests and ambitio"
+            limit4     [['conversation', 4]]  "I'm afraid I don't have any information about a conversation where we discussed personal interests and ambitio"
+            rankorder  [['conversation', 6]]  'Speaker 1 said earlier: "I would love to move to a big city and become a lawyer."'
+valid_49   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: The violin!
+            asis       [['semantic', 6], ['conversation', 6]]  'Based on the conversation memory, Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+            oldest3    [['semantic', 6], ['conversation', 3]]  'Based on the conversation memory, Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+            limit3     [['semantic', 6], ['conversation', 3]]  'Based on the conversation memory, Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+            limit4     [['semantic', 6], ['conversation', 4]]  "Speaker 1 said earlier that they played the violin last year in band, but they didn't like it."
+            rankorder  [['semantic', 6], ['conversation', 6]]  'I remember that conversation. Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+valid_50   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Yes, I originally come from Somalia.
+            asis       [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "I\'m from far away."'
+            nosem      [['conversation', 6]]  "I'm from far away."
+            convonly   [['conversation', 6]]  "I'm from far away."
+            oldest3    [['semantic', 2], ['conversation', 3]]  "I'm from far away."
+            limit3     [['semantic', 2], ['conversation', 3]]  "I'm from far away."
+            limit4     [['semantic', 2], ['conversation', 4]]  "I'm from far away."
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "I\'m from far away."'
+valid_55   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Psychology.
+            asis       [['semantic', 2], ['conversation', 6]]  'I remember that time we talked about my studies. I said I majored in Psychology. I read a lot of psych journal'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "Psychology. I read a lot of psych journals in my free time as well."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "Psychology. I read a lot of psych journals in my free time as well."'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'I remember that time we talked about my studies. I said I majored in Psychology. I read a lot of psych journal'
+            limit3     [['semantic', 2], ['conversation', 3]]  'I remember that time we talked about my studies. I said I majored in Psychology. I read a lot of psych journal'
+            limit4     [['semantic', 2], ['conversation', 4]]  'I remember that time we talked about my studies. I said I majored in Psychology. I read a lot of psych journal'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Speaker 1 said earlier: "Psychology. I read a lot of psych journals in my free time as well."'
+valid_51   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: California!
+            asis       [['semantic', 5], ['conversation', 6]]  "I don't recall mentioning a specific place where my audio studio was located. However, I did mention that my s"
+            nosem      [['conversation', 6]]  "I don't recall mentioning a specific place where my audio studio was located. However, I did mention that my s"
+            convonly   [['conversation', 6]]  "I don't recall mentioning a specific place where my audio studio was located. However, I did mention that my s"
+            oldest3    [['semantic', 5], ['conversation', 3]]  'Speaker 1 said: "My studio is tanking after the decline of the market."'
+            limit3     [['semantic', 5], ['conversation', 3]]  'Speaker 1 mentioned earlier that their audio studio was located in a place that was being affected by the decl'
+            limit4     [['semantic', 5], ['conversation', 4]]  "I don't recall mentioning a specific place where my audio studio was located. However, I did mention that my s"
+            rankorder  [['semantic', 5], ['conversation', 6]]  'Speaker 1 said: "Sadly no, they can be very destructive in an audio booth." However, this doesn\'t seem to be r'
+valid_58   run=Y asis=Y nosem=Y convonly=Y oldest3=- limit3=Y limit4=- rankorder=Y  gold: Yes, I'm hoping they're Omnivores.
+            asis       [['semantic', 5], ['conversation', 6]]  'I remember that conversation. You asked me about my hopes for my girls\' dietary preferences, and I said: "Two '
+            nosem      [['conversation', 6]]  'I remember that conversation. You asked me about my hopes for my girls\' dietary preferences, and I said: "Two '
+            convonly   [['conversation', 6]]  'I remember that conversation. You asked me about my hopes for my girls\' dietary preferences, and I said: "Two '
+            oldest3    [['semantic', 5], ['conversation', 3]]  "I'm sorry, but I don't have enough information to answer the question. The context provided mentions Speaker 1"
+            limit3     [['semantic', 5], ['conversation', 3]]  "I'm happy to help you recall the conversation. According to the conversation memory, about two weeks ago, Spea"
+            limit4     [['semantic', 5], ['conversation', 4]]  "I don't have enough information to answer the question. The conversation memory only mentions Speaker 1 mentio"
+            rankorder  [['semantic', 5], ['conversation', 6]]  'Speaker 1 mentioned earlier that they are hoping their girls would be omnivores, like them. This was stated in'
+valid_56   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Cheeseburgers!
+            asis       [['semantic', 6], ['conversation', 6]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            oldest3    [['semantic', 6], ['conversation', 3]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            limit3     [['semantic', 6], ['conversation', 3]]  'Speaker 1 said: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            limit4     [['semantic', 6], ['conversation', 4]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            rankorder  [['semantic', 6], ['conversation', 6]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+valid_59   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=Y rankorder=-  gold: A Twitter contest!
+            asis       [['semantic', 4], ['conversation', 6]]  'Speaker 1 said earlier: "Apparently it takes about 5 years to recoup the cost, but then it starts paying you f'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "It did cost a little bit to set it up, I can\'t remember the name of the company to be honest,'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "It did cost a little bit to set it up, I can\'t remember the name of the company to be honest,'
+            oldest3    [['semantic', 4], ['conversation', 3]]  "I don't have enough information to answer the question. The conversation mentions a Twitter contest, but it do"
+            limit3     [['semantic', 4], ['conversation', 3]]  'I remember that conversation. Speaker 2 asked me about winning something, and I said: "It did cost a little bi'
+            limit4     [['semantic', 4], ['conversation', 4]]  'I remember that time we talked about winning something. You asked me to win something off of a Twitter contest'
+            rankorder  [['semantic', 4], ['conversation', 6]]  'I remember that time we talked about me winning something. You asked me about it, and I said: "It did cost a l'
+valid_60   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=- rankorder=Y  gold: You started when you were 16.
+            asis       [['semantic', 5], ['conversation', 6]]  'I can answer that question. According to what you said earlier, you started working in construction when you w'
+            nosem      [['conversation', 6]]  'You started working in construction when you were 16.'
+            convonly   [['conversation', 6]]  'You started working in construction when you were 16.'
+            oldest3    [['semantic', 5], ['conversation', 3]]  'I can answer that question. Speaker 2 said: "I work in construction. Started when I was 16."'
+            limit3     [['semantic', 5], ['conversation', 3]]  'You said earlier: "I work in construction. Started when I was 16."'
+            limit4     [['semantic', 5], ['conversation', 4]]  'Speaker 2 said: "I work in construction. I\'ve been in that type of work since I was a teenager."'
+            rankorder  [['semantic', 5], ['conversation', 6]]  'I can answer that question. According to what you said earlier, you started working in construction when you w'
+valid_61   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: You didn't suggest a specific type of dressing, you only ask
+            asis       [['semantic', 5], ['conversation', 6]]  'Speaker 1 said: "Maybe a lite dressing with it."'
+            nosem      [['conversation', 6]]  "I don't have any memory of a conversation about having a salad after a run, specifically discussing the type o"
+            convonly   [['conversation', 6]]  "I don't have any memory of a conversation about having a salad after a run, specifically discussing the type o"
+            oldest3    [['semantic', 5], ['conversation', 3]]  "I'm afraid I don't have enough information to answer the question. The context provided doesn't mention anythi"
+            limit3     [['semantic', 5], ['conversation', 3]]  'Speaker 1 said: "Maybe a lite dressing with it."'
+            limit4     [['semantic', 5], ['conversation', 4]]  'I remember that conversation. You (Speaker 1) suggested a "lite dressing" for the salad after our run.'
+            rankorder  [['semantic', 5], ['conversation', 6]]  'Speaker 1 said: "Maybe a lite dressing with it."'
+valid_62   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Hooters!
+            asis       [['semantic', 3], ['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning a job they wished they could get, even in jest, during the con"
+            nosem      [['conversation', 6]]  "I don't recall discussing hobbies or a job I wished I could get in jest. However, I did mention that I used to"
+            convonly   [['conversation', 6]]  "I don't recall discussing hobbies or a job I wished I could get in jest. However, I did mention that I used to"
+            oldest3    [['semantic', 3], ['conversation', 3]]  "I remember that conversation. Speaker 1 mentioned that they used to be a painter, but that's not what they wis"
+            limit3     [['semantic', 3], ['conversation', 3]]  "I don't have enough information to answer the question. The conversation only mentions coaching, but it doesn'"
+            limit4     [['semantic', 3], ['conversation', 4]]  "I don't have any memory of Speaker 1 mentioning a job they wished they could get, even in jest. The conversati"
+            rankorder  [['semantic', 3], ['conversation', 6]]  'I remember when we talked about our hobbies. You asked if I liked painting, and I said, "Hello. Do you like pa'
+valid_63   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=-  gold: Electric bagpipes!
+            asis       [['semantic', 4], ['conversation', 6]]  'I remember our conversation about your music. You mentioned that you play Scottish black metal and that you us'
+            nosem      [['conversation', 6]]  'I remember that conversation! You said, "I play Scottish black metal. I play electric bag pipes."'
+            convonly   [['conversation', 6]]  'I remember that conversation! You said, "I play Scottish black metal. I play electric bag pipes."'
+            oldest3    [['semantic', 4], ['conversation', 3]]  'You said earlier that the unique instrument you use in your Scottish black metal band is the electric bag pipe'
+            limit3     [['semantic', 4], ['conversation', 3]]  'I remember our conversation. You mentioned that you play electric bag pipes in your Scottish black metal band.'
+            limit4     [['semantic', 4], ['conversation', 4]]  'I remember our conversation about your music. You mentioned that you play electric bag pipes in your Scottish '
+            rankorder  [['semantic', 4], ['conversation', 6]]  'I remember that conversation! You, Speaker 1, said: "So do I! You do have a fair amount of musical talent! Wri'
+valid_65   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: The humidity!
+            asis       [['semantic', 4], ['conversation', 6]]  "I don't have enough information to answer the question. The conversation mentions Texas, but it doesn't contai"
+            nosem      [['conversation', 6]]  "I don't have any memory of Speaker 2 discussing the weather in Texas or mentioning something they didn't like "
+            convonly   [['conversation', 6]]  "I don't have any memory of Speaker 2 discussing the weather in Texas or mentioning something they didn't like "
+            oldest3    [['semantic', 4], ['conversation', 3]]  "I don't have enough information to answer the question. The conversation only mentions Speaker 1 and Speaker 2"
+            limit3     [['semantic', 4], ['conversation', 3]]  "I don't have enough information to answer the question. The conversation only mentions Speaker 1's opinions an"
+            limit4     [['semantic', 4], ['conversation', 4]]  "I don't have enough information to answer the question. The conversation mentions Texas, but it doesn't contai"
+            rankorder  [['semantic', 4], ['conversation', 6]]  "I don't have enough information to answer the question. The conversation about the weather in Texas doesn't ex"
+valid_66   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: I can speak 2 languages, Spanish and English.
+            asis       [['semantic', 8], ['conversation', 6]]  'I can answer the question based on the conversation memory. Speaker 2 said: "I\'m up to three."'
+            nosem      [['conversation', 6]]  'I remember that conversation. Speaker 2 said: "I\'m up to three."'
+            convonly   [['conversation', 6]]  'I remember that conversation. Speaker 2 said: "I\'m up to three."'
+            oldest3    [['semantic', 8], ['conversation', 3]]  'I can answer the question based on the conversation memory. Speaker 2 said: "I\'m up to three."'
+            limit3     [['semantic', 8], ['conversation', 3]]  'Based on the conversation memory, Speaker 2 said: "I\'m up to three."'
+            limit4     [['semantic', 8], ['conversation', 4]]  'I can answer that question. Speaker 2 said: "I\'m up to three."'
+            rankorder  [['semantic', 8], ['conversation', 6]]  'I can answer the question based on the conversation memory. Speaker 2 said: "I\'m up to three."'
+valid_69   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: The Walking Dead!
+            asis       [['semantic', 7], ['conversation', 6]]  'I remember that conversation about our favorite TV shows. You asked me about my favorite show, and I said: "I '
+            nosem      [['conversation', 6]]  "I don't have any information about our conversation about favorite TV shows. The conversations I have access t"
+            convonly   [['conversation', 6]]  "I don't have any information about our conversation about favorite TV shows. The conversations I have access t"
+            oldest3    [['semantic', 7], ['conversation', 3]]  'I remember that conversation! You asked me about my favorite TV show, and I said: "I love movies, I spend a lo'
+            limit3     [['semantic', 7], ['conversation', 3]]  "I don't have any memory of a conversation about favorite TV shows. However, I do recall a conversation from Se"
+            limit4     [['semantic', 7], ['conversation', 4]]  'I remember that conversation about our favorite TV shows. You asked me about my favorite, and I said "I always'
+            rankorder  [['semantic', 7], ['conversation', 6]]  'I remember that conversation! You asked me about my favorite TV show, and I said: "I always liked Maggie the b'
+valid_68   run=Y asis=Y nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Because Pluto is a dog and he is in Disney!
+            asis       [['semantic', 8], ['conversation', 6]]  "I don't have any memory of a conversation where I gave a reason why you could definitely go to Disney. However"
+            nosem      [['conversation', 6]]  "I couldn't find any previous conversation where I (Speaker 1) gave a reason why you (Speaker 2) could definite"
+            convonly   [['conversation', 6]]  "I couldn't find any previous conversation where I (Speaker 1) gave a reason why you (Speaker 2) could definite"
+            oldest3    [['semantic', 8], ['conversation', 3]]  "I don't have any memory of a conversation where I gave a reason why you could definitely go to Disney because "
+            limit3     [['semantic', 8], ['conversation', 3]]  "I don't have any memory of giving a reason why you could definitely go to Disney. The conversation only mentio"
+            limit4     [['semantic', 8], ['conversation', 4]]  "I don't have any memory of giving a reason why you could definitely go to Disney. The conversation only mentio"
+            rankorder  [['semantic', 8], ['conversation', 6]]  "I don't have any memory of giving a reason why you could definitely go to Disney. The conversation only mentio"
+valid_70   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: I got hired as a life coach!
+            asis       [['semantic', 2], ['conversation', 6]]  'I just got hired yesterday as a life coach, thanks for asking.'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "I just got hired yesterday as a life coach, thanks for asking."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "I just got hired yesterday as a life coach, thanks for asking."'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'I just got hired yesterday as a life coach, thanks for asking.'
+            limit3     [['semantic', 2], ['conversation', 3]]  'I just got hired yesterday as a life coach, thanks for asking.'
+            limit4     [['semantic', 2], ['conversation', 4]]  'I just got hired yesterday as a life coach, thanks for asking.'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'I just got hired yesterday as a life coach, thanks for asking.'
+valid_77   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Yeah, I finished school in 1995.
+            asis       [['semantic', 6], ['conversation', 6]]  'I remember that conversation. You said, "I\'m going to take this time to look into school as well."'
+            nosem      [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning a specific year they finished school. However, I do have a mem"
+            convonly   [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning a specific year they finished school. However, I do have a mem"
+            oldest3    [['semantic', 6], ['conversation', 3]]  "I don't have any information about Speaker 1 mentioning a specific year they finished school. However, I do ha"
+            limit3     [['semantic', 6], ['conversation', 3]]  "I don't have any information about Speaker 1 mentioning a specific year they finished school. The conversation"
+            limit4     [['semantic', 6], ['conversation', 4]]  "I don't have any information about Speaker 1 mentioning a specific year they finished school. However, I do ha"
+            rankorder  [['semantic', 6], ['conversation', 6]]  "I don't have any information about Speaker 1 mentioning a specific year they finished school. However, I do ha"
+valid_73   run=Y asis=Y nosem=Y convonly=Y oldest3=- limit3=- limit4=Y rankorder=Y  gold: It was 1 cup of peanut butter, 1 cup of sugar, and 1 egg. Mi
+            asis       [['semantic', 10], ['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 (you) had a conversation about it earlier. '
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10 12 mins."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10 12 mins."'
+            oldest3    [['semantic', 10], ['conversation', 3]]  'Speaker 1 said: "Would you share? Cookies are my favorite to bake!"'
+            limit3     [['semantic', 10], ['conversation', 3]]  "I don't have any information about Speaker 1 sharing a peanut butter cookie recipe with Speaker 2. The convers"
+            limit4     [['semantic', 10], ['conversation', 4]]  'Speaker 1 said: "1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10 12 mins."'
+            rankorder  [['semantic', 10], ['conversation', 6]]  'Speaker 1 said earlier: "1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10 12 mins."'
+valid_79   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Have a bottle of wine.
+            asis       [['semantic', 2], ['conversation', 6]]  "I don't have any memory of discussing ideal Saturdays with Speaker 2. However, I do recall mentioning a walk I"
+            nosem      [['conversation', 6]]  "I couldn't find any mention of Speaker 1 discussing their ideal Saturdays or what they like to do on them. How"
+            convonly   [['conversation', 6]]  "I couldn't find any mention of Speaker 1 discussing their ideal Saturdays or what they like to do on them. How"
+            oldest3    [['semantic', 2], ['conversation', 3]]  "I'm sorry, but I don't have enough information to answer the question. The conversation only mentions Speaker "
+            limit3     [['semantic', 2], ['conversation', 3]]  "I don't have any memory of a conversation about ideal Saturdays. The conversation I do have access to is about"
+            limit4     [['semantic', 2], ['conversation', 4]]  "I don't have any memory of Speaker 1 mentioning their ideal Saturday activities. The conversation only mention"
+            rankorder  [['semantic', 2], ['conversation', 6]]  "I don't have any memory of a conversation about ideal Saturdays. However, I do recall a conversation about act"
+valid_80   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=- rankorder=-  gold: I have 3 dogs!
+            asis       [['semantic', 6], ['conversation', 6]]  'Speaker 1 said: "Sure! You can be friends with my 3 dogs too if you aren\'t allergic" (from Session 1, 10 days '
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs too if you aren\'t allergic"'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs too if you aren\'t allergic"'
+            oldest3    [['semantic', 6], ['conversation', 3]]  'Speaker 1 said: "Sure! You can be friends with my 3 dogs too if you aren\'t allergic."'
+            limit3     [['semantic', 6], ['conversation', 3]]  'I remember back in school the other kids would always be annoying.'
+            limit4     [['semantic', 6], ['conversation', 4]]  'I remember back in school the other kids would always be annoying.'
+            rankorder  [['semantic', 6], ['conversation', 6]]  'I remember back in school the other kids would always be annoying.'
+
+r20a-dmr-q50-baselines.json (dmr): 49 questions replayed; run score on them 0.633
+  asis reproduced the run's answer verbatim on 49/49
+  asis       0.633  (31/49)
+  nosem      0.592  (29/49)
+  convonly   0.592  (29/49)
+  oldest3    0.510  (25/49)
+  limit3     0.490  (24/49)
+  limit4     0.531  (26/49)
+  rankorder  0.551  (27/49)
+valid_1    run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Taylor Swift!
+            asis       [['conversation', 6]]  'Based on the conversation, Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            nosem      [['conversation', 6]]  'Based on the conversation, Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            convonly   [['conversation', 6]]  'Based on the conversation, Speaker 1 mentioned earlier that they "can get into Taylor Swift."'
+            oldest3    [['conversation', 3]]  'I remember that conversation. You mentioned earlier that you could get into Taylor Swift.'
+            limit3     [['conversation', 3]]  'Speaker 1 mentioned earlier that they could get into Taylor Swift.'
+            limit4     [['conversation', 4]]  'Speaker 1 mentioned earlier that they could get into Taylor Swift.'
+            rankorder  [['conversation', 6]]  'Based on the conversation, Speaker 1 mentioned that they "can get into Taylor Swift" on 2022-12-25 04:00.'
+valid_2    run=- asis=- nosem=- convonly=- oldest3=Y limit3=- limit4=- rankorder=Y  gold: I eat a fresh and raw diet to save on groceries.
+            asis       [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I know previously you have said you want to learn how to save using coupons my wife would be '
+            oldest3    [['conversation', 3]]  "I don't have any information about a conversation about jobs and expenses. However, I do have a memory of a co"
+            limit3     [['conversation', 3]]  "I'm afraid I don't have any information about Speaker 1 discussing a specific way to save money. The conversat"
+            limit4     [['conversation', 4]]  "I'm afraid I don't have any information about Speaker 1 mentioning a specific thing they do to save money. The"
+            rankorder  [['conversation', 6]]  'I remember that conversation. You mentioned that you save money on groceries by eating a fresh and raw diet.'
+valid_0    run=- asis=- nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=-  gold: I used to work in the human services field.
+            asis       [['semantic', 2], ['conversation', 6]]  'You used to work in the human services field.'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I used to work in the human services field."'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I used to work in the human services field."'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'You said earlier that you used to work in the human services field.'
+            limit3     [['semantic', 2], ['conversation', 3]]  'You said earlier that you used to work in the human services field.'
+            limit4     [['semantic', 2], ['conversation', 4]]  'I used to work in the human services field.'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'You used to work in the human services field.'
+valid_10   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Burger King!
+            asis       [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "I am working on getting my childhood education degree concentration in my favorite subject, m'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I am studying education and working part time." However, there is no mention of the specific '
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I am studying education and working part time." However, there is no mention of the specific '
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Speaker 1 said: "I am working on getting my childhood education degree concentration in my favorite subject, m'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Speaker 1 said: "Yes, I am studying education and working part time."'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Speaker 1 said: "It\'s [the fast food place] very large but you soon get used to getting around."'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "I am working at a place that is very large, but you soon get used to getting around."'
+valid_7    run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Three miles!
+            asis       [['conversation', 6]]  'According to the conversation, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+            nosem      [['conversation', 6]]  'According to the conversation, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+            convonly   [['conversation', 6]]  'According to the conversation, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+            oldest3    [['conversation', 3]]  'According to our conversation, you mentioned that a three-mile walk is key for a small workout.'
+            limit3     [['conversation', 3]]  'According to our conversation, you mentioned that a three-mile walk is key for a small workout.'
+            limit4     [['conversation', 4]]  'According to our conversation, you mentioned that a three-mile walk is key for a small workout.'
+            rankorder  [['conversation', 6]]  'According to the conversation, Speaker 1 mentioned that a three-mile walk is key for a small workout.'
+valid_6    run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: I have a cat.
+            asis       [['conversation', 6]]  "I don't have any information about Speaker 1 mentioning a pet in our conversation. However, I do have a releva"
+            nosem      [['conversation', 6]]  "I don't have any information about Speaker 1 mentioning a pet in our conversation. However, I do have a releva"
+            convonly   [['conversation', 6]]  "I don't have any information about Speaker 1 mentioning a pet in our conversation. However, I do have a releva"
+            oldest3    [['conversation', 3]]  "I'm afraid I don't have any information about Speaker 1's pet. The conversation only mentions bird watching, b"
+            limit3     [['conversation', 3]]  "I don't have any information about Speaker 1 having a pet. The conversation mentions bird watching, but it's i"
+            limit4     [['conversation', 4]]  "I don't have any information about Speaker 1 mentioning a pet in the conversation. The conversation only menti"
+            rankorder  [['conversation', 6]]  "I don't have any information about Speaker 1's pet in the provided memory context. The conversation mentions v"
+valid_14   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Clueless!
+            asis       [['conversation', 6]]  'Mine is Friday! Although I do love Clueless too!'
+            nosem      [['conversation', 6]]  'Mine is Friday! Although I do love Clueless too!'
+            convonly   [['conversation', 6]]  'Mine is Friday! Although I do love Clueless too!'
+            oldest3    [['conversation', 3]]  'My favorite movie is Friday! Although I do love Clueless too!'
+            limit3     [['conversation', 3]]  'I remember that conversation. You said: "I like Blue Planet better."'
+            limit4     [['conversation', 4]]  'I have retrieved the relevant memory from the conversation. Speaker 2 said: "i have. I like Blue Planet better'
+            rankorder  [['conversation', 6]]  'I remember that conversation. You said, "I like Blue Planet better."'
+valid_11   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: It's a cow!
+            asis       [['conversation', 6]]  'Speaker 1 said earlier: "My pet cow is sick. It was pretty serious because he wasn\'t eating. The vet said it w'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "My pet cow is sick. It was pretty serious because he wasn\'t eating. The vet said it w'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "My pet cow is sick. It was pretty serious because he wasn\'t eating. The vet said it w'
+            oldest3    [['conversation', 3]]  'Speaker 1 said earlier: "The only company I have is my pet cow."'
+            limit3     [['conversation', 3]]  'Speaker 1 said earlier: "The only company I have is my pet cow."'
+            limit4     [['conversation', 4]]  'Speaker 1 said earlier: "The only company I have is my pet cow."'
+            rankorder  [['conversation', 6]]  'Speaker 1 said: "My pet cow is sick. It was pretty serious because he wasn\'t eating. The vet said it was a bac'
+valid_13   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: I was three!
+            asis       [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+            oldest3    [['conversation', 3]]  'You were three when you learned to play guitar!'
+            limit3     [['conversation', 3]]  'I was three when I learned to play guitar!'
+            limit4     [['conversation', 4]]  'I was three when I learned to play guitar!'
+            rankorder  [['conversation', 6]]  'Speaker 1 said: "I was three when I learned to play guitar!"'
+valid_12   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: You mentioned you'd like to go to culinary school!
+            asis       [['semantic', 1], ['conversation', 6]]  "I don't have any information about Speaker 2's plans or interests in the provided context. The conversation on"
+            nosem      [['conversation', 6]]  "I don't have any information about Speaker 2's post-retirement plans or what they wanted to learn in their fre"
+            convonly   [['conversation', 6]]  "I don't have any information about Speaker 2's post-retirement plans or what they wanted to learn in their fre"
+            oldest3    [['semantic', 1], ['conversation', 3]]  "I'm happy to help you recall your earlier conversation. According to our conversation, you mentioned that you "
+            limit3     [['semantic', 1], ['conversation', 3]]  "I'm sorry, but I don't have enough information to answer the question. The context provided does not contain a"
+            limit4     [['semantic', 1], ['conversation', 4]]  "I'm happy to help you recall your earlier conversation. According to the conversation history, Speaker 1 menti"
+            rankorder  [['semantic', 1], ['conversation', 6]]  "I don't have any memory of Speaker 1 asking Speaker 2 about post-retirement plans, so I'm unable to provide an"
+valid_19   run=- asis=- nosem=- convonly=- oldest3=Y limit3=- limit4=- rankorder=-  gold: Construction, like my dad.
+            asis       [['conversation', 6]]  'Speaker 1 said: "I work for someone. I got the job through my dad. They company and owner have been good to my'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I work for someone. I got the job through my dad. They company and owner have been good to my'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I work for someone. I got the job through my dad. They company and owner have been good to my'
+            oldest3    [['conversation', 3]]  "Construction, like my dad. What do you do when you aren't being a rock star."
+            limit3     [['conversation', 3]]  "I work for someone. I got the job through my dad. They company and owner have been good to my family so I'm ha"
+            limit4     [['conversation', 4]]  'I remember what I said earlier. I work for someone. I got the job through my dad. They company and owner have '
+            rankorder  [['conversation', 6]]  "I work for someone. I got the job through my dad. They company and owner have been good to my family so I'm ha"
+valid_15   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Jim Shockey!
+            asis       [['conversation', 6]]  "My dad did he has his own outdoor show, it's possible you have seen it."
+            nosem      [['conversation', 6]]  "My dad did he has his own outdoor show, it's possible you have seen it."
+            convonly   [['conversation', 6]]  "My dad did he has his own outdoor show, it's possible you have seen it."
+            oldest3    [['conversation', 3]]  'Speaker 1 said earlier: "My dad did he has his own outdoor show its possible you have seen it"'
+            limit3     [['conversation', 3]]  'Speaker 1 said earlier: "My dad did he has his own outdoor show its possible you have seen it"'
+            limit4     [['conversation', 4]]  "My dad did he has his own outdoor show, it's possible you have seen it."
+            rankorder  [['conversation', 6]]  "My dad did he has his own outdoor show, it's possible you have seen it."
+valid_17   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Yellow!
+            asis       [['semantic', 1], ['conversation', 6]]  'Speaker 1 said earlier that the specific color of the hat they mentioned was yellow.'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier that the hat they wear to Aerosmith concerts is yellow.'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier that the hat they wear to Aerosmith concerts is yellow.'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Speaker 1 said earlier that the specific color of the hat they mentioned was yellow. They said, "Great! I wear'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Speaker 1 said earlier that the specific color of the hat they mentioned was yellow. They said, "Great! I wear'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Speaker 1 said earlier that the hat they wear to Aerosmith concerts is yellow, a construction worker hat.'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Speaker 1 said earlier that the specific color of the hat they mentioned was yellow.'
+valid_18   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: He's an army soldier.
+            asis       [['conversation', 6]]  'Speaker 1 said: "My dad is an army soldier."'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "My dad is an army soldier."'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "My dad is an army soldier."'
+            oldest3    [['conversation', 3]]  'My dad is an army soldier.'
+            limit3     [['conversation', 3]]  'My dad is an army soldier.'
+            limit4     [['conversation', 4]]  'My dad is an army soldier.'
+            rankorder  [['conversation', 6]]  'My dad is an army soldier.'
+valid_23   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=- rankorder=Y  gold: He was a manager at Home Depot.
+            asis       [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+            oldest3    [['conversation', 3]]  'Speaker 1 said: "My father was manager at Home Depot."'
+            limit3     [['conversation', 3]]  'Speaker 1 said earlier: "My father helps out too."'
+            limit4     [['conversation', 4]]  'Speaker 1 said earlier: "My father helps out too."'
+            rankorder  [['conversation', 6]]  'Speaker 1 said earlier: "My father was manager at Home Depot."'
+valid_20   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Yeah, he used to tell World War II stories that absolutely s
+            asis       [['conversation', 6]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+            nosem      [['conversation', 6]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+            convonly   [['conversation', 6]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+            oldest3    [['conversation', 3]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+            limit3     [['conversation', 3]]  'Speaker 1 said: "I was scared by my grandfather telling WWII stories."'
+            limit4     [['conversation', 4]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+            rankorder  [['conversation', 6]]  'That sounds scary. I was scared by my grandfather telling WWII stories.'
+valid_24   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=- rankorder=-  gold: Aerosmith!
+            asis       [['conversation', 6]]  'Speaker 2 said: "I listen to a lot of Aerosmith, they\'re my favorite."'
+            nosem      [['conversation', 6]]  'Speaker 2 said: "I listen to a lot of Aerosmith, they\'re my favorite."'
+            convonly   [['conversation', 6]]  'Speaker 2 said: "I listen to a lot of Aerosmith, they\'re my favorite."'
+            oldest3    [['conversation', 3]]  'I remember that conversation. You said, "I listen to a lot of Aerosmith, they\'re my favorite."'
+            limit3     [['conversation', 3]]  "I'm sorry, but it seems that the context provided does not contain any information about Speaker 2's music pre"
+            limit4     [['conversation', 4]]  "I don't have any memory of Speaker 2 mentioning a band apart from Metallica. The conversation only mentions Sp"
+            rankorder  [['conversation', 6]]  "I don't have enough information to answer the question. The context only mentions Speaker 2's preference for A"
+valid_28   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Trooper!
+            asis       [['conversation', 6]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            oldest3    [['conversation', 3]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            limit3     [['conversation', 3]]  "My dog's name is Trooper. He's a black lab and a great hiking buddy!"
+            limit4     [['conversation', 4]]  'Speaker 1 said: "He is a black lab named is trooper, he is a great hiking buddy!"'
+            rankorder  [['conversation', 6]]  'Speaker 1 said: "He is a black lab named Trooper, he is a great hiking buddy!"'
+valid_29   run=- asis=- nosem=- convonly=- oldest3=Y limit3=Y limit4=Y rankorder=-  gold: The attic!
+            asis       [['conversation', 6]]  'Speaker 1 said earlier: "We play video games together a lot. It holds all of their interest."'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "We play video games together a lot. It holds all of their interest."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "We play video games together a lot. It holds all of their interest."'
+            oldest3    [['conversation', 3]]  "I've to decline, my fifth son is my least favorite ; we keep him in the attic."
+            limit3     [['conversation', 3]]  "I've to decline, my fifth son is my least favorite ; we keep him in the attic."
+            limit4     [['conversation', 4]]  "I've to decline, my fifth son is my least favorite ; we keep him in the attic."
+            rankorder  [['conversation', 6]]  'Speaker 1 said earlier: "We play video games together a lot. It holds all of their interest."'
+valid_31   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Lawn mowing!
+            asis       [['conversation', 6]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+            nosem      [['conversation', 6]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+            convonly   [['conversation', 6]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+            oldest3    [['conversation', 3]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+            limit3     [['conversation', 3]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+            limit4     [['conversation', 4]]  'You mentioned that you enjoy lawn mowing on sunny days.'
+            rankorder  [['conversation', 6]]  'Based on the conversation, Speaker 1 mentioned enjoying lawn mowing on sunny days.'
+valid_34   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: I said I was turning 83.
+            asis       [['semantic', 1], ['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Speaker 1 said earlier: "I turn 83 in a month."'
+            limit3     [['semantic', 1], ['conversation', 3]]  'I turn 83 in a month.'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Speaker 1 said earlier that they turn 83 in a month.'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Speaker 1 said they turn 83 in a month, as mentioned in the conversation on 2022-12-26 07:00.'
+valid_37   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Country music!
+            asis       [['conversation', 6]]  "I remember that conversation. You mentioned that you live line dancing to country music, and that's all you li"
+            nosem      [['conversation', 6]]  "I remember that conversation. You mentioned that you live line dancing to country music, and that's all you li"
+            convonly   [['conversation', 6]]  "I remember that conversation. You mentioned that you live line dancing to country music, and that's all you li"
+            oldest3    [['conversation', 3]]  "You mentioned earlier that you live line dancing to country music, and that's all you listen to."
+            limit3     [['conversation', 3]]  "You mentioned earlier that you live line dancing to country music, and that's all you listen to."
+            limit4     [['conversation', 4]]  "I remember that conversation! You mentioned that you live line dancing to country music, and that's all you li"
+            rankorder  [['conversation', 6]]  "I remember that conversation. You mentioned that you live line dancing to country music, and that's all you li"
+valid_38   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: About 15k.
+            asis       [['conversation', 6]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+            nosem      [['conversation', 6]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+            convonly   [['conversation', 6]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+            oldest3    [['conversation', 3]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+            limit3     [['conversation', 3]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+            limit4     [['conversation', 4]]  'Speaker 2 said: "About 15k. I spend most of that on weekend clubs and raves though."'
+            rankorder  [['conversation', 6]]  'Speaker 2 said: "About 15k."'
+valid_39   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: I didn't mention the exact amount, but I did say that it was
+            asis       [['conversation', 6]]  'According to our conversation, I said: "Come run a few laps here, it is quite a few acres!"'
+            nosem      [['conversation', 6]]  'According to our conversation, I said: "Come run a few laps here, it is quite a few acres!"'
+            convonly   [['conversation', 6]]  'According to our conversation, I said: "Come run a few laps here, it is quite a few acres!"'
+            oldest3    [['conversation', 3]]  'Speaker 1 said: "Come run a few laps here, it is quite a few acres!"'
+            limit3     [['conversation', 3]]  'Speaker 1 said: "Come run a few laps here, it is quite a few acres!"'
+            limit4     [['conversation', 4]]  'According to what Speaker 1 said earlier, the farm is "quite a few acres."'
+            rankorder  [['conversation', 6]]  'According to the conversation, Speaker 1 said: "Come run a few laps here, it is quite a few acres!"'
+valid_43   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Scorpions!
+            asis       [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning something that scares them. The conversation only mentions Spe"
+            nosem      [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning something that scares them. The conversation only mentions Spe"
+            convonly   [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning something that scares them. The conversation only mentions Spe"
+            oldest3    [['conversation', 3]]  "I'm sorry, but I don't have enough information to answer the question. The context provided only contains Spea"
+            limit3     [['conversation', 3]]  "I'm afraid I don't have enough information to answer Speaker 2's question. The context provided doesn't mentio"
+            limit4     [['conversation', 4]]  "I'm not finding any mention of something that scares Speaker 1 in the provided conversation history. The conve"
+            rankorder  [['conversation', 6]]  "I don't have any memory of Speaker 1 mentioning something that scares them. The conversation only mentions Spe"
+valid_42   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: The Rolling Stones!
+            asis       [['conversation', 6]]  'The band that Speaker 1 (you) see every year is the Rolling Stones.'
+            nosem      [['conversation', 6]]  'The band I see every year is the Rolling Stones.'
+            convonly   [['conversation', 6]]  'The band I see every year is the Rolling Stones.'
+            oldest3    [['conversation', 3]]  'The band that Speaker 1 (you) see every year is the Rolling Stones.'
+            limit3     [['conversation', 3]]  'The band I see every year is the Rolling Stones.'
+            limit4     [['conversation', 4]]  'The band that Speaker 1 (you) see every year is the Rolling Stones.'
+            rankorder  [['conversation', 6]]  'The band that Speaker 1 (you) see every year is the Rolling Stones.'
+valid_44   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: It has 3 bedrooms!
+            asis       [['conversation', 6]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+            oldest3    [['conversation', 3]]  'My house has 3 bedrooms.'
+            limit3     [['conversation', 3]]  'My house has 3 bedrooms.'
+            limit4     [['conversation', 4]]  'My house has 3 bedrooms.'
+            rankorder  [['conversation', 6]]  'Speaker 1 said earlier: "Yeah, I have a house with 3 bedrooms and I am the only one here."'
+valid_45   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=Y rankorder=-  gold: Beijing!
+            asis       [['conversation', 6]]  "I don't have any information about a specific conversation where Speaker 1 asked Speaker 2 about a rainy day a"
+            nosem      [['conversation', 6]]  "I don't have any information about a specific conversation where Speaker 1 asked Speaker 2 about a rainy day a"
+            convonly   [['conversation', 6]]  "I don't have any information about a specific conversation where Speaker 1 asked Speaker 2 about a rainy day a"
+            oldest3    [['conversation', 3]]  'I\'m happy to help! Based on the conversation, Speaker 2 said: "Ma. I was gonna finish a roof today. At least t'
+            limit3     [['conversation', 3]]  "I'm sorry, but I don't have enough information to answer the question. The context mentions a conversation abo"
+            limit4     [['conversation', 4]]  "I don't have any memory of Speaker 2 mentioning where they were staying during a rainy day when busy streets c"
+            rankorder  [['conversation', 6]]  'I remember that conversation. You said: "Ma. I was gonna finish a roof today. At least the cats will not miss '
+valid_46   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Dog agility!
+            asis       [['conversation', 6]]  'Speaker 1 said earlier: "Mine is competing in dog agility. Makes the time pass..."'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "Mine is competing in dog agility. Makes the time pass..."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "Mine is competing in dog agility. Makes the time pass..."'
+            oldest3    [['conversation', 3]]  'You said: "Makes the time pass..." (referring to competing in dog agility).'
+            limit3     [['conversation', 3]]  'You said: "Makes the time pass..." (referring to competing in dog agility).'
+            limit4     [['conversation', 4]]  'Speaker 1 said earlier: "My hobby is competing in dog agility. It makes the time pass..."'
+            rankorder  [['conversation', 6]]  'According to our conversation, you (Speaker 1) said: "Do you have a hobby? Mine is competing in dog agility. M'
+r24b-dmr-q50-fields.json /tmp/campy-bench-67sk5r2z: replay failed: libc++abi: terminating due to uncaught exception of type std::__1::system_error: recursive_mutex lock failed: Invalid argument
+
+valid_49   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: The violin!
+            asis       [['semantic', 1], ['conversation', 6]]  'According to our conversation, you said: "I did play the violin last year in band. I didn\'t like it."'
+            nosem      [['conversation', 6]]  'I remember that conversation. You said, "I did play the violin last year in band. I didn\'t like it."'
+            convonly   [['conversation', 6]]  'I remember that conversation. You said, "I did play the violin last year in band. I didn\'t like it."'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Speaker 1 said earlier: "I did play the violin last year in band. I didn\'t like it."'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Speaker 1 said earlier: "I did play the violin last year in band. I didn\'t like it."'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation memory, Speaker 1 said earlier: "I did play the violin last year in band. I didn\'t l'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'According to the conversation, Speaker 1 said: "I did play the violin last year in band. I didn\'t like it."'
+valid_50   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Yes, I originally come from Somalia.
+            asis       [['conversation', 6]]  "I'm from far away."
+            nosem      [['conversation', 6]]  "I'm from far away."
+            convonly   [['conversation', 6]]  "I'm from far away."
+            oldest3    [['conversation', 3]]  "I'm from far away."
+            limit3     [['conversation', 3]]  "I'm from far away."
+            limit4     [['conversation', 4]]  "I'm from far away."
+            rankorder  [['conversation', 6]]  "I'm from far away."
+valid_55   run=- asis=- nosem=Y convonly=Y oldest3=- limit3=Y limit4=- rankorder=Y  gold: Psychology.
+            asis       [['semantic', 1], ['conversation', 6]]  'I remember that time we talked about my studies. You asked me what my dream job was, and I said I was excited '
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "Psychology. I read a lot of psych journals in my free time as well."'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "Psychology. I read a lot of psych journals in my free time as well."'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'I remember that time we talked about my studies. I said I was getting started on my PhD next year.'
+            limit3     [['semantic', 1], ['conversation', 3]]  'I majored in Psychology.'
+            limit4     [['semantic', 1], ['conversation', 4]]  'I remember that time we talked about my studies. I said I was excited about getting started on my PhD next yea'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'I remember that time we talked about my studies. You asked me what I majored in, and I said: "Psychology. I re'
+valid_51   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: California!
+            asis       [['conversation', 6]]  'I think I need to move. My studio is tanking after the decline of the market.'
+            nosem      [['conversation', 6]]  'I think I need to move. My studio is tanking after the decline of the market.'
+            convonly   [['conversation', 6]]  'I think I need to move. My studio is tanking after the decline of the market.'
+            oldest3    [['conversation', 3]]  "I don't have any information about Speaker 1 mentioning a specific place where their audio studio was located."
+            limit3     [['conversation', 3]]  "I don't have any information about Speaker 1 mentioning a specific place where their audio studio was located."
+            limit4     [['conversation', 4]]  "I don't have any information about Speaker 1 mentioning a specific place where their audio studio was located."
+            rankorder  [['conversation', 6]]  'Speaker 1 said: "I think I need to move. My studio is tanking after the decline of the market."'
+valid_58   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Yes, I'm hoping they're Omnivores.
+            asis       [['conversation', 6]]  'Speaker 1 mentioned earlier that they are hoping their girls would be omnivores, like them.'
+            nosem      [['conversation', 6]]  'Speaker 1 mentioned earlier that they are hoping their girls would be omnivores, like them.'
+            convonly   [['conversation', 6]]  'Speaker 1 mentioned earlier that they are hoping their girls would be omnivores, like them.'
+            oldest3    [['conversation', 3]]  "I'm happy to help! According to our conversation, you mentioned that you're hoping your girls would be omnivor"
+            limit3     [['conversation', 3]]  'I remember that time we talked about my pregnancy. You mentioned hoping my girls would have a certain dietary '
+            limit4     [['conversation', 4]]  'Speaker 1 said: "Two girls. I\'m hoping they are omnivores like me."'
+            rankorder  [['conversation', 6]]  'Speaker 1 mentioned earlier that they are hoping their girls would be omnivores, like them.'
+valid_56   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Cheeseburgers!
+            asis       [['semantic', 2], ['conversation', 6]]  'Speaker 1 said earlier: "my favorite food are cheeseburgers"'
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "my favorite food are cheeseburgers"'
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "my favorite food are cheeseburgers"'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Speaker 1 said earlier: "Oh I like mexican food, but my favorite food are cheeseburgers."'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Speaker 1 said earlier: "my favorite food are cheeseburgers"'
+valid_59   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=Y rankorder=Y  gold: A Twitter contest!
+            asis       [['conversation', 6]]  "I don't have any information about Speaker 1 winning something from an earlier conversation. The conversation "
+            nosem      [['conversation', 6]]  "I don't have any information about Speaker 1 winning something from an earlier conversation. The conversation "
+            convonly   [['conversation', 6]]  "I don't have any information about Speaker 1 winning something from an earlier conversation. The conversation "
+            oldest3    [['conversation', 3]]  "I don't have enough information to answer the question. The conversation mentions a Twitter contest, but it do"
+            limit3     [['conversation', 3]]  'I remember that I won a device that generates energy, and it takes about 5 years to recoup the cost. The compa'
+            limit4     [['conversation', 4]]  'I remember that time we talked about you winning something. You said it was a Twitter contest, and you won som'
+            rankorder  [['conversation', 6]]  'I remember that time we talked about me winning something. I said it was from a Twitter contest.'
+valid_60   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: You started when you were 16.
+            asis       [['conversation', 6]]  'You started working in construction when you were 16.'
+            nosem      [['conversation', 6]]  'You started working in construction when you were 16.'
+            convonly   [['conversation', 6]]  'You started working in construction when you were 16.'
+            oldest3    [['conversation', 3]]  'You started working in construction when you were 16.'
+            limit3     [['conversation', 3]]  'You said earlier: "I work in construction. Started when I was 16."'
+            limit4     [['conversation', 4]]  'You said earlier that you started working in construction when you were 16.'
+            rankorder  [['conversation', 6]]  'You started working in construction when you were 16.'
+valid_61   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: You didn't suggest a specific type of dressing, you only ask
+            asis       [['semantic', 3], ['conversation', 6]]  'Speaker 1 said earlier: "Maybe a lite dressing with it."'
+            nosem      [['conversation', 6]]  'According to the conversation, Speaker 1 said: "Maybe a lite dressing with it."'
+            convonly   [['conversation', 6]]  'According to the conversation, Speaker 1 said: "Maybe a lite dressing with it."'
+            oldest3    [['semantic', 3], ['conversation', 3]]  'Speaker 1 said earlier: "Maybe a lite dressing with it."'
+            limit3     [['semantic', 3], ['conversation', 3]]  'Speaker 1 said earlier: "Maybe a lite dressing with it."'
+            limit4     [['semantic', 3], ['conversation', 4]]  'Speaker 1 said earlier: "Maybe a lite dressing with it."'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'Speaker 1 said earlier: "Maybe a lite dressing with it."'
+valid_62   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Hooters!
+            asis       [['conversation', 6]]  'I wish I could buy a car. I cannot afford it on a housekeeper wage.'
+            nosem      [['conversation', 6]]  'I wish I could buy a car. I cannot afford it on a housekeeper wage.'
+            convonly   [['conversation', 6]]  'I wish I could buy a car. I cannot afford it on a housekeeper wage.'
+            oldest3    [['conversation', 3]]  'I remember that conversation. You mentioned that you used to be a painter and that it was a good life.'
+            limit3     [['conversation', 3]]  "I don't have any memory of Speaker 1 mentioning a job they wished they could get, even in jest. The conversati"
+            limit4     [['conversation', 4]]  'I remember that conversation. You mentioned that you used to be a painter, and it was a good life.'
+            rankorder  [['conversation', 6]]  'I remember that conversation. You mentioned that you wish you could get a job as a painter, but it was more of'
+valid_63   run=- asis=- nosem=- convonly=- oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Electric bagpipes!
+            asis       [['semantic', 1], ['conversation', 6]]  'You said: "So do I! You do have a fair amount of musical talent! Writing, singing, playing an instrument. I wi'
+            nosem      [['conversation', 6]]  'You mentioned earlier that I said: "So do I!  You do have a fair amount of musical talent!  writing, singing, '
+            convonly   [['conversation', 6]]  'You mentioned earlier that I said: "So do I!  You do have a fair amount of musical talent!  writing, singing, '
+            oldest3    [['semantic', 1], ['conversation', 3]]  'You said earlier that you play Scottish black metal on the electric bag pipes.'
+            limit3     [['semantic', 1], ['conversation', 3]]  'You said: "Sounds like a plan! I really am interested in what Scottish black metal is."\n\nHowever, I should not'
+            limit4     [['semantic', 1], ['conversation', 4]]  'You said earlier: "Sounds like a plan! I really am interested in what Scottish black metal is."\n\nHowever, to a'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'You mentioned earlier that the unique instrument used in your Scottish black metal band is the electric bag pi'
+valid_65   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: The humidity!
+            asis       [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning something they didn't like about the weather in Texas. The con"
+            nosem      [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning something they didn't like about the weather in Texas. The con"
+            convonly   [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning something they didn't like about the weather in Texas. The con"
+            oldest3    [['conversation', 3]]  "I'm sorry, but it seems that the memory context does not contain any information about a conversation where Sp"
+            limit3     [['conversation', 3]]  "I don't have any information about Speaker 2's previous statements about the weather in Texas. The context onl"
+            limit4     [['conversation', 4]]  "I'm sorry, but it seems that the context provided does not contain any information about a conversation where "
+            rankorder  [['conversation', 6]]  "I don't have any memory of Speaker 2 mentioning a specific thing they didn't like about the weather in Texas. "
+valid_66   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: I can speak 2 languages, Spanish and English.
+            asis       [['conversation', 6]]  'I remember that conversation. You said, "I\'m up to three."'
+            nosem      [['conversation', 6]]  'I remember that conversation. You said, "I\'m up to three."'
+            convonly   [['conversation', 6]]  'I remember that conversation. You said, "I\'m up to three."'
+            oldest3    [['conversation', 3]]  'I can answer that question. Speaker 2 said: "I\'m up to three."'
+            limit3     [['conversation', 3]]  'I can answer that question. Speaker 2 said: "I\'m up to three."'
+            limit4     [['conversation', 4]]  "I'm up to three."
+            rankorder  [['conversation', 6]]  'You said you could speak up to three languages.'
+valid_69   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: The Walking Dead!
+            asis       [['conversation', 6]]  'I remember our conversation about TV shows. You asked me about my favorite, and I said "I always liked Maggie '
+            nosem      [['conversation', 6]]  'I remember our conversation about TV shows. You asked me about my favorite, and I said "I always liked Maggie '
+            convonly   [['conversation', 6]]  'I remember our conversation about TV shows. You asked me about my favorite, and I said "I always liked Maggie '
+            oldest3    [['conversation', 3]]  "I don't have any information about Speaker 1 mentioning a favorite TV show in the provided context. However, I"
+            limit3     [['conversation', 3]]  'I always liked Maggie the best. This show is rough though, you lose characters left and right and then way dow'
+            limit4     [['conversation', 4]]  'I remember now. My favorite TV show is Maggie.'
+            rankorder  [['conversation', 6]]  'I always liked Maggie the best. This show is rough though, you lose characters left and right and then way dow'
+valid_68   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Because Pluto is a dog and he is in Disney!
+            asis       [['semantic', 1], ['conversation', 6]]  "I don't have any memory of giving a reason why you could definitely go to Disney. The conversation only mentio"
+            nosem      [['conversation', 6]]  "I'm afraid I don't have any information about why you could definitely go to Disney. The conversation only men"
+            convonly   [['conversation', 6]]  "I'm afraid I don't have any information about why you could definitely go to Disney. The conversation only men"
+            oldest3    [['semantic', 1], ['conversation', 3]]  "I don't have any memory of Speaker 1 giving a reason why Speaker 2 could definitely go to Disney. In fact, Spe"
+            limit3     [['semantic', 1], ['conversation', 3]]  "I don't have any memory of discussing why you could definitely go to Disney because of wanting to be a dog lik"
+            limit4     [['semantic', 1], ['conversation', 4]]  "I don't have any memory of discussing why you could definitely go to Disney. The conversation only mentions yo"
+            rankorder  [['semantic', 1], ['conversation', 6]]  "I don't have any memory of discussing why you could definitely go to Disney. However, I do recall a conversati"
+valid_70   run=- asis=- nosem=- convonly=- oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: I got hired as a life coach!
+            asis       [['conversation', 6]]  'Speaker 1 said earlier: "I was a part-time athletic trainer. I feel like my experience as an athletic trainer '
+            nosem      [['conversation', 6]]  'Speaker 1 said earlier: "I was a part-time athletic trainer. I feel like my experience as an athletic trainer '
+            convonly   [['conversation', 6]]  'Speaker 1 said earlier: "I was a part-time athletic trainer. I feel like my experience as an athletic trainer '
+            oldest3    [['conversation', 3]]  'I just got hired yesterday as a life coach, thanks for asking.'
+            limit3     [['conversation', 3]]  'I just got hired yesterday as a life coach, thanks for asking.'
+            limit4     [['conversation', 4]]  'I just got hired yesterday as a life coach, thanks for asking.'
+            rankorder  [['conversation', 6]]  'You were just hired as a life coach, thanks for asking.'
+valid_77   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Yeah, I finished school in 1995.
+            asis       [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "Not from my company, I\'ll have to file for unemployment benefits. I\'m going to take this time'
+            nosem      [['conversation', 6]]  'I said: "Not from my company, I\'ll have to file for unemployment benefits. I\'m going to take this time to look'
+            convonly   [['conversation', 6]]  'I said: "Not from my company, I\'ll have to file for unemployment benefits. I\'m going to take this time to look'
+            oldest3    [['semantic', 2], ['conversation', 3]]  "I don't have any information about Speaker 1's job or education history. However, I do have a conversation fro"
+            limit3     [['semantic', 2], ['conversation', 3]]  'I remember that conversation. You said: "Not from my company, I\'ll have to file for unemployment benefits. I\'m'
+            limit4     [['semantic', 2], ['conversation', 4]]  'I remember that conversation. You asked me about my job, and I said I was going to take some time to look into'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Speaker 1 said: "Not from my company, I\'ll have to file for unemployment benefits. I\'m going to take this time'
+valid_73   run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=- rankorder=Y  gold: It was 1 cup of peanut butter, 1 cup of sugar, and 1 egg. Mi
+            asis       [['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 shared the following earlier:\n\n1c pb, 1c su'
+            nosem      [['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 shared the following earlier:\n\n1c pb, 1c su'
+            convonly   [['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 shared the following earlier:\n\n1c pb, 1c su'
+            oldest3    [['conversation', 3]]  'Speaker 1 said: "1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10 12 mins."'
+            limit3     [['conversation', 3]]  "I don't have any information about a peanut butter cookie recipe that you shared earlier. It seems that the co"
+            limit4     [['conversation', 4]]  "I don't have any information about a peanut butter cookie recipe that you shared with me earlier. It seems tha"
+            rankorder  [['conversation', 6]]  'Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 had mentioned baking PB cookies earlier. Ho'
+valid_79   run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Have a bottle of wine.
+            asis       [['conversation', 6]]  'Speaker 1 said: "I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn\'t known'
+            nosem      [['conversation', 6]]  'Speaker 1 said: "I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn\'t known'
+            convonly   [['conversation', 6]]  'Speaker 1 said: "I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn\'t known'
+            oldest3    [['conversation', 3]]  'Speaker 1 said: "Mine too! We get into it at towards the end of our American history class, but only for a cou'
+            limit3     [['conversation', 3]]  'Speaker 1 said: "I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn\'t known'
+            limit4     [['conversation', 4]]  'I remember that conversation about our ideal Saturdays. You mentioned that you like to try to be active yourse'
+            rankorder  [['conversation', 6]]  'Speaker 1 said: "I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn\'t known'
+valid_80   run=Y asis=Y nosem=Y convonly=Y oldest3=- limit3=- limit4=- rankorder=Y  gold: I have 3 dogs!
+            asis       [['conversation', 6]]  'Speaker 2 asked how many dogs Speaker 1 has. Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs '
+            nosem      [['conversation', 6]]  'Speaker 2 asked how many dogs Speaker 1 has. Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs '
+            convonly   [['conversation', 6]]  'Speaker 2 asked how many dogs Speaker 1 has. Speaker 1 said earlier: "Sure! You can be friends with my 3 dogs '
+            oldest3    [['conversation', 3]]  'I have a memory of our conversation. You asked how many dogs I have, and I said: "Well my dogs won\'t pull your'
+            limit3     [['conversation', 3]]  'I have a memory of our conversation. You asked how many dogs I have, and I said: "Well my dogs won\'t pull your'
+            limit4     [['conversation', 4]]  'I have two dogs.'
+            rankorder  [['conversation', 6]]  'I have 3 dogs.'
+
+r24b-dmr-q50-fields.json (dmr): 49 questions replayed; run score on them 0.490
+  asis reproduced the run's answer verbatim on 49/49
+  asis       0.490  (24/49)
+  nosem      0.531  (26/49)
+  convonly   0.531  (26/49)
+  oldest3    0.592  (29/49)
+  limit3     0.510  (25/49)
+  limit4     0.531  (26/49)
+  rankorder  0.571  (28/49)

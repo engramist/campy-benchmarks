@@ -1,0 +1,490 @@
+conv-26_q3 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=Y rankorder=-  gold: Adoption agencies
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided context, Caroline researched career options and adoption services that are inclusive and'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, Caroline researched the following:\n\n* Career options (on 2023-05-08)\n* O'
+            convonly   [['conversation', 6]]  'Based on the provided memory context, Caroline researched the following:\n\n* Career options (on 2023-05-08)\n* O'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided context, it appears that Caroline researched career options and adoption services that a'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided context, Caroline researched a transgender poetry reading event. This is evident from th'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the provided context, it appears that Caroline researched organizations that help LGBTQ+ folks with a'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided context, Caroline mentioned that she was going to do some research on May 8, 2023. Howev'
+conv-26_q0 run=- asis=- nosem=- convonly=- oldest3=- limit3=Y limit4=- rankorder=-  gold: 7 May 2023
+            asis       [['semantic', 3], ['conversation', 6]]  'Based on the conversation, Caroline went to the LGBTQ support group on May 8, 2023. This is inferred from her '
+            nosem      [['conversation', 6]]  'Based on the conversation, Caroline went to the LGBTQ support group on or after May 8, 2023. The earliest ment'
+            convonly   [['conversation', 6]]  'Based on the conversation, Caroline went to the LGBTQ support group on or after May 8, 2023. The earliest ment'
+            oldest3    [['semantic', 3], ['conversation', 3]]  'Based on the conversation, Caroline went to the LGBTQ support group on or after May 8, 2023, as she mentioned '
+            limit3     [['semantic', 3], ['conversation', 3]]  'Based on the conversation, Caroline went to the LGBTQ support group on or after May 8, 2023, as she mentioned '
+            limit4     [['semantic', 3], ['conversation', 4]]  'Based on the conversation, Caroline mentioned going to a LGBTQ support group on 2023-05-08.'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'Based on the conversation, Caroline went to the LGBTQ support group on May 8, 2023. This is the earliest menti'
+conv-26_q2 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=Y  gold: Psychology, counseling certification
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the provided context, Caroline is likely to pursue fields in education, child development, or the art'
+            nosem      [['conversation', 6]]  'Based on the provided context, Caroline is likely to pursue fields in education, child development, or the art'
+            convonly   [['conversation', 6]]  'Based on the provided context, Caroline is likely to pursue fields in education, child development, or the art'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Based on the provided context, Caroline is likely to pursue fields in education or related to reading and chil'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the provided context, Caroline is likely to pursue fields in the arts, education, or social sciences.'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the provided context, Caroline is likely to pursue fields in the arts, education, or social sciences.'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the provided context, Caroline is likely to pursue fields in education, art, and possibly child devel'
+conv-26_q82 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: mental health
+            asis       [['conversation', 6]]  'The charity race raised awareness for mental health.'
+            nosem      [['conversation', 6]]  'The charity race raised awareness for mental health.'
+            convonly   [['conversation', 6]]  'The charity race raised awareness for mental health.'
+            oldest3    [['conversation', 3]]  'The charity race raised awareness for mental health.'
+            limit3     [['conversation', 3]]  'The charity race raised awareness for mental health.'
+            limit4     [['conversation', 4]]  'The charity race raised awareness for mental health.'
+            rankorder  [['conversation', 6]]  'The charity race raised awareness for mental health.'
+conv-26_q152 run=- asis=- nosem=- convonly=- oldest3=Y limit3=Y limit4=- rankorder=Y  gold: self-care is important
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the provided context, it appears that the conversation is between Caroline and Melanie. However, ther'
+            nosem      [['conversation', 6]]  "Based on the provided memory context, it appears that Caroline's conversation with Melanie is not directly rel"
+            convonly   [['conversation', 6]]  "Based on the provided memory context, it appears that Caroline's conversation with Melanie is not directly rel"
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Based on the provided memory context, it appears that the conversation is about Melanie, not Caroline, who ran'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the provided memory context, it appears that the conversation is about Melanie, not Caroline, who ran'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the provided context, it appears that the conversation is between Caroline and Melanie. However, ther'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the provided context, it appears that the conversation is between Caroline and Melanie. Caroline part'
+conv-26_q4 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=Y rankorder=Y  gold: Transgender woman
+            asis       [['semantic', 1], ['conversation', 6]]  "Based on the provided context, Caroline's identity is related to being transgender. This is inferred from her "
+            nosem      [['conversation', 6]]  "Based on the provided memory context, Caroline's identity is that of a trans woman. This is inferred from her "
+            convonly   [['conversation', 6]]  "Based on the provided memory context, Caroline's identity is that of a trans woman. This is inferred from her "
+            oldest3    [['semantic', 1], ['conversation', 3]]  "Based on the provided context, Caroline's identity is not explicitly stated. However, from the conversation, i"
+            limit3     [['semantic', 1], ['conversation', 3]]  "Based on the provided context, Caroline's identity is not explicitly stated. However, based on the conversatio"
+            limit4     [['semantic', 1], ['conversation', 4]]  "Based on the provided context, Caroline's identity is related to her gender identity. She mentions that painti"
+            rankorder  [['semantic', 1], ['conversation', 6]]  "Based on the provided context, Caroline's identity is related to her gender identity as a transgender person. "
+conv-26_q1 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=-  gold: 2022
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the conversation, Melanie mentioned painting a lake sunrise last year. Since the conversation took pl'
+            nosem      [['conversation', 6]]  'Based on the conversation, Melanie mentioned painting a lake sunrise last year, which would be around 2022.'
+            convonly   [['conversation', 6]]  'Based on the conversation, Melanie mentioned painting a lake sunrise last year, which would be around 2022.'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the conversation, Melanie mentioned painting a lake sunrise "last year" on 2023-05-08. Therefore, the'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the conversation, Melanie mentioned that she painted a lake sunrise "last year" on 2023-05-08. Theref'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation, Melanie mentioned that she painted a lake sunrise "last year" on 2023-05-08.'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the conversation, Melanie mentioned painting a "lake sunrise" on 2023-05-08.'
+conv-26_q14 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Likely no
+            asis       [['semantic', 2], ['conversation', 6]]  "Based on the provided memory context, it appears that Caroline's desire to pursue counseling as a career is de"
+            nosem      [['conversation', 6]]  "Based on the provided memory context, it appears that Caroline's desire to pursue counseling as a career is de"
+            convonly   [['conversation', 6]]  "Based on the provided memory context, it appears that Caroline's desire to pursue counseling as a career is de"
+            oldest3    [['semantic', 2], ['conversation', 3]]  "Based on the provided memory context, it appears that Caroline's interest in pursuing counseling as a career i"
+            limit3     [['semantic', 2], ['conversation', 3]]  "Based on the memory context, it appears that Caroline's desire to pursue counseling as a career is closely tie"
+            limit4     [['semantic', 2], ['conversation', 4]]  "Based on the provided memory context, it appears that Caroline's desire to pursue counseling as a career is de"
+            rankorder  [['semantic', 2], ['conversation', 6]]  "Based on the provided memory context, it appears that Caroline's desire to pursue counseling as a career is cl"
+conv-26_q83 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: self-care is important
+            asis       [['semantic', 1], ['conversation', 6]]  'Melanie realized that self-care is really important after the charity race. She mentioned that when she looks '
+            nosem      [['conversation', 6]]  'Melanie realized that self-care is really important after the charity race. She mentioned that when she looks '
+            convonly   [['conversation', 6]]  'Melanie realized that self-care is really important after the charity race. She mentioned that when she looks '
+            oldest3    [['semantic', 1], ['conversation', 3]]  "Melanie realized that self-care is really important after the charity race. She mentioned that it's a journey "
+            limit3     [['semantic', 1], ['conversation', 3]]  "Melanie realized that self-care is really important after the charity race. She mentioned that it's a journey "
+            limit4     [['semantic', 1], ['conversation', 4]]  "Melanie realized that self-care is really important after the charity race. She mentioned that it's a journey "
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Melanie realized that self-care is really important after participating in the charity race for mental health.'
+conv-26_q153 run=- asis=- nosem=- convonly=- oldest3=Y limit3=- limit4=- rankorder=-  gold: researching adoption agencies
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the provided context, it appears that Caroline is the one pursuing adoption, not Melanie. Caroline ha'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, it appears that Caroline is the one pursuing adoption, not Melanie. Caro'
+            convonly   [['conversation', 6]]  'Based on the provided memory context, it appears that Caroline is the one pursuing adoption, not Melanie. Caro'
+            oldest3    [['semantic', 2], ['conversation', 3]]  "Based on the provided context, it appears that Melanie is supportive of Caroline's adoption plans. However, th"
+            limit3     [['semantic', 2], ['conversation', 3]]  "Based on the provided context, I can see that Melanie is supportive of Caroline's adoption journey and wishes "
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the provided context, it appears that Melanie is not the one planning to adopt, but rather Caroline i'
+            rankorder  [['semantic', 2], ['conversation', 6]]  "Based on the provided context, it appears that the conversation is about Caroline's adoption journey, not Mela"
+conv-26_q7 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Single
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided context, I can infer that Caroline is in a relationship. The photo she shared on 2023-06'
+            nosem      [['conversation', 6]]  'Based on the provided context, I can infer that Caroline is in a relationship. The photo she shared with Melan'
+            convonly   [['conversation', 6]]  'Based on the provided context, I can infer that Caroline is in a relationship. The photo she shared with Melan'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided context, I can infer that Caroline is in a relationship. The image she shared on 2023-06'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided context, it appears that Caroline has a supportive partner or family member, referred to'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the provided context, I can infer that Caroline is in a relationship, but the nature of the relations'
+            rankorder  [['semantic', 1], ['conversation', 6]]  "Based on the provided context, I do not have enough information to determine Caroline's relationship status. T"
+conv-26_q5 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: The sunday before 25 May 2023
+            asis       [['semantic', 1], ['conversation', 6]]  "Based on the conversation, Melanie ran a charity race for mental health on the Saturday before Caroline's mess"
+            nosem      [['conversation', 6]]  "According to the conversation, Melanie ran a charity race for mental health on the Saturday before Caroline's "
+            convonly   [['conversation', 6]]  "According to the conversation, Melanie ran a charity race for mental health on the Saturday before Caroline's "
+            oldest3    [['semantic', 1], ['conversation', 3]]  "Based on the conversation, Melanie ran a charity race for mental health on the Saturday before Caroline's mess"
+            limit3     [['semantic', 1], ['conversation', 3]]  "Based on the conversation, Melanie ran a charity race for mental health on the Saturday before Caroline's mess"
+            limit4     [['semantic', 1], ['conversation', 4]]  "Based on the conversation, Melanie ran a charity race for mental health on the Saturday before Caroline's mess"
+            rankorder  [['semantic', 1], ['conversation', 6]]  "Based on the conversation, Melanie ran a charity race for mental health on the Saturday before Caroline's mess"
+conv-26_q22 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Yes, since she collects classic children's books
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the provided context, it is likely that Caroline would have Dr. Seuss books on her bookshelf. The con'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, it is likely that Caroline would have Dr. Seuss books on her bookshelf. '
+            convonly   [['conversation', 6]]  'Based on the provided memory context, it is likely that Caroline would have Dr. Seuss books on her bookshelf. '
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Based on the provided context, it is likely that Caroline would have Dr. Seuss books on her bookshelf. The con'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the provided context, it is likely that Caroline would have Dr. Seuss books on her bookshelf. The con'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the provided context, it is likely that Caroline would have Dr. Seuss books on her bookshelf. The con'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the provided context, it is likely that Caroline would have Dr. Seuss books on her bookshelf. The con'
+conv-26_q84 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: by carving out some me-time each day for activities like run
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided memory context, it appears that Melanie prioritizes self-care by:\n\n* Recognizing its imp'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, it appears that Melanie prioritizes self-care by:\n\n* Recognizing its imp'
+            convonly   [['conversation', 6]]  'Based on the provided memory context, it appears that Melanie prioritizes self-care by:\n\n* Recognizing its imp'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided memory context, it appears that Melanie prioritizes self-care by recognizing its importa'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided memory context, it appears that Melanie prioritizes self-care by recognizing its importa'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the provided memory context, it appears that Melanie prioritizes self-care by:\n\n* Recognizing its imp'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided memory context, it appears that Melanie prioritizes self-care by:\n\n* Recognizing its imp'
+conv-26_q154 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: LGBTQ+ individuals
+            asis       [['semantic', 4], ['conversation', 6]]  'Based on the provided context, it appears that the adoption agency Melanie is considering supports individuals'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, the adoption agency Melanie is considering supports individuals who are '
+            convonly   [['conversation', 6]]  'Based on the provided memory context, the adoption agency Melanie is considering supports individuals who are '
+            oldest3    [['semantic', 4], ['conversation', 3]]  'Based on the provided context, it appears that Melanie (not Caroline, as mentioned in the conversation) is con'
+            limit3     [['semantic', 4], ['conversation', 3]]  'Based on the provided context, it appears that Melanie is considering adoption as a means to build her family.'
+            limit4     [['semantic', 4], ['conversation', 4]]  'Based on the provided context, it appears that Melanie is considering an adoption agency that supports LGBTQ+ '
+            rankorder  [['semantic', 4], ['conversation', 6]]  'Based on the provided context, it appears that Melanie is considering support from an adoption agency that is '
+conv-26_q11 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Sweden
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the conversation history, Caroline mentioned that she started transitioning three years ago. Since th'
+            nosem      [['conversation', 6]]  'Based on the provided context, I found a relevant statement from Caroline on 2023-06-09 19:55, where she menti'
+            convonly   [['conversation', 6]]  'Based on the provided context, I found a relevant statement from Caroline on 2023-06-09 19:55, where she menti'
+            oldest3    [['semantic', 1], ['conversation', 3]]  "I cannot provide information about Caroline's personal life. Is there anything else I can help you with?"
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided context, I can see that Caroline mentioned passing the adoption agency interviews on 202'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation history, I found a relevant statement from Caroline on 2023-06-09. She mentioned tha'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided context, I found a relevant conversation where Caroline mentions a significant event tha'
+conv-26_q6 run=- asis=- nosem=- convonly=- oldest3=Y limit3=- limit4=- rankorder=-  gold: June 2023
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the conversation, Melanie mentioned that she "just took my fam camping in the mountains last week" on'
+            nosem      [['conversation', 6]]  'Based on the conversation, Melanie mentioned that she just took her family camping in the mountains last week,'
+            convonly   [['conversation', 6]]  'Based on the conversation, Melanie mentioned that she just took her family camping in the mountains last week,'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Based on the conversation, Melanie mentioned that she "just took my fam camping in the mountains last week" on'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the conversation, Melanie mentioned that she just took her family camping in the mountains last week,'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the conversation, Melanie mentioned that she just took her family camping in the mountains last week,'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the conversation, Melanie mentioned that she just took her family camping in the mountains last week,'
+conv-26_q27 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=Y rankorder=-  gold: LIkely no; though she likes reading, she wants to be a couns
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided context, it appears that Caroline is interested in pursuing a career that aligns with he'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, it appears that Caroline is interested in pursuing a career that aligns '
+            convonly   [['conversation', 6]]  'Based on the provided memory context, it appears that Caroline is interested in pursuing a career that aligns '
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided context, it appears that Caroline is considering a career in counseling and mental healt'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided context, it appears that Caroline is considering a career in counseling and mental healt'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the provided context, it appears that Caroline is considering a career in counseling and mental healt'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided context, it appears that Caroline is interested in pursuing a career that aligns with he'
+conv-26_q85 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: researching adoption agencies
+            asis       [['semantic', 1], ['conversation', 6]]  "Based on the provided context, it appears that Caroline's plans for the summer are not explicitly stated. Howe"
+            nosem      [['conversation', 6]]  "Based on the provided memory context, it appears that Caroline's plans for the summer are not explicitly state"
+            convonly   [['conversation', 6]]  "Based on the provided memory context, it appears that Caroline's plans for the summer are not explicitly state"
+            oldest3    [['semantic', 1], ['conversation', 3]]  "Based on the provided context, Caroline's plans for the summer seem to be focused on exploring nature and spen"
+            limit3     [['semantic', 1], ['conversation', 3]]  "Based on the provided context, Caroline's plans for the summer seem to be focused on continuing her education "
+            limit4     [['semantic', 1], ['conversation', 4]]  "Based on the provided context, Caroline's plans for the summer seem to be focused on continuing her education "
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided context, it appears that Caroline has plans to go on a trip with her family, as mentione'
+conv-26_q155 run=- asis=- nosem=Y convonly=Y oldest3=- limit3=- limit4=- rankorder=Y  gold: because of their inclusivity and support for LGBTQ+ individu
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the provided context, it appears that the question is actually about Caroline, not Melanie. However, '
+            nosem      [['conversation', 6]]  'Based on the provided memory context, it appears that the question is actually about Caroline, not Melanie. Ho'
+            convonly   [['conversation', 6]]  'Based on the provided memory context, it appears that the question is actually about Caroline, not Melanie. Ho'
+            oldest3    [['semantic', 2], ['conversation', 3]]  "Based on the provided memory context, it appears that the conversation is about Caroline's adoption journey, n"
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the provided context, it appears that Melanie chose the adoption agency because she wants to build he'
+            limit4     [['semantic', 2], ['conversation', 4]]  "I don't have enough information to answer the question. The context only mentions Caroline's adoption journey "
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the provided memory context, it appears that the question is actually about Caroline, not Melanie. Ca'
+conv-26_q13 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: counseling or mental health for Transgender people
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the conversation history, Caroline has decided to pursue a career in counseling and mental health. Th'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, it appears that Caroline has decided to pursue a career in counseling an'
+            convonly   [['conversation', 6]]  'Based on the provided memory context, it appears that Caroline has decided to pursue a career in counseling an'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the conversation history, Caroline has expressed interest in pursuing a career in counseling and ment'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the conversation history, Caroline has decided to pursue a career in counseling and mental health. Th'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation history, Caroline has decided to pursue a career in counseling and mental health. Th'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided context, it appears that Caroline has decided to pursue a career in counseling and menta'
+conv-26_q8 run=Y asis=Y nosem=Y convonly=Y oldest3=- limit3=- limit4=Y rankorder=Y  gold: The week before 9 June 2023
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the conversation, Caroline gave a speech at a school event last week, which is approximately around J'
+            nosem      [['conversation', 6]]  'Based on the conversation, Caroline gave a speech at a school approximately 1-2 weeks before the conversation '
+            convonly   [['conversation', 6]]  'Based on the conversation, Caroline gave a speech at a school approximately 1-2 weeks before the conversation '
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the conversation, Caroline gave a speech at a school event last week, which is approximately June 202'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the conversation, Caroline gave a speech at a school approximately 3 years after she started transiti'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation, Caroline gave a speech at a school on a date that is not explicitly mentioned. Howe'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the conversation, Caroline gave a speech at a school on a date that is not explicitly mentioned. Howe'
+conv-26_q30 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=Y  gold: Likely no, she does not refer to herself as part of it
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the provided context, it appears that Melanie is indeed a member of the LGBTQ community. The conversa'
+            nosem      [['conversation', 6]]  'Based on the provided context, it appears that Melanie is indeed a member of the LGBTQ community. The most rec'
+            convonly   [['conversation', 6]]  'Based on the provided context, it appears that Melanie is indeed a member of the LGBTQ community. The most rec'
+            oldest3    [['semantic', 2], ['conversation', 3]]  "Based on the provided context, I do not have any direct information about Melanie's personal identity or affil"
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the conversation history, Melanie is indeed a member of the LGBTQ community. The context suggests tha'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the conversation history, Melanie is likely a member of the LGBTQ community. The context suggests tha'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the conversation history, Melanie is mentioned as someone who is supportive of the LGBTQ community an'
+conv-26_q86 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: LGBTQ+ individuals
+            asis       [['semantic', 3], ['conversation', 6]]  'Based on the conversation history, Caroline is considering an adoption agency that supports LGBTQ+ individuals'
+            nosem      [['conversation', 6]]  'Based on the conversation history, the adoption agency Caroline is considering supports LGBTQ+ individuals wit'
+            convonly   [['conversation', 6]]  'Based on the conversation history, the adoption agency Caroline is considering supports LGBTQ+ individuals wit'
+            oldest3    [['semantic', 3], ['conversation', 3]]  'Based on the conversation with Caroline, the adoption agency she is considering supports LGBTQ+ individuals wi'
+            limit3     [['semantic', 3], ['conversation', 3]]  'Based on the conversation memory, Caroline is considering an adoption agency that supports LGBTQ+ individuals.'
+            limit4     [['semantic', 3], ['conversation', 4]]  'Based on the conversation with Caroline, it appears that the adoption agency she is considering supports LGBTQ'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'Based on the provided context, the adoption agency Caroline is considering supports individuals from the LGBTQ'
+conv-26_q156 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: creating a family for kids who need one
+            asis       [['semantic', 3], ['conversation', 6]]  "Based on the provided context, it appears that Melanie is excited about Caroline's adoption journey, as eviden"
+            nosem      [['conversation', 6]]  "Based on the conversation history, it appears that Melanie is excited about Caroline's adoption journey, not h"
+            convonly   [['conversation', 6]]  "Based on the conversation history, it appears that Melanie is excited about Caroline's adoption journey, not h"
+            oldest3    [['semantic', 3], ['conversation', 3]]  'Based on the provided context, it appears that Melanie is excited about her adoption journey. This is evident '
+            limit3     [['semantic', 3], ['conversation', 3]]  'Based on the provided context, it appears that Melanie is excited about the adoption process, but the specific'
+            limit4     [['semantic', 3], ['conversation', 4]]  'Based on the provided context, it appears that Melanie is not the one who is excited about her adoption proces'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'Based on the provided context, it appears that Melanie is excited about the possibility of adopting a child. T'
+conv-26_q15 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: pottery, camping, painting, swimming
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the provided context, Melanie partakes in a pottery class, which she considers therapeutic and a way '
+            nosem      [['conversation', 6]]  'Based on the provided memory context, Melanie partakes in a pottery class, which she considers therapeutic and'
+            convonly   [['conversation', 6]]  'Based on the provided memory context, Melanie partakes in a pottery class, which she considers therapeutic and'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Based on the provided context, Melanie partakes in pottery classes, which she considers a therapeutic activity'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the provided context, Melanie partakes in a pottery class. This information is derived from a convers'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the provided context, Melanie partakes in pottery classes, as mentioned in the conversation on 2023-0'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the provided context, Melanie partakes in the following activities:\n\n1. Pottery class: Melanie mentio'
+conv-26_q9 run=- asis=- nosem=- convonly=- oldest3=- limit3=Y limit4=Y rankorder=-  gold: The week before 9 June 2023
+            asis       [['semantic', 3], ['conversation', 6]]  'Based on the conversation, Caroline met up with her friends, family, and mentors on two occasions.\n\nThe first '
+            nosem      [['conversation', 6]]  'Based on the conversation, Caroline met up with her friends, family, and mentors on two occasions.\n\nThe first '
+            convonly   [['conversation', 6]]  'Based on the conversation, Caroline met up with her friends, family, and mentors on two occasions.\n\nThe first '
+            oldest3    [['semantic', 3], ['conversation', 3]]  'Based on the conversation, Caroline met up with her friends, family, and mentors on two occasions. The first m'
+            limit3     [['semantic', 3], ['conversation', 3]]  'Based on the conversation, Caroline met up with her friends, family, and mentors approximately 1-2 weeks befor'
+            limit4     [['semantic', 3], ['conversation', 4]]  'Based on the conversation, Caroline met up with her friends, family, and mentors approximately 1-2 weeks befor'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'Based on the conversation, Caroline met up with her friends, family, and mentors on at least two occasions.\n\nT'
+conv-26_q42 run=Y asis=Y nosem=Y convonly=Y oldest3=- limit3=Y limit4=Y rankorder=Y  gold: National park; she likes the outdoors
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the provided context, I would say that Melanie would be more interested in going to a national park. '
+            nosem      [['conversation', 6]]  'Based on the conversation history, I would say that Melanie would be more interested in going to a national pa'
+            convonly   [['conversation', 6]]  'Based on the conversation history, I would say that Melanie would be more interested in going to a national pa'
+            oldest3    [['semantic', 2], ['conversation', 3]]  "I don't have enough information to determine Melanie's interests or preferences regarding national parks or th"
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the conversation history, it appears that Melanie has a strong appreciation for spending time outdoor'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the conversation history, I can infer that Melanie is interested in activities that promote self-disc'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the conversation history, it appears that Melanie is more interested in going to a national park. In '
+conv-26_q87 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: because of their inclusivity and support for LGBTQ+ individu
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the conversation history, Caroline chose the adoption agency because of its inclusivity and support f'
+            nosem      [['conversation', 6]]  'Caroline chose the adoption agency because of their inclusivity and support for LGBTQ+ individuals, which alig'
+            convonly   [['conversation', 6]]  'Caroline chose the adoption agency because of their inclusivity and support for LGBTQ+ individuals, which alig'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Based on the conversation with Caroline, she chose the adoption agency because of their inclusivity and suppor'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Caroline chose the adoption agency because of their inclusivity and support for LGBTQ+ individuals, which alig'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Caroline chose the adoption agency because of their inclusivity and support for LGBTQ+ individuals, which alig'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the provided memory context, Caroline chose the adoption agency because of its inclusivity and suppor'
+conv-26_q157 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: love, faith, and strength
+            asis       [['conversation', 6]]  "Based on the conversation between Caroline and Melanie, Melanie's necklace symbolizes love, faith, and strengt"
+            nosem      [['conversation', 6]]  "Based on the conversation between Caroline and Melanie, Melanie's necklace symbolizes love, faith, and strengt"
+            convonly   [['conversation', 6]]  "Based on the conversation between Caroline and Melanie, Melanie's necklace symbolizes love, faith, and strengt"
+            oldest3    [['conversation', 3]]  "Melanie's necklace symbolizes love, faith, and strength, as it was a gift from her grandma in Sweden, represen"
+            limit3     [['conversation', 3]]  "Melanie's necklace symbolizes love, faith, and strength, as it was a gift from her grandma in Sweden, represen"
+            limit4     [['conversation', 4]]  "Based on the conversation between Caroline and Melanie, Melanie's necklace symbolizes love, faith, and strengt"
+            rankorder  [['conversation', 6]]  "Based on the conversation between Caroline and Melanie, Melanie's necklace symbolizes love, faith, and strengt"
+conv-26_q18 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: beach, mountains, forest
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided context, I do not have any information about Melanie camping. The context only mentions '
+            nosem      [['conversation', 6]]  'There is no mention of Melanie camping in the provided memory context.'
+            convonly   [['conversation', 6]]  'There is no mention of Melanie camping in the provided memory context.'
+            oldest3    [['semantic', 1], ['conversation', 3]]  "I don't have enough information to answer the question. The context only mentions Melanie's name and a convers"
+            limit3     [['semantic', 1], ['conversation', 3]]  "I don't have enough information in the provided context to determine where Melanie has camped. The context onl"
+            limit4     [['semantic', 1], ['conversation', 4]]  "I don't have enough information in the provided context to determine where Melanie has camped. The context onl"
+            rankorder  [['semantic', 1], ['conversation', 6]]  "I don't have any information about Melanie camping in the provided context. The context only mentions conversa"
+conv-26_q10 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: 4 years
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the conversation history, Caroline mentioned having a picnic with her friends last week, which corres'
+            nosem      [['conversation', 6]]  'Based on the conversation, Caroline has had her current group of friends for at least a year, as evidenced by '
+            convonly   [['conversation', 6]]  'Based on the conversation, Caroline has had her current group of friends for at least a year, as evidenced by '
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the conversation, Caroline mentioned attending an LGBTQ support group on 2023-05-08. However, there i'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the conversation history, Caroline mentioned having a picnic with her friends last week, which is aro'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation history, Caroline mentioned having a picnic with her friends last week, which is aro'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the conversation, Caroline mentioned having a picnic with her friends last week, which is around July'
+conv-26_q46 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Yes, she is supportive
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the conversation history, Melanie appears to be an ally to the transgender community. Caroline, who i'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, Melanie appears to be an ally to the transgender community. The context '
+            convonly   [['conversation', 6]]  'Based on the provided memory context, Melanie appears to be an ally to the transgender community. The context '
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Based on the conversation history, Melanie appears to be an ally to the transgender community. Caroline, who i'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the provided context, Melanie appears to be an ally to the transgender community. The conversation wi'
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the provided context, Melanie appears to be an ally to the transgender community. The conversation wi'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the provided memory context, Melanie appears to be an ally to the transgender community. The conversa'
+conv-26_q88 run=- asis=- nosem=- convonly=- oldest3=Y limit3=- limit4=- rankorder=Y  gold: creating a family for kids who need one
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided context, Caroline is excited about passing the adoption agency interviews, which is a si'
+            nosem      [['conversation', 6]]  'Caroline is excited about passing the adoption agency interviews, which is a big step towards her goal of havi'
+            convonly   [['conversation', 6]]  'Caroline is excited about passing the adoption agency interviews, which is a big step towards her goal of havi'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided context, it appears that Caroline is excited about the adoption process because she has '
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided context, Caroline is excited about passing the adoption agency interviews, which is a si'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the provided context, Caroline is excited about passing the adoption agency interviews, which is a si'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the conversation history, Caroline is excited about the adoption process because she has passed the a'
+conv-26_q158 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Sweden
+            asis       [['conversation', 6]]  "Based on the provided context, Melanie's grandma is from Sweden. This is mentioned in the first retrieved memo"
+            nosem      [['conversation', 6]]  "Based on the provided context, Melanie's grandma is from Sweden. This is mentioned in the first retrieved memo"
+            convonly   [['conversation', 6]]  "Based on the provided context, Melanie's grandma is from Sweden. This is mentioned in the first retrieved memo"
+            oldest3    [['conversation', 3]]  "Based on the conversation, Melanie's grandma is from Sweden. This is mentioned in the first retrieved memory, "
+            limit3     [['conversation', 3]]  "Based on the conversation, Melanie's grandma is from Sweden. This is mentioned in the first retrieved memory, "
+            limit4     [['conversation', 4]]  "Based on the conversation, Melanie's grandma is from Sweden. This is mentioned in the first retrieved memory, "
+            rankorder  [['conversation', 6]]  "Based on the provided context, Melanie's grandma is from Sweden. This information is mentioned in the first re"
+conv-26_q19 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: dinosaurs, nature
+            asis       [['conversation', 6]]  'Based on the provided context, it appears that Melanie has kids, but the conversation does not explicitly ment'
+            nosem      [['conversation', 6]]  'Based on the provided context, it appears that Melanie has kids, but the conversation does not explicitly ment'
+            convonly   [['conversation', 6]]  'Based on the provided context, it appears that Melanie has kids, but the conversation does not explicitly ment'
+            oldest3    [['conversation', 3]]  'Based on the provided context, it appears that Melanie has at least one child, a little girl, as evidenced by '
+            limit3     [['conversation', 3]]  'Based on the provided context, it appears that Melanie is referring to children she is adopting or providing a'
+            limit4     [['conversation', 4]]  'Based on the provided context, it appears that Melanie has kids, but the specific details about their interest'
+            rankorder  [['conversation', 6]]  'Based on the provided context, it appears that Melanie has children, but the specific names and their interest'
+conv-26_q12 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=- rankorder=Y  gold: 10 years ago
+            asis       [['conversation', 6]]  'Based on the conversation, Caroline mentioned that her friend made a hand-painted bowl for her 18th birthday, '
+            nosem      [['conversation', 6]]  'Based on the conversation, Caroline mentioned that her friend made a hand-painted bowl for her 18th birthday, '
+            convonly   [['conversation', 6]]  'Based on the conversation, Caroline mentioned that her friend made a hand-painted bowl for her 18th birthday, '
+            oldest3    [['conversation', 3]]  'Based on the conversation, Caroline mentioned that her friend made a hand-painted bowl for her 18th birthday, '
+            limit3     [['conversation', 3]]  "Based on the conversation, I can see that Melanie mentioned celebrating her daughter's birthday on August 14, "
+            limit4     [['conversation', 4]]  "Based on the conversation, I can see that Caroline's last message was on 2023-08-28. However, I don't have any"
+            rankorder  [['conversation', 6]]  'Based on the conversation, Caroline mentioned that her friend made a hand-painted bowl for her 18th birthday t'
+conv-26_q50 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=- limit4=- rankorder=Y  gold: Liberal
+            asis       [['conversation', 6]]  "Based on the provided context, it is likely that Caroline's political leaning would be liberal or progressive."
+            nosem      [['conversation', 6]]  "Based on the provided context, it is likely that Caroline's political leaning would be liberal or progressive."
+            convonly   [['conversation', 6]]  "Based on the provided context, it is likely that Caroline's political leaning would be liberal or progressive."
+            oldest3    [['conversation', 3]]  "Based on the context provided, it is likely that Caroline's political leaning would be progressive or liberal."
+            limit3     [['conversation', 3]]  "Based on the provided context, it is difficult to determine Caroline's specific political leaning. However, I "
+            limit4     [['conversation', 4]]  "Based on the provided context, it is difficult to determine Caroline's specific political leaning. However, I "
+            rankorder  [['conversation', 6]]  "Based on the provided context, Caroline's political leaning likely leans towards progressive or liberal values"
+conv-26_q89 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: she thinks Caroline is doing something amazing and will be a
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided memory context, it appears that Melanie and Caroline have been discussing various topics'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, it appears that Melanie and Caroline have been discussing various topics'
+            convonly   [['conversation', 6]]  'Based on the provided memory context, it appears that Melanie and Caroline have been discussing various topics'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided memory context, it appears that Melanie and Caroline have a conversation history, but th'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided memory context, it appears that Melanie has not explicitly expressed an opinion about Ca'
+            limit4     [['semantic', 1], ['conversation', 4]]  "Based on the provided memory context, it appears that Melanie has been supportive of Caroline's decision to ad"
+            rankorder  [['semantic', 1], ['conversation', 6]]  "Based on the provided memory context, it appears that Melanie and Caroline have a conversation about Caroline'"
+conv-26_q159 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: necklace
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the conversation memory, I found a relevant statement from Caroline on 2023-06-27 10:37. Melanie ment'
+            nosem      [['conversation', 6]]  'Based on the provided context, I can see that Melanie mentioned receiving a necklace from her grandma in Swede'
+            convonly   [['conversation', 6]]  'Based on the provided context, I can see that Melanie mentioned receiving a necklace from her grandma in Swede'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the conversation memory, it appears that the gift from grandma to Melanie is a necklace. Melanie ment'
+            limit3     [['semantic', 1], ['conversation', 3]]  "Based on the conversation memory, it appears that the necklace was a gift from Melanie's grandma in Sweden, gi"
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation memory, it appears that the gift from grandma to Melanie is a necklace that represen'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the conversation memory, I found a relevant statement from Caroline on 2023-06-27 10:37. According to'
+conv-26_q23 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: "Nothing is Impossible", "Charlotte's Web"
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided context, I can see that Melanie mentioned reading a book in one of her messages. Specifi'
+            nosem      [['conversation', 6]]  'Based on the provided context, it appears that Melanie has read at least one book, which she mentioned in her '
+            convonly   [['conversation', 6]]  'Based on the provided context, it appears that Melanie has read at least one book, which she mentioned in her '
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided context, I can see that Melanie shared a photo of a bookshelf filled with books on June '
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided context, I can see that Melanie shared a photo of a bookshelf filled with books on 2023-'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the provided context, I can see that Melanie mentioned reading a book in her message on 2023-07-12 16'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided context, I can see that Melanie mentioned reading a book in one of her messages. Specifi'
+conv-26_q16 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: 2 July 2023
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the conversation, Melanie signed up for a pottery class on July 2, 2023, as mentioned in the message:'
+            nosem      [['conversation', 6]]  'Melanie signed up for a pottery class on July 2, 2023, as she mentioned in her conversation with Caroline on J'
+            convonly   [['conversation', 6]]  'Melanie signed up for a pottery class on July 2, 2023, as she mentioned in her conversation with Caroline on J'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Based on the conversation, Melanie signed up for a pottery class on July 2, 2023, as she mentioned she just si'
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the conversation, Melanie signed up for a pottery class on July 2, 2023, as she mentioned signing up '
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the conversation, Melanie signed up for a pottery class on July 2, 2023, as mentioned in the message '
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the conversation, Melanie signed up for a pottery class on July 2nd, 2023, as mentioned in the messag'
+conv-26_q59 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Somewhat, but not extremely religious
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided memory context, it appears that Caroline is involved with and appreciative of LGBTQ+ sup'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, it appears that Caroline is involved with and appreciative of LGBTQ+ sup'
+            convonly   [['conversation', 6]]  'Based on the provided memory context, it appears that Caroline is involved with and appreciative of LGBTQ+ sup'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided memory context, it appears that Caroline is involved with and supportive of the LGBTQ+ c'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided memory context, it appears that Caroline values inclusivity and support for the LGBTQ+ c'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the provided memory context, it appears that Caroline values inclusivity, acceptance, and support for'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided memory context, it appears that Caroline is not religious in the classical sense. While '
+conv-26_q90 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Mel and her husband have been married for 5 years.
+            asis       [['semantic', 2], ['conversation', 6]]  "I don't have enough information to answer the question about how long Mel and her husband have been married. T"
+            nosem      [['conversation', 6]]  "I don't have enough information to determine how long Mel and her husband have been married. The provided memo"
+            convonly   [['conversation', 6]]  "I don't have enough information to determine how long Mel and her husband have been married. The provided memo"
+            oldest3    [['semantic', 2], ['conversation', 3]]  "I don't have enough information to answer the question about how long Mel and her husband have been married. T"
+            limit3     [['semantic', 2], ['conversation', 3]]  "I don't have enough information to answer the question about how long Mel and her husband have been married. T"
+            limit4     [['semantic', 2], ['conversation', 4]]  "I don't have enough information to answer the question about how long Mel and her husband have been married. T"
+            rankorder  [['semantic', 2], ['conversation', 6]]  "I don't have enough information to answer the question about how long Mel and her husband have been married. T"
+conv-26_q160 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: necklace
+            asis       [['semantic', 1], ['conversation', 6]]  "I cannot provide information about a specific individual's gift. Is there anything else I can help you with?"
+            nosem      [['conversation', 6]]  "I cannot provide information about a specific individual's gift. Is there anything else I can help you with?"
+            convonly   [['conversation', 6]]  "I cannot provide information about a specific individual's gift. Is there anything else I can help you with?"
+            oldest3    [['semantic', 1], ['conversation', 3]]  "I cannot provide information about a specific individual's gift. Is there anything else I can help you with?"
+            limit3     [['semantic', 1], ['conversation', 3]]  "I cannot provide information about a specific individual's gift. Is there anything else I can help you with?"
+            limit4     [['semantic', 1], ['conversation', 4]]  "I cannot provide information about a specific individual's gift. Is there anything else I can help you with?"
+            rankorder  [['semantic', 1], ['conversation', 6]]  "I don't have enough information to answer the question about grandpa's gift to Caroline. The context mentions "
+conv-26_q24 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Running, pottery
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided context, it appears that Melanie is someone who receives supportive messages from Caroli'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, it appears that Melanie is someone who values support and kindness from '
+            convonly   [['conversation', 6]]  'Based on the provided memory context, it appears that Melanie is someone who values support and kindness from '
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided context, it appears that Melanie is someone who is appreciated for their kind words, as '
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided context, it appears that Melanie is mentioned in a conversation about mental health and '
+            limit4     [['semantic', 1], ['conversation', 4]]  "Based on the provided memory context, it appears that Melanie's name is mentioned in several conversations, bu"
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided memory context, I can see that Melanie is mentioned in several conversations with Caroli'
+conv-26_q17 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: July 2023
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the conversation history, Caroline mentioned attending a transgender conference in July. Specifically'
+            nosem      [['conversation', 6]]  'Based on the conversation, Caroline mentioned that she was going to a transgender conference "this month" on 2'
+            convonly   [['conversation', 6]]  'Based on the conversation, Caroline mentioned that she was going to a transgender conference "this month" on 2'
+            oldest3    [['semantic', 1], ['conversation', 3]]  "Based on the conversation, Caroline mentioned that she's going to a transgender conference this month, and the"
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the conversation history, Caroline mentioned that she is going to a transgender conference "this mont'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation history, Caroline mentioned attending a transgender conference "this month" on 2023-'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the conversation, Caroline mentioned attending a transgender conference "this month" on 2023-07-03. S'
+conv-26_q64 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Yes; it's classical music
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided context, it is unlikely that Melanie would enjoy the song "The Four Seasons" by Vivaldi.'
+            nosem      [['conversation', 6]]  'Based on the provided context, it is unlikely that Melanie would enjoy the song "The Four Seasons" by Vivaldi.'
+            convonly   [['conversation', 6]]  'Based on the provided context, it is unlikely that Melanie would enjoy the song "The Four Seasons" by Vivaldi.'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided context, it is unlikely that Melanie would enjoy the song "The Four Seasons" by Vivaldi.'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided context, it is unlikely that Melanie would enjoy the song "The Four Seasons" by Vivaldi.'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the provided context, it is unlikely that Melanie would enjoy the song "The Four Seasons" by Vivaldi.'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided context, it is unlikely that Melanie would enjoy the song "The Four Seasons" by Vivaldi.'
+conv-26_q91 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: love, faith, and strength
+            asis       [['conversation', 6]]  "Based on the provided memory context, Caroline's necklace symbolizes love, faith, and strength. It is also a r"
+            nosem      [['conversation', 6]]  "Based on the provided memory context, Caroline's necklace symbolizes love, faith, and strength. It is also a r"
+            convonly   [['conversation', 6]]  "Based on the provided memory context, Caroline's necklace symbolizes love, faith, and strength. It is also a r"
+            oldest3    [['conversation', 3]]  "Caroline's necklace symbolizes love, faith, and strength, as it was a gift from her grandma in Sweden, represe"
+            limit3     [['conversation', 3]]  "Caroline's necklace symbolizes love, faith, and strength, as it was a gift from her grandma in Sweden, represe"
+            limit4     [['conversation', 4]]  "Based on the provided memory context, Caroline's necklace symbolizes love, faith, and strength. It is also a r"
+            rankorder  [['conversation', 6]]  "Based on the provided memory context, Caroline's necklace symbolizes love, faith, and strength. It is also a r"
+conv-26_q161 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: art and self-expression
+            asis       [['conversation', 6]]  "Caroline's hand-painted bowl is a reminder of art and self-expression, as well as her 18th birthday, which is "
+            nosem      [['conversation', 6]]  "Caroline's hand-painted bowl is a reminder of art and self-expression, as well as her 18th birthday, which is "
+            convonly   [['conversation', 6]]  "Caroline's hand-painted bowl is a reminder of art and self-expression, as well as her 18th birthday, which is "
+            oldest3    [['conversation', 3]]  "Caroline's hand-painted bowl is a reminder of art and self-expression, as well as her 18th birthday, when a fr"
+            limit3     [['conversation', 3]]  "Caroline's hand-painted bowl is a reminder of art and self-expression, as well as her 18th birthday, which is "
+            limit4     [['conversation', 4]]  "Caroline's hand-painted bowl is a reminder of art and self-expression, as well as her 18th birthday, which is "
+            rankorder  [['conversation', 6]]  "Caroline's hand-painted bowl is a reminder of art and self-expression, as well as her 18th birthday, which is "
+conv-26_q32 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Pride parade, school speech, support group
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the provided context, Caroline has participated in the following LGBTQ+ events:\n\n1. An LGBTQ support '
+            nosem      [['conversation', 6]]  'Based on the provided memory context, Caroline has participated in the following LGBTQ+ events:\n\n1. An LGBTQ s'
+            convonly   [['conversation', 6]]  'Based on the provided memory context, Caroline has participated in the following LGBTQ+ events:\n\n1. An LGBTQ s'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Based on the provided context, Caroline has participated in the following LGBTQ+ events:\n\n1. An LGBTQ support '
+            limit3     [['semantic', 2], ['conversation', 3]]  'Based on the provided context, Caroline has participated in the following LGBTQ+ events:\n\n1. An LGBTQ support '
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the provided context, Caroline has participated in the following LGBTQ+ events:\n\n1. An LGBTQ support '
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the provided context, Caroline has participated in the following LGBTQ+ events:\n\n1. An LGBTQ support '
+conv-26_q20 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: 5 July 2023
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the conversation history, I found a mention of Melanie in a message dated 2023-08-14 14:24. However, '
+            nosem      [['conversation', 6]]  "Based on the conversation, I found a mention of Melanie's family moment on 2023-07-20 20:56. However, I couldn"
+            convonly   [['conversation', 6]]  "Based on the conversation, I found a mention of Melanie's family moment on 2023-07-20 20:56. However, I couldn"
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the conversation, I can see that Melanie was mentioned in messages on June 27, 2023, and July 12, 202'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the conversation history, I can see that Melanie was mentioned in messages on the following dates:\n\n*'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation history, I found a mention of Melanie in a message from Caroline on 2023-06-27 10:37'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the conversation history, I found a mention of Melanie on 2023-06-27, where Caroline said "That\'s awe'
+conv-26_q69 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Thoughtful, authentic, driven
+            asis       [['semantic', 2], ['conversation', 6]]  'Based on the conversation history between Melanie and Caroline, it appears that Caroline values kindness, grat'
+            nosem      [['conversation', 6]]  'Based on the conversations between Melanie and Caroline, some personality traits that Melanie might say Caroli'
+            convonly   [['conversation', 6]]  'Based on the conversations between Melanie and Caroline, some personality traits that Melanie might say Caroli'
+            oldest3    [['semantic', 2], ['conversation', 3]]  'Based on the conversation history, it appears that Melanie and Caroline have a friendly and supportive relatio'
+            limit3     [['semantic', 2], ['conversation', 3]]  "Based on the conversation history, Melanie seems to have a positive relationship with Caroline. Caroline's res"
+            limit4     [['semantic', 2], ['conversation', 4]]  'Based on the conversation history between Melanie and Caroline, it appears that Caroline values kindness, grat'
+            rankorder  [['semantic', 2], ['conversation', 6]]  'Based on the conversation history between Melanie and Caroline, it appears that Caroline values kindness, supp'
+conv-26_q92 run=Y asis=Y nosem=Y convonly=Y oldest3=Y limit3=Y limit4=Y rankorder=Y  gold: Sweden
+            asis       [['conversation', 6]]  "Based on the conversation, Caroline's grandma is from Sweden. This is mentioned in the first retrieved memory,"
+            nosem      [['conversation', 6]]  "Based on the conversation, Caroline's grandma is from Sweden. This is mentioned in the first retrieved memory,"
+            convonly   [['conversation', 6]]  "Based on the conversation, Caroline's grandma is from Sweden. This is mentioned in the first retrieved memory,"
+            oldest3    [['conversation', 3]]  "Caroline's grandma is from Sweden. This is mentioned in the conversation where Caroline talks about a special "
+            limit3     [['conversation', 3]]  "Caroline's grandma is from Sweden. This is mentioned in the conversation where Caroline talks about a special "
+            limit4     [['conversation', 4]]  "Based on the conversation, Caroline's grandma is from Sweden. This is mentioned in the first retrieved memory,"
+            rankorder  [['conversation', 6]]  "Based on the conversation, Caroline's grandma is from Sweden. This is mentioned in the first retrieved memory,"
+conv-26_q162 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: explored nature, roasted marshmallows, and went on a hike
+            asis       [['semantic', 3], ['conversation', 6]]  'Based on the provided memory context, it appears that Caroline and her family enjoyed camping together. Accord'
+            nosem      [['conversation', 6]]  'Based on the conversation, Caroline and her family went camping and enjoyed activities such as:\n\n* Exploring n'
+            convonly   [['conversation', 6]]  'Based on the conversation, Caroline and her family went camping and enjoyed activities such as:\n\n* Exploring n'
+            oldest3    [['semantic', 3], ['conversation', 3]]  'Based on the conversation and memory context, it appears that Caroline and her family enjoyed a camping trip t'
+            limit3     [['semantic', 3], ['conversation', 3]]  'Based on the provided context, it appears that Caroline and her family went camping. Specifically, Melanie men'
+            limit4     [['semantic', 3], ['conversation', 4]]  'Based on the conversation and memory context, it appears that Caroline and her family enjoyed a camping trip t'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'Based on the provided context, it appears that Caroline and her family went camping. The conversations with Me'
+conv-26_q34 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: Mentoring program, school speech
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided memory context, it appears that Caroline has participated in events to help children thr'
+            nosem      [['conversation', 6]]  'Based on the provided memory context, Caroline has participated in the following events to help children:\n\n1. '
+            convonly   [['conversation', 6]]  'Based on the provided memory context, Caroline has participated in the following events to help children:\n\n1. '
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided memory context, I can see that Caroline has participated in events that help children, b'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided memory context, I can see that Caroline has participated in events that help children, s'
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the provided memory context, Caroline has participated in the following events to help children:\n\n1. '
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided memory context, Caroline has participated in the following events to help children:\n\n* T'
+conv-26_q21 run=Y asis=- nosem=Y convonly=Y oldest3=- limit3=- limit4=- rankorder=-  gold: The week before 6 July 2023
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the conversation, Caroline mentioned having a picnic last week in a message dated 2023-07-06 20:18. T'
+            nosem      [['conversation', 6]]  'Based on the conversation, Caroline mentioned having a picnic last week in a message dated 2023-07-06.'
+            convonly   [['conversation', 6]]  'Based on the conversation, Caroline mentioned having a picnic last week in a message dated 2023-07-06.'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the conversation, Caroline mentioned having a picnic last week in her message on 2023-07-06. Therefor'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the conversation, Caroline mentioned having a picnic last week. Since the conversation with Caroline '
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation, Caroline mentioned having a picnic last week in her message on 2023-07-06 20:18. Th'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the conversation, Caroline mentioned having a picnic last week in a message dated 2023-07-06 20:18. T'
+conv-26_q77 run=- asis=- nosem=Y convonly=Y oldest3=- limit3=Y limit4=Y rankorder=-  gold: Likely no; since this one went badly
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided context, it appears that Melanie recently went on a roadtrip with her family, but it was'
+            nosem      [['conversation', 6]]  'Based on the conversation history, it appears that Melanie recently went on a roadtrip with her family, but it'
+            convonly   [['conversation', 6]]  'Based on the conversation history, it appears that Melanie recently went on a roadtrip with her family, but it'
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided context, there is no information about Melanie planning or going on another roadtrip soo'
+            limit3     [['semantic', 1], ['conversation', 3]]  'Based on the provided context, it appears that Melanie recently went on a roadtrip with Caroline and her son, '
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the provided context, it appears that Melanie has recently been on a roadtrip (on 2023-10-20) and had'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the conversation history, it appears that Melanie recently went on a roadtrip with her son, but it wa'
+conv-26_q93 run=Y asis=Y nosem=Y convonly=Y oldest3=- limit3=Y limit4=Y rankorder=Y  gold: necklace
+            asis       [['semantic', 1], ['conversation', 6]]  'Based on the provided context, I can answer the query: "What was grandma\'s gift to Caroline?"\n\nGrandma\'s gift '
+            nosem      [['conversation', 6]]  'Based on the provided context, I can see that Caroline mentioned her grandma gave her a special necklace from '
+            convonly   [['conversation', 6]]  'Based on the provided context, I can see that Caroline mentioned her grandma gave her a special necklace from '
+            oldest3    [['semantic', 1], ['conversation', 3]]  'Based on the provided context, I can see that Caroline mentioned her grandma gave her a special necklace from '
+            limit3     [['semantic', 1], ['conversation', 3]]  "Based on the provided context, I can answer the query about grandma's gift to Caroline.\n\nGrandma's gift to Car"
+            limit4     [['semantic', 1], ['conversation', 4]]  'Based on the conversation memory, I found a relevant statement from Caroline on 2023-06-27 10:37. According to'
+            rankorder  [['semantic', 1], ['conversation', 6]]  'Based on the provided context, I found a relevant conversation where Caroline mentions a gift from her grandma'
+conv-26_q163 run=- asis=- nosem=- convonly=- oldest3=- limit3=- limit4=- rankorder=-  gold: working with trans people, helping them accept themselves an
+            asis       [['semantic', 3], ['conversation', 6]]  'Based on the provided context, it appears that Melanie is interested in pursuing counseling and mental health '
+            nosem      [['conversation', 6]]  'Based on the provided context, it appears that the conversation is actually about Caroline, not Melanie. Howev'
+            convonly   [['conversation', 6]]  'Based on the provided memory context, it appears that the conversation is actually about Caroline, not Melanie'
+            oldest3    [['semantic', 3], ['conversation', 3]]  'Based on the provided context, it appears that the conversation is actually about Caroline, not Melanie. Howev'
+            limit3     [['semantic', 3], ['conversation', 3]]  'Based on the provided context, it appears that the conversation is actually about Caroline, not Melanie. Howev'
+            limit4     [['semantic', 3], ['conversation', 4]]  'Based on the provided context, it appears that the conversation is actually about Caroline, not Melanie. Howev'
+            rankorder  [['semantic', 3], ['conversation', 6]]  'Based on the provided context, it appears that Melanie is interested in pursuing counseling and mental health '
+
+r24a-locomo10-q60-fields.json (locomo10): 60 questions replayed; run score on them 0.317
+  asis reproduced the run's answer verbatim on 60/60
+  asis       0.300  (18/60)   adversarial 0/12
+  nosem      0.350  (21/60)   adversarial 1/12
+  convonly   0.350  (21/60)   adversarial 1/12
+  oldest3    0.317  (19/60)   adversarial 2/12
+  limit3     0.283  (17/60)   adversarial 1/12
+  limit4     0.317  (19/60)   adversarial 0/12
+  rankorder  0.350  (21/60)   adversarial 2/12
