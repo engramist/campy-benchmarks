@@ -1,0 +1,44 @@
+=== Campy Benchmark Harness (B381) ===
+Timestamp: 2026-10-10T01:53:40.853704+00:00Z
+Mode: STANDARD
+Target MCP Server: /Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/python -m campy.adapters.mcp_server
+[+] Starting isolated daemon (base config: /Users/djshelton/.campy/config.toml)...
+    ready in 2.0s at /tmp/campy-bench-8ku42y31
+
+[+] Running LoCoMo-10 (published dataset; {'conversations': 1, 'max_questions': 60, 'categories': None})...
+    Completed in 1356.86s (calls=765, failures=0, valid=True)
+
+[+] Running baselines ['no_memory', 'full_context', 'naive_rag'] on ['locomo10'] (after the Campy suites, so they don't compete with the daemon for the LLM)...
+    LLM: {'provider': 'ollama', 'model': 'llama3.1:8b', 'base_url': 'http://localhost:11434/v1', 'endpoint': 'ollama /api/chat (num_ctx sized per prompt)', 'temperature': 0.0} (from isolated daemon config)
+    baseline no_memory / locomo10 ...
+    baseline full_context / locomo10 ...
+    baseline naive_rag / locomo10 ...
+
+[+] LoCoMo-10 judge: gemma4:26b over ['campy', 'no_memory', 'full_context', 'naive_rag']
+    judged campy: 44 calls
+    judged no_memory: 47 calls
+    judged full_context: 44 calls
+    judged naive_rag: 39 calls
+                         Campy Benchmark Results (FULL)                         
+┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃ Suite     ┃ Key Metrics                          ┃ Score / Rate  ┃ Latency   ┃
+┡━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━┩
+│ LoCoMo-10 │ F1: 0.0971 | Adv. abstain: 0.25 |    │ Judge: 0.3958 │ 3353.3 ms │
+│           │ Evidence recall: 0.4109              │               │           │
+└───────────┴──────────────────────────────────────┴───────────────┴───────────┘
+
+### Campy vs baselines (same LLM, same judge)
+| Suite | Metric | Campy | no_memory | full_context | naive_rag |
+|---|---|---|---|---|---|
+| locomo10 | judge_accuracy | 0.3958 | 0.0208 | 0.4792 | 0.375 |
+| locomo10 | f1 | 0.0971 | 0.0217 | 0.1535 | 0.0856 |
+| locomo10 | adversarial_abstention | 0.25 | 0.0 | 0.0833 | 0.0833 |
+| locomo10 | evidence_recall | 0.4109 | None | 1.0 | 0.3161 |
+| locomo10 | avg_prompt_tokens_est | - | 35.2 | 32459.5 | 561.5 |
+- locomo10: pass with NO memory (not testing memory): ['conv-26_q46']
+- locomo10: naive_rag passes but Campy fails: ['conv-26_q4', 'conv-26_q88', 'conv-26_q158', 'conv-26_q64']
+- locomo10: full_context passes but Campy fails: ['conv-26_q3', 'conv-26_q4', 'conv-26_q7', 'conv-26_q11', 'conv-26_q155', 'conv-26_q30', 'conv-26_q10', 'conv-26_q88', 'conv-26_q19', 'conv-26_q12', 'conv-26_q90', 'conv-26_q24']
+
+[+] Recorded results (with per-probe details) to /private/tmp/cb-r20/results/r20c-locomo10-q60-baselines.json
+
+Harness execution complete.
