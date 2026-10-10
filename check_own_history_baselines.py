@@ -162,6 +162,44 @@ with tempfile.TemporaryDirectory() as tmp:
     check(results["longmemeval_judge"].get("enabled") is True, "judge info recorded")
     check(results["baselines"]["full_context"]["dmr"]["judge_accuracy"] is not None, "DMR baseline judged")
 
+    # --- a transient failure is retried; a persistent one costs one question ----
+    from llm_client import LLMError
+
+    class Flaky(FakeLLM):
+        def __init__(self, fail_first: int, always_fail_on: str):
+            super().__init__()
+            self.left, self.always = fail_first, always_fail_on
+
+        def chat(self, messages):
+            if self.always in messages[-1]["content"]:
+                raise LLMError("cannot reach http://localhost:11434/api/chat: timed out")
+            if self.left > 0:
+                self.left -= 1
+                raise LLMError("timed out")
+            return super().chat(messages)
+
+    baselines.RETRY_DELAYS_S = (0.0, 0.0)
+    flaky = baselines.run_baseline("no_memory", "longmemeval", Flaky(2, "sister's job"), smoke=False,
+                                   opts={"variant": "oracle"})
+    fd = {d["id"]: d for d in flaky["details"]}
+    check(len(fd) == 3, "every question still has a record")
+    check("error" not in fd["q_dog"], "two timeouts then success: retried, no error")
+    check(fd["q_job"].get("error") and fd["q_job"]["judge"] is False, f"persistent failure recorded: {fd['q_job']}")
+    check(flaky["errors"] == 1, f"one error counted: {flaky.get('errors')}")
+    try:
+        baselines.run_baseline("no_memory", "longmemeval", Flaky(0, "?"), smoke=False, opts={"variant": "oracle"})
+        check(False, "a baseline whose every question failed must be invalid")
+    except LLMError:
+        pass
+    # finalize keeps the error count (aggregate counts records with `error`)
+    res2 = {"suites": {}, "baselines": {"config": {}, "no_memory": {"longmemeval": {**flaky, "valid": True}}}}
+    run_all.resolve_baseline_llm = lambda *a, **k: (FakeLLM(judge_reply="yes"), None, "fake")
+    try:
+        run_all.finalize_longmemeval(res2, args, None, None)
+    finally:
+        run_all.resolve_baseline_llm = orig
+    check(res2["baselines"]["no_memory"]["longmemeval"]["errors"] == 1, "finalize keeps the error count")
+
     # --- end to end ------------------------------------------------------------
     env = {k: v for k, v in os.environ.items() if k != "CAMPY_MCP_CMD"}
     out = Path(tmp) / "r.json"

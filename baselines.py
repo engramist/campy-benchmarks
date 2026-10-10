@@ -33,6 +33,7 @@ retrieval faces a few more distractors than naive_rag does here.
 from __future__ import annotations
 
 import math
+import time
 import re
 from collections import Counter
 from dataclasses import dataclass, field
@@ -303,6 +304,7 @@ def run_baseline(name: str, suite: str, llm: BaselineLLM, smoke: bool,
         raise ValueError("naive_rag needs a retriever")
     seen: List[Turn] = []
     details: List[Dict[str, Any]] = []
+    errors: List[str] = []
     for ev in suite_events(suite, smoke, opts):
         if isinstance(ev, Turn):
             seen.append(ev)
@@ -324,13 +326,21 @@ def run_baseline(name: str, suite: str, llm: BaselineLLM, smoke: bool,
                 items = sorted(retriever.top_k(ev.question, pool, k), key=lambda t: t.index)
             messages = [{"role": "system", "content": ASK_SYSTEM_PROMPT},
                         {"role": "user", "content": memory_prompt(ev.question, items, name)}]
-        res = llm.chat(messages)
+        res, err = _chat_with_retry(llm, messages)
+        if err is not None:
+            # this question failed even after retries: scored wrong and
+            # counted, never the whole baseline (R20b: one Ollama timeout
+            # used to invalidate all 35 no_memory answers)
+            errors.append(f"{ev.id}: {err}")
+            res = {"text": "", "prompt_tokens_est": 0, "num_ctx": None, "latency_ms": 0.0}
         answer = res["text"]
         if ev.kind == "locomo10":
             details.append(_locomo10_record(name, ev, answer, items, res))
+            _mark_error(details[-1], err)
             continue
         if ev.kind in ("longmemeval", "dmr"):
             details.append(_own_history_record(name, ev, answer, items, res))
+            _mark_error(details[-1], err)
             continue
         passed, reason = judge(answer, ev.kind, ev.accept, ev.stale)
         rec: Dict[str, Any] = {
@@ -351,8 +361,37 @@ def run_baseline(name: str, suite: str, llm: BaselineLLM, smoke: bool,
             rec["f1"] = round(compute_f1(answer, ev.expected), 4)
         if name == "naive_rag":
             rec["retrieved"] = [snippet(t.content, 120) for t in items]
+        _mark_error(rec, err)
         details.append(rec)
-    return {**_aggregate(suite, details), "details": details}
+    if details and len(errors) == len(details):
+        raise LLMError(f"every question failed; the last: {errors[-1]}")
+    return {**_aggregate(suite, details), "errors": len(errors), "error_examples": errors[:5],
+            "details": details}
+
+
+RETRY_DELAYS_S = (5.0, 20.0)
+
+
+def _mark_error(rec: Dict[str, Any], err: Optional[str]) -> None:
+    """A question whose answer failed: wrong, never judged (as Campy's own
+    LongMemEval/DMR runners record a daemon failure)."""
+    if err is not None:
+        rec.update({"error": err, "judge": False, "passed": False})
+
+
+def _chat_with_retry(llm: BaselineLLM, messages: List[Dict[str, str]],
+                     delays=RETRY_DELAYS_S, sleep=time.sleep):
+    """One answer, retried after a transient LLM failure (a timeout while
+    Ollama swaps models, R20b). Returns (result, None) or (None, error)."""
+    last = None
+    for attempt in range(len(delays) + 1):
+        try:
+            return llm.chat(messages), None
+        except LLMError as e:
+            last = e
+            if attempt < len(delays):
+                sleep(delays[attempt])
+    return None, str(last)[:300]
 
 
 def _locomo10_record(name: str, ev: Probe, answer: str, items: List[Turn], res: Dict[str, Any]) -> Dict[str, Any]:
