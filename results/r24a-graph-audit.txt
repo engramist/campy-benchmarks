@@ -1,0 +1,14 @@
+
+=== /tmp/campy-bench-_g7_nemi ===
+nodes: GistExample 648, Message 419, Concept 57, Session 19, WorkSummary 19, Label 9, SchemaOrgType 8, GistClass 7, Constraint 2, MainQuest 1, Lesson 1
+edges: SENT_IN 419, FOLLOWED_BY 400, CO_OCCURS_WITH 31, WORKING_ON 19, WARM_NODE 19, HAS_ALT_LABEL 9, ROUTES_TO 8, REQUIRES 3, ESTABLISHED_IN 2, ESTABLISHED 2, REIFIED_AS 2, ENABLES 1, LEARNED 1
+concepts: 57  confidence_low: 40 (70%)
+  split into variants: 0 concepts in 0 groups (0%)
+  harness-prefix junk: 0  time phrases: 5 (9%)
+  by gist: {'PlannedEvent': 27, 'Event': 2, 'PhysicalThing': 3, '-': 7, 'Category': 8, 'Agent': 4, 'Magnitude': 3, 'Restriction': 3}
+  by schema.org type: {'Action': 27, 'Event': 2, 'Product': 3, '-': 7, 'DefinedTerm': 8, 'Organization': 2, 'QuantitativeValue': 3, 'Demand': 3, 'Person': 2}
+  literal properties on Concept: archived, concept_id, confidence, confidence_low, created_at, embedding_dim, embedding_model, flagged_for_review, gist_class, last_accessed_at, pathway_strength, salience_score, schema_org_type, text_raw
+  time_phrase_examples: ['Pride Month', 'last year', 'next month', 'next time', 'the day']
+  top_labels: ['support', 'next month', 'counseling and support groups', 'adoption', 'your transition', 'our family camping trip', 'Melanie', 'campaigns', 'our summer', 'My goal', 'last year', 'Mel', 'your journey', 'Caroline', 'my dream', 'your plan', 'the day', 'Your drive', 'her first steps', 'my soul', 'your wedding', 'Mental health', 'fresh air', "life's challenges", 'just a precaution', 'What concert', 'your event', 'our trip', 'great reminders', 'next time', 'quality time', 'Pride Month', 'the weekend', 'fulfilled guiding', 'positive changes', 'regular meetings', 'family time', 'busy painting', 'guidance', 'change', 'activities', 'Pottery', 'What', 'birds', 'growth', 'care', 'something', 'yourself', 'acceptance', 'more platforms']
+
+written: results/r24a-graph-audit.json

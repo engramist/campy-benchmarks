@@ -1,0 +1,2049 @@
+{
+  "timestamp": "2026-10-10T09:58:54.155254+00:00",
+  "provenance": {
+    "scorer_version": 4,
+    "argv": [
+      "run_all.py",
+      "--baseline",
+      "--isolated",
+      "--judge-model",
+      "gemma4:26b",
+      "--keep-store",
+      "--turn-metadata",
+      "fields",
+      "--suite",
+      "dmr",
+      "--dmr-questions",
+      "50",
+      "--out",
+      "results/r24b-dmr-q50-fields.json"
+    ],
+    "harness": {
+      "path": "/private/tmp/cb-q24",
+      "commit": "7ebd8c987bb3fc9c3f69b868630075eac83f615d",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "hippocampy": {
+      "path": "/Users/djshelton/Desktop/GitProjects/hippocampy",
+      "commit": "9c5c9d8cedcbe4b0f3cc8e1ed1a75b643fac4fca",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "daemon_config": {
+      "source": "isolated (written by harness)",
+      "derived_from": "/Users/djshelton/.campy/config.toml",
+      "sha256": "f53bb92da2cdd184821bb05e5df1364c331060d673a40fe1a28efb0a1896697b",
+      "llm_provider": "ollama",
+      "llm_model": "llama3.1:8b",
+      "llm_step_overrides": {},
+      "embeddings_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "compression_model": null
+    },
+    "store": {
+      "isolated": true,
+      "campy_home": "/tmp/campy-bench-mpx3u34q",
+      "web_port": 57998,
+      "config_overrides": {
+        "capture.enabled": false,
+        "capture.codex.enabled": false,
+        "capture.claude_code.enabled": false,
+        "capture.vscode.enabled": false,
+        "daemon.restart_interval_hours": 0,
+        "watchdog.enabled": false,
+        "web.port": 57998,
+        "server.bind_host": "127.0.0.1",
+        "activity.log_path": "/tmp/campy-bench-mpx3u34q/activity.log"
+      },
+      "daemon_ready_seconds": 2.0,
+      "activity_log_lines": 2
+    },
+    "dataset_sha": {
+      "locomo": "dbbe2514f617d524",
+      "membench": "5ba306db91543c61",
+      "locomo10": "79fa87e90f040813@3eb6f2c5"
+    },
+    "python": "3.12.13",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "mode": "standard",
+  "mcp_configured": true,
+  "suites": {
+    "dmr": {
+      "suite": "dmr",
+      "dataset": {
+        "file": "/private/tmp/cb-q24/data/dmr/msc_self_instruct.jsonl",
+        "sha256": "d3dbea36848b41dc",
+        "options": {
+          "max_questions": 50
+        },
+        "question_framing": 3,
+        "turn_metadata": "fields",
+        "questions": 50,
+        "turns": 2552
+      },
+      "questions": 50,
+      "judge_accuracy": 0.5,
+      "f1": 0.1708,
+      "evidence_recall": 0.5802,
+      "evidence_labelled": 27,
+      "errors": 0,
+      "ingest_seconds": 1562.1,
+      "avg_latency_ms": 1497.6,
+      "details": [
+        {
+          "id": "valid_1",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about music? What was the artist you mentioned you could get into? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about music? What was the artist you mentioned you could get into?",
+          "expected": "Taylor Swift!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:12"
+          ],
+          "ingest_seconds": 32.8,
+          "compile_latency_ms": 61.2,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 171,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-25 04:00] A little bit. I can get into taylor swift.",
+              "[Speaker 1, 2022-12-25 04:00] Great. In my spare time I do volunteer work.",
+              "[Speaker 1, 2022-12-25 04:00] Yes, I love the crowds, getting to know people.",
+              "[Speaker 2, 2022-12-30 04:00] Ummmm, off and on, since 1989. It's a hobby that takes a lot of devotion. It can be expensive, but it doesn't always have to be.",
+              "[Speaker 2, 2022-12-30 08:00] Yeah between the both of us, could probably get a country song written about our distresses...perhaps Taylor Swift could perform it.",
+              "[Speaker 2, 2022-12-30 08:00] Yes!! Can't wait to get back in the saddle with the restoration. One of the one's I am working on is a convertible."
+            ]
+          },
+          "store": "/tmp/campy-bench-q59b5srm",
+          "answer": "Based on the conversation, Speaker 1 mentioned earlier that they \"can get into Taylor Swift.\"",
+          "latency_ms": 1327.5,
+          "f1": 0.25,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_2",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our jobs and expenses? What was that one thing you said you did to save money? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our jobs and expenses? What was that one thing you said you did to save money?",
+          "expected": "I eat a fresh and raw diet to save on groceries.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 43.1,
+          "compile_latency_ms": 62.9,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 194,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-18 11:00] I love spending time with my family",
+              "[Speaker 1, 2022-12-18 11:00] That is great, me too! I'm married and my husband and I've 2 children.",
+              "[Speaker 1, 2022-12-18 11:00] I mostly eat a fresh and raw diet, so I save on groceries.",
+              "[Speaker 1, 2022-12-30 11:00] Yes they are just happy that I'm now happy in a job doing what I love to do. I know previously you have said you want to learn how to save using coupons my wife would be more and happy to give you some tips if\u2026",
+              "[Speaker 2, 2023-01-01 11:00] At least those are worthwile expenses. Your an economist, so I trust you'll figure out the best way to spend your money.",
+              "[Speaker 2, 2023-01-01 11:00] Well, hopefully you'll make lots of money at your new job and you'll get all the furniture you want!"
+            ]
+          },
+          "store": "/tmp/campy-bench-_rvmwwjh",
+          "answer": "Speaker 1 said: \"I know previously you have said you want to learn how to save using coupons my wife would be more and happy to give you some tips if you like.\"",
+          "latency_ms": 1700.2,
+          "f1": 0.1463,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_0",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our work lives? What was that field you said you used to work in? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our work lives? What was that field you said you used to work in?",
+          "expected": "I used to work in the human services field.",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:8"
+          ],
+          "ingest_seconds": 28.5,
+          "compile_latency_ms": 64.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 294,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "free time",
+              "free time",
+              "[Speaker 1, 2022-12-26 00:00] Neat!! I used to work in the human services field",
+              "[Speaker 2, 2022-12-26 00:00] I work in the movies as well.",
+              "[Speaker 2, 2022-12-26 00:00] I am good, I just got off work and tired, I have two jobs.",
+              "[Speaker 2, 2022-12-26 00:00] Yes it is neat, I stunt double, it is so much fun and hard work.",
+              "[Speaker 2, 2023-01-01 03:00] I often take it out when I am having a rough day at work...it is mindless fun. Almost as much as the stunt double work I just did.",
+              "[Speaker 2, 2023-01-01 08:00] No, I don't have any at this time."
+            ]
+          },
+          "store": "/tmp/campy-bench-sqc_4xl_",
+          "answer": "You used to work in the human services field.",
+          "latency_ms": 1209.9,
+          "f1": 0.875,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_10",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our studies and working part-time? What was the fast food place you said you're working at? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our studies and working part-time? What was the fast food place you said you're working at?",
+          "expected": "Burger King!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 54,
+          "evidence": [
+            "1:4"
+          ],
+          "ingest_seconds": 53.4,
+          "compile_latency_ms": 66.1,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 416,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "your part time job",
+              "your studies",
+              "[Speaker 1, 2022-12-26 06:00] Yes, I am studying education and working part time.",
+              "[Speaker 2, 2022-12-26 09:00] I know, don't you hate that? But like you said, I like to learn too! Just lots of money.",
+              "[Speaker 1, 2022-12-26 09:00] Yeah. I am working on getting my childhood education degree concentration in my favorite subject, math. But I have to take English and Bio and Art. I won't be teaching any of that so IDK why they are forcing m\u2026",
+              "[Speaker 2, 2022-12-26 11:00] That would be great, thanks! The rest of my classes are going well. I still enjoy them, but I don't have much time to socialize.",
+              "[Speaker 1, 2022-12-26 11:00] Yes it very large but you soon get used to getting around. And it's going well but I wish I had more time in my days to get everything I need done. But I do like having a little break from school work.",
+              "[Speaker 2, 2022-12-26 12:00] Money is a good thing, even if you have to give up time to get it. I've got a bunch of reading to do this week, for school."
+            ]
+          },
+          "store": "/tmp/campy-bench-d52no8dw",
+          "answer": "Speaker 1 said: \"I am working on getting my childhood education degree concentration in my favorite subject, math.\" However, there is no mention of a specific fast food place where Speaker 1 is working.",
+          "latency_ms": 1938.7,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_7",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our favorite ways to relax? What was the distance you mentioned you liked to walk for a small workout? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our favorite ways to relax? What was the distance you mentioned you liked to walk for a small workout?",
+          "expected": "Three miles!",
+          "answerer": "Speaker 1",
+          "answerer_source": "default",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 28.1,
+          "compile_latency_ms": 64.3,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 191,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-21 08:00] Same. I try to get a small workout in a three mile walk for me is key.",
+              "[Speaker 2, 2022-12-21 08:00] Awesome! Walking like that you might live forever like me!!",
+              "[Speaker 2, 2022-12-27 08:00] Oh a bottle isn't that much. Remember I'm 100. I don't work. I have wine with my lunch and if it is a good bottle, that is my beverage for the day.",
+              "[Speaker 2, 2022-12-27 08:00] I have had some cigars I like, but never got into it. Maybe that has helped me live a long time.",
+              "[Speaker 2, 2023-01-01 08:00] I heard a lot of good things about German wines. I always prefer French wine though.",
+              "[Speaker 2, 2023-01-01 09:00] I appreciate that compliment. I crack myself up, also. I've been working a lot, reading and watching movies after work to unwind mostly."
+            ]
+          },
+          "store": "/tmp/campy-bench-4yld990m",
+          "answer": "According to the conversation, Speaker 1 mentioned that a three-mile walk is key for a small workout.",
+          "latency_ms": 1380.8,
+          "f1": 0.0,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_6",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our pets? What kind of pet do you have? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our pets? What kind of pet do you have?",
+          "expected": "I have a cat.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 38.4,
+          "compile_latency_ms": 59.7,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 197,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-25 05:00] What do you like to do in your spare time? I bird watch.",
+              "[Speaker 2, 2022-12-25 05:00] Oh wow, I can imagine it was a very hard time",
+              "[Speaker 2, 2022-12-25 05:00] Oh man sorry about that, I'm 33 and love giving back I grew up poor",
+              "[Speaker 1, 2022-12-25 12:00] That's not bad! I was expecting much worse, but with my memory being so bad, I can't even remember what I spent last time I shopped for clothes!",
+              "[Speaker 1, 2022-12-25 12:00] I've been thinking about the soup kitchen and might want to invite you at the same time you are.",
+              "[Speaker 1, 2022-12-30 12:00] I have. I used to volunteer at an animal shelter, but that requires me to chase animals around, and I'm too old for that kind of stuff now. Ladling soup and greeting people sounds like a more doable task for m\u2026"
+            ]
+          },
+          "store": "/tmp/campy-bench-xpemec47",
+          "answer": "I don't have any information about Speaker 1 mentioning a pet in our conversation. However, I do have a relevant statement from Speaker 1 on 2022-12-30 12:00, where they mentioned that they used to volunteer at an animal shelter, but it's not about having a pet now.",
+          "latency_ms": 2106.2,
+          "f1": 0.087,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_14",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our favorite movies? What was yours? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our favorite movies? What was yours?",
+          "expected": "Clueless!",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:13",
+            "2:3",
+            "3:3"
+          ],
+          "ingest_seconds": 23.1,
+          "compile_latency_ms": 58.4,
+          "evidence_recall": 0.3333,
+          "context": {
+            "total_token_estimate": 183,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-25 23:00] My favorite movie is clueless.",
+              "[Speaker 2, 2022-12-25 23:00] Mine is friday! Although I do love clueless too!",
+              "[Speaker 1, 2022-12-26 03:00] I might be able to offer some tips haha. Since you love Friday, you might even think about writing about that!",
+              "[Speaker 1, 2022-12-26 03:00] It's turned into a full-time job! I started out selling items on the side, but demand eventually got to be so great that I was able to make it my main gig. I love it!",
+              "[Speaker 2, 2022-12-26 05:00] i have. I like blue planety better. which is your favorite\"",
+              "[Speaker 1, 2022-12-26 05:00] My favorite is Blue Planet II. I think the music is just top notch. And I love the footage of the deep sea creatures! They're so alien-looking."
+            ]
+          },
+          "store": "/tmp/campy-bench-jbz6no0n",
+          "answer": "Mine is Friday! Although I do love Clueless too!",
+          "latency_ms": 1217.2,
+          "f1": 0.2,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_11",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your pet? What kind of animal is it? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your pet? What kind of animal is it?",
+          "expected": "It's a cow!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 33.1,
+          "compile_latency_ms": 68.5,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 199,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-24 12:00] The only company I have is my pet cow.",
+              "[Speaker 2, 2022-12-24 12:00] I helped design starcraft. Do you have time to play games without the cow",
+              "[Speaker 1, 2022-12-25 12:00] My pet cow is sick.",
+              "[Speaker 1, 2022-12-25 12:00] I should be able to do that but I'm worried about what it will cost. Gosh, this couldn't have come at a worse time. I'm busy with work and also don't need this extra expense.",
+              "[Speaker 2, 2022-12-28 12:00] but if I did, when would be a good time to comeI just don't feel comfortable with people.",
+              "[Speaker 1, 2022-12-28 12:00] Yeah It was pretty serious because he wasn't eating. The vet said it was a bacterial infection but the antibiotics should help clear things up. I'm so relieved. You know what would be the best thing about robo\u2026"
+            ]
+          },
+          "store": "/tmp/campy-bench-3kr1tzyi",
+          "answer": "Speaker 1 said earlier: \"My pet cow is sick. It was pretty serious because he wasn't eating. The vet said it was a bacterial infection but the antibiotics should help clear things up. I'm so relieved.\"",
+          "latency_ms": 1790.0,
+          "f1": 0.0571,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_13",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your hobbies? How old were you when you first learned to play guitar? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your hobbies? How old were you when you first learned to play guitar?",
+          "expected": "I was three!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:0"
+          ],
+          "ingest_seconds": 28.2,
+          "compile_latency_ms": 61.9,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 201,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-25 00:00] Hello! I was three when I learned to play guitar!",
+              "[Speaker 1, 2022-12-25 00:00] Great! I like music too and that's why I play guitar.",
+              "[Speaker 1, 2022-12-25 04:00] I learned how to play a Rascal Flats song on my guitar.",
+              "[Speaker 1, 2022-12-25 05:00] I'll pick up my guitar if you promise to ask your parents to let you take music classes!",
+              "[Speaker 1, 2022-12-25 05:00] I agree! They might have some music classes you could take at school too. Forgot to tell you I've been playing guitar since I was a toddler haha.. but haven't picked it up recently.",
+              "[Speaker 2, 2022-12-25 05:00] Yes they have some after school programs maybe i will ask my parents if they will allow me to attend them. Oh guitar that is amazing, im sure it would be like riding a bike if you can get a hold of a guitar ag\u2026"
+            ]
+          },
+          "store": "/tmp/campy-bench-z6q8xgkz",
+          "answer": "Speaker 1 said: \"I was three when I learned to play guitar!\"",
+          "latency_ms": 1303.7,
+          "f1": 0.4,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_12",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our post-retirement plans? What did I tell you I wanted to learn in my free time? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our post-retirement plans? What did I tell you I wanted to learn in my free time?",
+          "expected": "You mentioned you'd like to go to culinary school!",
+          "answerer": "Speaker 2",
+          "answerer_source": "persona",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 28.0,
+          "compile_latency_ms": 64.0,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 258,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "your plans",
+              "[Speaker 2, 2022-12-25 04:00] I've another two years before I can retire from gymnastics.",
+              "[Speaker 1, 2022-12-25 04:00] I love to cook for my grandkids. I plan to travel more.",
+              "[Speaker 1, 2022-12-25 11:00] No, it's about class and race relations in the United States. Definitely a big topic at the moment.",
+              "[Speaker 1, 2022-12-25 12:00] Cookies! I can't even tell you how many batches of cookies I have made over the years. My grandkids love them.",
+              "[Speaker 1, 2022-12-28 12:00] I know! It's exciting to be able to talk about such a fun range of things with you",
+              "[Speaker 1, 2022-12-28 12:00] I've been thinking a lot about Christmas since our last conversation, I know it's a long way away but I just love the season so much!"
+            ]
+          },
+          "store": "/tmp/campy-bench-3f_d48m3",
+          "answer": "I don't have any information about Speaker 2's plans or interests in the provided context. The conversation only mentions Speaker 1's plans and interests, such as traveling, cooking, and learning about class and race relations in the United States.",
+          "latency_ms": 1853.7,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_19",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our jobs? What was it you said you did for a living? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our jobs? What was it you said you did for a living?",
+          "expected": "Construction, like my dad.",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:10"
+          ],
+          "ingest_seconds": 18.4,
+          "compile_latency_ms": 58.7,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 186,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-29 22:00] Nice! I work as a custodian. Not too glamorous but it pays the bills haha",
+              "[Speaker 1, 2022-12-29 22:00] I feel ya. You gotta do what you gotta do.",
+              "[Speaker 1, 2022-12-29 22:00] Construction, like my dad. What do you do when you aren't being a rock star",
+              "[Speaker 1, 2022-12-30 08:00] I tend to bounce around. I think I get hooked by the personalities and then sort of get tired of them. But right now I'm listening to one that talks about unsolved crimes.",
+              "[Speaker 1, 2022-12-30 08:00] I work for someone. I got the job through my dad. They company and owner have been good to my family so I'm happy to work for him.",
+              "[Speaker 1, 2022-12-30 12:00] I've just watched another really interesting video about how guitars are made."
+            ]
+          },
+          "store": "/tmp/campy-bench-5s1sufbs",
+          "answer": "Speaker 1 said: \"I work for someone. I got the job through my dad. They company and owner have been good to my family so I'm happy to work for him.\"",
+          "latency_ms": 1673.7,
+          "f1": 0.1212,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_15",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your dad's outdoor show? What was it called again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your dad's outdoor show? What was it called again?",
+          "expected": "Jim Shockey!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 48,
+          "evidence": [
+            "1:10"
+          ],
+          "ingest_seconds": 33.0,
+          "compile_latency_ms": 60.2,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 125,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-26 19:00] My dad did he has his own outdoor show its possible you have seen it",
+              "[Speaker 1, 2022-12-26 19:00] Hey how are you today",
+              "[Speaker 2, 2022-12-26 19:00] I love that show! I watch it between studying.",
+              "[Speaker 1, 2022-12-26 19:00] I have retired and now spend my time as a pro gambler",
+              "[Speaker 1, 2022-12-26 19:00] Well being retired I have a lot of spare time either in a casino or outdoors",
+              "[Speaker 1, 2022-12-27 05:00] Yeah that is definitely something to watch out for! Time does fly!"
+            ]
+          },
+          "store": "/tmp/campy-bench-ksg_0_zi",
+          "answer": "My dad did he has his own outdoor show, it's possible you have seen it.",
+          "latency_ms": 1263.3,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_17",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your concerts? What was that specific color of the hat you mentioned you later on? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your concerts? What was that specific color of the hat you mentioned you later on?",
+          "expected": "Yellow!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:2",
+            "1:8"
+          ],
+          "ingest_seconds": 43.3,
+          "compile_latency_ms": 62.4,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 326,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Next time",
+              "[Speaker 1, 2022-12-13 09:00] Great! I wear a yellow construction worker hat to aerosmith concerts.",
+              "[Speaker 2, 2022-12-13 09:00] Maybe he's the one that my ex left me for.",
+              "[Speaker 2, 2022-12-25 09:00] Thankyou. But yes that should of been a red flag from the start they are amazing. Next time that will be the first question i ask them.",
+              "[Speaker 2, 2022-12-25 09:00] Oh wow what an incredible first date that is. Im sure she will have an amazing time let me know how it goes for you.",
+              "[Speaker 1, 2022-12-25 09:00] I'm not gonna lie.. they think it's hot. I'm taking this new chick I'm talking to to go see Aerosmith in a few weeks!",
+              "[Speaker 2, 2023-01-01 09:00] Yes, I love it in California. We have ocean, mountains, desert, forests and just about everything you want. You should take a trip down the west coast. It is very pretty. I spend a lot of time at the ocean and\u2026"
+            ]
+          },
+          "store": "/tmp/campy-bench-q52dokqr",
+          "answer": "Speaker 1 said earlier that the specific color of the hat they mentioned was yellow.",
+          "latency_ms": 1475.7,
+          "f1": 0.1429,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_18",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our parents? What did you tell me your dad does for a living? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our parents? What did you tell me your dad does for a living?",
+          "expected": "He's an army soldier.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 33.3,
+          "compile_latency_ms": 60.1,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 212,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-24 08:00] Sorry to hear that. My dad is an army soldier.",
+              "[Speaker 1, 2022-12-24 08:00] I am sad today remembering my mom who died when I was a child.",
+              "[Speaker 2, 2022-12-26 08:00] Oh, I would never go on a road trip that far off without him. That is my baby haha. What day is it? I have some vacation time and I am really wanting a change of scenery!",
+              "[Speaker 2, 2023-01-01 08:00] Yes i will do that. Have you been able to get in touch with your dad lately i know he must be busy with the army.",
+              "[Speaker 1, 2023-01-01 08:00] We haven't talked in years. But that's okay. I've got enough going on as it is. Maybe I'll try getting in touch with him on his birthday",
+              "[Speaker 2, 2023-01-01 08:00] It is going amazing, i have to tell myself everytime i go i can not take on anymore pets right now, or i swear i would take them all home with me."
+            ]
+          },
+          "store": "/tmp/campy-bench-w2uddj8w",
+          "answer": "Speaker 1 said: \"My dad is an army soldier.\"",
+          "latency_ms": 1252.6,
+          "f1": 0.3636,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_23",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your family? What line of work was your father in? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your family? What line of work was your father in?",
+          "expected": "He was a manager at Home Depot.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 38.2,
+          "compile_latency_ms": 61.2,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 198,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-18 05:00] Yes, I had to. I am glad to be home. My father helps out too.",
+              "[Speaker 2, 2022-12-18 05:00] I work as a librarian, but I am going to retire in the next couple of years.",
+              "[Speaker 1, 2022-12-18 05:00] No, we just go to home depot on the weekends. My father was manager there.",
+              "[Speaker 1, 2022-12-22 05:00] That's nice to hear. We see my father almost every weekend. We take the kids and try to do something fun with the whole family.",
+              "[Speaker 1, 2022-12-22 05:00] My children are very young and have just started school. The oldest is only in their junior year of high school. Their grandfather helps me take care of them from time to time.",
+              "[Speaker 2, 2022-12-22 05:00] I think I will retire in 5 years, but I want to work part-time in 6 months. I hope my manger will let me."
+            ]
+          },
+          "store": "/tmp/campy-bench-whsa2klu",
+          "answer": "Speaker 1 said earlier: \"My father was manager at Home Depot.\"",
+          "latency_ms": 1298.7,
+          "f1": 0.5882,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_20",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our childhood fears? Can you recall what used to scare you when your grandfather told stories? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our childhood fears? Can you recall what used to scare you when your grandfather told stories?",
+          "expected": "Yeah, he used to tell World War II stories that absolutely scared me!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 33.3,
+          "compile_latency_ms": 59.0,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 108,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2023-01-01 04:00] That sounds scary. I was scared by my grandfather telling wwii stories",
+              "[Speaker 1, 2023-01-01 04:00] Oh that's cool. I don't like reading though",
+              "[Speaker 1, 2023-01-01 04:00] I hate reading so much I dropped out of high school!",
+              "[Speaker 1, 2023-01-01 04:00] Actually I am on leave right now",
+              "[Speaker 1, 2023-01-01 04:00] I'm from a town outside vancouver.",
+              "[Speaker 2, 2023-01-01 06:00] No, I was never in the army."
+            ]
+          },
+          "store": "/tmp/campy-bench-b1c4ca44",
+          "answer": "That sounds scary. I was scared by my grandfather telling WWII stories.",
+          "latency_ms": 1130.3,
+          "f1": 0.24,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_24",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our music preferences? What was that one band you said you were into apart from Metallica? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our music preferences? What was that one band you said you were into apart from Metallica?",
+          "expected": "Aerosmith!",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:11",
+            "2:9",
+            "2:11"
+          ],
+          "ingest_seconds": 32.9,
+          "compile_latency_ms": 66.6,
+          "evidence_recall": 0.3333,
+          "context": {
+            "total_token_estimate": 179,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-15 05:00] Metal. Mainly metallica. I also love old school rap. Tupac is where it is at.",
+              "[Speaker 1, 2022-12-15 05:00] I like them too. Dream on is one of my favorites",
+              "[Speaker 2, 2022-12-15 05:00] Nice. I listen to a lot of aerosmith, they're my favorite.",
+              "[Speaker 1, 2022-12-22 05:00] Squid is another one of my favorites. It can be difficult to cook though. I am actually growing away from Aerosmith. I listened to them wayyyy too much this week.",
+              "[Speaker 2, 2022-12-22 12:00] Regular for me and 0% for you! I'm not getting in trouble, haha/",
+              "[Speaker 1, 2022-12-26 12:00] Probably pretty bad. Hey, I've been studying Mexican cuisine. I am going to make some burritos soon and would like you to try them out."
+            ]
+          },
+          "store": "/tmp/campy-bench-br3jqr6x",
+          "answer": "Speaker 2 said: \"I listen to a lot of Aerosmith, they're my favorite.\"",
+          "latency_ms": 1377.4,
+          "f1": 0.1538,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_28",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our pets? What is the name of your dog again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our pets? What is the name of your dog again?",
+          "expected": "Trooper!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 49,
+          "evidence": [
+            "1:6"
+          ],
+          "ingest_seconds": 33.0,
+          "compile_latency_ms": 58.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 160,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-18 12:00] He is a black lab named is trooper, he is a great hiking buddy!",
+              "[Speaker 2, 2022-12-18 12:00] Oh wow! I never did that before! Sounds fun!",
+              "[Speaker 2, 2022-12-19 12:00] At a certain point, dairy cows cease to produce milk...my preference is to turn them into pets as opposed to dinner!",
+              "[Speaker 2, 2022-12-19 12:00] English of course, and a dialect of German known as Pennsylvania Dutch. It's similar to real German.",
+              "[Speaker 2, 2022-12-29 12:00] Hey don't undersell yourself, your best is all anyone can ask for",
+              "[Speaker 1, 2022-12-29 12:00] That's great! I will try my best, but my best won't be good compared to you guys lol"
+            ]
+          },
+          "store": "/tmp/campy-bench-29evku8e",
+          "answer": "Speaker 1 said: \"He is a black lab named is trooper, he is a great hiking buddy!\"",
+          "latency_ms": 1188.6,
+          "f1": 0.125,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_29",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your sons and their peculiar interests? What's the favorite play area of your fifth son in the house? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your sons and their peculiar interests? What's the favorite play area of your fifth son in the house?",
+          "expected": "The attic!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:12"
+          ],
+          "ingest_seconds": 18.0,
+          "compile_latency_ms": 59.7,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 147,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-14 07:00] I've to decline, my fifth son is my least favorite ; we keep him in the attic.",
+              "[Speaker 1, 2022-12-14 07:00] You know my fifth son keeps asking me for a dog. It is just too much.",
+              "[Speaker 1, 2022-12-14 07:00] My fourth son hates scorpions too. I do not understand my children.",
+              "[Speaker 1, 2022-12-21 07:00] They are 11, 9, 7, 5, and 2. I have given up any expectation that I can take them.",
+              "[Speaker 1, 2022-12-27 07:00] We play video games together a lot. It holds all of their interest.",
+              "[Speaker 1, 2022-12-27 07:00] We also play a lot of sports. I'm a basketball coach."
+            ]
+          },
+          "store": "/tmp/campy-bench-uo6zs2b3",
+          "answer": "Speaker 1 said earlier: \"We play video games together a lot. It holds all of their interest.\"",
+          "latency_ms": 1383.0,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_31",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our hobbies? You mentioned you enjoy doing something outdoors on sunny days, what was it? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our hobbies? You mentioned you enjoy doing something outdoors on sunny days, what was it?",
+          "expected": "Lawn mowing!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:6"
+          ],
+          "ingest_seconds": 48.0,
+          "compile_latency_ms": 61.7,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 134,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-21 00:00] Yes it sucks loosing I also enjoy lawn mowing on sunny days.",
+              "[Speaker 1, 2022-12-21 00:00] Sounds interesting I also love grilling my food outdoors.",
+              "[Speaker 2, 2022-12-21 00:00] I enjoy green living and just put solar panels on roof",
+              "[Speaker 2, 2022-12-21 00:00] I work from home doing internet searches",
+              "[Speaker 2, 2022-12-21 00:00] It has its benefits. I've plenty time tend my organic garden",
+              "[Speaker 2, 2022-12-25 12:00] Hey it's the effort that counts - I killed a lot of veggies before I got the hang of gardening!"
+            ]
+          },
+          "store": "/tmp/campy-bench-qklnbv_s",
+          "answer": "You mentioned that you enjoy lawn mowing on sunny days.",
+          "latency_ms": 1157.5,
+          "f1": 0.3333,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_34",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your birthday? How old did you say you were turning? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your birthday? How old did you say you were turning?",
+          "expected": "I said I was turning 83.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 28.2,
+          "compile_latency_ms": 56.6,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 214,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "my 85th birthday",
+              "[Speaker 1, 2022-12-26 07:00] I turn 83 in a month.",
+              "[Speaker 2, 2022-12-26 07:00] Oh ok, I guess I do not know much on the music side.",
+              "[Speaker 1, 2022-12-30 07:00] I am considering retiring on my 85th birthday.",
+              "[Speaker 1, 2022-12-30 07:00] Oh no. Don't worry. I meant my real job at school!",
+              "[Speaker 1, 2023-01-01 11:00] Oh yes, they're totally jealous of my skills! I appreciate the attention, though. It helps keep me young!",
+              "[Speaker 1, 2023-01-01 11:00] It's easy to get bogged down with problem users, so I'd just be mentally prepared for it lol."
+            ]
+          },
+          "store": "/tmp/campy-bench-mepre1rc",
+          "answer": "Speaker 1 said earlier that they turn 83 in a month.",
+          "latency_ms": 1229.0,
+          "f1": 0.25,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_37",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our favorite music? What type of music did I mention I listen to all the time in my big truck? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our favorite music? What type of music did I mention I listen to all the time in my big truck?",
+          "expected": "Country music!",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:7"
+          ],
+          "ingest_seconds": 18.1,
+          "compile_latency_ms": 61.4,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 137,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-26 02:00] Cool! I'm always playing country in my big truck!",
+              "[Speaker 2, 2022-12-26 02:00] I live line dancing to country music, that's all I listen too",
+              "[Speaker 1, 2023-01-01 02:00] I'm thinking about buying a truck.",
+              "[Speaker 2, 2023-01-01 02:00] Of course, I drive a Ford F150 myself and I would highly recommend it. It has good hauling power and a very powerful engine. In any case, try getting a truck with 4WD if you can.",
+              "[Speaker 1, 2023-01-01 11:00] I did it, I bought a new truck!",
+              "[Speaker 1, 2023-01-01 11:00] Yes I do have big dogs"
+            ]
+          },
+          "store": "/tmp/campy-bench-has5k8ml",
+          "answer": "I remember that conversation. You mentioned that you live line dancing to country music, and that's all you listen to.",
+          "latency_ms": 1343.8,
+          "f1": 0.1905,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_38",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about my job? Do you happen to recall how much I told you I make annually? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about my job? Do you happen to recall how much I told you I make annually?",
+          "expected": "About 15k.",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:15"
+          ],
+          "ingest_seconds": 53.2,
+          "compile_latency_ms": 55.4,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 291,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-27 05:00] About 15k. I spend most of that on weekend clubs and raves though.",
+              "[Speaker 1, 2022-12-27 05:00] Whats your average salary I need to know since my family grows",
+              "[Speaker 1, 2022-12-27 12:00] So kind of you to say! Yes, he is much busier with all of the new responsibilities, so I have a lot of free time these days. Maybe I should join you out clubbing sometime soon!",
+              "[Speaker 1, 2022-12-27 12:00] That's amazing to hear about your job. And you're exactly right - one step at a time is the only way to get anywhere! My husband is doing well - he was just promoted to Chief of Surgery, and I could not be mor\u2026",
+              "[Speaker 2, 2022-12-27 12:00] I might need to read that! Especially with how much I owe in student loans, it might give me some ideas of how to improve my finances.",
+              "[Speaker 1, 2022-12-27 12:00] I am totally ready - let me know next time you're going out, and I'm there! As to finding a job.... well, since my husband's promotion, he's encouraged me to really take a shot at making my income from day tra\u2026"
+            ]
+          },
+          "store": "/tmp/campy-bench-lnu2auhv",
+          "answer": "Speaker 2 said: \"About 15k. I spend most of that on weekend clubs and raves though.\"",
+          "latency_ms": 1590.8,
+          "f1": 0.2353,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_39",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that one time we talked about me working out on your farm? How many acres did you say your farm was again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that one time we talked about me working out on your farm? How many acres did you say your farm was again?",
+          "expected": "I didn't mention the exact amount, but I did say that it was quite a few acres!",
+          "answerer": "Speaker 1",
+          "answerer_source": "default",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 33.2,
+          "compile_latency_ms": 60.2,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 122,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-31 01:00] I get my exercise tending the farm!",
+              "[Speaker 1, 2022-12-31 01:00] Come run a few laps here, it is quite a few acres!",
+              "[Speaker 2, 2022-12-31 01:00] Hey, I am in high school and I want to be a physical therapist.",
+              "[Speaker 1, 2022-12-31 01:00] Great, I hope you like music, I rock out when I work!",
+              "[Speaker 2, 2022-12-31 01:00] I hope so! After I get out of high school I want to run more!",
+              "[Speaker 1, 2022-12-31 05:00] One of the horses just got loose and we can't find him!"
+            ]
+          },
+          "store": "/tmp/campy-bench-mvlhjkuy",
+          "answer": "According to our conversation, I said: \"Come run a few laps here, it is quite a few acres!\"",
+          "latency_ms": 1337.5,
+          "f1": 0.3226,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_43",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our likes and our backgrounds, you had mentioned something that scares you. What was that again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our likes and our backgrounds, you had mentioned something that scares you. What was that again?",
+          "expected": "Scorpions!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 49,
+          "evidence": [
+            "1:6"
+          ],
+          "ingest_seconds": 22.9,
+          "compile_latency_ms": 57.3,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 169,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-19 04:00] Do you like adventure I do",
+              "[Speaker 2, 2022-12-19 04:00] I just watched snoop and martha",
+              "[Speaker 2, 2022-12-19 04:00] I love to eat vegetables and unique things",
+              "[Speaker 1, 2022-12-19 04:00] Just got back from playing with barnaby, my dog!",
+              "[Speaker 2, 2022-12-25 04:00] It's been years! I still talk to friends and family that I have from there. I've been looking into going back to visit for about a month.",
+              "[Speaker 1, 2023-01-01 11:00] Holland, as you mentioned, yes I've thought about those wooden shoes they are always on about. Wonder if they're comfortable? hehe. Trial and error, got that with gardening. I've killed a few. We'll have to le\u2026"
+            ]
+          },
+          "store": "/tmp/campy-bench-ol9t0tgx",
+          "answer": "I don't have any memory of Speaker 1 mentioning something that scares them. The conversation only mentions Speaker 1 talking about their dog, gardening, and wooden shoes, but no mention of something that scares them.",
+          "latency_ms": 1714.0,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_42",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our hobbies and you told me about a band you see every year? Which band was it again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our hobbies and you told me about a band you see every year? Which band was it again?",
+          "expected": "The Rolling Stones!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 33.2,
+          "compile_latency_ms": 63.4,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 138,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-27 02:00] Yea but I love time to my self as well like every year I see rolling stones",
+              "[Speaker 1, 2022-12-27 02:00] I have 2 kids with my spouse",
+              "[Speaker 2, 2022-12-27 02:00] How wonderful. Life is precious spend as much time with them as possible.",
+              "[Speaker 2, 2022-12-27 02:00] Too bad my cell phone broke. I would love to text you about my finances.",
+              "[Speaker 1, 2023-01-01 03:00] Oh I see, yes you're probably right.",
+              "[Speaker 1, 2023-01-01 03:00] Very cool. I'm surprised you don't like youtube, they have alot of videos about making close I bet."
+            ]
+          },
+          "store": "/tmp/campy-bench-4x1exbl5",
+          "answer": "The band that Speaker 1 (you) see every year is the Rolling Stones.",
+          "latency_ms": 1237.1,
+          "f1": 0.3077,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_44",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about me possibly moving in with you? How many bedrooms did you say your house has? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about me possibly moving in with you? How many bedrooms did you say your house has?",
+          "expected": "It has 3 bedrooms!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 18.1,
+          "compile_latency_ms": 62.3,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 130,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-21 02:00] Yeah I have a house with 3 bedrooms and I am the only one here",
+              "[Speaker 2, 2022-12-21 02:00] Wow that's a huge house",
+              "[Speaker 1, 2022-12-21 02:00] I just finished spending some time watching birdy fly with my cats.",
+              "[Speaker 2, 2022-12-21 02:00] I am 7 and I've powers that no one knows about",
+              "[Speaker 1, 2022-12-26 02:00] Well you will in time as I'm sure you will need to fight them to keep people safe.",
+              "[Speaker 1, 2023-01-01 09:00] Time passes so quickly when a book so good you can't put it down!"
+            ]
+          },
+          "store": "/tmp/campy-bench-h5nvd_ai",
+          "answer": "Speaker 1 said earlier: \"Yeah, I have a house with 3 bedrooms and I am the only one here.\"",
+          "latency_ms": 1365.9,
+          "f1": 0.2,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_45",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our pets during a rainy day? Where were you staying then where busy streets could be a danger to your cat? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our pets during a rainy day? Where were you staying then where busy streets could be a danger to your cat?",
+          "expected": "Beijing!",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "2:11"
+          ],
+          "ingest_seconds": 18.1,
+          "compile_latency_ms": 60.9,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 210,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-23 06:00] My cat just got out, I hope she comes home soon the streets are busy.",
+              "[Speaker 1, 2022-12-23 06:00] Ya the streets of bejing aren't kind to a little kitten.",
+              "[Speaker 2, 2022-12-23 06:00] Ma. I was gonna finish a roof today. At least the cats will not miss me",
+              "[Speaker 2, 2022-12-26 06:00] Only two of them were acquired at the same time. They are brother and sister and I got them both from a breeder. The others are all rescues. I find it enjoyable to know that I helped out a helpless animal. In \u2026",
+              "[Speaker 2, 2022-12-26 06:00] I have six cats. Some would say that is too many cats to have but I really value all of them and enjoy having all of them around at all times.",
+              "[Speaker 1, 2022-12-27 06:00] I played a show at a bar last night."
+            ]
+          },
+          "store": "/tmp/campy-bench-2yf5h_2u",
+          "answer": "I don't have any information about a specific conversation where Speaker 1 asked Speaker 2 about a rainy day and talking about their pets. However, I do have some information about Speaker 2's cats.\n\nSpeaker 2 mentioned that they have six cats, and some of them are rescues. They also mentioned that they value all of their cats and enjoy having them around.\n\nI don't have any information about Speaker 2 staying in a place where busy streets could be a danger to their cat, or about a specific conversation about a rainy day.",
+          "latency_ms": 2986.7,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_46",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that one time we talked about our hobbies? What was that one thing you like to compete in? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that one time we talked about our hobbies? What was that one thing you like to compete in?",
+          "expected": "Dog agility!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:8"
+          ],
+          "ingest_seconds": 22.9,
+          "compile_latency_ms": 63.4,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 170,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-19 04:00] Do you have a hobby? Mine is competing in dog agility. Makes the time pass...",
+              "[Speaker 1, 2022-12-19 04:00] Good decision! I usually do not care about fashion, but I like doing hair color.",
+              "[Speaker 2, 2022-12-19 08:00] I like all types but my favorite are sculpture and pottery.",
+              "[Speaker 2, 2022-12-19 08:00] Yeah, I am trying to be more responsible when it comes to completing my chores on time as well as keeping my grades up.",
+              "[Speaker 2, 2022-12-19 08:00] Well, I do like art class. I would like to go into art or design when I'm older.",
+              "[Speaker 2, 2022-12-19 12:00] I guess so . We will find out together. Hey..do you ever combine dog training with dancing? lol"
+            ]
+          },
+          "store": "/tmp/campy-bench-72hw440n",
+          "answer": "Speaker 1 said earlier: \"Mine is competing in dog agility. Makes the time pass...\"",
+          "latency_ms": 1322.8,
+          "f1": 0.2667,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_47",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our personal interests and ambitions? What was that career you told me you were interested in pursuing? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our personal interests and ambitions? What was that career you told me you were interested in pursuing?",
+          "expected": "A lawyer!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:4",
+            "1:6"
+          ],
+          "ingest_seconds": 43.4,
+          "compile_latency_ms": 64.3,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 153,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-31 17:00] I had a friend named noah we were friends from ever since we met at 1",
+              "[Speaker 1, 2022-12-31 17:00] I would love to move to a big city and become a lawyer",
+              "[Speaker 1, 2022-12-31 17:00] That is great, please tell me more interesting things",
+              "[Speaker 2, 2023-01-01 03:00] Its going great next week are my finals and i am feeling good about them.",
+              "[Speaker 2, 2023-01-01 05:00] Seems like once you get started, the time just starts getting shorter and shorter. Would love to see you graduate!",
+              "[Speaker 1, 2023-01-01 05:00] What was it that you are studying again? I always seem to forget for some reason."
+            ]
+          },
+          "store": "/tmp/campy-bench-67sk5r2z",
+          "answer": "Speaker 1 said earlier: \"I would love to move to a big city and become a lawyer.\"",
+          "latency_ms": 1340.5,
+          "f1": 0.1333,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_49",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our musical interests? What was the instrument you said you played last year but didn't enjoy? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our musical interests? What was the instrument you said you played last year but didn't enjoy?",
+          "expected": "The violin!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:12"
+          ],
+          "ingest_seconds": 28.2,
+          "compile_latency_ms": 65.1,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 282,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "your last trip",
+              "[Speaker 1, 2022-12-22 10:00] I did play the violin last year in band. I didn't like it",
+              "[Speaker 2, 2022-12-22 10:00] No! I'll start violin as a new hobby, like my father.",
+              "[Speaker 2, 2022-12-22 11:00] I found a small street in China town I didn't know about before. They have a little market some days with some really interesting food. Always a nice treat.",
+              "[Speaker 1, 2022-12-29 12:00] You mentioned that you were thinking about getting on a healthier path last time we talked. I can help you with a simple diet and exercise plan if you want! To begin, you could start exploring your city on foo\u2026",
+              "[Speaker 1, 2022-12-29 12:00] No i haven't played Lacrosse before, I've heard of it though. You should start back even if it for like 20 mins.",
+              "[Speaker 1, 2022-12-29 12:00] yes i just went to do"
+            ]
+          },
+          "store": "/tmp/campy-bench-buq2zkj0",
+          "answer": "According to our conversation, you said: \"I did play the violin last year in band. I didn't like it.\"",
+          "latency_ms": 1543.0,
+          "f1": 0.1053,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_50",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about where you're originally from? Can you remind me where that was? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about where you're originally from? Can you remind me where that was?",
+          "expected": "Yes, I originally come from Somalia.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 28.2,
+          "compile_latency_ms": 58.5,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 177,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-31 13:00] That's ok! You have plenty of time to grow and learn. I'm from far away.",
+              "[Speaker 1, 2022-12-31 13:00] Oh honey no, guns aren't the answer.",
+              "[Speaker 1, 2022-12-31 13:00] You are only 4, you should not be worrying about this",
+              "[Speaker 2, 2022-12-31 20:00] Yes Milely! She listens to me tell stories about stuff when I'm waiting for Mom to come home. With Miley, I'm never alone!",
+              "[Speaker 2, 2023-01-01 02:00] If I don\u2019t get in maybe you could help me a little bit if you have the time.",
+              "[Speaker 1, 2023-01-01 05:00] I like seeing turtles, and hearing about them. Taking care of them, with my busy schedule, might be hard. I really love hearing about Miley. That turtle sounds like great company!"
+            ]
+          },
+          "store": "/tmp/campy-bench-eh6bcnhb",
+          "answer": "I'm from far away.",
+          "latency_ms": 1105.1,
+          "f1": 0.2,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_55",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your studies? What was it that you majored in again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your studies? What was it that you majored in again?",
+          "expected": "Psychology.",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:12"
+          ],
+          "ingest_seconds": 43.2,
+          "compile_latency_ms": 58.1,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 261,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "your PHD studies",
+              "[Speaker 1, 2022-12-21 00:00] Psychology. I read a lot of psych journals in my free time as well.",
+              "[Speaker 1, 2022-12-21 00:00] It was. Getting started on the phd next year.",
+              "[Speaker 2, 2022-12-21 00:00] I am well! Just got back from taking a walk.",
+              "[Speaker 2, 2022-12-26 00:00] I guess it could be a nice break from studying sometimes too, getting outside and walking around. It's been fine. Work is work, ups and downs. I can't complain though. Pays the bills.",
+              "[Speaker 1, 2023-01-01 00:00] I am excited, it's been a long time in the works. I think I will. I'm staying in town, so I think it will be a nice way to take a break from studying.",
+              "[Speaker 2, 2023-01-01 07:00] What's your dream job? I did go to school, I studied geography."
+            ]
+          },
+          "store": "/tmp/campy-bench-ffpq__6g",
+          "answer": "I remember that time we talked about my studies. You asked me what my dream job was, and I said I was excited about starting my PhD next year.",
+          "latency_ms": 1612.7,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_51",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our personal life changes? What was that place you mentioned, where your audio studio was located? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our personal life changes? What was that place you mentioned, where your audio studio was located?",
+          "expected": "California!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 46,
+          "evidence": [
+            "1:6"
+          ],
+          "ingest_seconds": 22.7,
+          "compile_latency_ms": 59.5,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 196,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-20 07:00] Oh no. I'm moving soon as well. Due to personal reasons.",
+              "[Speaker 1, 2022-12-20 07:00] I think I need to move. My studio is tanking after the decline of the market.",
+              "[Speaker 1, 2022-12-20 07:00] Sadly no, they can be very destructive in an audio booth.",
+              "[Speaker 2, 2022-12-20 09:00] I burnt too many bridges here and I want to start fresh in a place no one knows me. Small towns are nice to visit but not for long term.",
+              "[Speaker 1, 2022-12-20 09:00] That makes a lot more sense. haha! Big cities are the same if not worse, depending on what crowd you are in. If you are in the world where networking is your life, then they gossip too.",
+              "[Speaker 2, 2022-12-20 12:00] That's a popular place to look. I have some friends who met that way and seem pretty happy. I'd so go for it."
+            ]
+          },
+          "store": "/tmp/campy-bench-d5h6eb_4",
+          "answer": "I think I need to move. My studio is tanking after the decline of the market.",
+          "latency_ms": 1356.9,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_58",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your pregnancy? You mentioned hoping your girls would have a certain dietary preference. What was it again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your pregnancy? You mentioned hoping your girls would have a certain dietary preference. What was it again?",
+          "expected": "Yes, I'm hoping they're Omnivores.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 43.1,
+          "compile_latency_ms": 62.7,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 123,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-18 06:00] Two girls. I'm hoping they are omnivores like me.",
+              "[Speaker 1, 2022-12-18 06:00] He is unique. He has been acting weird since finding out I'm pregnant.",
+              "[Speaker 1, 2022-12-18 06:00] Wow, like what?! A week ago I just moved to my new house.",
+              "[Speaker 2, 2022-12-18 06:00] Wow congrats that is so cool",
+              "[Speaker 1, 2022-12-27 12:00] Do you know I am thinking about at the moment? I will try to hide it from you.",
+              "[Speaker 2, 2022-12-27 12:00] See? I knew you were going to say that!"
+            ]
+          },
+          "store": "/tmp/campy-bench-2u9_kavt",
+          "answer": "Speaker 1 mentioned earlier that they are hoping their girls would be omnivores, like them.",
+          "latency_ms": 1285.7,
+          "f1": 0.2,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_56",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our favorite foods? What was that one food you said was your favorite? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our favorite foods? What was that one food you said was your favorite?",
+          "expected": "Cheeseburgers!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:2"
+          ],
+          "ingest_seconds": 28.2,
+          "compile_latency_ms": 59.3,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 326,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "more time",
+              "more time",
+              "[Speaker 1, 2022-12-19 23:00] Oh I like mexican food, but my favorite food are cheeseburgers",
+              "[Speaker 2, 2022-12-19 23:00] Cheeseburgers are great, I try all kinds of foods everywhere I go, gotta love food.",
+              "[Speaker 2, 2022-12-19 23:00] Good today. Just cooking some mexican food. I cooking but am not very good.",
+              "[Speaker 2, 2022-12-19 23:00] I inherited some money and bought a yacht to travel, I try different foods traveling",
+              "[Speaker 1, 2023-01-01 05:00] Yeah, I've always been impressed. I think I'm going to start taking two vacations a year. One in the states, and one abroad or in the Caribbean.",
+              "[Speaker 1, 2023-01-01 05:00] I am thinking about traveling across the USA."
+            ]
+          },
+          "store": "/tmp/campy-bench-kgikasgk",
+          "answer": "Speaker 1 said earlier: \"my favorite food are cheeseburgers\"",
+          "latency_ms": 1342.3,
+          "f1": 0.2,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_59",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about you winning something? What was it that you won from? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about you winning something? What was it that you won from?",
+          "expected": "A Twitter contest!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:8"
+          ],
+          "ingest_seconds": 28.1,
+          "compile_latency_ms": 54.2,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 187,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-24 03:00] Try to win one off of a twitter contest. I did, and enjoy twitter.",
+              "[Speaker 2, 2022-12-24 03:00] I didn't know there was a twitter contest",
+              "[Speaker 2, 2022-12-24 03:00] Yes I'm, I'm 40 years old",
+              "[Speaker 2, 2022-12-24 03:00] Are you a woman? If hair is your thing yay you",
+              "[Speaker 1, 2022-12-29 05:00] It did cost a little bit to set it up, I can't remember the name of the company to be honest, i'll have to have a look and let you know! Apparently it takes about 5 years to recoup the cost, but then it starts\u2026",
+              "[Speaker 1, 2023-01-01 05:00] I met the actor that played Michael from Zoey 101 once. He was pretty cool."
+            ]
+          },
+          "store": "/tmp/campy-bench-vru25z2b",
+          "answer": "I don't have any information about Speaker 1 winning something from an earlier conversation. The conversation about winning something doesn't exist in the provided memory context.",
+          "latency_ms": 1567.4,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_60",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our jobs? Can you remind me what age I started working in construction? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our jobs? Can you remind me what age I started working in construction?",
+          "expected": "You started when you were 16.",
+          "answerer": "Speaker 2",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 23.2,
+          "compile_latency_ms": 62.3,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 216,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-31 23:00] I work in construction. Started when I was 16.",
+              "[Speaker 1, 2022-12-31 23:00] I do not tell anyone about it. They will come take me away.",
+              "[Speaker 1, 2022-12-31 23:00] That is pretty young. I'd like to do that kind of work.",
+              "[Speaker 2, 2023-01-01 05:00] I work in construction. I've been in that type of work since I was a teenager. I really like it but kind of wish I had gone into engineering. Do you like working in marketing? That seems challenging to me!",
+              "[Speaker 1, 2023-01-01 05:00] well I'll have to give that a try some time.. I'll let you know how it goes! Yeah, I'm the same as you, we hangout most fridays, less exciting though, we just go to a bar usually",
+              "[Speaker 2, 2023-01-01 06:00] I will look out for you at the side. Sometimes I wish I had gone into engineering as a career, then I could get to work on the race cars as well."
+            ]
+          },
+          "store": "/tmp/campy-bench-w39vq7qf",
+          "answer": "You started working in construction when you were 16.",
+          "latency_ms": 1277.1,
+          "f1": 0.8,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_61",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about having a salad after our run? What was the type of dressing I suggested we have with it? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about having a salad after our run? What was the type of dressing I suggested we have with it?",
+          "expected": "You didn't suggest a specific type of dressing, you only asked me about my favorite dressing.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 33.2,
+          "compile_latency_ms": 61.6,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 379,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Maybe not a good time",
+              "our run",
+              "my training run",
+              "[Speaker 2, 2022-12-27 01:00] I can cook for us after our run. I need the practice haha!",
+              "[Speaker 1, 2022-12-27 01:00] Sounds good. Maybe a lite dressing with it.",
+              "[Speaker 1, 2022-12-27 01:00] Okay. That is a plan. We should meet for a run.",
+              "[Speaker 1, 2022-12-27 01:00] Hi. Just got done with my training run. Training for a marathon.",
+              "[Speaker 2, 2022-12-27 01:00] Sure! The last time I ran was when I was 13 which was like 10 years ago!"
+            ]
+          },
+          "store": "/tmp/campy-bench-6yc0yxlf",
+          "answer": "Speaker 1 said earlier: \"Maybe a lite dressing with it.\"",
+          "latency_ms": 1334.2,
+          "f1": 0.0833,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_62",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our hobbies and you mentioned yours? What was that job you wished you could get, even in jest? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our hobbies and you mentioned yours? What was that job you wished you could get, even in jest?",
+          "expected": "Hooters!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 52,
+          "evidence": [
+            "1:8"
+          ],
+          "ingest_seconds": 28.3,
+          "compile_latency_ms": 63.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 170,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-26 23:00] Maybe you should find a second job.",
+              "[Speaker 2, 2022-12-26 23:00] Then it wasn't your calling, it is mine.",
+              "[Speaker 1, 2022-12-26 23:00] Hello. Do you like painting? I used to be a painter, it was a good life.",
+              "[Speaker 1, 2022-12-26 23:00] I wish I could buy a car. I cannot afford it on a housekeeper wage.",
+              "[Speaker 1, 2022-12-26 23:00] I like your optimism, I suppose I could learn a thing or two.",
+              "[Speaker 1, 2022-12-27 02:00] I can't even imagine trying to coach little ones! How old are the ones you coach? I remember when mine were little and played sports! The attention span was awful! They'd be in the field picking flowers while \u2026"
+            ]
+          },
+          "store": "/tmp/campy-bench-0xhybpcf",
+          "answer": "I wish I could buy a car. I cannot afford it on a housekeeper wage.",
+          "latency_ms": 1332.1,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_63",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about the music I like to play? What unique instrument do I use in my Scottish black metal band? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about the music I like to play? What unique instrument do I use in my Scottish black metal band?",
+          "expected": "Electric bagpipes!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:10"
+          ],
+          "ingest_seconds": 23.2,
+          "compile_latency_ms": 62.9,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 277,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "their own music",
+              "[Speaker 2, 2022-12-25 04:00] Scottish black metal. I play electric bag pipes.",
+              "[Speaker 2, 2022-12-25 04:00] I play music. I'm going to be a rockstar.",
+              "[Speaker 2, 2022-12-30 04:00] Thanks for the feedback! Its hard to find gigs that like Scottish metal played with a bagpipe. Sure, I write all of my own music. Have you ever heard of \"Shake your Bum Bum\"? That is one of mine.",
+              "[Speaker 1, 2022-12-30 06:00] So do I! You do have a fair amount of musical talent! writing, singing, playing an instrument. I wish I could do any of those!",
+              "[Speaker 1, 2022-12-30 12:00] Sounds like a plan! I really am interested in what Scottish black metal is.",
+              "[Speaker 2, 2022-12-30 12:00] It's very unique and not everyone's cup of tea if you know what I mean. I don't like to conform to the norm, I like to be different."
+            ]
+          },
+          "store": "/tmp/campy-bench-hb55gm4y",
+          "answer": "You said: \"So do I! You do have a fair amount of musical talent! Writing, singing, playing an instrument. I wish I could do any of those!\"",
+          "latency_ms": 1710.7,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_65",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about the weather in our respective locations? What was the one thing you said you didn't like about the weather in Texas? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about the weather in our respective locations? What was the one thing you said you didn't like about the weather in Texas?",
+          "expected": "The humidity!",
+          "answerer": "Speaker 2",
+          "answerer_source": "turn",
+          "turns": 50,
+          "evidence": [
+            "1:9"
+          ],
+          "ingest_seconds": 23.2,
+          "compile_latency_ms": 61.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 152,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-24 08:00] Hawaii. Moved here from texas and love the blue ocean and skies here",
+              "[Speaker 2, 2022-12-24 08:00] I d love to see america. I hope to work there one day. I live in india.",
+              "[Speaker 2, 2022-12-24 08:00] I like swimming. I coach locally.",
+              "[Speaker 1, 2022-12-27 08:00] Yeah the weather here is amazing, it's one of the best tings about Hawaii! Unless you decide to go way up near the top of the volcanos you'll never see snow either.",
+              "[Speaker 1, 2022-12-27 12:00] no i dont how about you",
+              "[Speaker 2, 2022-12-27 12:00] Hey sure . thanks for your help. Good to hear your interest in music and sports ."
+            ]
+          },
+          "store": "/tmp/campy-bench-g8bafhlc",
+          "answer": "I don't have any memory of Speaker 2 mentioning something they didn't like about the weather in Texas. The conversation only mentions Speaker 1's experience moving from Texas to Hawaii and Speaker 2's interest in visiting America and living in India.",
+          "latency_ms": 1824.3,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_66",
+          "question": "Speaker 1 asks Speaker 2 (\"you\" means Speaker 2): Hey, remember that time we talked about our languages skills? How many languages did you say you could speak? Answer with what Speaker 2 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our languages skills? How many languages did you say you could speak?",
+          "expected": "I can speak 2 languages, Spanish and English.",
+          "answerer": "Speaker 2",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 33.0,
+          "compile_latency_ms": 58.5,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 100,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-29 04:00] How many languages do you speak? I'm up to three.",
+              "[Speaker 1, 2022-12-29 04:00] I am at 2, spanish and english",
+              "[Speaker 1, 2022-12-29 04:00] Yeah I hear ya man, I really do teach fourth graders",
+              "[Speaker 2, 2022-12-29 04:00] What subject do you teach? I teach history.",
+              "[Speaker 1, 2022-12-29 04:00] I teach piano, and vocals",
+              "[Speaker 1, 2022-12-31 12:00] How long have you been teaching"
+            ]
+          },
+          "store": "/tmp/campy-bench-kfvyhuvw",
+          "answer": "I remember that conversation. You said, \"I'm up to three.\"",
+          "latency_ms": 1131.7,
+          "f1": 0.1176,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_69",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we chatted about our favorite TV shows? Can you remind me what yours was again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we chatted about our favorite TV shows? Can you remind me what yours was again?",
+          "expected": "The Walking Dead!",
+          "answerer": "Speaker 1",
+          "answerer_source": "turn",
+          "turns": 49,
+          "evidence": [
+            "1:8",
+            "3:8"
+          ],
+          "ingest_seconds": 33.0,
+          "compile_latency_ms": 61.3,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 201,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-29 07:00] I love movies, I spend a lot of time watching tv, probably too much lol",
+              "[Speaker 2, 2022-12-29 07:00] Very nice I go to the park for that. Do you like movies, my favorite is friday",
+              "[Speaker 1, 2022-12-31 07:00] Not a bad idea, I'll see if I can get time off from my work as IT. Although I could even continue working a bit if I brough my laptop along.",
+              "[Speaker 1, 2023-01-01 07:00] I always liked Maggie the best. This show is rough though, you lose characters left and right and then way down the road they surprise you and there they are again. lol",
+              "[Speaker 2, 2023-01-01 07:00] Yes, I got it. So now I have to plan the move.",
+              "[Speaker 1, 2023-01-01 09:00] My girlfriend and I are talking about visiting California this coming summer. We should get together when we visit for dinner!"
+            ]
+          },
+          "store": "/tmp/campy-bench-14_o1lsj",
+          "answer": "I remember our conversation about TV shows. You asked me about my favorite, and I said \"I always liked Maggie the best.\"",
+          "latency_ms": 1461.5,
+          "f1": 0.0,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_68",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about me wanting to be a dog just like Pluto? What's the reason you gave saying why I could definitely go to Disney? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about me wanting to be a dog just like Pluto? What's the reason you gave saying why I could definitely go to Disney?",
+          "expected": "Because Pluto is a dog and he is in Disney!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 23.0,
+          "compile_latency_ms": 66.3,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 256,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Disney",
+              "[Speaker 1, 2022-12-28 23:00] Disney has dogs! Pluto is a dog! But I like mickey better! My favorite!",
+              "[Speaker 2, 2022-12-28 23:00] Maybe I can teach pluto abc song! I want to be a dog just like him!",
+              "[Speaker 2, 2022-12-28 23:00] I love snow, I can roll in it! Dogs can not go to disney ruff",
+              "[Speaker 2, 2023-01-01 03:00] I need to go to Disney sometime, it's sad that my parents haven't wanted to take me and I can't find anyone else to go with.",
+              "[Speaker 1, 2023-01-01 08:00] I prefer Goofy to Pluto, actually. Did you ever see him sing the song about sailing? It's so fast, and I still want to learn the words.",
+              "[Speaker 2, 2023-01-01 08:00] I don't think I have. Man I really want to go to Disney. You are so lucky!"
+            ]
+          },
+          "store": "/tmp/campy-bench-1qt_vlwi",
+          "answer": "I don't have any memory of giving a reason why you could definitely go to Disney. The conversation only mentions Disney in the context of your desire to visit and your interest in the park's dogs, but there's no specific statement from me about why you could go.",
+          "latency_ms": 1989.1,
+          "f1": 0.0784,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_70",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that one time we talked about our jobs? What was it that you just got hired as? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that one time we talked about our jobs? What was it that you just got hired as?",
+          "expected": "I got hired as a life coach!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 33.3,
+          "compile_latency_ms": 60.2,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 197,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-28 04:00] I just got hired yesterday as a life coach, thanks for asking",
+              "[Speaker 1, 2022-12-28 04:00] Just determined. I'm not taking my second chance for granted",
+              "[Speaker 1, 2022-12-28 04:00] I got really into running after I beat cancer",
+              "[Speaker 2, 2022-12-28 04:00] Yes, a new little one on the way too",
+              "[Speaker 1, 2022-12-31 04:00] I was a part-time athletic trainer. I feel like my experience as an athletic trainer is what landed me this job. I know that the people interviewing me were impressed by my previous work history. I had done al\u2026",
+              "[Speaker 2, 2023-01-01 08:00] A lot of work on your plate? Hope that means you've been getting lots of new clients!"
+            ]
+          },
+          "store": "/tmp/campy-bench-6tvhuewy",
+          "answer": "Speaker 1 said earlier: \"I was a part-time athletic trainer. I feel like my experience as an athletic trainer is what landed me this job.\"",
+          "latency_ms": 1501.3,
+          "f1": 0.1379,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_77",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our jobs? Can you remind me what year you said you finished school? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our jobs? Can you remind me what year you said you finished school?",
+          "expected": "Yeah, I finished school in 1995.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 50,
+          "evidence": [],
+          "ingest_seconds": 58.2,
+          "compile_latency_ms": 62.1,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 393,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "First year",
+              "school",
+              "[Speaker 2, 2022-12-29 07:00] First year, I just moved here with my best friend for school too.",
+              "[Speaker 2, 2022-12-29 07:00] Hi! I do but I rarely have time to listen in between school and work.",
+              "[Speaker 1, 2022-12-29 07:00] Bar work can be fun. You learn so much about human nature. Thank you for caring about others",
+              "[Speaker 2, 2023-01-01 07:00] That's a good idea too, I hadn't thought about it but a change of industries might just be right for you. I don't have a lot of free time between my job and schooling, but it's going well, thank you. It's frus\u2026",
+              "[Speaker 1, 2023-01-01 09:00] Not from my company, I'll have to file for unemployment benefits. I'm going to take this time to look into school as well.",
+              "[Speaker 2, 2023-01-01 09:00] That's good. I wish I could say that same about nursing, my experience working at the bar hasn't helped my studies at all, hahaha."
+            ]
+          },
+          "store": "/tmp/campy-bench-ldx8t3n5",
+          "answer": "Speaker 1 said: \"Not from my company, I'll have to file for unemployment benefits. I'm going to take this time to look into school as well.\"",
+          "latency_ms": 1760.3,
+          "f1": 0.0625,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_73",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about baking cookies? Can you tell me again what my peanut butter cookie recipe was? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about baking cookies? Can you tell me again what my peanut butter cookie recipe was?",
+          "expected": "It was 1 cup of peanut butter, 1 cup of sugar, and 1 egg. Mix and roll them, then bake for 10-12 minutes.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 51,
+          "evidence": [],
+          "ingest_seconds": 23.1,
+          "compile_latency_ms": 58.9,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 152,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-24 07:00] I bet. What are you making? I have a great pb cookie recipe.",
+              "[Speaker 1, 2022-12-24 07:00] Would you share? Cookies are my favorite to bake!",
+              "[Speaker 2, 2022-12-24 07:00] 1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10 12 mins.",
+              "[Speaker 1, 2022-12-24 12:00] I baked PB cookies in the shape of my dogs!",
+              "[Speaker 1, 2022-12-26 12:00] Remember those dog cookies I made? This time I also baked dog-safe treats shaped like dogs so I can share with them while I bake!",
+              "[Speaker 1, 2022-12-26 12:00] For humans, I can bake pies, cookies, quiches, cakes, anything. For pets, i can bake cookie treats."
+            ]
+          },
+          "store": "/tmp/campy-bench-abpsedzp",
+          "answer": "Speaker 2 asked for the peanut butter cookie recipe, and Speaker 1 shared the following earlier:\n\n1c pb, 1c sugar, 1 egg. Mix and roll. Bake for 10 12 mins.\n\nNote: There is no earlier statement from Speaker 1 that shares the exact recipe.",
+          "latency_ms": 2044.8,
+          "f1": 0.3667,
+          "judge": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "valid_79",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about our ideal Saturdays? What was that thing you said you liked to do? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about our ideal Saturdays? What was that thing you said you liked to do?",
+          "expected": "Have a bottle of wine.",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 52,
+          "evidence": [],
+          "ingest_seconds": 23.3,
+          "compile_latency_ms": 58.4,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 220,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 2, 2022-12-28 03:00] That sounds like a nice time. I like to try to be active myself. I love walks.",
+              "[Speaker 2, 2022-12-28 03:00] Yup. A cheeseburger and a war documentary are my idea of a good saturday",
+              "[Speaker 1, 2022-12-28 10:00] Mine too! We get into it at towards the end of our American history class, but only for a couple weeks and I wish I had more time to get into it in greater depth.",
+              "[Speaker 1, 2022-12-28 10:00] I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn't known about the walking path it had until recently!",
+              "[Speaker 2, 2022-12-28 10:00] That great to hear, do you teach any other subjects or is it just history",
+              "[Speaker 2, 2022-12-28 12:00] I absolutely love German Shepherds but my wife already said no to that. I think we will have a hard time compromising on this one. Maybe we should just get a cat instead haha...kidding!"
+            ]
+          },
+          "store": "/tmp/campy-bench-8b1kriwt",
+          "answer": "Speaker 1 said: \"I have actually! Yesterday I went on a wonderful walk along the Detroit river, I hadn't known about the walking path it had until recently!\"",
+          "latency_ms": 1645.9,
+          "f1": 0.069,
+          "judge": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "valid_80",
+          "question": "Speaker 2 asks Speaker 1 (\"you\" means Speaker 1): Hey, remember that time we talked about your dogs? How many do you have again? Answer with what Speaker 1 said earlier.",
+          "raw_question": "Hey, remember that time we talked about your dogs? How many do you have again?",
+          "expected": "I have 3 dogs!",
+          "answerer": "Speaker 1",
+          "answerer_source": "persona",
+          "turns": 48,
+          "evidence": [],
+          "ingest_seconds": 23.0,
+          "compile_latency_ms": 57.8,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 139,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Speaker 1, 2022-12-22 09:00] Well my dogs won't pull your hair if you ever want to spend time with them",
+              "[Speaker 1, 2022-12-22 09:00] I remember back in school the other kids would always be annoying",
+              "[Speaker 1, 2022-12-22 09:00] Well I like working in my dog walking business! Dogs are the best",
+              "[Speaker 1, 2022-12-22 09:00] I'm always walking my dogs so gym activities are fun for me",
+              "[Speaker 1, 2022-12-22 09:00] Sure! You can be friends with my 3 dogs too if you aren't allergic",
+              "[Speaker 1, 2022-12-25 09:00] I will see you later. The dogs are sure to cheer you up!"
+            ]
+          },
+          "store": "/tmp/campy-bench-apiwmq67",
+          "answer": "Speaker 2 asked how many dogs Speaker 1 has. Speaker 1 said earlier: \"Sure! You can be friends with my 3 dogs too if you aren't allergic.\"",
+          "latency_ms": 1555.0,
+          "f1": 0.129,
+          "judge": true,
+          "reason": "judge_correct"
+        }
+      ],
+      "valid": true,
+      "client_calls": 2983,
+      "client_failures": 0
+    }
+  },
+  "all_suites_valid": true,
+  "canonical_baseline_targets": {
+    "retrieval_latency_ms": "<10.0ms (via B375)",
+    "llm_generation_latency_s": "<1.0s (via B374)",
+    "daemon_idle_rss_mb": "<80MB (via B384)",
+    "token_compression_ratio": "50%-70% bulk, 100% bypass on sub-budget (B374)",
+    "ask_eval_overall": ">=0.90"
+  },
+  "dmr_judge": {
+    "enabled": true,
+    "prompt": "locomo10 JUDGE_TEMPLATE",
+    "llm": {
+      "provider": "ollama",
+      "model": "gemma4:26b",
+      "base_url": "http://localhost:11434/v1",
+      "endpoint": "ollama /api/chat (num_ctx sized per prompt)",
+      "temperature": 0.0
+    },
+    "source": "isolated daemon config + CLI overrides",
+    "calls": 50
+  }
+}

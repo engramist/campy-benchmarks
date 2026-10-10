@@ -1,0 +1,2638 @@
+{
+  "timestamp": "2026-10-10T09:25:33.565619+00:00",
+  "provenance": {
+    "scorer_version": 4,
+    "argv": [
+      "run_all.py",
+      "--baseline",
+      "--isolated",
+      "--judge-model",
+      "gemma4:26b",
+      "--keep-store",
+      "--turn-metadata",
+      "fields",
+      "--suite",
+      "locomo10",
+      "--locomo10-conversations",
+      "1",
+      "--locomo10-max-questions",
+      "60",
+      "--out",
+      "results/r24a-locomo10-q60-fields.json"
+    ],
+    "harness": {
+      "path": "/private/tmp/cb-q24",
+      "commit": "7ebd8c987bb3fc9c3f69b868630075eac83f615d",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "hippocampy": {
+      "path": "/Users/djshelton/Desktop/GitProjects/hippocampy",
+      "commit": "9c5c9d8cedcbe4b0f3cc8e1ed1a75b643fac4fca",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "daemon_config": {
+      "source": "isolated (written by harness)",
+      "derived_from": "/Users/djshelton/.campy/config.toml",
+      "sha256": "f0a0205fe92ed7500574f668a41857824c3395bd3f6a7653d4c7fe155d883500",
+      "llm_provider": "ollama",
+      "llm_model": "llama3.1:8b",
+      "llm_step_overrides": {},
+      "embeddings_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "compression_model": null
+    },
+    "store": {
+      "isolated": true,
+      "campy_home": "/tmp/campy-bench-_g7_nemi",
+      "web_port": 54518,
+      "config_overrides": {
+        "capture.enabled": false,
+        "capture.codex.enabled": false,
+        "capture.claude_code.enabled": false,
+        "capture.vscode.enabled": false,
+        "daemon.restart_interval_hours": 0,
+        "watchdog.enabled": false,
+        "web.port": 54518,
+        "server.bind_host": "127.0.0.1",
+        "activity.log_path": "/tmp/campy-bench-_g7_nemi/activity.log"
+      },
+      "daemon_ready_seconds": 2.0,
+      "activity_log_lines": 622
+    },
+    "dataset_sha": {
+      "locomo": "dbbe2514f617d524",
+      "membench": "5ba306db91543c61",
+      "locomo10": "79fa87e90f040813@3eb6f2c5"
+    },
+    "python": "3.12.13",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "mode": "standard",
+  "mcp_configured": true,
+  "suites": {
+    "locomo10": {
+      "suite": "locomo10",
+      "dataset": {
+        "conversations": [
+          "conv-26"
+        ],
+        "options": {
+          "conversations": 1,
+          "max_questions": 60,
+          "categories": null
+        },
+        "turn_metadata": "fields",
+        "turns": 419
+      },
+      "questions": 60,
+      "judge_accuracy": 0.3958,
+      "f1": 0.0858,
+      "f1_stemmed": false,
+      "adversarial_abstention": 0.0,
+      "adversarial_abstention_strict": 0.0,
+      "evidence_recall": 0.4957,
+      "by_category": {
+        "multi_hop": {
+          "n": 12,
+          "judge_accuracy": 0.1667,
+          "f1": 0.061,
+          "evidence_recall": 0.1042
+        },
+        "temporal": {
+          "n": 12,
+          "judge_accuracy": 0.5,
+          "f1": 0.1034,
+          "evidence_recall": 0.6667
+        },
+        "open_domain": {
+          "n": 12,
+          "judge_accuracy": 0.3333,
+          "f1": 0.0376,
+          "evidence_recall": 0.25
+        },
+        "single_hop": {
+          "n": 12,
+          "judge_accuracy": 0.5833,
+          "f1": 0.1409,
+          "evidence_recall": 0.5833
+        },
+        "adversarial": {
+          "n": 12,
+          "abstention": 0.0,
+          "evidence_recall": 0.8333
+        }
+      },
+      "ingest_seconds": 426.0,
+      "avg_latency_ms": 2929.0,
+      "details": [
+        {
+          "id": "conv-26_q3",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "What did Caroline research?",
+          "raw_question": "What did Caroline research?",
+          "expected": "Adoption agencies",
+          "evidence": [
+            "D2:8"
+          ],
+          "compile_latency_ms": 54.1,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 350,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-05-08 13:56] Totally agree, Mel. Relaxing and expressing ourselves is key. Well, I'm off to go do some research.",
+              "[Caroline, 2023-05-08 13:56] Gonna continue my edu and check out career options, which is pretty exciting!",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Caroline, 2023-10-13 10:31] It was a transgender poetry reading where transgender people shared their stories through poetry. It was extra special 'cause it was a safe place for self-expression and it was really empowering to hear others \u2026",
+              "[Melanie, 2023-10-13 10:31] Thanks for the tip, Caroline. Doing research and readying myself emotionally makes sense. I'll do that. BTW, recently I had a setback. Last month I got hurt and had to take a break from pottery, which I use for \u2026",
+              "[Caroline, 2023-10-20 18:55] Our loved ones give us strength to tackle any challenge - it's amazing!"
+            ]
+          },
+          "latency_ms": 1499.4,
+          "answer": "Based on the provided context, Caroline researched career options and adoption services that are inclusive and supportive of the LGBTQ+ community.",
+          "f1": 0.1333,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q0",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "When did Caroline go to the LGBTQ support group? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "When did Caroline go to the LGBTQ support group?",
+          "expected": "7 May 2023",
+          "evidence": [
+            "D1:3"
+          ],
+          "compile_latency_ms": 59.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 561,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "LGBTQ community",
+              "support",
+              "counseling and support groups",
+              "[Caroline, 2023-05-08 13:56] I went to a LGBTQ support group yesterday and it was so powerful.",
+              "[Caroline, 2023-05-08 13:56] The support group has made me feel accepted and given me courage to embrace myself.",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Caroline, 2023-07-20 20:56] Thanks, Melanie! It's awesome to have our own platform to be ourselves and support others' rights. Our group, 'Connected LGBTQ Activists', is made of all kinds of people investing in positive changes. We have r\u2026",
+              "[Caroline, 2023-08-14 14:24] It was so inspiring, Mel! Check out the crowd. People of all kinds celebrating love and acceptance - it really pushed me to keep fighting for LGBTQ rights. [shares an image: a photo of a group of people walking\u2026"
+            ]
+          },
+          "latency_ms": 2444.2,
+          "answer": "Based on the conversation, Caroline went to the LGBTQ support group on May 8, 2023. This is inferred from her statement \"I went to a LGBTQ support group yesterday and it was so powerful\" on May 8, 2023, at 13:56.",
+          "f1": 0.1026,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q2",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "What fields would Caroline be likely to pursue in her educaton?",
+          "raw_question": "What fields would Caroline be likely to pursue in her educaton?",
+          "expected": "Psychology, counseling certification",
+          "evidence": [
+            "D1:9",
+            "D1:11"
+          ],
+          "compile_latency_ms": 50.8,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 465,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "her first steps",
+              "Caroline",
+              "[Caroline, 2023-05-08 13:56] Gonna continue my edu and check out career options, which is pretty exciting!",
+              "[Caroline, 2023-07-06 20:18] Being a mom is awesome. I'm creating a library for when I have kids. I'm really looking forward to reading to them and opening up their minds. [shares an image: a photo of a bookcase filled with books and toys]",
+              "[Melanie, 2023-07-12 16:33] Caroline, so glad you got the support! Your experience really brought you to where you need to be. You're gonna make a huge difference! This book I read last year reminds me to always pursue my dreams, just like\u2026",
+              "[Caroline, 2023-08-14 14:24] My art is about expressing my trans experience. It's my way of showing my story and helping people understand the trans community. [shares an image: a photo of a painting of a woman with a cow in her lap]",
+              "[Caroline, 2023-08-23 15:31] That's so funny! I used to go horseback riding with my dad when I was a kid, we'd go through the fields, feeling the wind. It was so special. I've always had a love for horses!",
+              "[Caroline, 2023-10-20 18:55] Kids are amazingly resilient in tough situations. They have an amazing ability to bounce back."
+            ]
+          },
+          "latency_ms": 5409.9,
+          "answer": "Based on the provided context, Caroline is likely to pursue fields in education, child development, or the arts. Here's why:\n\n* Caroline mentioned continuing her education and exploring career options, indicating a desire to learn and grow professionally.\n* She expressed her excitement about being a mom and creating a library for her future children, suggesting an interest in education and child development.\n* Caroline's passion for reading and opening up her children's minds to new ideas is also evident in her conversation about creating a library.\n* Her art is about expressing her trans experience and helping people understand the trans community, which may indicate an interest in fields related to social justice, advocacy, or education.\n* Caroline's love for horses and her childhood experiences riding with her dad may suggest an interest in equine-related fields, such as equine science, equine therapy, or equine-assisted learning.\n\nThese inferences are based on Caroline's conversations and interests as recorded in the provided context.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q82",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "What did the charity race raise awareness for?",
+          "raw_question": "What did the charity race raise awareness for?",
+          "expected": "mental health",
+          "evidence": [
+            "D2:2"
+          ],
+          "compile_latency_ms": 37.3,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 378,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Caroline, 2023-05-25 13:14] That charity race sounds great, Mel! Making a difference & raising awareness for mental health is super rewarding - I'm really proud of you for taking part!",
+              "[Melanie, 2023-05-25 13:14] Hey Caroline, since we last chatted, I've had a lot of things happening to me. I ran a charity race for mental health last Saturday \u2013 it was really rewarding. Really made me think about taking care of our minds.",
+              "[Melanie, 2023-05-25 13:14] Thanks, Caroline! The event was really thought-provoking. I'm starting to realize that self-care is really important. It's a journey for me, but when I look after myself, I'm able to better look after my family.",
+              "[Caroline, 2023-07-20 20:56] Thanks, Melanie! It's awesome to have our own platform to be ourselves and support others' rights. Our group, 'Connected LGBTQ Activists', is made of all kinds of people investing in positive changes. We have r\u2026",
+              "[Caroline, 2023-08-14 14:24] It was so inspiring, Mel! Check out the crowd. People of all kinds celebrating love and acceptance - it really pushed me to keep fighting for LGBTQ rights. [shares an image: a photo of a group of people walking\u2026",
+              "[Caroline, 2023-08-28 15:19] I'm definitely carrying on volunteering at the youth center. It's an important part of my life and I've made strong connections with people there. I really believe in community and supporting each other. So I w\u2026"
+            ]
+          },
+          "latency_ms": 1772.3,
+          "answer": "The charity race raised awareness for mental health.",
+          "f1": 0.4444,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q152",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What did Caroline realize after her charity race?",
+          "raw_question": "What did Caroline realize after her charity race?",
+          "expected": "self-care is important",
+          "evidence": [
+            "D2:3"
+          ],
+          "compile_latency_ms": 48.2,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 489,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "her first steps",
+              "Caroline",
+              "[Caroline, 2023-05-25 13:14] That charity race sounds great, Mel! Making a difference & raising awareness for mental health is super rewarding - I'm really proud of you for taking part!",
+              "[Melanie, 2023-05-25 13:14] Thanks, Caroline! The event was really thought-provoking. I'm starting to realize that self-care is really important. It's a journey for me, but when I look after myself, I'm able to better look after my family.",
+              "[Melanie, 2023-05-25 13:14] Hey Caroline, since we last chatted, I've had a lot of things happening to me. I ran a charity race for mental health last Saturday \u2013 it was really rewarding. Really made me think about taking care of our minds.",
+              "[Caroline, 2023-05-25 13:14] That's great, Mel! Taking time for yourself is so important. You're doing an awesome job looking after yourself and your family!",
+              "[Caroline, 2023-07-17 14:31] Thanks, Melanie! I painted this after I visited a LGBTQ center. I wanted to capture everyone's unity and strength.",
+              "[Melanie, 2023-10-20 18:55] Yeah, you're right, Caroline. Family's super important to me. Especially after the accident, I've thought a lot about how much I need them. They mean the world to me and I'm so thankful to have them. Thankfully,\u2026"
+            ]
+          },
+          "latency_ms": 4144.2,
+          "answer": "Based on the provided context, it appears that the conversation is between Caroline and Melanie. However, there is no direct mention of Caroline participating in a charity race or realizing something after it. The conversation mentions Melanie participating in a charity race for mental health, but Caroline's thoughts or realizations are not explicitly stated.\n\nHowever, in the conversation, Caroline does mention that taking time for oneself is important, and she praises Melanie for looking after herself and her family. This suggests that Caroline values self-care and family, but it does not directly relate to her realizing something after a charity race.\n\nIf I had to make an educated guess, I would say that Caroline's realization is not explicitly stated in the provided context.",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q4",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "What is Caroline's identity?",
+          "raw_question": "What is Caroline's identity?",
+          "expected": "Transgender woman",
+          "evidence": [
+            "D1:5"
+          ],
+          "compile_latency_ms": 48.3,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 508,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-06-09 19:55] Thanks, Mel! Your backing really means a lot. I felt super powerful giving my talk. I shared my own journey, the struggles I had and how much I've developed since coming out. It was wonderful to see how the aud\u2026",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, family love and support is the best!",
+              "[Caroline, 2023-08-14 14:24] Thanks, Melanie. Here's one- 'Embracing Identity' is all about finding comfort and love in being yourself. The woman in the painting stands for the journey of acceptance. My aim was to show warmth, love and sel\u2026",
+              "[Caroline, 2023-08-23 15:31] Thanks, Mel! I felt liberated and empowered doing it. Painting helps me explore my identity and be true to myself. It's definitely therapeutic.",
+              "[Caroline, 2023-09-13 00:09] Melanie, those bowls are amazing! They each have such cool designs. I love that you chose pottery for your art. Painting and drawing have helped me express my feelings and explore my gender identity. Creating a\u2026",
+              "[Caroline, 2023-10-13 10:31] It was a transgender poetry reading where transgender people shared their stories through poetry. It was extra special 'cause it was a safe place for self-expression and it was really empowering to hear others \u2026"
+            ]
+          },
+          "latency_ms": 2841.4,
+          "answer": "Based on the provided context, Caroline's identity is related to being transgender. This is inferred from her conversations about her journey, struggles, and development since coming out, as well as her participation in events celebrating transgender identities and her own exploration of her gender identity through art.",
+          "f1": 0.1111,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q1",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "When did Melanie paint a sunrise? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "When did Melanie paint a sunrise?",
+          "expected": "2022",
+          "evidence": [
+            "D1:12"
+          ],
+          "compile_latency_ms": 49.2,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 386,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Melanie, 2023-05-08 13:56] Yeah, I painted that lake sunrise last year! It's special to me.",
+              "[Caroline, 2023-05-08 13:56] Wow, Melanie! The colors really blend nicely. Painting looks like a great outlet for expressing yourself.",
+              "[Caroline, 2023-06-27 10:37] That's awesome, Melanie! Family moments like that are so special. Glad y'all had such a great time.",
+              "[Melanie, 2023-08-14 14:24] Your art's amazing, Caroline. I love how you use it to tell your stories and teach people about trans folks. I'd love to see another painting of yours! [shares an image: a photo of a person holding a purple bowl\u2026",
+              "[Caroline, 2023-08-25 13:33] Thanks, Melanie! I painted it after I visited the beach last week. Just seeing the sun dip below the horizon, all the amazing colors - it was amazing and calming. So I just had to try to capture that feeling in\u2026",
+              "[Caroline, 2023-10-13 10:31] Wow Mel, that's stunning! Love the colors and the chilled-out sunset vibe. What made you paint it? I've been trying out abstract stuff recently. It's kinda freeing, just putting my feelings on the canvas withou\u2026"
+            ]
+          },
+          "latency_ms": 2380.9,
+          "answer": "Based on the conversation, Melanie mentioned painting a lake sunrise last year. Since the conversation took place on 2023-05-08, and Melanie said \"last year\", I would approximate the date of the painting to be around 2022.",
+          "f1": 0.0645,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q14",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "Would Caroline still want to pursue counseling as a career if she hadn't received support growing up?",
+          "raw_question": "Would Caroline still want to pursue counseling as a career if she hadn't received support growing up?",
+          "expected": "Likely no",
+          "evidence": [
+            "D4:15",
+            "D3:5"
+          ],
+          "compile_latency_ms": 48.5,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 497,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "counseling and support groups",
+              "support",
+              "[Caroline, 2023-05-08 13:56] I'm keen on counseling or working in mental health - I'd love to support those with similar issues.",
+              "[Caroline, 2023-05-08 13:56] Gonna continue my edu and check out career options, which is pretty exciting!",
+              "[Caroline, 2023-06-27 10:37] Lately, I've been looking into counseling and mental health as a career. I want to help people who have gone through the same things as me. [shares an image: a photo of a book shelf with many books on it]",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie. It really mattered. My own journey and the support I got made a huge difference. Now I want to help people go through it too. I saw how counseling and support groups improved my life, so I star\u2026",
+              "[Caroline, 2023-07-12 16:33] I struggled with mental health, and support I got was really helpful. It made me realize how important it is for others to have a support system. So, I started looking into counseling and mental health career o\u2026",
+              "[Caroline, 2023-07-12 16:33] Thanks, Mell! I'm still looking into counseling and mental health jobs. It's important to me that people have someone to talk to, and I want to help make that happen."
+            ]
+          },
+          "latency_ms": 4539.1,
+          "answer": "Based on the provided memory context, it appears that Caroline's desire to pursue counseling as a career is deeply rooted in her personal experiences and the support she received. She has mentioned multiple times that her own journey and the support she got made a huge difference in her life. She has also stated that she wants to help people who have gone through similar things as her.\n\nGiven this context, it is likely that Caroline would still want to pursue counseling as a career even if she hadn't received support growing up. Her motivation seems to be driven by a desire to help others, rather than a personal need for support. She has explicitly stated that she wants to create a safe and inviting place for people to grow, and that she is passionate about helping others on their own journeys.",
+          "f1": 0.0153,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q83",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "What did Melanie realize after the charity race?",
+          "raw_question": "What did Melanie realize after the charity race?",
+          "expected": "self-care is important",
+          "evidence": [
+            "D2:3"
+          ],
+          "compile_latency_ms": 43.4,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 316,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Melanie, 2023-05-25 13:14] Hey Caroline, since we last chatted, I've had a lot of things happening to me. I ran a charity race for mental health last Saturday \u2013 it was really rewarding. Really made me think about taking care of our minds.",
+              "[Caroline, 2023-05-25 13:14] That charity race sounds great, Mel! Making a difference & raising awareness for mental health is super rewarding - I'm really proud of you for taking part!",
+              "[Melanie, 2023-05-25 13:14] Thanks, Caroline! The event was really thought-provoking. I'm starting to realize that self-care is really important. It's a journey for me, but when I look after myself, I'm able to better look after my family.",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing.",
+              "[Caroline, 2023-10-20 18:55] Glad you've got people to lean on, Melanie. It helps during tougher times."
+            ]
+          },
+          "latency_ms": 2100.3,
+          "answer": "Melanie realized that self-care is really important after the charity race. She mentioned that when she looks after herself, she's able to better look after her family.",
+          "f1": 0.2069,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q153",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What are Melanie's plans for the summer with respect to adoption?",
+          "raw_question": "What are Melanie's plans for the summer with respect to adoption?",
+          "expected": "researching adoption agencies",
+          "evidence": [
+            "D2:8"
+          ],
+          "compile_latency_ms": 48.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 564,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "our summer",
+              "adoption",
+              "[Caroline, 2023-05-25 13:14] Researching adoption agencies \u2014 it's been a dream to have a family and give a loving home to kids who need it.",
+              "[Caroline, 2023-05-25 13:14] Thanks, Mel! My goal is to give kids a loving home. I'm truly grateful for all the support I've got from friends and mentors. Now the hard work starts to turn my dream into a reality. And here's one of the adop\u2026",
+              "[Melanie, 2023-08-23 15:31] Wow, Caroline! That's amazing. You really care about being real and helping others. Wishing you the best on your adoption journey!",
+              "[Caroline, 2023-08-23 15:31] Hi Melanie! Hope you're doing good. Guess what I did this week? I took the first step towards becoming a mom - I applied to adoption agencies! It's a big decision, but I think I'm ready to give all my love to a\u2026",
+              "[Caroline, 2023-10-22 09:55] Woohoo Melanie! I passed the adoption agency interviews last Friday! I'm so excited and thankful. This is a big move towards my goal of having a family.",
+              "[Caroline, 2023-10-22 09:55] Thanks so much, Melanie! It's beautiful! It really brings home how much love's in families - both blood and the ones we choose. I hope to build my own family and put a roof over kids who haven't had that before\u2026"
+            ]
+          },
+          "latency_ms": 3116.2,
+          "answer": "Based on the provided context, it appears that Caroline is the one pursuing adoption, not Melanie. Caroline has been researching adoption agencies, has applied to them, and has even passed the interviews. Melanie seems to be a supportive friend, offering encouragement and congratulations to Caroline on her progress.\n\nTherefore, I do not have any information about Melanie's plans for the summer with respect to adoption.",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q7",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "What is Caroline's relationship status?",
+          "raw_question": "What is Caroline's relationship status?",
+          "expected": "Single",
+          "evidence": [
+            "D3:13",
+            "D2:14"
+          ],
+          "compile_latency_ms": 46.4,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 269,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-05-08 13:56] Gonna continue my edu and check out career options, which is pretty exciting!",
+              "[Caroline, 2023-06-27 10:37] Hey Melanie! Long time no talk! A lot's been going on in my life! Take a look at this. [shares an image: a photo of a person holding a necklace with a cross and a heart]",
+              "[Caroline, 2023-07-06 20:18] I'm so lucky to have such a great support system around me. Their love and encouragement has really helped me accept and grow into my true self. They've been instrumental in my transition.",
+              "[Caroline, 2023-07-06 20:18] Hey Mel! Long time no talk. Lots has been going on since then!",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, family love and support is the best!",
+              "[Caroline, 2023-07-15 13:51] Hey Mel, what's up? Been a busy week since we talked."
+            ]
+          },
+          "latency_ms": 2733.1,
+          "answer": "Based on the provided context, I can infer that Caroline is in a relationship. The photo she shared on 2023-06-27 shows her holding a necklace with a cross and a heart, which suggests a romantic or loving relationship. Additionally, her messages express gratitude for her support system, which implies that she has a partner or loved one who is providing her with emotional support.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q5",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "When did Melanie run a charity race? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "When did Melanie run a charity race?",
+          "expected": "The sunday before 25 May 2023",
+          "evidence": [
+            "D2:1"
+          ],
+          "compile_latency_ms": 43.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 278,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Melanie, 2023-05-25 13:14] Hey Caroline, since we last chatted, I've had a lot of things happening to me. I ran a charity race for mental health last Saturday \u2013 it was really rewarding. Really made me think about taking care of our minds.",
+              "[Caroline, 2023-05-25 13:14] That charity race sounds great, Mel! Making a difference & raising awareness for mental health is super rewarding - I'm really proud of you for taking part!",
+              "[Caroline, 2023-06-27 10:37] That's awesome, Melanie! Family moments like that are so special. Glad y'all had such a great time.",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Caroline, 2023-07-12 16:33] Cool, Melanie! Running can really boost your mood. Keep it up!",
+              "[Caroline, 2023-10-20 18:55] Glad you've got people to lean on, Melanie. It helps during tougher times."
+            ]
+          },
+          "latency_ms": 2345.6,
+          "answer": "Based on the conversation, Melanie ran a charity race for mental health on the Saturday before Caroline's message on 2023-05-25 13:14. Since the exact date is not specified, I will approximate the date to be around May 20, 2023.",
+          "f1": 0.1538,
+          "judge": false,
+          "passed": false,
+          "reason": "non_answer"
+        },
+        {
+          "id": "conv-26_q22",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "Would Caroline likely have Dr. Seuss books on her bookshelf?",
+          "raw_question": "Would Caroline likely have Dr. Seuss books on her bookshelf?",
+          "expected": "Yes, since she collects classic children's books",
+          "evidence": [
+            "D6:9"
+          ],
+          "compile_latency_ms": 41.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 406,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "her first steps",
+              "Caroline",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Melanie, 2023-06-27 10:37] Congrats Caroline! Good on you for going after what you really care about. [shares an image: a photo of a book shelf filled with books in a room]",
+              "[Caroline, 2023-07-06 20:18] Being a mom is awesome. I'm creating a library for when I have kids. I'm really looking forward to reading to them and opening up their minds. [shares an image: a photo of a bookcase filled with books and toys]",
+              "[Caroline, 2023-07-12 16:33] Thanks so much, Mel! Seeing this pic just made me appreciate my love of reading even more. Books guide me, motivate me and help me discover who I am. They're a huge part of my journey, and this one's reminding \u2026",
+              "[Caroline, 2023-07-20 20:56] Wow, Mel. That must've been breathtaking!",
+              "[Caroline, 2023-08-17 13:50] Yeah, Mel! Life's all about creating memories. Can't wait for the trip!"
+            ]
+          },
+          "latency_ms": 2879.0,
+          "answer": "Based on the provided context, it is likely that Caroline would have Dr. Seuss books on her bookshelf. The conversation suggests that Caroline values reading and is creating a library for her future children. She mentions being inspired by books and wanting to read to them, which implies that she has a fondness for children's literature, including Dr. Seuss.",
+          "f1": 0.1,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q84",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "How does Melanie prioritize self-care?",
+          "raw_question": "How does Melanie prioritize self-care?",
+          "expected": "by carving out some me-time each day for activities like running, reading, or playing the violin",
+          "evidence": [
+            "D2:5"
+          ],
+          "compile_latency_ms": 44.6,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 281,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Caroline, 2023-05-25 13:14] I totally agree, Melanie. Taking care of ourselves is so important - even if it's not always easy. Great that you're prioritizing self-care.",
+              "[Melanie, 2023-05-25 13:14] Thanks, Caroline! The event was really thought-provoking. I'm starting to realize that self-care is really important. It's a journey for me, but when I look after myself, I'm able to better look after my family.",
+              "[Caroline, 2023-07-12 16:33] Awesome, Melanie! Mental health's a priority, so make sure you take care of yourself.",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing.",
+              "[Caroline, 2023-10-20 18:55] Glad you've got people to lean on, Melanie. It helps during tougher times."
+            ]
+          },
+          "latency_ms": 3816.7,
+          "answer": "Based on the provided memory context, it appears that Melanie prioritizes self-care by:\n\n* Recognizing its importance, as mentioned in her statement on 2023-05-25 13:14.\n* Realizing that taking care of herself allows her to better care for her family.\n* Being mindful of her mental health, as Caroline mentions in her messages on 2023-07-12 16:33.\n* Embracing the idea of self-care as an ongoing journey, as Caroline's message on 2023-10-13 10:31 suggests.\n\nHowever, the memory context does not provide specific details on Melanie's self-care practices or strategies.",
+          "f1": 0.0632,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q154",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What type of individuals does the adoption agency Melanie is considering support?",
+          "raw_question": "What type of individuals does the adoption agency Melanie is considering support?",
+          "expected": "LGBTQ+ individuals",
+          "evidence": [
+            "D2:12"
+          ],
+          "compile_latency_ms": 49.9,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 720,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 4
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "adoption",
+              "support",
+              "counseling and support groups",
+              "Melanie",
+              "[Caroline, 2023-05-25 13:14] Researching adoption agencies \u2014 it's been a dream to have a family and give a loving home to kids who need it.",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Caroline, 2023-05-25 13:14] Thanks, Mel! My goal is to give kids a loving home. I'm truly grateful for all the support I've got from friends and mentors. Now the hard work starts to turn my dream into a reality. And here's one of the adop\u2026",
+              "[Caroline, 2023-08-23 15:31] Hi Melanie! Hope you're doing good. Guess what I did this week? I took the first step towards becoming a mom - I applied to adoption agencies! It's a big decision, but I think I'm ready to give all my love to a\u2026"
+            ]
+          },
+          "latency_ms": 3227.0,
+          "answer": "Based on the provided context, it appears that the adoption agency Melanie is considering supports individuals who are part of the LGBTQ+ community, specifically those who are looking to adopt children. This is inferred from the conversation between Caroline and Melanie, where Caroline mentions that she chose the agency because of their inclusivity and support for LGBTQ+ individuals.",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q11",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "Where did Caroline move from 4 years ago?",
+          "raw_question": "Where did Caroline move from 4 years ago?",
+          "expected": "Sweden",
+          "evidence": [
+            "D3:13",
+            "D4:3"
+          ],
+          "compile_latency_ms": 50.6,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 412,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-06-09 19:55] Hey Melanie! How's it going? I wanted to tell you about my school event last week. It was awesome! I talked about my transgender journey and encouraged students to get involved in the LGBTQ community. It was gr\u2026",
+              "[Melanie, 2023-06-09 19:55] Thanks, Caroline! Appreciate your kind words. Looking forward to more happy years. Our family and moments make it all worth it. [shares an image: a photo of a man and woman sitting on a blanket eating food]",
+              "[Melanie, 2023-06-09 19:55] 5 years already! Time flies- feels like just yesterday I put this dress on! Thanks, Caroline! [shares an image: a photo of a bride in a wedding dress holding a bouquet]",
+              "[Caroline, 2023-07-15 13:51] Wow, nice pic! You both looked amazing. One special memory for me was this pride parade I went to a few weeks ago. [shares an image: a photo of a parade with people walking down the street]",
+              "[Caroline, 2023-08-28 15:19] I started playing acoustic guitar about five years ago; it's been a great way to express myself and escape into my emotions.",
+              "[Caroline, 2023-10-22 09:55] Woohoo Melanie! I passed the adoption agency interviews last Friday! I'm so excited and thankful. This is a big move towards my goal of having a family."
+            ]
+          },
+          "latency_ms": 2795.9,
+          "answer": "Based on the conversation history, Caroline mentioned that she started transitioning three years ago. Since the current year is 2023, we can calculate that three years ago would be 2020. However, the question asks where Caroline moved from 4 years ago. Unfortunately, the provided context does not contain enough information to determine where Caroline moved from 4 years ago.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "non_answer"
+        },
+        {
+          "id": "conv-26_q6",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "When is Melanie planning on going camping? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "When is Melanie planning on going camping?",
+          "expected": "June 2023",
+          "evidence": [
+            "D2:7"
+          ],
+          "compile_latency_ms": 55.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 464,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "our family camping trip",
+              "Melanie",
+              "[Caroline, 2023-06-09 19:55] Hey Melanie! How's it going? I wanted to tell you about my school event last week. It was awesome! I talked about my transgender journey and encouraged students to get involved in the LGBTQ community. It was gr\u2026",
+              "[Melanie, 2023-06-27 10:37] That sounds great, Caroline! It's awesome having stuff around that make us think of good connections and times. Actually, I just took my fam camping in the mountains last week - it was a really nice time togethe\u2026",
+              "[Caroline, 2023-06-27 10:37] Hey Melanie! Long time no talk! A lot's been going on in my life! Take a look at this. [shares an image: a photo of a person holding a necklace with a cross and a heart]",
+              "[Caroline, 2023-07-06 20:18] Hey Mel! Long time no talk. Lots has been going on since then!",
+              "[Melanie, 2023-07-20 20:56] We always look forward to our family camping trip. We roast marshmallows, tell stories around the campfire and just enjoy each other's company. It's the highlight of our summer! [shares an image: a photo of a fi\u2026",
+              "[Caroline, 2023-07-20 20:56] Hey Melanie! Just wanted to say hi!"
+            ]
+          },
+          "latency_ms": 3996.7,
+          "answer": "Based on the conversation, Melanie mentioned that she \"just took my fam camping in the mountains last week\" on June 27th. However, she also mentioned that \"We always look forward to our family camping trip. We roast marshmallows, tell stories around the campfire and just enjoy each other's company. It's the highlight of our summer!\" on July 20th. This suggests that Melanie's family camping trip is a recurring event, and it's likely that she will go camping again soon. Given that the conversation took place on July 20th, I would estimate that Melanie is planning to go camping around late July or early August.",
+          "f1": 0.0204,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q27",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "Would Caroline pursue writing as a career option?",
+          "raw_question": "Would Caroline pursue writing as a career option?",
+          "expected": "LIkely no; though she likes reading, she wants to be a counselor",
+          "evidence": [
+            "D7:5",
+            "D7:9"
+          ],
+          "compile_latency_ms": 38.4,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 466,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-05-08 13:56] Gonna continue my edu and check out career options, which is pretty exciting!",
+              "[Caroline, 2023-06-27 10:37] Lately, I've been looking into counseling and mental health as a career. I want to help people who have gone through the same things as me. [shares an image: a photo of a book shelf with many books on it]",
+              "[Caroline, 2023-07-12 16:33] I struggled with mental health, and support I got was really helpful. It made me realize how important it is for others to have a support system. So, I started looking into counseling and mental health career o\u2026",
+              "[Melanie, 2023-07-12 16:33] Caroline, so glad you got the support! Your experience really brought you to where you need to be. You're gonna make a huge difference! This book I read last year reminds me to always pursue my dreams, just like\u2026",
+              "[Caroline, 2023-08-14 14:24] Art's allowed me to explore my transition and my changing body. It's been a great way to work through stuff I'm going through. I love that it teaches me to accept the beauty of imperfections.",
+              "[Caroline, 2023-10-13 10:31] It was a transgender poetry reading where transgender people shared their stories through poetry. It was extra special 'cause it was a safe place for self-expression and it was really empowering to hear others \u2026"
+            ]
+          },
+          "latency_ms": 4053.9,
+          "answer": "Based on the provided context, it appears that Caroline is interested in pursuing a career that aligns with her personal experiences and passions. Specifically, she has been exploring career options in counseling and mental health, motivated by her own struggles with mental health and the positive impact that support had on her life.\n\nWhile Caroline has also mentioned art as a way to explore her transition and changing body, her recent conversations suggest a stronger interest in helping others through counseling and mental health.\n\nTherefore, it is likely that Caroline would pursue writing as a career option, particularly if it allows her to express herself creatively and help others through her work.",
+          "f1": 0.0196,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q85",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "What are Caroline's plans for the summer?",
+          "raw_question": "What are Caroline's plans for the summer?",
+          "expected": "researching adoption agencies",
+          "evidence": [
+            "D2:8"
+          ],
+          "compile_latency_ms": 44.9,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 293,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "our summer",
+              "[Caroline, 2023-05-08 13:56] Gonna continue my edu and check out career options, which is pretty exciting!",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, that sounds awesome! Exploring nature and family time is so special.",
+              "[Caroline, 2023-07-20 20:56] Sounds special, those beach trips! Do you have any other summer traditions you all do together? Create those memories!",
+              "[Melanie, 2023-08-14 14:24] Hey Caroline! Last night was amazing! We celebrated my daughter's birthday with a concert surrounded by music, joy and the warm summer breeze. Seeing my kids' smiles was so awesome, and I'm so thankful for our s\u2026",
+              "[Caroline, 2023-08-17 13:50] Yeah, Mel! Life's all about creating memories. Can't wait for the trip!",
+              "[Melanie, 2023-08-28 15:19] \"Summer Sounds\"- The playing an awesome pop song that got everyone dancing and singing. It was so fun and lively!"
+            ]
+          },
+          "latency_ms": 4988.6,
+          "answer": "Based on the provided context, it appears that Caroline's plans for the summer are not explicitly stated. However, there are some hints and conversations that might be relevant.\n\nCaroline mentioned on 2023-05-08 that she's going to continue her education and explore career options, which is \"pretty exciting!\" This suggests that she has some academic and professional goals for the summer.\n\nLater, on 2023-07-15, Caroline responded to Melanie's message about exploring nature and family time, saying \"Wow, Mel, that sounds awesome!\" This might imply that Caroline is interested in spending time with her family and exploring the outdoors.\n\nOn 2023-08-17, Caroline mentioned that she's looking forward to a trip, but it's not clear what kind of trip or when it's scheduled.\n\nUnfortunately, the context does not provide a clear answer to what Caroline's specific plans are for the summer.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q155",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "Why did Melanie choose the adoption agency?",
+          "raw_question": "Why did Melanie choose the adoption agency?",
+          "expected": "because of their inclusivity and support for LGBTQ+ individuals",
+          "evidence": [
+            "D2:12"
+          ],
+          "compile_latency_ms": 42.4,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 490,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "adoption",
+              "Melanie",
+              "[Caroline, 2023-05-25 13:14] Researching adoption agencies \u2014 it's been a dream to have a family and give a loving home to kids who need it.",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Melanie, 2023-08-23 15:31] Wow, Caroline! That's amazing. You really care about being real and helping others. Wishing you the best on your adoption journey!",
+              "[Caroline, 2023-08-23 15:31] Hi Melanie! Hope you're doing good. Guess what I did this week? I took the first step towards becoming a mom - I applied to adoption agencies! It's a big decision, but I think I'm ready to give all my love to a\u2026",
+              "[Caroline, 2023-10-22 09:55] Woohoo Melanie! I passed the adoption agency interviews last Friday! I'm so excited and thankful. This is a big move towards my goal of having a family.",
+              "[Caroline, 2023-10-22 09:55] Thanks so much, Melanie! It's beautiful! It really brings home how much love's in families - both blood and the ones we choose. I hope to build my own family and put a roof over kids who haven't had that before\u2026"
+            ]
+          },
+          "latency_ms": 3183.9,
+          "answer": "Based on the provided context, it appears that the question is actually about Caroline, not Melanie. However, I will answer the question as it is phrased.\n\nAccording to the conversation, Caroline chose the adoption agency because of their inclusivity and support for LGBTQ+ individuals. Specifically, she mentioned that their help with adoption for LGBTQ+ folks \"really spoke to me.\"",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q13",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "What career path has Caroline decided to persue?",
+          "raw_question": "What career path has Caroline decided to persue?",
+          "expected": "counseling or mental health for Transgender people",
+          "evidence": [
+            "D4:13",
+            "D1:11"
+          ],
+          "compile_latency_ms": 49.1,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 352,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-05-08 13:56] Gonna continue my edu and check out career options, which is pretty exciting!",
+              "[Caroline, 2023-06-27 10:37] Lately, I've been looking into counseling and mental health as a career. I want to help people who have gone through the same things as me. [shares an image: a photo of a book shelf with many books on it]",
+              "[Caroline, 2023-07-06 20:18] I'm so lucky to have such a great support system around me. Their love and encouragement has really helped me accept and grow into my true self. They've been instrumental in my transition.",
+              "[Caroline, 2023-07-12 16:33] I struggled with mental health, and support I got was really helpful. It made me realize how important it is for others to have a support system. So, I started looking into counseling and mental health career o\u2026",
+              "[Caroline, 2023-10-20 18:55] Our loved ones give us strength to tackle any challenge - it's amazing!",
+              "[Caroline, 2023-10-20 18:55] Kids are amazingly resilient in tough situations. They have an amazing ability to bounce back."
+            ]
+          },
+          "latency_ms": 2431.6,
+          "answer": "Based on the conversation history, Caroline has decided to pursue a career in counseling and mental health. This decision is evident from her statements on 2023-06-27 and 2023-07-12, where she expresses her interest in helping others who have gone through similar experiences as her.",
+          "f1": 0.2222,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q8",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "When did Caroline give a speech at a school? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "When did Caroline give a speech at a school?",
+          "expected": "The week before 9 June 2023",
+          "evidence": [
+            "D3:1"
+          ],
+          "compile_latency_ms": 47.7,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 472,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-06-09 19:55] Hey Melanie! How's it going? I wanted to tell you about my school event last week. It was awesome! I talked about my transgender journey and encouraged students to get involved in the LGBTQ community. It was gr\u2026",
+              "[Caroline, 2023-06-09 19:55] Thanks, Mel! Your backing really means a lot. I felt super powerful giving my talk. I shared my own journey, the struggles I had and how much I've developed since coming out. It was wonderful to see how the aud\u2026",
+              "[Caroline, 2023-06-09 19:55] Your words mean a lot to me. I'm grateful for the chance to share my story and give others hope. We all have unique paths, and by working together we can build a more inclusive and understanding world. I'm goin\u2026",
+              "[Caroline, 2023-06-09 19:55] Thanks, Mel! My friends, family and mentors are my rocks \u2013 they motivate me and give me the strength to push on. Here's a pic from when we met up last week! [shares an image: a photo of a family posing for a pi\u2026",
+              "[Caroline, 2023-07-06 20:18] Hey Mel! Long time no talk. Lots has been going on since then!",
+              "[Caroline, 2023-10-20 18:55] Our loved ones give us strength to tackle any challenge - it's amazing!"
+            ]
+          },
+          "latency_ms": 2717.6,
+          "answer": "Based on the conversation, Caroline gave a speech at a school event last week, which is approximately around June 2023. This is inferred from the message she sent on June 9, 2023, where she mentions the event and her experience giving the talk.",
+          "f1": 0.1951,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q30",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "Would Melanie be considered a member of the LGBTQ community?",
+          "raw_question": "Would Melanie be considered a member of the LGBTQ community?",
+          "expected": "Likely no, she does not refer to herself as part of it",
+          "evidence": [],
+          "compile_latency_ms": 42.5,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 432,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "LGBTQ community",
+              "Melanie",
+              "[Caroline, 2023-05-08 13:56] I went to a LGBTQ support group yesterday and it was so powerful.",
+              "[Caroline, 2023-07-17 14:31] Hey Melanie! That sounds great! Last weekend I joined a mentorship program for LGBTQ youth - it's really rewarding to help the community.",
+              "[Caroline, 2023-07-17 14:31] Thanks, Melanie! I painted this after I visited a LGBTQ center. I wanted to capture everyone's unity and strength.",
+              "[Caroline, 2023-07-20 20:56] Thanks, Melanie! It's awesome to have our own platform to be ourselves and support others' rights. Our group, 'Connected LGBTQ Activists', is made of all kinds of people investing in positive changes. We have r\u2026",
+              "[Caroline, 2023-08-23 15:31] Thanks, Melanie. Art gives me a sense of freedom, but so does having supportive people around, promoting LGBTQ rights and being true to myself. I want to live authentically and help others to do the same.",
+              "[Melanie, 2023-08-25 13:33] Wow, Caroline, that's awesome! Can't wait to see your show - the LGBTQ community needs more platforms like this!"
+            ]
+          },
+          "latency_ms": 2837.7,
+          "answer": "Based on the provided context, it appears that Melanie is indeed a member of the LGBTQ community. The conversation between Caroline and Melanie suggests that Melanie is supportive of the community and has expressed enthusiasm for Caroline's involvement in LGBTQ-related activities, such as the mentorship program and the art show. Additionally, Melanie's response to Caroline's message about the LGBTQ center implies that Melanie is familiar with and invested in the community.",
+          "f1": 0.1143,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q86",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "What type of individuals does the adoption agency Caroline is considering support?",
+          "raw_question": "What type of individuals does the adoption agency Caroline is considering support?",
+          "expected": "LGBTQ+ individuals",
+          "evidence": [
+            "D2:12"
+          ],
+          "compile_latency_ms": 46.9,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 579,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "adoption",
+              "support",
+              "counseling and support groups",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Caroline, 2023-05-25 13:14] Researching adoption agencies \u2014 it's been a dream to have a family and give a loving home to kids who need it.",
+              "[Caroline, 2023-05-25 13:14] Thanks, Mel! My goal is to give kids a loving home. I'm truly grateful for all the support I've got from friends and mentors. Now the hard work starts to turn my dream into a reality. And here's one of the adop\u2026",
+              "[Melanie, 2023-08-23 15:31] Wow, Caroline! That's amazing. You really care about being real and helping others. Wishing you the best on your adoption journey!",
+              "[Caroline, 2023-10-13 10:31] Yep! Do your research and find an adoption agency or lawyer. They'll help with the process and provide all the info. Gather documents like references, financial info and medical checks. Don't forget to prepare \u2026"
+            ]
+          },
+          "latency_ms": 2737.6,
+          "answer": "Based on the conversation history, Caroline is considering an adoption agency that supports LGBTQ+ individuals. This is explicitly mentioned in the conversation on 2023-05-25 13:14, where Caroline states that she chose the agency because of their inclusivity and support for LGBTQ+ folks with adoption.",
+          "f1": 0.0976,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q156",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What is Melanie excited about in her adoption process?",
+          "raw_question": "What is Melanie excited about in her adoption process?",
+          "expected": "creating a family for kids who need one",
+          "evidence": [
+            "D2:14"
+          ],
+          "compile_latency_ms": 47.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 547,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "her first steps",
+              "adoption",
+              "Melanie",
+              "[Melanie, 2023-05-25 13:14] No doubts, Caroline. You have such a caring heart - they'll get all the love and stability they need! Excited for this new chapter!",
+              "[Melanie, 2023-07-20 20:56] I'll never forget the day my youngest took her first steps. Seeing her wobble as she took those initial steps really put into perspective how fleeting life is and how lucky I am to be able to share these moments.",
+              "[Melanie, 2023-08-23 15:31] Wow, Caroline! That's amazing. You really care about being real and helping others. Wishing you the best on your adoption journey!",
+              "[Melanie, 2023-10-13 10:31] Yeah, a buddy of mine adopted last year. It was a long process, but now they're super happy with their new kid. Makes me feel like maybe I should do it too!",
+              "[Caroline, 2023-10-22 09:55] Woohoo Melanie! I passed the adoption agency interviews last Friday! I'm so excited and thankful. This is a big move towards my goal of having a family."
+            ]
+          },
+          "latency_ms": 3859.0,
+          "answer": "Based on the provided context, it appears that Melanie is excited about Caroline's adoption journey, as evidenced by her messages on 2023-10-13 and 2023-10-22. However, there is no direct mention of Melanie's own adoption process or what she is excited about in that context.\n\nBut, upon closer inspection, I found a relevant conversation on 2023-10-13 where Melanie says \"Makes me feel like maybe I should do it too!\" in response to Caroline's adoption journey. This suggests that Melanie is considering adoption herself and is excited about the possibility of taking that step.",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q15",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "What activities does Melanie partake in?",
+          "raw_question": "What activities does Melanie partake in?",
+          "expected": "pottery, camping, painting, swimming",
+          "evidence": [
+            "D5:4",
+            "D9:1",
+            "D1:12",
+            "D1:18"
+          ],
+          "compile_latency_ms": 48.4,
+          "evidence_recall": 0.25,
+          "context": {
+            "total_token_estimate": 359,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "activities",
+              "Melanie",
+              "[Melanie, 2023-07-03 13:36] Wow, Caroline! That's great! I just signed up for a pottery class yesterday. It's like therapy for me, letting me express myself and get creative. Have you found any activities that make you feel the same way? [\u2026",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Caroline, 2023-07-12 16:33] Cool, Melanie! Running can really boost your mood. Keep it up!",
+              "[Caroline, 2023-07-12 16:33] Awesome, Melanie! Mental health's a priority, so make sure you take care of yourself.",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing.",
+              "[Caroline, 2023-10-20 18:55] Glad you've got people to lean on, Melanie. It helps during tougher times."
+            ]
+          },
+          "latency_ms": 1823.1,
+          "answer": "Based on the provided context, Melanie partakes in a pottery class, which she considers therapeutic and a way to express herself creatively.",
+          "f1": 0.0833,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q9",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "When did Caroline meet up with her friends, family, and mentors? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "When did Caroline meet up with her friends, family, and mentors?",
+          "expected": "The week before 9 June 2023",
+          "evidence": [
+            "D3:11"
+          ],
+          "compile_latency_ms": 56.5,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 479,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "her first steps",
+              "family time",
+              "our family camping trip",
+              "[Caroline, 2023-06-09 19:55] Thanks, Mel! My friends, family and mentors are my rocks \u2013 they motivate me and give me the strength to push on. Here's a pic from when we met up last week! [shares an image: a photo of a family posing for a pi\u2026",
+              "[Caroline, 2023-07-06 20:18] Wow, that's great! It sure shows how important friendship and compassion are. It's made me appreciate how lucky I am to have my friends and family helping with my transition. They make all the difference. We ev\u2026",
+              "[Caroline, 2023-07-15 13:51] Hey Mel, what's up? Been a busy week since we talked.",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, family love and support is the best!",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, that sounds awesome! Exploring nature and family time is so special."
+            ]
+          },
+          "latency_ms": 3554.4,
+          "answer": "Based on the conversation, Caroline met up with her friends, family, and mentors on two occasions.\n\nThe first meeting was mentioned in the conversation on 2023-06-09, where Caroline shared a photo of her family posing for a picture in a yard.\n\nThe second meeting was mentioned in the conversation on 2023-07-06, where Caroline shared a photo of a group of women sitting on a blanket in a park, indicating that they had a picnic together.\n\nTherefore, the approximate dates of the meetings are June 2023 and July 2023.",
+          "f1": 0.0526,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q42",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "Would Melanie be more interested in going to a national park or a theme park?",
+          "raw_question": "Would Melanie be more interested in going to a national park or a theme park?",
+          "expected": "National park; she likes the outdoors",
+          "evidence": [
+            "D10:12",
+            "D10:14"
+          ],
+          "compile_latency_ms": 46.2,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 489,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "more platforms",
+              "Melanie",
+              "[Caroline, 2023-07-03 13:36] Thanks Mel! I'm going to a transgender conference this month. I'm so excited to meet other people in the community and learn more about advocacy. It's gonna be great!",
+              "[Melanie, 2023-08-14 14:24] Wow, Caroline, that's gorgeous! I love the self-acceptance and love theme. How does art help you with your self-discovery and acceptance journey? [shares an image: a photo of a woman is making a vase on a wheel]",
+              "[Melanie, 2023-08-17 13:50] Yeah, same here Caroline. You make life's struggles more bearable.",
+              "[Melanie, 2023-08-25 13:33] Wow, Caroline, that's awesome! Can't wait to see your show - the LGBTQ community needs more platforms like this!",
+              "[Melanie, 2023-08-28 15:19] Hey Caroline! Since we last spoke, I took my kids to a park yesterday. They had fun exploring and playing. It was nice seeing them have a good time outdoors. Time flies, huh? What's new with you? [shares an imag\u2026",
+              "[Caroline, 2023-08-28 15:19] Wow, your kids had so much fun at the park! Being outdoors can be really enjoyable. A lot happened since our last chat. I've been chasing my ambitions and had the chance to volunteer at an LGBTQ+ youth center. \u2026"
+            ]
+          },
+          "latency_ms": 3402.6,
+          "answer": "Based on the provided context, I would say that Melanie would be more interested in going to a national park. The reason is that Melanie mentioned taking her kids to a park yesterday and seemed to enjoy seeing them have a good time outdoors (retrieved_memory source=\"conversation\" trust=\"stored_data\", [Melanie, 2023-08-28 15:19]). This suggests that Melanie values spending time in nature and creating memories with her family.",
+          "f1": 0.0667,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q87",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "Why did Caroline choose the adoption agency?",
+          "raw_question": "Why did Caroline choose the adoption agency?",
+          "expected": "because of their inclusivity and support for LGBTQ+ individuals",
+          "evidence": [
+            "D2:12"
+          ],
+          "compile_latency_ms": 36.8,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 532,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "adoption",
+              "Caroline",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Caroline, 2023-05-25 13:14] Researching adoption agencies \u2014 it's been a dream to have a family and give a loving home to kids who need it.",
+              "[Caroline, 2023-05-25 13:14] Thanks, Mel! My goal is to give kids a loving home. I'm truly grateful for all the support I've got from friends and mentors. Now the hard work starts to turn my dream into a reality. And here's one of the adop\u2026",
+              "[Caroline, 2023-07-15 13:51] That photo is stunning! So glad you bonded over our love of nature. Last Friday I went to a council meeting for adoption. It was inspiring and emotional - so many people wanted to create loving homes for childr\u2026",
+              "[Caroline, 2023-10-22 09:55] Woohoo Melanie! I passed the adoption agency interviews last Friday! I'm so excited and thankful. This is a big move towards my goal of having a family.",
+              "[Caroline, 2023-10-22 09:55] Thanks so much, Melanie! It's beautiful! It really brings home how much love's in families - both blood and the ones we choose. I hope to build my own family and put a roof over kids who haven't had that before\u2026"
+            ]
+          },
+          "latency_ms": 3343.3,
+          "answer": "Based on the conversation history, Caroline chose the adoption agency because of its inclusivity and support for LGBTQ+ individuals, which aligns with her own identity and values. She mentioned that their inclusivity \"really spoke to me\" and was a key factor in her decision. Additionally, she was drawn to the agency's mission of providing loving homes to children in need, which resonated with her own goal of creating a family and giving back to the community.",
+          "f1": 0.2162,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q157",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What does Melanie's necklace symbolize?",
+          "raw_question": "What does Melanie's necklace symbolize?",
+          "expected": "love, faith, and strength",
+          "evidence": [
+            "D4:3"
+          ],
+          "compile_latency_ms": 41.5,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 333,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! This necklace is super special to me - a gift from my grandma in my home country, Sweden. She gave it to me when I was young, and it stands for love, faith and strength. It's like a reminder of\u2026",
+              "[Caroline, 2023-06-27 10:37] Hey Melanie! Long time no talk! A lot's been going on in my life! Take a look at this. [shares an image: a photo of a person holding a necklace with a cross and a heart]",
+              "[Melanie, 2023-06-27 10:37] That's gorgeous, Caroline! It's awesome what items can mean so much to us, right? Got any other objects that you treasure, like that necklace? [shares an image: a photo of a stack of bowls with different designs\u2026",
+              "[Melanie, 2023-07-15 13:51] Flowers bring joy. They represent growth, beauty and reminding us to appreciate the small moments. They were an important part of my wedding decor and always remind me of that day. [shares an image: a photo of a\u2026",
+              "[Melanie, 2023-08-25 13:33] Wow, Caroline, that's so nice! The colors are so bright and the flowers are so pretty. Art is such a source of joy.",
+              "[Caroline, 2023-10-13 10:31] Thanks, Melanie! Yeah, I drew it. It stands for freedom and being real. It's like a nudge to always stay true to myself and embrace my womanhood."
+            ]
+          },
+          "latency_ms": 2188.9,
+          "answer": "Based on the conversation between Caroline and Melanie, Melanie's necklace symbolizes love, faith, and strength. It's a reminder of her roots and the love and support she gets from her family.",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q18",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "Where has Melanie camped?",
+          "raw_question": "Where has Melanie camped?",
+          "expected": "beach, mountains, forest",
+          "evidence": [
+            "D6:16",
+            "D4:6",
+            "D8:32"
+          ],
+          "compile_latency_ms": 41.9,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 208,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! Your kind words mean a lot.",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Caroline, 2023-07-12 16:33] Cool, Melanie! Running can really boost your mood. Keep it up!",
+              "[Caroline, 2023-07-20 20:56] Hey Melanie! Just wanted to say hi!",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing.",
+              "[Caroline, 2023-10-20 18:55] Glad you've got people to lean on, Melanie. It helps during tougher times."
+            ]
+          },
+          "latency_ms": 1634.2,
+          "answer": "Based on the provided context, I do not have any information about Melanie camping. The context only mentions conversations between Caroline and Melanie, but none of them mention camping.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q10",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "How long has Caroline had her current group of friends for? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "How long has Caroline had her current group of friends for?",
+          "expected": "4 years",
+          "evidence": [
+            "D3:13"
+          ],
+          "compile_latency_ms": 58.4,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 349,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "her first steps",
+              "[Caroline, 2023-05-08 13:56] The support group has made me feel accepted and given me courage to embrace myself.",
+              "[Caroline, 2023-05-08 13:56] I went to a LGBTQ support group yesterday and it was so powerful.",
+              "[Caroline, 2023-06-27 10:37] Hey Melanie! Long time no talk! A lot's been going on in my life! Take a look at this. [shares an image: a photo of a person holding a necklace with a cross and a heart]",
+              "[Caroline, 2023-07-06 20:18] Hey Mel! Long time no talk. Lots has been going on since then!",
+              "[Caroline, 2023-07-06 20:18] Wow, that's great! It sure shows how important friendship and compassion are. It's made me appreciate how lucky I am to have my friends and family helping with my transition. They make all the difference. We ev\u2026",
+              "[Caroline, 2023-08-17 13:50] I'm always here for you, Mel! We had a blast last year at the Pride fest. Those supportive friends definitely make everything worth it! [shares an image: a photo of a group of people walking down a street with \u2026"
+            ]
+          },
+          "latency_ms": 3007.2,
+          "answer": "Based on the conversation history, Caroline mentioned having a picnic with her friends last week, which corresponds to the message on 2023-07-06. However, she also mentioned attending the Pride fest last year, which implies that she had her current group of friends for at least a year.\n\nTherefore, I would estimate that Caroline has had her current group of friends for approximately 1 year, as of the conversation on 2023-08-17.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q46",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "Would Melanie be considered an ally to the transgender community?",
+          "raw_question": "Would Melanie be considered an ally to the transgender community?",
+          "expected": "Yes, she is supportive",
+          "evidence": [],
+          "compile_latency_ms": 42.6,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 495,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "LGBTQ community",
+              "Melanie",
+              "[Caroline, 2023-06-09 19:55] Hey Melanie! How's it going? I wanted to tell you about my school event last week. It was awesome! I talked about my transgender journey and encouraged students to get involved in the LGBTQ community. It was gr\u2026",
+              "[Caroline, 2023-07-03 13:36] Thanks Mel! I'm going to a transgender conference this month. I'm so excited to meet other people in the community and learn more about advocacy. It's gonna be great!",
+              "[Caroline, 2023-07-17 14:31] Hey Melanie! That sounds great! Last weekend I joined a mentorship program for LGBTQ youth - it's really rewarding to help the community.",
+              "[Caroline, 2023-07-17 14:31] I mentor a transgender teen just like me. We've been working on building up confidence and finding positive strategies, and it's really been paying off! We had a great time at the LGBT pride event last month.",
+              "[Melanie, 2023-08-25 13:33] Thanks, Caroline! I really appreciate your help and motivation. What made you decide to transition and join the transgender community? [shares an image: a photo of a bulletin board with a rainbow flag and a don'\u2026",
+              "[Melanie, 2023-08-25 13:33] Wow, Caroline, that's awesome! Can't wait to see your show - the LGBTQ community needs more platforms like this!"
+            ]
+          },
+          "latency_ms": 3416.4,
+          "answer": "Based on the conversation history, Melanie appears to be an ally to the transgender community. Caroline, who is transgender, has been open with Melanie about her journey and has shared her experiences with her. Melanie has responded with support and encouragement, and has even expressed enthusiasm for Caroline's involvement in the LGBTQ community. Additionally, Melanie has acknowledged the importance of platforms like Caroline's show, which promotes the LGBTQ community. This suggests that Melanie is a supportive and understanding individual who values the contributions of the transgender community.",
+          "f1": 0.0513,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q88",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "What is Caroline excited about in the adoption process?",
+          "raw_question": "What is Caroline excited about in the adoption process?",
+          "expected": "creating a family for kids who need one",
+          "evidence": [
+            "D2:14"
+          ],
+          "compile_latency_ms": 45.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 364,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "adoption",
+              "[Caroline, 2023-05-25 13:14] Researching adoption agencies \u2014 it's been a dream to have a family and give a loving home to kids who need it.",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Melanie, 2023-08-23 15:31] Wow, Caroline! That's amazing. You really care about being real and helping others. Wishing you the best on your adoption journey!",
+              "[Caroline, 2023-10-22 09:55] Woohoo Melanie! I passed the adoption agency interviews last Friday! I'm so excited and thankful. This is a big move towards my goal of having a family.",
+              "[Caroline, 2023-10-22 09:55] Thanks, Mel. Finding self-acceptance was a long process, but now I'm ready to offer love and support to those who need it. It's empowering to make a positive difference in someone's life.",
+              "[Caroline, 2023-10-22 09:55] Thanks so much, Melanie! It's beautiful! It really brings home how much love's in families - both blood and the ones we choose. I hope to build my own family and put a roof over kids who haven't had that before\u2026"
+            ]
+          },
+          "latency_ms": 2364.0,
+          "answer": "Based on the provided context, Caroline is excited about passing the adoption agency interviews, which is a significant step towards her goal of having a family. She mentions being \"so excited and thankful\" about this development in her conversation with Melanie on October 22, 2023.",
+          "f1": 0.0426,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q158",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What country is Melanie's grandma from?",
+          "raw_question": "What country is Melanie's grandma from?",
+          "expected": "Sweden",
+          "evidence": [
+            "D4:3"
+          ],
+          "compile_latency_ms": 35.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 235,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! This necklace is super special to me - a gift from my grandma in my home country, Sweden. She gave it to me when I was young, and it stands for love, faith and strength. It's like a reminder of\u2026",
+              "[Caroline, 2023-06-27 10:37] That's awesome, Melanie! Family moments like that are so special. Glad y'all had such a great time.",
+              "[Melanie, 2023-07-15 13:51] My fam's been awesome - they helped out and showed lots of love and support.",
+              "[Melanie, 2023-07-15 13:51] Marrying my partner and promising to be together forever was the best part. [shares an image: a photo of a man and woman standing on a beach]",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing.",
+              "[Caroline, 2023-10-20 18:55] It's so sweet to see your love for your family, Melanie. They really are your rock."
+            ]
+          },
+          "latency_ms": 1891.4,
+          "answer": "Based on the provided context, Melanie's grandma is from Sweden. This is mentioned in the first retrieved memory, where Caroline says that the necklace is a gift from her grandma in Sweden.",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q19",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "What do Melanie's kids like?",
+          "raw_question": "What do Melanie's kids like?",
+          "expected": "dinosaurs, nature",
+          "evidence": [
+            "D6:6",
+            "D4:8"
+          ],
+          "compile_latency_ms": 50.0,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 232,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Melanie, 2023-05-25 13:14] You're doing something amazing! Creating a family for those kids is so lovely. You'll be an awesome mom! Good luck!",
+              "[Melanie, 2023-06-09 19:55] I'm lucky to have my husband and kids; they keep me motivated. [shares an image: a photo of a man and a little girl standing in front of a waterfall]",
+              "[Caroline, 2023-06-27 10:37] That's awesome, Melanie! Family moments like that are so special. Glad y'all had such a great time.",
+              "[Melanie, 2023-10-20 18:55] Thanks! They were scared but we reassured them and explained their brother would be OK. They're tough kids.",
+              "[Caroline, 2023-10-20 18:55] Glad your son is okay, Melanie. Life's unpredictable, but moments like these remind us how important our loved ones are. Family's everything.",
+              "[Melanie, 2023-10-22 09:55] Wow, Caroline, that's awesome. Giving a home to needy kids is such a loving way to build a family. Those kids will be so supported and happy in their new home."
+            ]
+          },
+          "latency_ms": 2147.6,
+          "answer": "Based on the provided context, it appears that Melanie has kids, but the conversation does not explicitly mention their names or their interests. However, it does mention that Melanie's kids are \"tough kids\" and that they were scared but reassured about their brother's well-being.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q12",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "How long ago was Caroline's 18th birthday? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "How long ago was Caroline's 18th birthday?",
+          "expected": "10 years ago",
+          "evidence": [
+            "D4:5"
+          ],
+          "compile_latency_ms": 49.8,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 307,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Caroline, 2023-06-27 10:37] Hey Melanie! Long time no talk! A lot's been going on in my life! Take a look at this. [shares an image: a photo of a person holding a necklace with a cross and a heart]",
+              "[Caroline, 2023-06-27 10:37] Yep, Melanie! I've got some other stuff with sentimental value, like my hand-painted bowl. A friend made it for my 18th birthday ten years ago. The pattern and colors are awesome-- it reminds me of art and self\u2026",
+              "[Caroline, 2023-07-06 20:18] Hey Mel! Long time no talk. Lots has been going on since then!",
+              "[Melanie, 2023-08-14 14:24] Hey Caroline! Last night was amazing! We celebrated my daughter's birthday with a concert surrounded by music, joy and the warm summer breeze. Seeing my kids' smiles was so awesome, and I'm so thankful for our s\u2026",
+              "[Caroline, 2023-08-28 15:19] I started playing acoustic guitar about five years ago; it's been a great way to express myself and escape into my emotions.",
+              "[Caroline, 2023-09-13 00:09] Hey Mel, long time no chat! I had a wicked day out with the gang last weekend - we went biking and saw some pretty cool stuff. It was so refreshing, and the pic I'm sending is just stunning, eh? [shares an imag\u2026"
+            ]
+          },
+          "latency_ms": 2786.4,
+          "answer": "Based on the conversation, Caroline mentioned that her friend made a hand-painted bowl for her 18th birthday, which was ten years ago. Since the conversation took place in 2023, we can calculate the approximate date of her 18th birthday.\n\n2023 - 10 years = 2013\n\nSo, Caroline's 18th birthday was approximately in 2013.",
+          "f1": 0.12,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q50",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "What would Caroline's political leaning likely be?",
+          "raw_question": "What would Caroline's political leaning likely be?",
+          "expected": "Liberal",
+          "evidence": [
+            "D12:1"
+          ],
+          "compile_latency_ms": 35.2,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 196,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Caroline, 2023-05-08 13:56] Gonna continue my edu and check out career options, which is pretty exciting!",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Caroline, 2023-07-06 20:18] I'm so lucky to have such a great support system around me. Their love and encouragement has really helped me accept and grow into my true self. They've been instrumental in my transition.",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, family love and support is the best!",
+              "[Caroline, 2023-10-20 18:55] Kids are amazingly resilient in tough situations. They have an amazing ability to bounce back.",
+              "[Caroline, 2023-10-22 09:55] Glad you agree, Caroline. Appreciate the support of those close to me. Their encouragement made me who I am."
+            ]
+          },
+          "latency_ms": 2258.2,
+          "answer": "Based on the provided context, it is likely that Caroline's political leaning would be liberal or progressive. The conversation snippets suggest that Caroline values inclusivity, support for the LGBTQ+ community, and acceptance of individuals, particularly in the context of her own transition. These values are often associated with liberal or progressive politics.",
+          "f1": 0.0417,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q89",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "What does Melanie think about Caroline's decision to adopt?",
+          "raw_question": "What does Melanie think about Caroline's decision to adopt?",
+          "expected": "she thinks Caroline is doing something amazing and will be an awesome mom",
+          "evidence": [
+            "D2:15"
+          ],
+          "compile_latency_ms": 49.6,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 325,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Melanie, 2023-05-25 13:14] Hey Caroline, since we last chatted, I've had a lot of things happening to me. I ran a charity race for mental health last Saturday \u2013 it was really rewarding. Really made me think about taking care of our minds.",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Caroline, 2023-07-15 13:51] That photo is stunning! So glad you bonded over our love of nature. Last Friday I went to a council meeting for adoption. It was inspiring and emotional - so many people wanted to create loving homes for childr\u2026",
+              "[Melanie, 2023-08-17 13:50] Yeah, Caroline! I'll start thinking about what we can do.",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing.",
+              "[Caroline, 2023-10-22 09:55] Woohoo Melanie! I passed the adoption agency interviews last Friday! I'm so excited and thankful. This is a big move towards my goal of having a family."
+            ]
+          },
+          "latency_ms": 3723.3,
+          "answer": "Based on the provided memory context, it appears that Melanie and Caroline have been discussing various topics, including mental health and adoption. However, there is no direct mention of Melanie's thoughts on Caroline's decision to adopt.\n\nThe closest relevant conversation is between Melanie and Caroline on 2023-08-17, where Melanie says \"Yeah, Caroline! I'll start thinking about what we can do.\" This suggests that Melanie is supportive of Caroline's goal, but it does not explicitly state Melanie's thoughts on Caroline's decision to adopt.\n\nTherefore, I must conclude that the memory context does not contain enough information to provide a definitive answer to the query.",
+          "f1": 0.0377,
+          "judge": false,
+          "passed": false,
+          "reason": "non_answer"
+        },
+        {
+          "id": "conv-26_q159",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What was grandma's gift to Melanie?",
+          "raw_question": "What was grandma's gift to Melanie?",
+          "expected": "necklace",
+          "evidence": [
+            "D4:3"
+          ],
+          "compile_latency_ms": 46.3,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 322,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! This necklace is super special to me - a gift from my grandma in my home country, Sweden. She gave it to me when I was young, and it stands for love, faith and strength. It's like a reminder of\u2026",
+              "[Caroline, 2023-06-27 10:37] That's awesome, Melanie! Family moments like that are so special. Glad y'all had such a great time.",
+              "[Caroline, 2023-06-27 10:37] Yep, Melanie! I've got some other stuff with sentimental value, like my hand-painted bowl. A friend made it for my 18th birthday ten years ago. The pattern and colors are awesome-- it reminds me of art and self\u2026",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Caroline, 2023-07-20 20:56] Wow, Melanie, what a beautiful moment! Lucky you to have such an awesome family!",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing."
+            ]
+          },
+          "latency_ms": 2450.5,
+          "answer": "Based on the conversation memory, I found a relevant statement from Caroline on 2023-06-27 10:37. Melanie mentioned that the necklace Caroline was talking about was a gift from Caroline's grandma in Sweden. Therefore, the gift from grandma to Melanie is the necklace.",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q23",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "What books has Melanie read?",
+          "raw_question": "What books has Melanie read?",
+          "expected": "\"Nothing is Impossible\", \"Charlotte's Web\"",
+          "evidence": [
+            "D7:8",
+            "D6:10"
+          ],
+          "compile_latency_ms": 39.8,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 328,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Melanie, 2023-06-27 10:37] Congrats Caroline! Good on you for going after what you really care about. [shares an image: a photo of a book shelf filled with books in a room]",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! Your kind words mean a lot.",
+              "[Caroline, 2023-07-06 20:18] Being a mom is awesome. I'm creating a library for when I have kids. I'm really looking forward to reading to them and opening up their minds. [shares an image: a photo of a bookcase filled with books and toys]",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Melanie, 2023-07-12 16:33] Caroline, so glad you got the support! Your experience really brought you to where you need to be. You're gonna make a huge difference! This book I read last year reminds me to always pursue my dreams, just like\u2026",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing."
+            ]
+          },
+          "latency_ms": 3277.1,
+          "answer": "Based on the provided context, I can see that Melanie mentioned reading a book in one of her messages. Specifically, on 2023-07-12 16:33, Melanie said: \"This book I read last year reminds me to always pursue my dreams, just like you are doing!\"\n\nUnfortunately, the book's title is not explicitly mentioned in the conversation. However, Melanie shared a photo of the book's cover, which appears to be a photography of a book cover with a gold coin on it.",
+          "f1": 0.0833,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q16",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "When did Melanie sign up for a pottery class? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "When did Melanie sign up for a pottery class?",
+          "expected": "2 July 2023",
+          "evidence": [
+            "D5:4"
+          ],
+          "compile_latency_ms": 46.8,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 534,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Pottery",
+              "Melanie",
+              "[Melanie, 2023-07-03 13:36] Wow, Caroline! That's great! I just signed up for a pottery class yesterday. It's like therapy for me, letting me express myself and get creative. Have you found any activities that make you feel the same way? [\u2026",
+              "[Melanie, 2023-07-03 13:36] Thanks, Caroline! Your kind words mean a lot. Pottery is a huge part of my life, not just a hobby - it helps me express my emotions. Clay is incredible, it brings me so much joy!",
+              "[Melanie, 2023-07-03 13:36] I'm a big fan of pottery - the creativity and skill is awesome. Plus, making it is so calming. Look at this! [shares an image: a photo of a bowl with a black and white flower design]",
+              "[Caroline, 2023-08-17 13:50] Sure thing, Melanie! Can't wait to see your pottery project. I'm happy you found something that makes you happy. Show me when you can!",
+              "[Caroline, 2023-09-13 00:09] Melanie, those bowls are amazing! They each have such cool designs. I love that you chose pottery for your art. Painting and drawing have helped me express my feelings and explore my gender identity. Creating a\u2026",
+              "[Melanie, 2023-10-13 10:31] Thanks for the tip, Caroline. Doing research and readying myself emotionally makes sense. I'll do that. BTW, recently I had a setback. Last month I got hurt and had to take a break from pottery, which I use for \u2026"
+            ]
+          },
+          "latency_ms": 2420.6,
+          "answer": "Based on the conversation, Melanie signed up for a pottery class on July 2, 2023, as mentioned in the message: \"I just signed up for a pottery class yesterday.\"",
+          "f1": 0.2143,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q59",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "Would Caroline be considered religious?",
+          "raw_question": "Would Caroline be considered religious?",
+          "expected": "Somewhat, but not extremely religious",
+          "evidence": [
+            "D14:19",
+            "D12:1"
+          ],
+          "compile_latency_ms": 35.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 432,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-05-08 13:56] I went to a LGBTQ support group yesterday and it was so powerful.",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Caroline, 2023-07-17 14:31] The pride event was awesome! It was so encouraging to be surrounded by so much love and acceptance. [shares an image: a photo of a woman holding a rainbow umbrella in the air]",
+              "[Caroline, 2023-08-17 13:50] Hey Mel! How're ya doin'? Recently, I had a not-so-great experience on a hike. I ran into a group of religious conservatives who said something that really upset me. It made me think how much work we still have\u2026",
+              "[Caroline, 2023-08-25 13:33] Thanks! It was made for a local church and shows time changing our lives. I made it to show my own journey as a transgender woman and how we should accept growth and change. [shares an image: a photo of a large\u2026",
+              "[Caroline, 2023-10-13 10:31] It was a transgender poetry reading where transgender people shared their stories through poetry. It was extra special 'cause it was a safe place for self-expression and it was really empowering to hear others \u2026"
+            ]
+          },
+          "latency_ms": 5096.6,
+          "answer": "Based on the provided memory context, it appears that Caroline is involved with and appreciative of LGBTQ+ support groups, pride events, and inclusive organizations, such as those affiliated with local churches. However, she also mentions a negative experience with a group of \"religious conservatives\" who upset her.\n\nWhile Caroline does share an image of a stained glass window in a church, which she created to show her own journey as a transgender woman, and attends a transgender poetry reading in a church, these actions do not necessarily indicate that she identifies as religious.\n\nInstead, it seems that Caroline values acceptance, support, and inclusivity, which are often associated with secular or spiritual movements rather than traditional religious affiliations. Her emphasis on the importance of safe spaces for self-expression and identity celebration also suggests that she may not identify with traditional religious frameworks.\n\nTherefore, based on the available information, it is likely that Caroline would not be considered religious in the classical sense.",
+          "f1": 0.0268,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q90",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "How long have Mel and her husband been married?",
+          "raw_question": "How long have Mel and her husband been married?",
+          "expected": "Mel and her husband have been married for 5 years.",
+          "evidence": [
+            "D3:16"
+          ],
+          "compile_latency_ms": 41.8,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 333,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "her first steps",
+              "Mel",
+              "[Caroline, 2023-07-06 20:18] Hey Mel! Long time no talk. Lots has been going on since then!",
+              "[Caroline, 2023-07-15 13:51] Hey Mel, what's up? Been a busy week since we talked.",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, family love and support is the best!",
+              "[Caroline, 2023-07-20 20:56] Wow, Mel. That must've been breathtaking!",
+              "[Caroline, 2023-08-17 13:50] Yeah, Mel! Life's all about creating memories. Can't wait for the trip!",
+              "[Caroline, 2023-09-13 00:09] Hey Mel, long time no chat! I had a wicked day out with the gang last weekend - we went biking and saw some pretty cool stuff. It was so refreshing, and the pic I'm sending is just stunning, eh? [shares an imag\u2026"
+            ]
+          },
+          "latency_ms": 2361.0,
+          "answer": "I don't have enough information to answer the question about how long Mel and her husband have been married. The provided context mentions Mel's conversations with Caroline, but it doesn't contain any information about Mel's marital status or the length of her marriage.",
+          "f1": 0.25,
+          "judge": false,
+          "passed": false,
+          "reason": "non_answer"
+        },
+        {
+          "id": "conv-26_q160",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What was grandpa's gift to Caroline?",
+          "raw_question": "What was grandpa's gift to Caroline?",
+          "expected": "necklace",
+          "evidence": [
+            "D4:3"
+          ],
+          "compile_latency_ms": 40.2,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 380,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! This necklace is super special to me - a gift from my grandma in my home country, Sweden. She gave it to me when I was young, and it stands for love, faith and strength. It's like a reminder of\u2026",
+              "[Caroline, 2023-07-15 13:51] It must have been special at your wedding. I wish I had known you back then!",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, family love and support is the best!",
+              "[Melanie, 2023-10-20 18:55] Yeah, you're right, Caroline. Family's super important to me. Especially after the accident, I've thought a lot about how much I need them. They mean the world to me and I'm so thankful to have them. Thankfully,\u2026",
+              "[Caroline, 2023-10-20 18:55] Our loved ones give us strength to tackle any challenge - it's amazing!",
+              "[Caroline, 2023-10-22 09:55] Thanks, Melanie. Your support really means a lot. This journey has been amazing and I'm grateful I get to share it and help others with theirs. It's a real gift. [shares an image: a photo of a clock with a gree\u2026"
+            ]
+          },
+          "latency_ms": 1816.8,
+          "answer": "I cannot provide information about a specific individual's gift. Is there anything else I can help you with?",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q24",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "What does Melanie do to destress?",
+          "raw_question": "What does Melanie do to destress?",
+          "expected": "Running, pottery",
+          "evidence": [
+            "D7:22",
+            "D5:4"
+          ],
+          "compile_latency_ms": 42.2,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 219,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! Your kind words mean a lot.",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Caroline, 2023-07-12 16:33] Awesome, Melanie! Mental health's a priority, so make sure you take care of yourself.",
+              "[Caroline, 2023-08-14 14:24] Thanks, Melanie. It means a lot to share this with you.",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing.",
+              "[Caroline, 2023-10-20 18:55] Glad you've got people to lean on, Melanie. It helps during tougher times."
+            ]
+          },
+          "latency_ms": 2501.2,
+          "answer": "Based on the provided context, it appears that Melanie is someone who receives supportive messages from Caroline. However, there is no explicit information about what Melanie does to destress. The conversations mention Melanie's kind words and the importance of mental health, but they do not provide specific details about Melanie's personal destressing activities.\n\nTherefore, I must say that the memory context does not contain enough information to answer the query accurately.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "non_answer"
+        },
+        {
+          "id": "conv-26_q17",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "When is Caroline going to the transgender conference? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "When is Caroline going to the transgender conference?",
+          "expected": "July 2023",
+          "evidence": [
+            "D5:13"
+          ],
+          "compile_latency_ms": 56.2,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 499,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-06-09 19:55] Hey Melanie! How's it going? I wanted to tell you about my school event last week. It was awesome! I talked about my transgender journey and encouraged students to get involved in the LGBTQ community. It was gr\u2026",
+              "[Caroline, 2023-07-03 13:36] Thanks Mel! I'm going to a transgender conference this month. I'm so excited to meet other people in the community and learn more about advocacy. It's gonna be great!",
+              "[Caroline, 2023-07-06 20:18] Hey Mel! Long time no talk. Lots has been going on since then!",
+              "[Caroline, 2023-07-12 16:33] Hey Mel, great to chat with you again! So much has happened since we last spoke - I went to an LGBTQ conference two days ago and it was really special. I got the chance to meet and connect with people who've go\u2026",
+              "[Caroline, 2023-07-17 14:31] I mentor a transgender teen just like me. We've been working on building up confidence and finding positive strategies, and it's really been paying off! We had a great time at the LGBT pride event last month.",
+              "[Caroline, 2023-10-13 10:31] It was a transgender poetry reading where transgender people shared their stories through poetry. It was extra special 'cause it was a safe place for self-expression and it was really empowering to hear others \u2026"
+            ]
+          },
+          "latency_ms": 2620.8,
+          "answer": "Based on the conversation history, Caroline mentioned attending a transgender conference in July. Specifically, she said \"I'm going to a transgender conference this month\" on 2023-07-03. Therefore, the approximate date of the conference is likely sometime in July 2023.",
+          "f1": 0.1111,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q64",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "Would Melanie likely enjoy the song \"The Four Seasons\" by Vivaldi?",
+          "raw_question": "Would Melanie likely enjoy the song \"The Four Seasons\" by Vivaldi?",
+          "expected": "Yes; it's classical music",
+          "evidence": [
+            "D15:28"
+          ],
+          "compile_latency_ms": 46.6,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 298,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Caroline, 2023-07-12 16:33] Cool, Melanie! Running can really boost your mood. Keep it up!",
+              "[Melanie, 2023-07-15 13:51] We enjoy hiking in the mountains and exploring forests. It's a cool way to connect with nature and each other.",
+              "[Melanie, 2023-08-28 15:19] \"Summer Sounds\"- The playing an awesome pop song that got everyone dancing and singing. It was so fun and lively!",
+              "[Melanie, 2023-08-28 15:19] That's a gorgeous song, Caroline. It really fits with your journey and your determination to make a difference. Music can be so inspiring and uplifting. [shares an image: a photo of a piece of paper with a drawi\u2026",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing.",
+              "[Caroline, 2023-10-20 18:55] It's so sweet to see your love for your family, Melanie. They really are your rock."
+            ]
+          },
+          "latency_ms": 2916.4,
+          "answer": "Based on the provided context, it is unlikely that Melanie would enjoy the song \"The Four Seasons\" by Vivaldi. The conversation history suggests that Melanie enjoys upbeat and lively music, as evidenced by her positive response to \"Summer Sounds\" and her appreciation for music that is \"inspiring and uplifting.\" \"The Four Seasons\" is a Baroque classical piece, which is typically more subdued and less energetic than the types of music Melanie seems to prefer.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q91",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "What does Caroline's necklace symbolize?",
+          "raw_question": "What does Caroline's necklace symbolize?",
+          "expected": "love, faith, and strength",
+          "evidence": [
+            "D4:3"
+          ],
+          "compile_latency_ms": 39.9,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 335,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Caroline, 2023-06-27 10:37] Hey Melanie! Long time no talk! A lot's been going on in my life! Take a look at this. [shares an image: a photo of a person holding a necklace with a cross and a heart]",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! This necklace is super special to me - a gift from my grandma in my home country, Sweden. She gave it to me when I was young, and it stands for love, faith and strength. It's like a reminder of\u2026",
+              "[Melanie, 2023-06-27 10:37] That's gorgeous, Caroline! It's awesome what items can mean so much to us, right? Got any other objects that you treasure, like that necklace? [shares an image: a photo of a stack of bowls with different designs\u2026",
+              "[Melanie, 2023-07-17 14:31] Wow, Caroline! It really conveys unity and strength - such a gorgeous piece! My kids and I just finished another painting like our last one.",
+              "[Caroline, 2023-08-25 13:33] Thanks, Mel! Glad you like it. It's a symbol of togetherness, to celebrate differences and be that much closer. I'd love to make something like this next! [shares an image: a photo of a painted sidewalk with a \u2026",
+              "[Caroline, 2023-10-13 10:31] Thanks, Melanie! Yeah, I drew it. It stands for freedom and being real. It's like a nudge to always stay true to myself and embrace my womanhood."
+            ]
+          },
+          "latency_ms": 2166.7,
+          "answer": "Based on the provided memory context, Caroline's necklace symbolizes love, faith, and strength. It is also a reminder of her roots and the love and support she receives from her family.",
+          "f1": 0.2143,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q161",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What is Caroline's hand-painted bowl a reminder of?",
+          "raw_question": "What is Caroline's hand-painted bowl a reminder of?",
+          "expected": "art and self-expression",
+          "evidence": [
+            "D4:5"
+          ],
+          "compile_latency_ms": 45.8,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 328,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Caroline, 2023-06-27 10:37] Yep, Melanie! I've got some other stuff with sentimental value, like my hand-painted bowl. A friend made it for my 18th birthday ten years ago. The pattern and colors are awesome-- it reminds me of art and self\u2026",
+              "[Melanie, 2023-07-03 13:36] Thanks, Caroline! Yeah, I made this bowl in my class. It took some work, but I'm pretty proud of it.",
+              "[Melanie, 2023-07-03 13:36] I'm a big fan of pottery - the creativity and skill is awesome. Plus, making it is so calming. Look at this! [shares an image: a photo of a bowl with a black and white flower design]",
+              "[Melanie, 2023-08-14 14:24] Your art's amazing, Caroline. I love how you use it to tell your stories and teach people about trans folks. I'd love to see another painting of yours! [shares an image: a photo of a person holding a purple bowl\u2026",
+              "[Melanie, 2023-08-17 13:50] Here it is. Pretty proud of it! It was a great experience. Thoughts? [shares an image: a photo of a bowl with a colorful design on it]",
+              "[Caroline, 2023-09-13 00:09] Thanks, Melanie! I made this painting to show my path as a trans woman. The red and blue are for the binary gender system, and the mix of colors means smashing that rigid thinking. It's a reminder to love my au\u2026"
+            ]
+          },
+          "latency_ms": 2036.1,
+          "answer": "Caroline's hand-painted bowl is a reminder of art and self-expression, as well as her 18th birthday, which is when a friend made it for her.",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q32",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "What LGBTQ+ events has Caroline participated in?",
+          "raw_question": "What LGBTQ+ events has Caroline participated in?",
+          "expected": "Pride parade, school speech, support group",
+          "evidence": [
+            "D5:1",
+            "D8:17",
+            "D3:1",
+            "D1:3"
+          ],
+          "compile_latency_ms": 48.9,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 415,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "LGBTQ community",
+              "Caroline",
+              "[Caroline, 2023-05-08 13:56] I went to a LGBTQ support group yesterday and it was so powerful.",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Caroline, 2023-07-03 13:36] Since we last spoke, some big things have happened. Last week I went to an LGBTQ+ pride parade. Everyone was so happy and it made me feel like I belonged. It showed me how much our community has grown, it was a\u2026",
+              "[Caroline, 2023-07-17 14:31] Yay! Next month I'm having an LGBTQ art show with my paintings - can't wait!",
+              "[Caroline, 2023-07-20 20:56] Thanks, Melanie! It's awesome to have our own platform to be ourselves and support others' rights. Our group, 'Connected LGBTQ Activists', is made of all kinds of people investing in positive changes. We have r\u2026",
+              "[Caroline, 2023-08-25 13:33] I'm putting together an LGBTQ art show next month and I'm gonna show my paintings. Super stoked!"
+            ]
+          },
+          "latency_ms": 3352.5,
+          "answer": "Based on the provided context, Caroline has participated in the following LGBTQ+ events:\n\n1. An LGBTQ support group (mentioned on 2023-05-08)\n2. An LGBTQ+ pride parade (mentioned on 2023-07-03)\n3. An LGBTQ art show with her paintings (mentioned on 2023-07-17 and 2023-08-25)\n\nAdditionally, Caroline is involved with a group called \"Connected LGBTQ Activists\", which seems to be an organization that supports LGBTQ+ rights and hosts events and campaigns.",
+          "f1": 0.0987,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q20",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "When did Melanie go to the museum? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "When did Melanie go to the museum?",
+          "expected": "5 July 2023",
+          "evidence": [
+            "D6:4"
+          ],
+          "compile_latency_ms": 47.5,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 208,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Caroline, 2023-06-27 10:37] That's awesome, Melanie! Family moments like that are so special. Glad y'all had such a great time.",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! Your kind words mean a lot.",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Caroline, 2023-07-20 20:56] Hey Melanie! Just wanted to say hi!",
+              "[Caroline, 2023-07-20 20:56] Wow, Melanie, what a beautiful moment! Lucky you to have such an awesome family!",
+              "[Caroline, 2023-08-14 14:24] Thanks, Melanie. It means a lot to share this with you."
+            ]
+          },
+          "latency_ms": 2369.6,
+          "answer": "Based on the conversation history, I found a mention of Melanie in a message dated 2023-08-14 14:24. However, I couldn't find any specific information about Melanie going to the museum. The messages mention Melanie in a general context, but there's no mention of a museum visit.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q69",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "What personality traits might Melanie say Caroline has?",
+          "raw_question": "What personality traits might Melanie say Caroline has?",
+          "expected": "Thoughtful, authentic, driven",
+          "evidence": [
+            "D16:18",
+            "D13:16",
+            "D7:4"
+          ],
+          "compile_latency_ms": 48.3,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 287,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "Caroline",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! Your kind words mean a lot.",
+              "[Caroline, 2023-07-12 16:33] Glad it helped ya, Melanie!",
+              "[Caroline, 2023-07-20 20:56] Hey Melanie! Just wanted to say hi!",
+              "[Caroline, 2023-08-14 14:24] Thanks, Melanie. It means a lot to share this with you.",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing.",
+              "[Caroline, 2023-10-20 18:55] Glad you've got people to lean on, Melanie. It helps during tougher times."
+            ]
+          },
+          "latency_ms": 2237.8,
+          "answer": "Based on the conversation history between Melanie and Caroline, it appears that Caroline values kindness, gratitude, and a sense of community. Caroline's messages to Melanie often express appreciation for her support and kindness, suggesting that Caroline is a person who values positive relationships and is likely to be empathetic and understanding.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q92",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "What country is Caroline's grandma from?",
+          "raw_question": "What country is Caroline's grandma from?",
+          "expected": "Sweden",
+          "evidence": [
+            "D4:3"
+          ],
+          "compile_latency_ms": 45.9,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 196,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! This necklace is super special to me - a gift from my grandma in my home country, Sweden. She gave it to me when I was young, and it stands for love, faith and strength. It's like a reminder of\u2026",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, family love and support is the best!",
+              "[Caroline, 2023-07-15 13:51] It must have been special at your wedding. I wish I had known you back then!",
+              "[Caroline, 2023-08-17 13:50] Yeah, Mel! Life's all about creating memories. Can't wait for the trip!",
+              "[Caroline, 2023-10-20 18:55] Our loved ones give us strength to tackle any challenge - it's amazing!",
+              "[Caroline, 2023-10-20 18:55] It's so sweet to see your love for your family, Melanie. They really are your rock."
+            ]
+          },
+          "latency_ms": 1756.6,
+          "answer": "Based on the conversation, Caroline's grandma is from Sweden. This is mentioned in the first retrieved memory, where Caroline says the necklace is a gift from her grandma in Sweden.",
+          "f1": 0.0741,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q162",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What did Caroline and her family do while camping?",
+          "raw_question": "What did Caroline and her family do while camping?",
+          "expected": "explored nature, roasted marshmallows, and went on a hike",
+          "evidence": [
+            "D4:8"
+          ],
+          "compile_latency_ms": 40.7,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 535,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "our family camping trip",
+              "her first steps",
+              "family time",
+              "[Melanie, 2023-06-27 10:37] It was an awesome time, Caroline! We explored nature, roasted marshmallows around the campfire and even went on a hike. The view from the top was amazing! The 2 younger kids love nature. It was so special having\u2026",
+              "[Melanie, 2023-07-06 20:18] Glad you have support, Caroline! Unconditional love is so important. Here's a pic of my family camping at the beach. We love it, it brings us closer! [shares an image: a photo of a family sitting around a campfi\u2026",
+              "[Melanie, 2023-07-15 13:51] Yeah, Caroline, my family's been great - their love and support really helped me through tough times. It's awesome! We even went on another camping trip in the forest. [shares an image: a photo of a man and two \u2026",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, family love and support is the best!",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, that sounds awesome! Exploring nature and family time is so special."
+            ]
+          },
+          "latency_ms": 3335.6,
+          "answer": "Based on the provided memory context, it appears that Caroline and her family enjoyed camping together. According to the conversation with Melanie, they went on a camping trip and engaged in activities such as:\n\n* Exploring nature\n* Roasting marshmallows around the campfire\n* Going on a hike\n* Enjoying the view from the top\n* Spending quality time together as a family\n\nIt's also mentioned that they love nature and that family time is special for them.",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        },
+        {
+          "id": "conv-26_q34",
+          "conversation": "conv-26",
+          "category": 1,
+          "question": "What events has Caroline participated in to help children?",
+          "raw_question": "What events has Caroline participated in to help children?",
+          "expected": "Mentoring program, school speech",
+          "evidence": [
+            "D9:2",
+            "D3:3"
+          ],
+          "compile_latency_ms": 44.2,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 484,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-05-25 13:14] I chose them 'cause they help LGBTQ+ folks with adoption. Their inclusivity and support really spoke to me.",
+              "[Melanie, 2023-07-06 20:18] That's awesome, Caroline! Congrats on following your dreams. Yesterday I took the kids to the museum - it was so cool spending time with them and seeing their eyes light up! [shares an image: a photography of tw\u2026",
+              "[Melanie, 2023-07-15 13:51] Yeah, Caroline, my family's been great - their love and support really helped me through tough times. It's awesome! We even went on another camping trip in the forest. [shares an image: a photo of a man and two \u2026",
+              "[Melanie, 2023-07-20 20:56] Wow, fantastic, Caroline! Bet the atmosphere was incredible. Oh yeah, we went to the beach recently. It was awesome! The kids had such a blast. [shares an image: a photo of three children playing on the beach wi\u2026",
+              "[Caroline, 2023-07-20 20:56] Thanks, Melanie! It's awesome to have our own platform to be ourselves and support others' rights. Our group, 'Connected LGBTQ Activists', is made of all kinds of people investing in positive changes. We have r\u2026",
+              "[Melanie, 2023-10-20 18:55] Yeah, you're right, Caroline. Family's super important to me. Especially after the accident, I've thought a lot about how much I need them. They mean the world to me and I'm so thankful to have them. Thankfully,\u2026"
+            ]
+          },
+          "latency_ms": 4228.0,
+          "answer": "Based on the provided memory context, it appears that Caroline has participated in events to help children through her involvement with the \"Connected LGBTQ Activists\" group. However, there is no specific information about the events themselves.\n\nIt is mentioned that the group has regular meetings, plans events and campaigns, and gets together to support each other. Additionally, Caroline's conversation with Melanie suggests that she values inclusivity and support for LGBTQ+ families with children.\n\nIt's also worth noting that Melanie has mentioned taking her kids to various places such as the museum, the forest, the beach, and the Grand Canyon, but these are not directly related to Caroline's involvement with the group.",
+          "f1": 0.0,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q21",
+          "conversation": "conv-26",
+          "category": 2,
+          "question": "When did Caroline have a picnic? Use the dates of the conversation to answer with an approximate date.",
+          "raw_question": "When did Caroline have a picnic?",
+          "expected": "The week before 6 July 2023",
+          "evidence": [
+            "D6:11"
+          ],
+          "compile_latency_ms": 46.5,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 430,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Melanie, 2023-06-27 10:37] It was an awesome time, Caroline! We explored nature, roasted marshmallows around the campfire and even went on a hike. The view from the top was amazing! The 2 younger kids love nature. It was so special having\u2026",
+              "[Caroline, 2023-07-06 20:18] Wow, that's great! It sure shows how important friendship and compassion are. It's made me appreciate how lucky I am to have my friends and family helping with my transition. They make all the difference. We ev\u2026",
+              "[Caroline, 2023-07-15 13:51] It must have been special at your wedding. I wish I had known you back then!",
+              "[Caroline, 2023-07-20 20:56] Sounds special, those beach trips! Do you have any other summer traditions you all do together? Create those memories!",
+              "[Melanie, 2023-08-14 14:24] Your art's amazing, Caroline. I love how you use it to tell your stories and teach people about trans folks. I'd love to see another painting of yours! [shares an image: a photo of a person holding a purple bowl\u2026",
+              "[Melanie, 2023-10-13 10:31] Thanks for the tip, Caroline. Doing research and readying myself emotionally makes sense. I'll do that. BTW, recently I had a setback. Last month I got hurt and had to take a break from pottery, which I use for \u2026"
+            ]
+          },
+          "latency_ms": 2499.2,
+          "answer": "Based on the conversation, Caroline mentioned having a picnic last week in a message dated 2023-07-06 20:18. Therefore, the approximate date of the picnic is sometime in July 2023.",
+          "f1": 0.2069,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q77",
+          "conversation": "conv-26",
+          "category": 3,
+          "question": "Would Melanie go on another roadtrip soon?",
+          "raw_question": "Would Melanie go on another roadtrip soon?",
+          "expected": "Likely no; since this one went badly",
+          "evidence": [
+            "D18:3",
+            "D18:1"
+          ],
+          "compile_latency_ms": 40.2,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 295,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Melanie",
+              "[Melanie, 2023-05-08 13:56] Yep, Caroline. Taking care of ourselves is vital. I'm off to go swimming with the kids. Talk to you soon!",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! Your kind words mean a lot.",
+              "[Caroline, 2023-07-12 16:33] Awesome, Melanie! Mental health's a priority, so make sure you take care of yourself.",
+              "[Caroline, 2023-07-20 20:56] Hey Melanie! Just wanted to say hi!",
+              "[Caroline, 2023-10-13 10:31] Yep, Melanie! Being ourselves is such a great feeling. It's an ongoing adventure of learning and growing.",
+              "[Melanie, 2023-10-20 18:55] Hey Caroline, that roadtrip this past weekend was insane! We were all freaked when my son got into an accident. We were so lucky he was okay. It was a real scary experience. Thankfully it's over now. What's been\u2026"
+            ]
+          },
+          "latency_ms": 4363.1,
+          "answer": "Based on the provided context, it appears that Melanie recently went on a roadtrip with her family, but it was a stressful experience due to an accident involving her son. However, the incident is described as being over now, and Melanie is sharing a photo of the car's dashboard with Caroline.\n\nGiven this information, it's difficult to determine with certainty whether Melanie will go on another roadtrip soon. However, considering the recent nature of the incident and the fact that Melanie is sharing a photo of the car's dashboard, it's possible that she may be hesitant to go on another roadtrip in the near future.\n\nBut, I must note that there is no explicit statement from Melanie indicating that she will not go on another roadtrip soon. Therefore, the answer to the query is inconclusive based on the provided context.",
+          "f1": 0.0161,
+          "judge": false,
+          "passed": false,
+          "reason": "judge_wrong"
+        },
+        {
+          "id": "conv-26_q93",
+          "conversation": "conv-26",
+          "category": 4,
+          "question": "What was grandma's gift to Caroline?",
+          "raw_question": "What was grandma's gift to Caroline?",
+          "expected": "necklace",
+          "evidence": [
+            "D4:3"
+          ],
+          "compile_latency_ms": 52.6,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 338,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Caroline",
+              "[Caroline, 2023-06-27 10:37] Thanks, Melanie! This necklace is super special to me - a gift from my grandma in my home country, Sweden. She gave it to me when I was young, and it stands for love, faith and strength. It's like a reminder of\u2026",
+              "[Caroline, 2023-06-27 10:37] Hey Melanie! Long time no talk! A lot's been going on in my life! Take a look at this. [shares an image: a photo of a person holding a necklace with a cross and a heart]",
+              "[Caroline, 2023-07-15 13:51] It must have been special at your wedding. I wish I had known you back then!",
+              "[Caroline, 2023-07-15 13:51] Wow, Mel, family love and support is the best!",
+              "[Caroline, 2023-08-17 13:50] Yeah, Mel! Life's all about creating memories. Can't wait for the trip!",
+              "[Caroline, 2023-10-22 09:55] Thanks, Melanie. Your support really means a lot. This journey has been amazing and I'm grateful I get to share it and help others with theirs. It's a real gift. [shares an image: a photo of a clock with a gree\u2026"
+            ]
+          },
+          "latency_ms": 2907.4,
+          "answer": "Based on the provided context, I can answer the query: \"What was grandma's gift to Caroline?\"\n\nGrandma's gift to Caroline was a necklace. Specifically, it's a necklace with a cross and a heart, which stands for love, faith, and strength, and is a reminder of Caroline's roots and the love and support she gets from her family.",
+          "f1": 0.0444,
+          "judge": true,
+          "passed": true,
+          "reason": "judge_correct"
+        },
+        {
+          "id": "conv-26_q163",
+          "conversation": "conv-26",
+          "category": 5,
+          "question": "What kind of counseling and mental health services is Melanie interested in pursuing?",
+          "raw_question": "What kind of counseling and mental health services is Melanie interested in pursuing?",
+          "expected": "working with trans people, helping them accept themselves and supporting their mental health",
+          "evidence": [
+            "D4:13"
+          ],
+          "compile_latency_ms": 43.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 513,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Mental health",
+              "counseling and support groups",
+              "Melanie",
+              "[Caroline, 2023-05-08 13:56] I'm keen on counseling or working in mental health - I'd love to support those with similar issues.",
+              "[Caroline, 2023-06-27 10:37] Lately, I've been looking into counseling and mental health as a career. I want to help people who have gone through the same things as me. [shares an image: a photo of a book shelf with many books on it]",
+              "[Caroline, 2023-07-12 16:33] Awesome, Melanie! Mental health's a priority, so make sure you take care of yourself.",
+              "[Caroline, 2023-07-12 16:33] Thanks, Mell! I'm still looking into counseling and mental health jobs. It's important to me that people have someone to talk to, and I want to help make that happen.",
+              "[Caroline, 2023-07-12 16:33] I struggled with mental health, and support I got was really helpful. It made me realize how important it is for others to have a support system. So, I started looking into counseling and mental health career o\u2026"
+            ]
+          },
+          "latency_ms": 2630.9,
+          "answer": "Based on the provided context, it appears that Melanie is interested in pursuing counseling and mental health services. The relevant memory from the conversation section shows that Melanie has been looking into counseling and mental health as a career, and wants to help people who have gone through similar issues as her.",
+          "f1": null,
+          "judge": null,
+          "passed": false,
+          "abstained_strict": false,
+          "abstained": false,
+          "reason": "answered_adversarial"
+        }
+      ],
+      "valid": true,
+      "client_calls": 620,
+      "client_failures": 0
+    }
+  },
+  "all_suites_valid": true,
+  "canonical_baseline_targets": {
+    "retrieval_latency_ms": "<10.0ms (via B375)",
+    "llm_generation_latency_s": "<1.0s (via B374)",
+    "daemon_idle_rss_mb": "<80MB (via B384)",
+    "token_compression_ratio": "50%-70% bulk, 100% bypass on sub-budget (B374)",
+    "ask_eval_overall": ">=0.90"
+  },
+  "locomo10_judge": {
+    "enabled": true,
+    "template_sha256": "93de01f6f966a668",
+    "llm": {
+      "provider": "ollama",
+      "model": "gemma4:26b",
+      "base_url": "http://localhost:11434/v1",
+      "endpoint": "ollama /api/chat (num_ctx sized per prompt)",
+      "temperature": 0.0
+    },
+    "source": "isolated daemon config + CLI overrides"
+  }
+}

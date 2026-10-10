@@ -1,0 +1,3408 @@
+{
+ "stores": [
+  {
+   "store": "/tmp/campy-bench-q59b5srm",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 32,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 50,
+    "Concept": 5
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "ROUTES_TO": 8,
+    "REQUIRES": 1,
+    "SENT_IN": 50,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 5,
+    "gist_class": 5,
+    "archived": 5,
+    "confidence": 5,
+    "concept_id": 5,
+    "confidence_low": 5,
+    "embedding_dim": 5,
+    "schema_org_type": 5,
+    "text_raw": 5,
+    "embedding_model": 5,
+    "flagged_for_review": 3,
+    "last_accessed_at": 5,
+    "pathway_strength": 5,
+    "salience_score": 3
+   },
+   "concepts": 5,
+   "concepts_confidence_low": 5,
+   "concepts_by_gist": {
+    "PlannedEvent": 3,
+    "-": 2
+   },
+   "concepts_by_schema": {
+    "Action": 3,
+    "-": 2
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 3,
+   "time_phrase_examples": [
+    "tonight",
+    "your day",
+    "your next restoration project"
+   ],
+   "top_labels": [
+    "your day",
+    "your next restoration project",
+    "mechanics",
+    "tonight",
+    "word"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-_rvmwwjh",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 58,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 11,
+    "Message": 50
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "CO_OCCURS_WITH": 4,
+    "ROUTES_TO": 8,
+    "SENT_IN": 50
+   },
+   "concept_literal_properties": {
+    "created_at": 11,
+    "gist_class": 11,
+    "archived": 11,
+    "confidence": 11,
+    "concept_id": 11,
+    "confidence_low": 11,
+    "embedding_dim": 11,
+    "schema_org_type": 11,
+    "text_raw": 11,
+    "embedding_model": 11,
+    "flagged_for_review": 11,
+    "last_accessed_at": 11,
+    "pathway_strength": 11,
+    "salience_score": 11
+   },
+   "concepts": 11,
+   "concepts_confidence_low": 11,
+   "concepts_by_gist": {
+    "Category": 5,
+    "PlannedEvent": 4,
+    "Agent": 1,
+    "Magnitude": 1
+   },
+   "concepts_by_schema": {
+    "DefinedTerm": 5,
+    "Action": 4,
+    "Organization": 1,
+    "QuantitativeValue": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "a tough month"
+   ],
+   "top_labels": [
+    "this weekend",
+    "their group",
+    "our new neighbours",
+    "My job",
+    "a tough month",
+    "your new job",
+    "big plans",
+    "your move",
+    "school",
+    "Orlando",
+    "Work"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-sqc_4xl_",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 27,
+    "Constraint": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 6,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "ESTABLISHED_IN": 1,
+    "FOLLOWED_BY": 48,
+    "ESTABLISHED": 1,
+    "ROUTES_TO": 8,
+    "REIFIED_AS": 1,
+    "CO_OCCURS_WITH": 1,
+    "WARM_NODE": 1,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 6,
+    "gist_class": 6,
+    "archived": 6,
+    "confidence": 6,
+    "concept_id": 6,
+    "confidence_low": 6,
+    "embedding_dim": 6,
+    "schema_org_type": 6,
+    "text_raw": 6,
+    "embedding_model": 6,
+    "flagged_for_review": 6,
+    "last_accessed_at": 6,
+    "pathway_strength": 6,
+    "salience_score": 6
+   },
+   "concepts": 6,
+   "concepts_confidence_low": 5,
+   "concepts_by_gist": {
+    "PlannedEvent": 1,
+    "Agent": 3,
+    "Magnitude": 1,
+    "Category": 1
+   },
+   "concepts_by_schema": {
+    "Action": 1,
+    "Person": 2,
+    "QuantitativeValue": 1,
+    "Organization": 1,
+    "DefinedTerm": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "your last stunt gig"
+   ],
+   "top_labels": [
+    "free time",
+    "Stephen King",
+    "My dad",
+    "home depot",
+    "your last stunt gig",
+    "Libby"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-d52no8dw",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 73,
+    "Label": 1,
+    "Lesson": 2,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 54,
+    "Concept": 15
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 50,
+    "HAS_ALT_LABEL": 1,
+    "ROUTES_TO": 8,
+    "CO_OCCURS_WITH": 10,
+    "WARM_NODE": 1,
+    "SENT_IN": 54,
+    "LEARNED": 2
+   },
+   "concept_literal_properties": {
+    "created_at": 15,
+    "gist_class": 15,
+    "archived": 15,
+    "confidence": 15,
+    "concept_id": 15,
+    "confidence_low": 15,
+    "embedding_dim": 15,
+    "schema_org_type": 15,
+    "text_raw": 15,
+    "embedding_model": 15,
+    "flagged_for_review": 15,
+    "last_accessed_at": 15,
+    "pathway_strength": 15,
+    "salience_score": 15
+   },
+   "concepts": 15,
+   "concepts_confidence_low": 15,
+   "concepts_by_gist": {
+    "PlannedEvent": 6,
+    "PhysicalThing": 3,
+    "Category": 4,
+    "Restriction": 1,
+    "Agent": 1
+   },
+   "concepts_by_schema": {
+    "Action": 6,
+    "Product": 3,
+    "DefinedTerm": 4,
+    "Demand": 1,
+    "Organization": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "your studies",
+    "One girl",
+    "edible arrangement fruit bouquets",
+    "my parent's hosue",
+    "which ones",
+    "what subjects",
+    "My parents",
+    "your part time job",
+    "lunch",
+    "dinner",
+    "something",
+    "study",
+    "requisites",
+    "part",
+    "education"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-4yld990m",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 22,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 50,
+    "Concept": 3
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "CO_OCCURS_WITH": 1,
+    "ROUTES_TO": 8,
+    "SENT_IN": 50,
+    "CONTAINS_LESSON": 1,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 3,
+    "gist_class": 3,
+    "archived": 3,
+    "confidence": 3,
+    "concept_id": 3,
+    "confidence_low": 3,
+    "embedding_dim": 3,
+    "schema_org_type": 3,
+    "text_raw": 3,
+    "embedding_model": 3,
+    "flagged_for_review": 3,
+    "last_accessed_at": 3,
+    "pathway_strength": 3,
+    "salience_score": 3
+   },
+   "concepts": 3,
+   "concepts_confidence_low": 3,
+   "concepts_by_gist": {
+    "PlannedEvent": 3
+   },
+   "concepts_by_schema": {
+    "Action": 3
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "my week"
+   ],
+   "top_labels": [
+    "my week",
+    "exercise",
+    "sunday"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-xpemec47",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 49,
+    "Label": 1,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 8
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "HAS_ALT_LABEL": 1,
+    "ROUTES_TO": 8,
+    "CO_OCCURS_WITH": 3,
+    "WARM_NODE": 2,
+    "SENT_IN": 52,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 8,
+    "gist_class": 8,
+    "archived": 8,
+    "confidence": 8,
+    "concept_id": 8,
+    "confidence_low": 8,
+    "embedding_dim": 8,
+    "schema_org_type": 8,
+    "text_raw": 8,
+    "embedding_model": 8,
+    "flagged_for_review": 8,
+    "last_accessed_at": 8,
+    "pathway_strength": 8,
+    "salience_score": 8
+   },
+   "concepts": 8,
+   "concepts_confidence_low": 8,
+   "concepts_by_gist": {
+    "Category": 4,
+    "PlannedEvent": 4
+   },
+   "concepts_by_schema": {
+    "DefinedTerm": 4,
+    "Action": 4
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "the holiday season",
+    "good clearance deals",
+    "your family",
+    "Hot Topic",
+    "bird watch",
+    "town",
+    "friday",
+    "sunday"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-jbz6no0n",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 32,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 8,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 2,
+    "ROUTES_TO": 8,
+    "WARM_NODE": 2,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 8,
+    "gist_class": 8,
+    "archived": 8,
+    "confidence": 8,
+    "concept_id": 8,
+    "confidence_low": 8,
+    "embedding_dim": 8,
+    "schema_org_type": 8,
+    "text_raw": 8,
+    "embedding_model": 8,
+    "flagged_for_review": 8,
+    "last_accessed_at": 8,
+    "pathway_strength": 8,
+    "salience_score": 8
+   },
+   "concepts": 8,
+   "concepts_confidence_low": 8,
+   "concepts_by_gist": {
+    "PlannedEvent": 6,
+    "Category": 2
+   },
+   "concepts_by_schema": {
+    "Action": 6,
+    "DefinedTerm": 2
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "friday",
+    "many platforms",
+    "your writing",
+    "new employment",
+    "my dream",
+    "your job search",
+    "another friday movie",
+    "if interviews"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-3kr1tzyi",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 48,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 50,
+    "Concept": 8
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "CO_OCCURS_WITH": 4,
+    "ROUTES_TO": 8,
+    "SENT_IN": 50,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 8,
+    "gist_class": 8,
+    "archived": 8,
+    "confidence": 8,
+    "concept_id": 8,
+    "confidence_low": 8,
+    "embedding_dim": 8,
+    "schema_org_type": 8,
+    "text_raw": 8,
+    "embedding_model": 8,
+    "flagged_for_review": 8,
+    "last_accessed_at": 8,
+    "pathway_strength": 8,
+    "salience_score": 8
+   },
+   "concepts": 8,
+   "concepts_confidence_low": 8,
+   "concepts_by_gist": {
+    "Category": 3,
+    "PlannedEvent": 3,
+    "Agent": 1,
+    "PhysicalThing": 1
+   },
+   "concepts_by_schema": {
+    "DefinedTerm": 3,
+    "Action": 3,
+    "Organization": 1,
+    "Product": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "what",
+    "what voice",
+    "My dad",
+    "my cow",
+    "response coordination",
+    "design starcraft",
+    "things",
+    "shipping"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-z6q8xgkz",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 27,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 5,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "ROUTES_TO": 8,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 5,
+    "gist_class": 5,
+    "archived": 5,
+    "confidence": 5,
+    "concept_id": 5,
+    "confidence_low": 5,
+    "embedding_dim": 5,
+    "schema_org_type": 5,
+    "text_raw": 5,
+    "embedding_model": 5,
+    "flagged_for_review": 5,
+    "last_accessed_at": 5,
+    "pathway_strength": 5,
+    "salience_score": 5
+   },
+   "concepts": 5,
+   "concepts_confidence_low": 5,
+   "concepts_by_gist": {
+    "PlannedEvent": 4,
+    "Category": 1
+   },
+   "concepts_by_schema": {
+    "Action": 4,
+    "DefinedTerm": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "school programs",
+    "professional lessons",
+    "music classes",
+    "your yearly trip",
+    "Disney"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-3f_d48m3",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 31,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 9,
+    "Message": 50
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "CO_OCCURS_WITH": 3,
+    "ROUTES_TO": 8,
+    "SENT_IN": 50,
+    "ALTERNATIVE_TO": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 9,
+    "gist_class": 9,
+    "archived": 9,
+    "confidence": 9,
+    "concept_id": 9,
+    "confidence_low": 9,
+    "embedding_dim": 9,
+    "schema_org_type": 9,
+    "text_raw": 9,
+    "embedding_model": 9,
+    "flagged_for_review": 9,
+    "last_accessed_at": 9,
+    "pathway_strength": 9,
+    "salience_score": 9
+   },
+   "concepts": 9,
+   "concepts_confidence_low": 9,
+   "concepts_by_gist": {
+    "PlannedEvent": 4,
+    "Category": 4,
+    "Magnitude": 1
+   },
+   "concepts_by_schema": {
+    "Action": 4,
+    "DefinedTerm": 4,
+    "QuantitativeValue": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "the whole year"
+   ],
+   "top_labels": [
+    "better cookies",
+    "the whole year",
+    "your plans",
+    "our final competition",
+    "case",
+    "retirement",
+    "Christmas",
+    "who",
+    "tips"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-5s1sufbs",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 21,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 50,
+    "Concept": 1
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "ROUTES_TO": 8,
+    "SENT_IN": 50,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 1,
+    "gist_class": 1,
+    "archived": 1,
+    "confidence": 1,
+    "concept_id": 1,
+    "confidence_low": 1,
+    "embedding_dim": 1,
+    "schema_org_type": 1,
+    "text_raw": 1,
+    "embedding_model": 1,
+    "flagged_for_review": 1,
+    "last_accessed_at": 1,
+    "pathway_strength": 1,
+    "salience_score": 1
+   },
+   "concepts": 1,
+   "concepts_confidence_low": 1,
+   "concepts_by_gist": {
+    "Category": 1
+   },
+   "concepts_by_schema": {
+    "DefinedTerm": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "podcasts"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-ksg_0_zi",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 37,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 4,
+    "Message": 48
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 44,
+    "ROUTES_TO": 8,
+    "WARM_NODE": 2,
+    "SENT_IN": 48
+   },
+   "concept_literal_properties": {
+    "created_at": 4,
+    "gist_class": 4,
+    "archived": 4,
+    "confidence": 4,
+    "concept_id": 4,
+    "confidence_low": 4,
+    "embedding_dim": 4,
+    "schema_org_type": 4,
+    "text_raw": 4,
+    "embedding_model": 4,
+    "flagged_for_review": 4,
+    "last_accessed_at": 4,
+    "pathway_strength": 4,
+    "salience_score": 4
+   },
+   "concepts": 4,
+   "concepts_confidence_low": 4,
+   "concepts_by_gist": {
+    "PlannedEvent": 3,
+    "Agent": 1
+   },
+   "concepts_by_schema": {
+    "Action": 3,
+    "Organization": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "My parents",
+    "my graduate school class",
+    "Just a long weekend",
+    "training"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-q52dokqr",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 36,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 1,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "ROUTES_TO": 8,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 1,
+    "gist_class": 1,
+    "archived": 1,
+    "confidence": 1,
+    "concept_id": 1,
+    "confidence_low": 1,
+    "embedding_dim": 1,
+    "schema_org_type": 1,
+    "text_raw": 1,
+    "embedding_model": 1,
+    "flagged_for_review": 1,
+    "last_accessed_at": 1,
+    "pathway_strength": 1,
+    "salience_score": 1
+   },
+   "concepts": 1,
+   "concepts_confidence_low": 1,
+   "concepts_by_gist": {
+    "PlannedEvent": 1
+   },
+   "concepts_by_schema": {
+    "Action": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "Next time"
+   ],
+   "top_labels": [
+    "Next time"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-w2uddj8w",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 51,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 8
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 4,
+    "CHOSEN_OVER": 1,
+    "SENT_IN": 52,
+    "ROUTES_TO": 8,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 8,
+    "gist_class": 8,
+    "archived": 8,
+    "confidence": 8,
+    "concept_id": 8,
+    "confidence_low": 8,
+    "embedding_dim": 8,
+    "schema_org_type": 8,
+    "text_raw": 8,
+    "embedding_model": 8,
+    "flagged_for_review": 8,
+    "last_accessed_at": 8,
+    "pathway_strength": 8,
+    "salience_score": 8
+   },
+   "concepts": 8,
+   "concepts_confidence_low": 8,
+   "concepts_by_gist": {
+    "Restriction": 1,
+    "Agent": 1,
+    "PlannedEvent": 4,
+    "Magnitude": 2
+   },
+   "concepts_by_schema": {
+    "Demand": 1,
+    "Organization": 1,
+    "Action": 4,
+    "QuantitativeValue": 2
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 3,
+   "time_phrase_examples": [
+    "5 day",
+    "may",
+    "today"
+   ],
+   "top_labels": [
+    "5 day",
+    "my leave",
+    "friday night",
+    "your trip",
+    "may",
+    "him",
+    "turn",
+    "today"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-whsa2klu",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 44,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 6,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "REPLACES": 1,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 2,
+    "ROUTES_TO": 8,
+    "WARM_NODE": 2,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 6,
+    "gist_class": 6,
+    "archived": 6,
+    "confidence": 6,
+    "concept_id": 6,
+    "confidence_low": 6,
+    "embedding_dim": 6,
+    "schema_org_type": 6,
+    "text_raw": 6,
+    "embedding_model": 6,
+    "flagged_for_review": 6,
+    "last_accessed_at": 6,
+    "pathway_strength": 6,
+    "salience_score": 6
+   },
+   "concepts": 6,
+   "concepts_confidence_low": 6,
+   "concepts_by_gist": {
+    "PlannedEvent": 2,
+    "Magnitude": 3,
+    "Category": 1
+   },
+   "concepts_by_schema": {
+    "Action": 2,
+    "QuantitativeValue": 3,
+    "DefinedTerm": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 4,
+   "time_phrase_examples": [
+    "a few weeks",
+    "the next couple of years",
+    "years",
+    "your week"
+   ],
+   "top_labels": [
+    "the next couple of years",
+    "a few weeks",
+    "my upcoming retirement",
+    "your week",
+    "years",
+    "English"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-b1c4ca44",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 39,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 3
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 1,
+    "ROUTES_TO": 8,
+    "WARM_NODE": 3,
+    "SENT_IN": 52,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 3,
+    "gist_class": 3,
+    "archived": 3,
+    "confidence": 3,
+    "concept_id": 3,
+    "confidence_low": 3,
+    "embedding_dim": 3,
+    "schema_org_type": 3,
+    "text_raw": 3,
+    "embedding_model": 3,
+    "flagged_for_review": 3,
+    "last_accessed_at": 3,
+    "pathway_strength": 3,
+    "salience_score": 3
+   },
+   "concepts": 3,
+   "concepts_confidence_low": 2,
+   "concepts_by_gist": {
+    "PlannedEvent": 2,
+    "Category": 1
+   },
+   "concepts_by_schema": {
+    "Action": 2,
+    "DefinedTerm": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "your goal",
+    "your own business",
+    "leave"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-br3jqr6x",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 38,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 7,
+    "Message": 50
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "CO_OCCURS_WITH": 2,
+    "ROUTES_TO": 8,
+    "REQUIRES": 1,
+    "SENT_IN": 50
+   },
+   "concept_literal_properties": {
+    "created_at": 7,
+    "gist_class": 7,
+    "archived": 7,
+    "confidence": 7,
+    "concept_id": 7,
+    "confidence_low": 7,
+    "embedding_dim": 7,
+    "schema_org_type": 7,
+    "text_raw": 7,
+    "embedding_model": 7,
+    "flagged_for_review": 6,
+    "last_accessed_at": 7,
+    "pathway_strength": 7,
+    "salience_score": 6
+   },
+   "concepts": 7,
+   "concepts_confidence_low": 6,
+   "concepts_by_gist": {
+    "PlannedEvent": 4,
+    "Category": 2,
+    "-": 1
+   },
+   "concepts_by_schema": {
+    "Action": 4,
+    "DefinedTerm": 2,
+    "-": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 3,
+   "time_phrase_examples": [
+    "My week",
+    "your week",
+    "your week working construction"
+   ],
+   "top_labels": [
+    "My week",
+    "your week",
+    "what kind",
+    "advance notice",
+    "your week working construction",
+    "beers",
+    "I"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-29evku8e",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 40,
+    "Constraint": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 3,
+    "Message": 49
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "ESTABLISHED_IN": 1,
+    "REIFIED_AS": 1,
+    "FOLLOWED_BY": 45,
+    "ESTABLISHED": 1,
+    "SENT_IN": 49,
+    "ROUTES_TO": 8
+   },
+   "concept_literal_properties": {
+    "created_at": 3,
+    "gist_class": 3,
+    "archived": 3,
+    "confidence": 3,
+    "concept_id": 3,
+    "confidence_low": 3,
+    "embedding_dim": 3,
+    "schema_org_type": 3,
+    "text_raw": 3,
+    "embedding_model": 3,
+    "flagged_for_review": 3,
+    "last_accessed_at": 3,
+    "pathway_strength": 3,
+    "salience_score": 3
+   },
+   "concepts": 3,
+   "concepts_confidence_low": 2,
+   "concepts_by_gist": {
+    "Category": 1,
+    "Magnitude": 1,
+    "Restriction": 1
+   },
+   "concepts_by_schema": {
+    "DefinedTerm": 1,
+    "QuantitativeValue": 1,
+    "Demand": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "these days"
+   ],
+   "top_labels": [
+    "these days",
+    "typical commercial farming",
+    "Absolutely no machinery"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-uo6zs2b3",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 12,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 1
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "ROUTES_TO": 8,
+    "SENT_IN": 52,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 1,
+    "gist_class": 1,
+    "archived": 1,
+    "confidence": 1,
+    "concept_id": 1,
+    "confidence_low": 1,
+    "embedding_dim": 1,
+    "schema_org_type": 1,
+    "text_raw": 1,
+    "embedding_model": 1,
+    "flagged_for_review": 1,
+    "last_accessed_at": 1,
+    "pathway_strength": 1,
+    "salience_score": 1
+   },
+   "concepts": 1,
+   "concepts_confidence_low": 1,
+   "concepts_by_gist": {
+    "Category": 1
+   },
+   "concepts_by_schema": {
+    "DefinedTerm": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "Animals"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-qklnbv_s",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 63,
+    "Label": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 8,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 1,
+    "HAS_ALT_LABEL": 1,
+    "SENT_IN": 52,
+    "ROUTES_TO": 8
+   },
+   "concept_literal_properties": {
+    "created_at": 8,
+    "gist_class": 8,
+    "archived": 8,
+    "confidence": 8,
+    "concept_id": 8,
+    "confidence_low": 8,
+    "embedding_dim": 8,
+    "schema_org_type": 8,
+    "text_raw": 8,
+    "embedding_model": 8,
+    "flagged_for_review": 8,
+    "last_accessed_at": 8,
+    "pathway_strength": 8,
+    "salience_score": 8
+   },
+   "concepts": 8,
+   "concepts_confidence_low": 8,
+   "concepts_by_gist": {
+    "PlannedEvent": 7,
+    "Category": 1
+   },
+   "concepts_by_schema": {
+    "Action": 7,
+    "DefinedTerm": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "your garden work",
+    "Two steps",
+    "My interview",
+    "your start",
+    "stay",
+    "money",
+    "do!n",
+    "cookouts"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-mepre1rc",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 37,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 5,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 2,
+    "ROUTES_TO": 8,
+    "WARM_NODE": 3,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 5,
+    "gist_class": 5,
+    "archived": 5,
+    "confidence": 5,
+    "concept_id": 5,
+    "confidence_low": 5,
+    "embedding_dim": 5,
+    "schema_org_type": 5,
+    "text_raw": 5,
+    "embedding_model": 5,
+    "flagged_for_review": 5,
+    "last_accessed_at": 5,
+    "pathway_strength": 5,
+    "salience_score": 5
+   },
+   "concepts": 5,
+   "concepts_confidence_low": 5,
+   "concepts_by_gist": {
+    "PlannedEvent": 3,
+    "PhysicalThing": 1,
+    "Category": 1
+   },
+   "concepts_by_schema": {
+    "Action": 3,
+    "Product": 1,
+    "DefinedTerm": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "my Twitch stream",
+    "rpg events",
+    "the weekends",
+    "my 85th birthday",
+    "who"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-has5k8ml",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 15,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 2,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "ROUTES_TO": 8,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 2,
+    "gist_class": 2,
+    "archived": 2,
+    "confidence": 2,
+    "concept_id": 2,
+    "confidence_low": 2,
+    "embedding_dim": 2,
+    "schema_org_type": 2,
+    "text_raw": 2,
+    "embedding_model": 2,
+    "flagged_for_review": 2,
+    "last_accessed_at": 2,
+    "pathway_strength": 2,
+    "salience_score": 2
+   },
+   "concepts": 2,
+   "concepts_confidence_low": 2,
+   "concepts_by_gist": {
+    "PlannedEvent": 1,
+    "PhysicalThing": 1
+   },
+   "concepts_by_schema": {
+    "Action": 1,
+    "Product": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "some day"
+   ],
+   "top_labels": [
+    "horse trailers",
+    "some day"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-lnu2auhv",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 68,
+    "Label": 2,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 11
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 3,
+    "HAS_ALT_LABEL": 2,
+    "SENT_IN": 52,
+    "ROUTES_TO": 8,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 11,
+    "gist_class": 11,
+    "archived": 11,
+    "confidence": 11,
+    "concept_id": 11,
+    "confidence_low": 11,
+    "embedding_dim": 11,
+    "schema_org_type": 11,
+    "text_raw": 11,
+    "embedding_model": 11,
+    "flagged_for_review": 11,
+    "last_accessed_at": 11,
+    "pathway_strength": 11,
+    "salience_score": 11
+   },
+   "concepts": 11,
+   "concepts_confidence_low": 11,
+   "concepts_by_gist": {
+    "Magnitude": 1,
+    "PlannedEvent": 6,
+    "Category": 4
+   },
+   "concepts_by_schema": {
+    "QuantitativeValue": 1,
+    "Action": 6,
+    "DefinedTerm": 4
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "week"
+   ],
+   "top_labels": [
+    "weekend",
+    "promotion",
+    "exactly right - one step",
+    "good reviews",
+    "Surgery",
+    "research",
+    "week",
+    "traveling",
+    "Business",
+    "Things",
+    "friends"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-mvlhjkuy",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 47,
+    "Label": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 15,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 6,
+    "HAS_ALT_LABEL": 1,
+    "SENT_IN": 52,
+    "ROUTES_TO": 8
+   },
+   "concept_literal_properties": {
+    "created_at": 15,
+    "gist_class": 15,
+    "archived": 15,
+    "confidence": 15,
+    "concept_id": 15,
+    "confidence_low": 15,
+    "embedding_dim": 15,
+    "schema_org_type": 15,
+    "text_raw": 15,
+    "embedding_model": 15,
+    "flagged_for_review": 15,
+    "last_accessed_at": 15,
+    "pathway_strength": 15,
+    "salience_score": 15
+   },
+   "concepts": 15,
+   "concepts_confidence_low": 15,
+   "concepts_by_gist": {
+    "PlannedEvent": 7,
+    "Magnitude": 3,
+    "Category": 3,
+    "PhysicalThing": 1,
+    "Event": 1
+   },
+   "concepts_by_schema": {
+    "Action": 7,
+    "QuantitativeValue": 3,
+    "DefinedTerm": 3,
+    "Product": 1,
+    "Event": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "my goal",
+    "local 5k races",
+    "small distances",
+    "your animals",
+    "my neighborhood",
+    "my runs",
+    "my exercise",
+    "every morning",
+    "the morning",
+    "100%",
+    "speed",
+    "water",
+    "what",
+    "training",
+    "Thanks"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-ol9t0tgx",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 29,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 49,
+    "Concept": 7
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 45,
+    "CO_OCCURS_WITH": 2,
+    "ROUTES_TO": 8,
+    "SENT_IN": 49,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 7,
+    "gist_class": 7,
+    "archived": 7,
+    "confidence": 7,
+    "concept_id": 7,
+    "confidence_low": 7,
+    "embedding_dim": 7,
+    "schema_org_type": 7,
+    "text_raw": 7,
+    "embedding_model": 7,
+    "flagged_for_review": 7,
+    "last_accessed_at": 7,
+    "pathway_strength": 7,
+    "salience_score": 7
+   },
+   "concepts": 7,
+   "concepts_confidence_low": 7,
+   "concepts_by_gist": {
+    "Category": 3,
+    "PhysicalThing": 1,
+    "Magnitude": 2,
+    "PlannedEvent": 1
+   },
+   "concepts_by_schema": {
+    "DefinedTerm": 3,
+    "Product": 1,
+    "QuantitativeValue": 2,
+    "Action": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "7 hours"
+   ],
+   "top_labels": [
+    "my tulips",
+    "7 hours",
+    "person",
+    "who",
+    "NASCAR",
+    "200mph",
+    "MotoGP"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-4x1exbl5",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 40,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 10,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 2,
+    "ROUTES_TO": 8,
+    "REQUIRES": 1,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 10,
+    "gist_class": 10,
+    "archived": 10,
+    "confidence": 10,
+    "concept_id": 10,
+    "confidence_low": 10,
+    "embedding_dim": 10,
+    "schema_org_type": 10,
+    "text_raw": 10,
+    "embedding_model": 10,
+    "pathway_strength": 10,
+    "last_accessed_at": 10,
+    "flagged_for_review": 8,
+    "salience_score": 8
+   },
+   "concepts": 10,
+   "concepts_confidence_low": 10,
+   "concepts_by_gist": {
+    "-": 2,
+    "PhysicalThing": 3,
+    "PlannedEvent": 2,
+    "Category": 2,
+    "Agent": 1
+   },
+   "concepts_by_schema": {
+    "-": 2,
+    "Product": 3,
+    "Action": 2,
+    "DefinedTerm": 2,
+    "Organization": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "tonight"
+   ],
+   "top_labels": [
+    "Rolling Stones",
+    "similar situations",
+    "my backup phone",
+    "you",
+    "YouTube",
+    "tonight",
+    "people",
+    "something",
+    "Lets",
+    "emails"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-h5nvd_ai",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 17,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 3
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "ROUTES_TO": 8,
+    "SENT_IN": 52,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 3,
+    "gist_class": 3,
+    "archived": 3,
+    "confidence": 3,
+    "concept_id": 3,
+    "confidence_low": 3,
+    "embedding_dim": 3,
+    "schema_org_type": 3,
+    "text_raw": 3,
+    "embedding_model": 3,
+    "flagged_for_review": 3,
+    "last_accessed_at": 3,
+    "pathway_strength": 3,
+    "salience_score": 3
+   },
+   "concepts": 3,
+   "concepts_confidence_low": 3,
+   "concepts_by_gist": {
+    "Category": 1,
+    "PlannedEvent": 1,
+    "Restriction": 1
+   },
+   "concepts_by_schema": {
+    "DefinedTerm": 1,
+    "Action": 1,
+    "Demand": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "what",
+    "adventures",
+    "Freeze"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-2yf5h_2u",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 17,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 3,
+    "Message": 50
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "ROUTES_TO": 8,
+    "SENT_IN": 50
+   },
+   "concept_literal_properties": {
+    "created_at": 3,
+    "gist_class": 3,
+    "archived": 3,
+    "confidence": 3,
+    "concept_id": 3,
+    "confidence_low": 3,
+    "embedding_dim": 3,
+    "schema_org_type": 3,
+    "text_raw": 3,
+    "embedding_model": 3,
+    "flagged_for_review": 3,
+    "last_accessed_at": 3,
+    "pathway_strength": 3,
+    "salience_score": 3
+   },
+   "concepts": 3,
+   "concepts_confidence_low": 3,
+   "concepts_by_gist": {
+    "PlannedEvent": 2,
+    "Restriction": 1
+   },
+   "concepts_by_schema": {
+    "Action": 2,
+    "Demand": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "instructional videos",
+    "more cover work",
+    "covers"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-72hw440n",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 25,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 5,
+    "Message": 50
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "ROUTES_TO": 8,
+    "SENT_IN": 50
+   },
+   "concept_literal_properties": {
+    "created_at": 5,
+    "gist_class": 5,
+    "archived": 5,
+    "confidence": 5,
+    "concept_id": 5,
+    "confidence_low": 5,
+    "embedding_dim": 5,
+    "schema_org_type": 5,
+    "text_raw": 5,
+    "embedding_model": 5,
+    "flagged_for_review": 5,
+    "last_accessed_at": 5,
+    "pathway_strength": 5,
+    "salience_score": 5
+   },
+   "concepts": 5,
+   "concepts_confidence_low": 5,
+   "concepts_by_gist": {
+    "PlannedEvent": 3,
+    "PhysicalThing": 1,
+    "Agent": 1
+   },
+   "concepts_by_schema": {
+    "Action": 3,
+    "Product": 1,
+    "Organization": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "my mother",
+    "dog training",
+    "dog agility",
+    "my chores",
+    "pottery"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-67sk5r2z",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 50,
+    "Label": 2,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 14,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 8,
+    "HAS_ALT_LABEL": 2,
+    "SENT_IN": 52,
+    "ROUTES_TO": 8
+   },
+   "concept_literal_properties": {
+    "created_at": 14,
+    "gist_class": 14,
+    "archived": 14,
+    "confidence": 14,
+    "concept_id": 14,
+    "confidence_low": 14,
+    "embedding_dim": 14,
+    "schema_org_type": 14,
+    "text_raw": 14,
+    "embedding_model": 14,
+    "flagged_for_review": 14,
+    "last_accessed_at": 14,
+    "pathway_strength": 14,
+    "salience_score": 14
+   },
+   "concepts": 14,
+   "concepts_confidence_low": 11,
+   "concepts_by_gist": {
+    "PhysicalThing": 1,
+    "PlannedEvent": 9,
+    "Category": 3,
+    "Restriction": 1
+   },
+   "concepts_by_schema": {
+    "Product": 1,
+    "Action": 9,
+    "DefinedTerm": 3,
+    "Demand": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "next month"
+   ],
+   "top_labels": [
+    "New York City",
+    "next month",
+    "What",
+    "my final choice",
+    "law school",
+    "pre requisites",
+    "English language classes",
+    "your schooling",
+    "your plan",
+    "my finals",
+    "your first classes",
+    "finals prep",
+    "birthday",
+    "school"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-buq2zkj0",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 43,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 7,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 1,
+    "ROUTES_TO": 8,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 7,
+    "gist_class": 7,
+    "archived": 7,
+    "confidence": 7,
+    "concept_id": 7,
+    "confidence_low": 7,
+    "embedding_dim": 7,
+    "schema_org_type": 7,
+    "text_raw": 7,
+    "embedding_model": 7,
+    "flagged_for_review": 7,
+    "last_accessed_at": 7,
+    "pathway_strength": 7,
+    "salience_score": 7
+   },
+   "concepts": 7,
+   "concepts_confidence_low": 7,
+   "concepts_by_gist": {
+    "PlannedEvent": 5,
+    "Category": 1,
+    "Agent": 1
+   },
+   "concepts_by_schema": {
+    "Action": 5,
+    "DefinedTerm": 1,
+    "Organization": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 2,
+   "time_phrase_examples": [
+    "cheat days",
+    "your last trip"
+   ],
+   "top_labels": [
+    "new things",
+    "cheat days",
+    "your last trip",
+    "my college applications",
+    "homecoming",
+    "running",
+    "goals"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-eh6bcnhb",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 24,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 2
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "ROUTES_TO": 8,
+    "SENT_IN": 52,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 2,
+    "gist_class": 2,
+    "archived": 2,
+    "confidence": 2,
+    "concept_id": 2,
+    "confidence_low": 2,
+    "embedding_dim": 2,
+    "schema_org_type": 2,
+    "text_raw": 2,
+    "embedding_model": 2,
+    "flagged_for_review": 2,
+    "last_accessed_at": 2,
+    "pathway_strength": 2,
+    "salience_score": 2
+   },
+   "concepts": 2,
+   "concepts_confidence_low": 2,
+   "concepts_by_gist": {
+    "PlannedEvent": 2
+   },
+   "concepts_by_schema": {
+    "Action": 2
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "ballet classes",
+    "my busy schedule"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-ffpq__6g",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 58,
+    "Label": 3,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 12,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 6,
+    "HAS_ALT_LABEL": 3,
+    "REQUIRES": 1,
+    "SENT_IN": 52,
+    "ROUTES_TO": 8
+   },
+   "concept_literal_properties": {
+    "created_at": 12,
+    "gist_class": 12,
+    "archived": 12,
+    "confidence": 12,
+    "concept_id": 12,
+    "confidence_low": 12,
+    "embedding_dim": 12,
+    "schema_org_type": 12,
+    "text_raw": 12,
+    "embedding_model": 12,
+    "flagged_for_review": 10,
+    "last_accessed_at": 12,
+    "pathway_strength": 12,
+    "salience_score": 10
+   },
+   "concepts": 12,
+   "concepts_confidence_low": 12,
+   "concepts_by_gist": {
+    "Restriction": 1,
+    "PlannedEvent": 6,
+    "Agent": 1,
+    "Category": 2,
+    "-": 2
+   },
+   "concepts_by_schema": {
+    "Demand": 1,
+    "Action": 6,
+    "Organization": 1,
+    "DefinedTerm": 2,
+    "-": 2
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "next year"
+   ],
+   "top_labels": [
+    "this weekend",
+    "your PHD studies",
+    "walking dogs",
+    "your qualifications",
+    "your PHD",
+    "next year",
+    "dog walking business",
+    "Depends",
+    "lunch",
+    "Education",
+    "you",
+    "something"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-d5h6eb_4",
+   "nodes": {
+    "MainQuest": 1,
+    "Session": 4,
+    "SchemaOrgType": 8,
+    "GistExample": 26,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 46
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 42,
+    "ROUTES_TO": 8,
+    "SENT_IN": 46
+   },
+   "concept_literal_properties": {},
+   "concepts": 0,
+   "concepts_confidence_low": 0,
+   "concepts_by_gist": {},
+   "concepts_by_schema": {},
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": []
+  },
+  {
+   "store": "/tmp/campy-bench-2u9_kavt",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 58,
+    "Label": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 15,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "HAS_ALT_LABEL": 1,
+    "REQUIRES": 1,
+    "ROUTES_TO": 8,
+    "CO_OCCURS_WITH": 19,
+    "WARM_NODE": 1,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 15,
+    "gist_class": 15,
+    "archived": 15,
+    "confidence": 15,
+    "concept_id": 15,
+    "confidence_low": 15,
+    "embedding_dim": 15,
+    "schema_org_type": 15,
+    "text_raw": 15,
+    "embedding_model": 15,
+    "flagged_for_review": 13,
+    "last_accessed_at": 15,
+    "pathway_strength": 15,
+    "salience_score": 13
+   },
+   "concepts": 15,
+   "concepts_confidence_low": 14,
+   "concepts_by_gist": {
+    "Magnitude": 1,
+    "Category": 5,
+    "PlannedEvent": 5,
+    "-": 2,
+    "Agent": 1,
+    "PhysicalThing": 1
+   },
+   "concepts_by_schema": {
+    "QuantitativeValue": 1,
+    "DefinedTerm": 5,
+    "Action": 5,
+    "-": 2,
+    "Organization": 1,
+    "Product": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 2,
+   "time_phrase_examples": [
+    "early next week",
+    "these days"
+   ],
+   "top_labels": [
+    "your schedule",
+    "surgery",
+    "early next week",
+    "these days",
+    "just a perk",
+    "my assistance",
+    "your new house decorations",
+    "anything",
+    "things",
+    "everything",
+    "appointments",
+    "order",
+    "What",
+    "help",
+    "you"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-kgikasgk",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 30,
+    "Constraint": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 8,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "ESTABLISHED_IN": 1,
+    "FOLLOWED_BY": 48,
+    "ESTABLISHED": 1,
+    "ROUTES_TO": 8,
+    "REIFIED_AS": 1,
+    "CO_OCCURS_WITH": 1,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 8,
+    "gist_class": 8,
+    "archived": 8,
+    "confidence": 8,
+    "concept_id": 8,
+    "confidence_low": 8,
+    "embedding_dim": 8,
+    "schema_org_type": 8,
+    "text_raw": 8,
+    "embedding_model": 8,
+    "flagged_for_review": 8,
+    "last_accessed_at": 8,
+    "pathway_strength": 8,
+    "salience_score": 8
+   },
+   "concepts": 8,
+   "concepts_confidence_low": 6,
+   "concepts_by_gist": {
+    "Magnitude": 1,
+    "PlannedEvent": 5,
+    "Category": 2
+   },
+   "concepts_by_schema": {
+    "QuantitativeValue": 1,
+    "Action": 5,
+    "DefinedTerm": 2
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "more time",
+    "two vacations",
+    "cooking shows",
+    "my teaching platform",
+    "short trips",
+    "what",
+    "travel",
+    "both"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-vru25z2b",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 31,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 3
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "ROUTES_TO": 8,
+    "WARM_NODE": 1,
+    "SENT_IN": 52,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 3,
+    "gist_class": 3,
+    "archived": 3,
+    "confidence": 3,
+    "concept_id": 3,
+    "confidence_low": 3,
+    "embedding_dim": 3,
+    "schema_org_type": 3,
+    "text_raw": 3,
+    "embedding_model": 3,
+    "flagged_for_review": 3,
+    "last_accessed_at": 3,
+    "pathway_strength": 3,
+    "salience_score": 3
+   },
+   "concepts": 3,
+   "concepts_confidence_low": 3,
+   "concepts_by_gist": {
+    "PlannedEvent": 3
+   },
+   "concepts_by_schema": {
+    "Action": 3
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "this weekend",
+    "my homework",
+    "course"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-w39vq7qf",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 31,
+    "Label": 1,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 6
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "HAS_ALT_LABEL": 1,
+    "ROUTES_TO": 8,
+    "CO_OCCURS_WITH": 2,
+    "WARM_NODE": 2,
+    "SENT_IN": 52,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 6,
+    "gist_class": 6,
+    "archived": 6,
+    "confidence": 6,
+    "concept_id": 6,
+    "confidence_low": 6,
+    "embedding_dim": 6,
+    "schema_org_type": 6,
+    "text_raw": 6,
+    "embedding_model": 6,
+    "flagged_for_review": 6,
+    "last_accessed_at": 6,
+    "pathway_strength": 6,
+    "salience_score": 6
+   },
+   "concepts": 6,
+   "concepts_confidence_low": 6,
+   "concepts_by_gist": {
+    "PlannedEvent": 3,
+    "Category": 2,
+    "Agent": 1
+   },
+   "concepts_by_schema": {
+    "Action": 3,
+    "DefinedTerm": 2,
+    "Organization": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "next weekend"
+   ],
+   "top_labels": [
+    "fridays",
+    "next weekend",
+    "my brother",
+    "your race",
+    "this weekend",
+    "reviews"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-6yc0yxlf",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 39,
+    "Label": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 13,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 3,
+    "HAS_ALT_LABEL": 1,
+    "WARM_NODE": 3,
+    "SENT_IN": 52,
+    "ROUTES_TO": 8
+   },
+   "concept_literal_properties": {
+    "created_at": 13,
+    "gist_class": 13,
+    "archived": 13,
+    "confidence": 13,
+    "concept_id": 13,
+    "confidence_low": 13,
+    "embedding_dim": 13,
+    "schema_org_type": 13,
+    "text_raw": 13,
+    "embedding_model": 13,
+    "flagged_for_review": 13,
+    "last_accessed_at": 13,
+    "pathway_strength": 13,
+    "salience_score": 13
+   },
+   "concepts": 13,
+   "concepts_confidence_low": 13,
+   "concepts_by_gist": {
+    "PlannedEvent": 10,
+    "Restriction": 1,
+    "Category": 1,
+    "Magnitude": 1
+   },
+   "concepts_by_schema": {
+    "Action": 10,
+    "Demand": 1,
+    "DefinedTerm": 1,
+    "QuantitativeValue": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "your full marathon",
+    "a half mile",
+    "Maybe not a good time",
+    "our run",
+    "my training run",
+    "simple steps",
+    "Baby steps",
+    "this weekend",
+    "Training",
+    "marathons",
+    "Man",
+    "return",
+    "sailing"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-0xhybpcf",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 34,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 12,
+    "Message": 52
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 11,
+    "ROUTES_TO": 8,
+    "WARM_NODE": 2,
+    "SENT_IN": 52
+   },
+   "concept_literal_properties": {
+    "created_at": 12,
+    "gist_class": 12,
+    "archived": 12,
+    "confidence": 12,
+    "concept_id": 12,
+    "confidence_low": 12,
+    "embedding_dim": 12,
+    "schema_org_type": 12,
+    "text_raw": 12,
+    "embedding_model": 12,
+    "flagged_for_review": 12,
+    "last_accessed_at": 12,
+    "pathway_strength": 12,
+    "salience_score": 12
+   },
+   "concepts": 12,
+   "concepts_confidence_low": 8,
+   "concepts_by_gist": {
+    "PlannedEvent": 8,
+    "Category": 4
+   },
+   "concepts_by_schema": {
+    "Action": 8,
+    "DefinedTerm": 4
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "this weekend",
+    "coffee shops",
+    "street art",
+    "their team practices",
+    "cool murals",
+    "different things",
+    "mine awhile",
+    "lunch",
+    "school",
+    "Saturday",
+    "what",
+    "lots"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-hb55gm4y",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 33,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 50,
+    "Concept": 9
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "CO_OCCURS_WITH": 7,
+    "ROUTES_TO": 8,
+    "SENT_IN": 50,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 9,
+    "gist_class": 9,
+    "archived": 9,
+    "confidence": 9,
+    "concept_id": 9,
+    "confidence_low": 9,
+    "embedding_dim": 9,
+    "schema_org_type": 9,
+    "text_raw": 9,
+    "embedding_model": 9,
+    "flagged_for_review": 9,
+    "last_accessed_at": 9,
+    "pathway_strength": 9,
+    "salience_score": 9
+   },
+   "concepts": 9,
+   "concepts_confidence_low": 9,
+   "concepts_by_gist": {
+    "Category": 7,
+    "PlannedEvent": 1,
+    "Magnitude": 1
+   },
+   "concepts_by_schema": {
+    "DefinedTerm": 7,
+    "Action": 1,
+    "QuantitativeValue": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "local artists",
+    "home work",
+    "Burger King",
+    "their own name",
+    "their own music",
+    "community",
+    "all-ages",
+    "who",
+    "lots"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-g8bafhlc",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 29,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 2,
+    "Message": 50
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "ROUTES_TO": 8,
+    "SENT_IN": 50
+   },
+   "concept_literal_properties": {
+    "created_at": 2,
+    "gist_class": 2,
+    "archived": 2,
+    "confidence": 2,
+    "concept_id": 2,
+    "confidence_low": 2,
+    "embedding_dim": 2,
+    "schema_org_type": 2,
+    "text_raw": 2,
+    "embedding_model": 2,
+    "flagged_for_review": 2,
+    "last_accessed_at": 2,
+    "pathway_strength": 2,
+    "salience_score": 2
+   },
+   "concepts": 2,
+   "concepts_confidence_low": 2,
+   "concepts_by_gist": {
+    "PlannedEvent": 2
+   },
+   "concepts_by_schema": {
+    "Action": 2
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "your swimming class",
+    "surf a boogie board"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-kfvyhuvw",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 47,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 9
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 2,
+    "ROUTES_TO": 8,
+    "SENT_IN": 52,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 9,
+    "gist_class": 9,
+    "archived": 9,
+    "confidence": 9,
+    "concept_id": 9,
+    "confidence_low": 9,
+    "embedding_dim": 9,
+    "schema_org_type": 9,
+    "text_raw": 9,
+    "embedding_model": 9,
+    "flagged_for_review": 9,
+    "last_accessed_at": 9,
+    "pathway_strength": 9,
+    "salience_score": 9
+   },
+   "concepts": 9,
+   "concepts_confidence_low": 9,
+   "concepts_by_gist": {
+    "PlannedEvent": 8,
+    "Restriction": 1
+   },
+   "concepts_by_schema": {
+    "Action": 8,
+    "Demand": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 2,
+   "time_phrase_examples": [
+    "next month",
+    "next tuesday"
+   ],
+   "top_labels": [
+    "concerts",
+    "this weekend",
+    "next month",
+    "next tuesday",
+    "my gig",
+    "classroom management",
+    "teaching",
+    "promotion",
+    "covers"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-14_o1lsj",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 45,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 9,
+    "Message": 49
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 45,
+    "CO_OCCURS_WITH": 2,
+    "ROUTES_TO": 8,
+    "WARM_NODE": 1,
+    "SENT_IN": 49
+   },
+   "concept_literal_properties": {
+    "created_at": 9,
+    "gist_class": 9,
+    "archived": 9,
+    "confidence": 9,
+    "concept_id": 9,
+    "confidence_low": 9,
+    "embedding_dim": 9,
+    "schema_org_type": 9,
+    "text_raw": 9,
+    "embedding_model": 9,
+    "flagged_for_review": 9,
+    "last_accessed_at": 9,
+    "pathway_strength": 9,
+    "salience_score": 9
+   },
+   "concepts": 9,
+   "concepts_confidence_low": 8,
+   "concepts_by_gist": {
+    "Agent": 1,
+    "Magnitude": 1,
+    "Restriction": 1,
+    "Category": 2,
+    "PlannedEvent": 3,
+    "PhysicalThing": 1
+   },
+   "concepts_by_schema": {
+    "Organization": 1,
+    "QuantitativeValue": 1,
+    "Demand": 1,
+    "DefinedTerm": 2,
+    "Action": 3,
+    "Product": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 1,
+   "time_phrase_examples": [
+    "6 weeks"
+   ],
+   "top_labels": [
+    "california",
+    "My daughter",
+    "6 weeks",
+    "What part",
+    "San Francisco",
+    "this coming summer",
+    "plans",
+    "challenges",
+    "friday"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-1qt_vlwi",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 29,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 7,
+    "Message": 50
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "CO_OCCURS_WITH": 5,
+    "ROUTES_TO": 8,
+    "SENT_IN": 50
+   },
+   "concept_literal_properties": {
+    "created_at": 7,
+    "gist_class": 7,
+    "archived": 7,
+    "confidence": 7,
+    "concept_id": 7,
+    "confidence_low": 7,
+    "embedding_dim": 7,
+    "schema_org_type": 7,
+    "text_raw": 7,
+    "embedding_model": 7,
+    "flagged_for_review": 7,
+    "last_accessed_at": 7,
+    "pathway_strength": 7,
+    "salience_score": 7
+   },
+   "concepts": 7,
+   "concepts_confidence_low": 6,
+   "concepts_by_gist": {
+    "PlannedEvent": 3,
+    "Category": 4
+   },
+   "concepts_by_schema": {
+    "Action": 3,
+    "DefinedTerm": 4
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 2,
+   "time_phrase_examples": [
+    "next week",
+    "this summer"
+   ],
+   "top_labels": [
+    "next week",
+    "Disney",
+    "this weekend",
+    "this summer",
+    "stuff",
+    "what",
+    "things"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-6tvhuewy",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 52,
+    "Label": 1,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 10
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "CO_OCCURS_WITH": 4,
+    "HAS_ALT_LABEL": 1,
+    "SENT_IN": 52,
+    "ROUTES_TO": 8,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 10,
+    "gist_class": 10,
+    "archived": 10,
+    "confidence": 10,
+    "concept_id": 10,
+    "confidence_low": 10,
+    "embedding_dim": 10,
+    "schema_org_type": 10,
+    "text_raw": 10,
+    "embedding_model": 10,
+    "flagged_for_review": 10,
+    "last_accessed_at": 10,
+    "pathway_strength": 10,
+    "salience_score": 10
+   },
+   "concepts": 10,
+   "concepts_confidence_low": 10,
+   "concepts_by_gist": {
+    "Category": 2,
+    "Magnitude": 2,
+    "PlannedEvent": 5,
+    "Agent": 1
+   },
+   "concepts_by_schema": {
+    "DefinedTerm": 2,
+    "QuantitativeValue": 2,
+    "Action": 5,
+    "Organization": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 3,
+   "time_phrase_examples": [
+    "a free month",
+    "my next trip",
+    "your next child"
+   ],
+   "top_labels": [
+    "my next trip",
+    "a free month",
+    "my life",
+    "your first appointment",
+    "your next child",
+    "what",
+    "weekly",
+    "shows",
+    "order",
+    "course"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-ldx8t3n5",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 75,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 15,
+    "Message": 50
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 46,
+    "CO_OCCURS_WITH": 5,
+    "ROUTES_TO": 8,
+    "WARM_NODE": 1,
+    "SENT_IN": 50
+   },
+   "concept_literal_properties": {
+    "created_at": 15,
+    "gist_class": 15,
+    "archived": 15,
+    "confidence": 15,
+    "concept_id": 15,
+    "confidence_low": 15,
+    "embedding_dim": 15,
+    "schema_org_type": 15,
+    "text_raw": 15,
+    "embedding_model": 15,
+    "flagged_for_review": 15,
+    "last_accessed_at": 15,
+    "pathway_strength": 15,
+    "salience_score": 15
+   },
+   "concepts": 15,
+   "concepts_confidence_low": 15,
+   "concepts_by_gist": {
+    "PlannedEvent": 9,
+    "Restriction": 2,
+    "Category": 3,
+    "PhysicalThing": 1
+   },
+   "concepts_by_schema": {
+    "Action": 9,
+    "Demand": 2,
+    "DefinedTerm": 3,
+    "Product": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 2,
+   "time_phrase_examples": [
+    "First year",
+    "tonight"
+   ],
+   "top_labels": [
+    "my bar",
+    "less hazards",
+    "unsafe working conditions",
+    "your whole shift",
+    "Bar work",
+    "class schedules",
+    "First year",
+    "maybe construction or outdoor work",
+    "tonight",
+    "investigation",
+    "anything",
+    "Operations",
+    "sense",
+    "school",
+    "schooling"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-abpsedzp",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 20,
+    "Constraint": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Concept": 5,
+    "Message": 51
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "ESTABLISHED_IN": 1,
+    "FOLLOWED_BY": 47,
+    "ESTABLISHED": 1,
+    "ROUTES_TO": 8,
+    "REIFIED_AS": 1,
+    "WARM_NODE": 1,
+    "SENT_IN": 51
+   },
+   "concept_literal_properties": {
+    "created_at": 5,
+    "gist_class": 5,
+    "archived": 5,
+    "confidence": 5,
+    "concept_id": 5,
+    "confidence_low": 5,
+    "embedding_dim": 5,
+    "schema_org_type": 5,
+    "text_raw": 5,
+    "embedding_model": 5,
+    "flagged_for_review": 5,
+    "last_accessed_at": 5,
+    "pathway_strength": 5,
+    "salience_score": 5
+   },
+   "concepts": 5,
+   "concepts_confidence_low": 4,
+   "concepts_by_gist": {
+    "Magnitude": 1,
+    "Agent": 1,
+    "PlannedEvent": 3
+   },
+   "concepts_by_schema": {
+    "QuantitativeValue": 1,
+    "Organization": 1,
+    "Action": 3
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 2,
+   "time_phrase_examples": [
+    "Next weekend",
+    "Such a good month"
+   ],
+   "top_labels": [
+    "Next weekend",
+    "Such a good month",
+    "my local food drive",
+    "your birthday",
+    "myself"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-8b1kriwt",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 21,
+    "Label": 1,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 52,
+    "Concept": 5
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 48,
+    "HAS_ALT_LABEL": 1,
+    "REQUIRES": 1,
+    "ROUTES_TO": 8,
+    "CO_OCCURS_WITH": 1,
+    "SENT_IN": 52,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 5,
+    "gist_class": 5,
+    "archived": 5,
+    "confidence": 5,
+    "concept_id": 5,
+    "confidence_low": 5,
+    "embedding_dim": 5,
+    "schema_org_type": 5,
+    "text_raw": 5,
+    "embedding_model": 5,
+    "flagged_for_review": 4,
+    "last_accessed_at": 5,
+    "pathway_strength": 5,
+    "salience_score": 4
+   },
+   "concepts": 5,
+   "concepts_confidence_low": 5,
+   "concepts_by_gist": {
+    "PlannedEvent": 1,
+    "PhysicalThing": 1,
+    "Agent": 2,
+    "-": 1
+   },
+   "concepts_by_schema": {
+    "Action": 1,
+    "Product": 1,
+    "Organization": 2,
+    "-": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "saturday",
+    "my wife",
+    "more educators",
+    "Denver",
+    "We"
+   ]
+  },
+  {
+   "store": "/tmp/campy-bench-apiwmq67",
+   "nodes": {
+    "MainQuest": 1,
+    "SchemaOrgType": 8,
+    "GistExample": 33,
+    "Lesson": 1,
+    "Session": 4,
+    "WorkSummary": 4,
+    "GistClass": 7,
+    "Message": 48,
+    "Concept": 4
+   },
+   "edges": {
+    "WORKING_ON": 4,
+    "FOLLOWED_BY": 44,
+    "CO_OCCURS_WITH": 2,
+    "ROUTES_TO": 8,
+    "SENT_IN": 48,
+    "LEARNED": 1
+   },
+   "concept_literal_properties": {
+    "created_at": 4,
+    "gist_class": 4,
+    "archived": 4,
+    "confidence": 4,
+    "concept_id": 4,
+    "confidence_low": 4,
+    "embedding_dim": 4,
+    "schema_org_type": 4,
+    "text_raw": 4,
+    "embedding_model": 4,
+    "flagged_for_review": 4,
+    "last_accessed_at": 4,
+    "pathway_strength": 4,
+    "salience_score": 4
+   },
+   "concepts": 4,
+   "concepts_confidence_low": 4,
+   "concepts_by_gist": {
+    "PlannedEvent": 2,
+    "PhysicalThing": 1,
+    "Category": 1
+   },
+   "concepts_by_schema": {
+    "Action": 2,
+    "Product": 1,
+    "DefinedTerm": 1
+   },
+   "variant_groups": 0,
+   "concepts_in_variant_groups": 0,
+   "variant_examples": {},
+   "junk_prefix": 0,
+   "junk_prefix_examples": [],
+   "time_phrase_concepts": 0,
+   "time_phrase_examples": [],
+   "top_labels": [
+    "my German shepherd",
+    "gym class",
+    "dodgeball",
+    "German"
+   ]
+  }
+ ],
+ "total": {
+  "stores": 50,
+  "nodes": {
+   "Message": 2552,
+   "GistExample": 1883,
+   "SchemaOrgType": 400,
+   "GistClass": 350,
+   "Concept": 348,
+   "Session": 200,
+   "WorkSummary": 200,
+   "MainQuest": 50,
+   "Lesson": 21,
+   "Label": 16,
+   "Constraint": 4
+  },
+  "edges": {
+   "SENT_IN": 2552,
+   "FOLLOWED_BY": 2352,
+   "ROUTES_TO": 400,
+   "WORKING_ON": 200,
+   "CO_OCCURS_WITH": 132,
+   "WARM_NODE": 28,
+   "LEARNED": 21,
+   "HAS_ALT_LABEL": 16,
+   "REQUIRES": 6,
+   "ESTABLISHED_IN": 4,
+   "ESTABLISHED": 4,
+   "REIFIED_AS": 4,
+   "CONTAINS_LESSON": 1,
+   "ALTERNATIVE_TO": 1,
+   "CHOSEN_OVER": 1,
+   "REPLACES": 1
+  },
+  "concept_literal_properties": {
+   "created_at": 348,
+   "gist_class": 348,
+   "archived": 348,
+   "confidence": 348,
+   "concept_id": 348,
+   "confidence_low": 348,
+   "embedding_dim": 348,
+   "schema_org_type": 348,
+   "text_raw": 348,
+   "embedding_model": 348,
+   "last_accessed_at": 348,
+   "pathway_strength": 348,
+   "flagged_for_review": 338,
+   "salience_score": 338
+  },
+  "concepts_by_gist": {
+   "PlannedEvent": 180,
+   "Category": 85,
+   "Magnitude": 23,
+   "Agent": 19,
+   "PhysicalThing": 18,
+   "Restriction": 12,
+   "-": 10,
+   "Event": 1
+  },
+  "concepts_by_schema": {
+   "Action": 180,
+   "DefinedTerm": 85,
+   "QuantitativeValue": 23,
+   "Product": 18,
+   "Organization": 17,
+   "Demand": 12,
+   "-": 10,
+   "Person": 2,
+   "Event": 1
+  },
+  "concepts": 348,
+  "concepts_confidence_low": 331,
+  "variant_groups": 0,
+  "concepts_in_variant_groups": 0,
+  "junk_prefix": 0,
+  "time_phrase_concepts": 42
+ }
+}

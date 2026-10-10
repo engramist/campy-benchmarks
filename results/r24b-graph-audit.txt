@@ -1,0 +1,32 @@
+
+=== total over 50 stores ===
+
+=== 50 stores ===
+nodes: Message 2552, GistExample 1883, SchemaOrgType 400, GistClass 350, Concept 348, Session 200, WorkSummary 200, MainQuest 50, Lesson 21, Label 16, Constraint 4
+edges: SENT_IN 2552, FOLLOWED_BY 2352, ROUTES_TO 400, WORKING_ON 200, CO_OCCURS_WITH 132, WARM_NODE 28, LEARNED 21, HAS_ALT_LABEL 16, REQUIRES 6, ESTABLISHED_IN 4, ESTABLISHED 4, REIFIED_AS 4, CONTAINS_LESSON 1, ALTERNATIVE_TO 1, CHOSEN_OVER 1, REPLACES 1
+concepts: 348  confidence_low: 331 (95%)
+  split into variants: 0 concepts in 0 groups (0%)
+  harness-prefix junk: 0  time phrases: 42 (12%)
+  by gist: {'PlannedEvent': 180, 'Category': 85, 'Magnitude': 23, 'Agent': 19, 'PhysicalThing': 18, 'Restriction': 12, '-': 10, 'Event': 1}
+  by schema.org type: {'Action': 180, 'DefinedTerm': 85, 'QuantitativeValue': 23, 'Product': 18, 'Organization': 17, 'Demand': 12, '-': 10, 'Person': 2, 'Event': 1}
+  literal properties on Concept: archived, concept_id, confidence, confidence_low, created_at, embedding_dim, embedding_model, flagged_for_review, gist_class, last_accessed_at, pathway_strength, salience_score, schema_org_type, text_raw
+
+  examples from /tmp/campy-bench-q59b5srm:
+    variant_examples: {}
+    junk_prefix_examples: []
+    time_phrase_examples: ['tonight', 'your day', 'your next restoration project']
+    top_labels: ['your day', 'your next restoration project', 'mechanics', 'tonight', 'word']
+
+  examples from /tmp/campy-bench-_rvmwwjh:
+    variant_examples: {}
+    junk_prefix_examples: []
+    time_phrase_examples: ['a tough month']
+    top_labels: ['this weekend', 'their group', 'our new neighbours', 'My job', 'a tough month', 'your new job', 'big plans', 'your move', 'school', 'Orlando', 'Work']
+
+  examples from /tmp/campy-bench-sqc_4xl_:
+    variant_examples: {}
+    junk_prefix_examples: []
+    time_phrase_examples: ['your last stunt gig']
+    top_labels: ['free time', 'Stephen King', 'My dad', 'home depot', 'your last stunt gig', 'Libby']
+
+written: results/r24b-graph-audit.json
