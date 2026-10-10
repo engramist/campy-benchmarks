@@ -1,0 +1,3466 @@
+{
+  "timestamp": "2026-10-10T01:23:55.108989+00:00",
+  "provenance": {
+    "scorer_version": 4,
+    "argv": [
+      "run_all.py",
+      "--baseline",
+      "--isolated",
+      "--judge-model",
+      "gemma4:26b",
+      "--baselines",
+      "all",
+      "--suite",
+      "longmemeval",
+      "--lme-variant",
+      "oracle",
+      "--lme-questions",
+      "35",
+      "--out",
+      "results/r20b-lme-oracle-q35-baselines.json"
+    ],
+    "harness": {
+      "path": "/private/tmp/cb-r20",
+      "commit": "1bf305a3baaaa05b940e36ac9ca048321d0e47ff",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "hippocampy": {
+      "path": "/Users/djshelton/Desktop/GitProjects/hippocampy",
+      "commit": "402c96cc41797331d385d4f602d70239795344f8",
+      "branch": "HEAD",
+      "dirty": false,
+      "dirty_files": []
+    },
+    "daemon_config": {
+      "source": "isolated (written by harness)",
+      "derived_from": "/Users/djshelton/.campy/config.toml",
+      "sha256": "74573127a360f9d3a44f1612d13d76b1b35ce9c4235a5f162d5c6de77cac59bc",
+      "llm_provider": "ollama",
+      "llm_model": "llama3.1:8b",
+      "llm_step_overrides": {},
+      "embeddings_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "compression_model": null
+    },
+    "store": {
+      "isolated": true,
+      "campy_home": "(deleted after run)",
+      "web_port": 53259,
+      "config_overrides": {
+        "capture.enabled": false,
+        "capture.codex.enabled": false,
+        "capture.claude_code.enabled": false,
+        "capture.vscode.enabled": false,
+        "daemon.restart_interval_hours": 0,
+        "watchdog.enabled": false,
+        "web.port": 53259,
+        "server.bind_host": "127.0.0.1",
+        "activity.log_path": "/tmp/campy-bench-jmtk4w8o/activity.log"
+      },
+      "daemon_ready_seconds": 2.0,
+      "activity_log_lines": 2
+    },
+    "dataset_sha": {
+      "locomo": "dbbe2514f617d524",
+      "membench": "5ba306db91543c61",
+      "locomo10": "79fa87e90f040813@3eb6f2c5"
+    },
+    "python": "3.12.13",
+    "platform": "macOS-26.6.2-arm64-arm-64bit"
+  },
+  "mode": "standard",
+  "mcp_configured": true,
+  "suites": {
+    "longmemeval": {
+      "suite": "longmemeval",
+      "dataset": {
+        "variant": "oracle",
+        "file": "/private/tmp/cb-r20/data/longmemeval_oracle.json",
+        "sha256": "821a2034d219ab45",
+        "options": {
+          "max_questions": 35,
+          "types": null
+        },
+        "questions": 35,
+        "turns": 746
+      },
+      "questions": 35,
+      "accuracy": 0.6,
+      "task_averaged_accuracy": 0.6,
+      "evidence_recall": 0.6132,
+      "evidence_over_ingest_limit": 0,
+      "errors": 0,
+      "by_category": {
+        "abstention": {
+          "n": 5,
+          "accuracy": 0.8,
+          "evidence_recall": 0.875
+        },
+        "knowledge-update": {
+          "n": 5,
+          "accuracy": 0.6,
+          "evidence_recall": 0.4667
+        },
+        "multi-session": {
+          "n": 5,
+          "accuracy": 0.4,
+          "evidence_recall": 0.6367
+        },
+        "single-session-assistant": {
+          "n": 5,
+          "accuracy": 0.8,
+          "evidence_recall": 0.8
+        },
+        "single-session-preference": {
+          "n": 5,
+          "accuracy": 0.8,
+          "evidence_recall": 0.4667
+        },
+        "single-session-user": {
+          "n": 5,
+          "accuracy": 0.6,
+          "evidence_recall": 0.6
+        },
+        "temporal-reasoning": {
+          "n": 5,
+          "accuracy": 0.2,
+          "evidence_recall": 0.5
+        }
+      },
+      "ingest_seconds": 3694.7,
+      "avg_latency_ms": 2909.0,
+      "details": [
+        {
+          "id": "gpt4_70e84552_abs",
+          "question_type": "temporal-reasoning",
+          "category": "abstention",
+          "abstention": true,
+          "question": "Which task did I complete first, fixing the fence or purchasing three cows from Peter?",
+          "question_date": "2023/05/30 (Tue) 08:08",
+          "expected": "The information provided is not enough. You mentioned fixing the fence but did not mention purchasing cows from Peter.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_b3070ec4_abs_1:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 148.2,
+          "compile_latency_ms": 54.5,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 663,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 5
+              }
+            ],
+            "top_items": [
+              "three weeks ago",
+              "2023/05/30",
+              "[user, 2026-10-10 00:19] [2023/05/30 (Tue) 04:10] I'm thinking of hosting a farm open house event soon and I want to make sure everything is perfect. Can you help me come up with some ideas for activities and also give me some tips on how \u2026",
+              "[user, 2026-10-10 00:19] [2023/05/30 (Tue) 04:10] I like the idea of a petting zoo, but I'm worried about the logistics of keeping all the animals contained and safe. Do you have any advice on how to set that up? By the way, I've also been\u2026",
+              "[user, 2026-10-10 00:19] [2023/05/30 (Tue) 04:10] I think I'll stop here for now. I've got a lot to think about with the farm open house event and selecting a new cow breed. Thanks for all the advice and guidance! I feel more confident abo\u2026",
+              "[user, 2026-10-10 00:19] [2023/05/30 (Tue) 08:29] I'm thinking of hosting a farm open house event soon and I was wondering if you could help me come up with some fun activities for kids and adults alike. By the way, speaking of the farm, I\u2026",
+              "[user, 2026-10-10 00:19] [2023/05/30 (Tue) 08:29] Thanks for the advice! I was thinking of getting a Brown Swiss or a Jersey, as I've heard they're both great for dairy production. I've also been doing some research online and talking to o\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, it appears that you mentioned fixing the fence on the east side of your property three weeks ago, which was before the current date of 2023/05/30. You also mentioned getting your goats vaccinated against parasites last Thursday, which is after fixing the fence.\n\nAs for purchasing three cows from Peter, there is no mention of this in the conversation history. However, you did mention considering getting a Brown Swiss or a Jersey cow for dairy production, but you didn't mention purchasing any cows yet.\n\nTherefore, based on the information provided, it seems that fixing the fence was the task you completed first.",
+          "latency_ms": 4005.6,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "6a1eabeb",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "What was my personal best time in the charity 5K run?",
+          "question_date": "2023/06/01 (Thu) 00:58",
+          "expected": "25 minutes and 50 seconds (or 25:50)",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_a25d4a91_1:4",
+            "answer_a25d4a91_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 107.8,
+          "compile_latency_ms": 47.4,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 285,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "your personal schedule",
+              "(Thu",
+              "[user, 2026-10-10 00:21] [2023/05/27 (Sat) 10:20] I'm training for another charity 5K run coming up and I was wondering if you could give me some tips on how to improve my endurance. By the way, I'm hoping to beat my personal best time of \u2026",
+              "[user, 2026-10-10 00:21] [2023/05/27 (Sat) 10:20] I'm getting ready for a charity 5K run and I was wondering if you could give me some tips on how to improve my endurance. By the way, I'm hoping to beat my personal best time this time arou\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, your personal best time in the charity 5K run is 25:50. This information was mentioned in a conversation on 2023/05/27 (Sat) 10:20, where you expressed your goal of beating this time in the upcoming charity 5K run.",
+          "latency_ms": 1920.3,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "0a995998",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many items of clothing do I need to pick up or return from a store?",
+          "question_date": "2023/02/15 (Wed) 19:47",
+          "expected": "3",
+          "sessions": 3,
+          "turns": 34,
+          "evidence": [
+            "answer_afa9873b_2:10",
+            "answer_afa9873b_3:6",
+            "answer_afa9873b_1:4"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 174.0,
+          "compile_latency_ms": 48.8,
+          "evidence_recall": 0.3333,
+          "context": {
+            "total_token_estimate": 385,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 00:23] [2023/02/15 (Wed) 03:35] I need help organizing my closet. Can you give me some tips on how to declutter and categorize my clothes? Also, by the way, I still need to pick up my dry cleaning for the navy blue blazer\u2026",
+              "[user, 2026-10-10 00:23] [2023/02/15 (Wed) 03:35] That's a lot of tips! Thanks for the help. I'm going to start with decluttering my clothes. Can you give me some advice on how to decide what to keep and what to donate or discard? I've got\u2026",
+              "[user, 2026-10-10 00:23] [2023/02/15 (Wed) 03:35] I'll start with my short-sleeve shirts. I've got a lot of them, and some of them are from last summer. I'm not sure if I'll wear them again this year.",
+              "[user, 2026-10-10 00:23] [2023/02/15 (Wed) 07:47] I'm looking for some organization tips for my closet. It's been a mess since the holidays and I still have winter clothes to put away.",
+              "[user, 2026-10-10 00:23] [2023/02/15 (Wed) 07:47] I need to return some boots to Zara, actually. I got them on February 5th, but they were too small, so I exchanged them for a larger size. I just haven't had a chance to pick them up yet.",
+              "[user, 2026-10-10 00:23] [2023/02/15 (Wed) 13:53] I'm thinking of organizing my closet this weekend. Can you give me some tips on how to maximize my closet space? By the way, I just got back from a dinner date last Friday and wore my new b\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, you need to pick up one item of clothing: the navy blue blazer from the dry cleaner. You also need to return one item: the boots from Zara that you exchanged for a larger size.",
+          "latency_ms": 2345.1,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "7161e7e2",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "I'm checking our previous chat about the shift rotation sheet for GM social media agents. Can you remind me what was the rotation for Admon on a Sunday?",
+          "question_date": "2023/05/26 (Fri) 02:28",
+          "expected": "Admon was assigned to the 8 am - 4 pm (Day Shift) on Sundays.",
+          "sessions": 1,
+          "turns": 14,
+          "evidence": [
+            "answer_sharegpt_5Lzox6N_0:13"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 141.8,
+          "compile_latency_ms": 59.8,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 1308,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 5
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              },
+              {
+                "type": "assistant_said",
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "GM social media agents",
+              "Admon",
+              "Sunday",
+              "Sunday - Saturday",
+              "7 agents",
+              "[user, 2026-10-10 00:26] [2023/05/24 (Wed) 16:21] can u create a shift rotation sheet for GM social media agents",
+              "[user, 2026-10-10 00:26] [2023/05/24 (Wed) 16:21] 7 agents",
+              "[user, 2026-10-10 00:26] [2023/05/24 (Wed) 16:21] 4 shifts as follows: \"8 am till 4 pm - 12 pm till 8 pm - 4 pm till 12 am - 12 am till 8 am \""
+            ]
+          },
+          "answer": "Based on the provided memory context, I can see that we previously discussed the shift rotation sheet for GM social media agents. Specifically, we created a rotation for a week starting on Sunday and ending on Saturday, with each agent working one shift per day and having two days off during the week.\n\nLooking at the rotation for Sunday, I see that Admon is assigned to the 12 am - 8 am (Night Shift) on Sunday.\n\nSo, to answer your question, Admon's shift on a Sunday is the 12 am - 8 am (Night Shift).",
+          "latency_ms": 5309.1,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "8a2466db",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you recommend some resources where I can learn more about video editing?",
+          "question_date": "2023/05/24 (Wed) 22:03",
+          "expected": "The user would prefer responses that suggest resources specifically tailored to Adobe Premiere Pro, especially those that delve into its advanced settings. They might not prefer general video editing resources or resources related to other video editing software.",
+          "sessions": 1,
+          "turns": 18,
+          "evidence": [
+            "answer_edb03329:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 37.6,
+          "compile_latency_ms": 46.8,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 65,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 00:29] [2023/05/20 (Sat) 01:03] Can you explain the difference between the Lumetri Color Panel and the Legacy Color Grading tools in Premiere Pro? I'm not sure when to use each, and I want to make sure I'm using the right\u2026"
+            ]
+          },
+          "answer": "Based on the provided context, it seems that you're interested in learning more about video editing, specifically in Premiere Pro. However, the memory context only contains a conversation about the Lumetri Color Panel and Legacy Color Grading tools, which is a specific aspect of video editing.\n\nI can suggest some general resources for learning video editing, but I don't have any specific information about the Lumetri Color Panel or Legacy Color Grading tools. If you'd like, I can try to provide some general recommendations for learning video editing.\n\nAdditionally, I can try to provide more information about the Lumetri Color Panel and Legacy Color Grading tools based on my general knowledge, but it might not be as specific or up-to-date as you would get from the official Premiere Pro documentation or tutorials.\n\nWould you like me to provide some general recommendations for learning video editing, or would you like me to try to provide more information about the Lumetri Color Panel and Legacy Color Grading tools?",
+          "latency_ms": 4185.6,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "e47becba",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "What degree did I graduate with?",
+          "question_date": "2023/05/23 (Tue) 19:11",
+          "expected": "Business Administration",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_280352e9:4",
+            "answer_280352e9:5"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 102.2,
+          "compile_latency_ms": 38.0,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 0,
+            "sections": [],
+            "top_items": []
+          },
+          "answer": "I don't have any information in my memory about your educational background or the degree you graduated with.",
+          "latency_ms": 742.8,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "gpt4_2655b836",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "What was the first issue I had with my new car after its first service?",
+          "question_date": "2023/04/10 (Mon) 23:07",
+          "expected": "GPS system not functioning correctly",
+          "sessions": 3,
+          "turns": 36,
+          "evidence": [
+            "answer_4be1b6b4_3:2",
+            "answer_4be1b6b4_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 300.2,
+          "compile_latency_ms": 58.6,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 953,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 6
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "my new car accessories",
+              "2023/04/10 (Mon",
+              "my car",
+              "car wax and detailing",
+              "car wax and detailing products or services",
+              "2023/04/10",
+              "[user, 2026-10-10 00:31] [2023/04/10 (Mon) 14:47] That's really helpful, thanks! I'll definitely keep those tips in mind to improve my gas mileage. And yeah, I'll ask about additional services like interior cleaning and paint protection wh\u2026",
+              "[user, 2026-10-10 00:31] [2023/04/10 (Mon) 17:15] I think I'll try to balance my loyalty to Shell with finding cheaper options along the way. I'll use gas price comparison apps to find the best deals and fill up at Shell stations when they\u2026"
+            ]
+          },
+          "answer": "The first issue you had with your new car after its first service was not explicitly mentioned in the provided context. However, it is mentioned that you got your car serviced for the first time on March 15th, and it was a great experience. \n\nHowever, there is a mention of you thinking about getting your car detailed soon, which suggests that you might have had some issues or concerns about the car's appearance after the service. But, there is no specific mention of a problem or issue that you had with the car after the service.\n\nIt's worth noting that the context provided is from 2026, and the conversation about the car's first service is from 2023.",
+          "latency_ms": 10708.9,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "gpt4_93159ced_abs",
+          "question_type": "temporal-reasoning",
+          "category": "abstention",
+          "abstention": true,
+          "question": "How long have I been working before I started my current job at Google?",
+          "question_date": "2023/05/23 (Tue) 10:59",
+          "expected": "The information provided is not enough. From the information provided, You haven't started working at Google yet.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 243.7,
+          "compile_latency_ms": 56.8,
+          "evidence_recall": null,
+          "context": {
+            "total_token_estimate": 480,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 4
+              }
+            ],
+            "top_items": [
+              "(Tue",
+              "[user, 2026-10-10 00:36] [2023/05/23 (Tue) 05:40] I think my team would greatly benefit from these tools, especially with the high-priority project we're working on at NovaTech. My top priority is to identify performance bottlenecks and op\u2026",
+              "[user, 2026-10-10 00:36] [2023/05/23 (Tue) 05:40] I'll start by saying that I'm a software engineer, specifically a backend developer, and I've been in this field since I graduated with a degree in Computer Science from the University of C\u2026",
+              "[user, 2026-10-10 00:36] [2023/05/23 (Tue) 10:34] I'll definitely check out these tools and see which one fits my freelance workflow. I've been thinking of taking my freelance business to the next level, and using a digital tool to track m\u2026",
+              "[user, 2026-10-10 00:36] [2023/05/23 (Tue) 10:34] I'll consider these factors when pricing my project management and consulting services. It's helpful to have a structured approach to pricing, and I appreciate the example you provided. I'l\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, it appears that you have been working at NovaTech for about 4 years and 3 months. However, there is no information about when you started your current job at Google. Therefore, I cannot determine how long you have been working before you started your current job at Google.",
+          "latency_ms": 2382.4,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "6aeb4375",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "How many Korean restaurants have I tried in my city?",
+          "question_date": "2023/10/08 (Sun) 21:51",
+          "expected": "four",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_3f9693b7_1:8",
+            "answer_3f9693b7_2:2"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 28.2,
+          "compile_latency_ms": 47.9,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 578,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 5
+              }
+            ],
+            "top_items": [
+              "my city",
+              "Korean",
+              "Korean-style BBQ beef",
+              "[user, 2026-10-10 00:41] [2023/08/11 (Fri) 09:00] By the way, speaking of noodles, have you tried any good Korean restaurants in your city lately? I've tried three different ones recently, and each has its own unique flavor and style.",
+              "[user, 2026-10-10 00:41] [2023/09/30 (Sat) 18:01] I'm planning a dinner party and need some help with the menu. I was thinking of making Korean-style BBQ beef, but I want to know if you have any recommendations for side dishes that would c\u2026",
+              "[user, 2026-10-10 00:41] [2023/09/30 (Sat) 18:01] I think I'll go with kimchi and bokkeumbap. By the way, have you tried any good Korean restaurants in my city lately? I've tried four different ones so far, and I'm always looking for new r\u2026",
+              "[user, 2026-10-10 00:41] [2023/09/30 (Sat) 18:01] I think I'll go with the samosas and saag aloo. Do you have any recommendations for a good brand of basmati rice? I've been trying out different types of rice lately, and I want to make sur\u2026",
+              "[user, 2026-10-10 00:41] [2023/09/30 (Sat) 18:01] I think I'll stick with the traditional Indian basmati rice. I'll pick up a bag from the store later today. By the way, have you heard about that new Indian restaurant that just opened up i\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, you have tried four different Korean restaurants in your city. The user mentioned trying three different Korean restaurants in their conversation on 2023/08/11, and then you mentioned trying four different ones in your conversation on 2023/09/30.",
+          "latency_ms": 2339.1,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "6d550036",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many projects have I led or am currently leading?",
+          "question_date": "2023/05/30 (Tue) 04:18",
+          "expected": "2",
+          "sessions": 4,
+          "turns": 44,
+          "evidence": [
+            "answer_ec904b3c_4:0",
+            "answer_ec904b3c_2:2",
+            "answer_ec904b3c_1:0",
+            "answer_ec904b3c_3:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 210.2,
+          "compile_latency_ms": 42.6,
+          "evidence_recall": 0.25,
+          "context": {
+            "total_token_estimate": 268,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 00:41] [2023/05/24 (Wed) 09:36] I think I've covered everything I wanted to discuss. Thanks for the chat, it was really helpful to bounce ideas and get feedback on my project. I feel more confident now about presenting my\u2026",
+              "[user, 2026-10-10 00:41] [2023/05/28 (Sun) 17:25] I'm working on a project that involves analyzing customer data to identify trends and patterns. I was thinking of using clustering analysis, but I'm not sure which type of clustering method\u2026",
+              "[user, 2026-10-10 00:41] [2023/05/30 (Tue) 02:38] Can you provide more information on the credibility and trust factors mentioned in the systematic review by Hussain and Ali? I'm particularly interested in how social media influencers esta\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, it appears that you have led at least one project in the past. In the conversation on 2023/05/28 (Sun) 17:25, you mentioned that you led the data analysis team for a Marketing Research class project, where you did a comprehensive market analysis for a new product launch.\n\nHowever, I do not have information about any current projects you are leading. The most recent conversation on 2023/05/30 (Tue) 02:38 is about a different topic, and there is no mention of a current project.\n\nTherefore, I can conclude that you have led at least one project in the past, but I do not have information about any current projects you are leading.",
+          "latency_ms": 3761.4,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "c4f10528",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "I'm planning to visit Bandung again and I was wondering if you could remind me of the name of that restaurant in Cihampelas Walk that serves a great Nasi Goreng?",
+          "question_date": "2023/05/25 (Thu) 15:43",
+          "expected": "Miss Bee Providore",
+          "sessions": 1,
+          "turns": 14,
+          "evidence": [
+            "answer_ultrachat_234453:7"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 46.7,
+          "compile_latency_ms": 60.6,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 367,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 4
+              },
+              {
+                "type": "conversation",
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "the Miss Bee's Nasi Goreng",
+              "Cihampelas Walk",
+              "Bandung",
+              "great suggestions",
+              "[user, 2026-10-10 00:45] [2023/05/22 (Mon) 22:17] Yum, all of those dishes sound amazing! I'm definitely going to try the Miss Bee's Nasi Goreng and finish it off with the chocolate brownie."
+            ]
+          },
+          "answer": "Based on the memory context, I can answer your question. The restaurant in Cihampelas Walk that serves a great Nasi Goreng is Miss Bee's.",
+          "latency_ms": 1339.4,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "06878be2",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you suggest some accessories that would complement my current photography setup?",
+          "question_date": "2023/05/30 (Tue) 05:04",
+          "expected": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+          "sessions": 1,
+          "turns": 16,
+          "evidence": [
+            "answer_555dfb94:0",
+            "answer_555dfb94:8",
+            "answer_555dfb94:14"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 32.4,
+          "compile_latency_ms": 47.8,
+          "evidence_recall": 0.6667,
+          "context": {
+            "total_token_estimate": 154,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 00:46] [2023/05/28 (Sun) 12:58] What's the best way to clean my Sony 24-70mm f/2.8 lens? I've heard that using a soft cloth and some cleaning solution can leave streaks or scratches on the lens.",
+              "[user, 2026-10-10 00:46] [2023/05/28 (Sun) 12:58] As a Sony camera user, I've been thinking about upgrading my camera bag to something more comfortable and durable. Do you have any recommendations for camera bags that are specifically desi\u2026"
+            ]
+          },
+          "answer": "Based on our previous conversation, I see that you're a Sony camera user and are looking for recommendations on camera bags that are specifically designed for Sony cameras. You're also concerned about cleaning your Sony 24-70mm f/2.8 lens.\n\nAs for accessories that would complement your current photography setup, I'd like to suggest a few options:\n\n1. A lens cleaning kit that's specifically designed for Sony lenses. This would include a soft, anti-static cloth and a cleaning solution that's safe for your lens.\n2. A camera bag that's designed for Sony cameras, such as the ones you mentioned you're looking at. A comfortable and durable bag would be a great addition to your photography setup.\n3. A lens hood or a polarizing filter to help reduce glare and improve image quality.\n4. A remote shutter release or a camera timer to help you take sharper photos, especially in low-light conditions.\n\nI hope these suggestions are helpful! Let me know if you have any other questions or if there's anything else I can help you with.",
+          "latency_ms": 4834.7,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "118b2229",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "How long is my daily commute to work?",
+          "question_date": "2023/05/30 (Tue) 08:00",
+          "expected": "45 minutes each way",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_40a90d51:8"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 61.9,
+          "compile_latency_ms": 48.4,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 412,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "my daily commute",
+              "daily",
+              "(Tue",
+              "[user, 2026-10-10 00:46] [2023/05/23 (Tue) 18:02] I'm looking for some new fiction audiobook recommendations. I've been enjoying audiobooks a lot lately, especially during my daily commute.",
+              "[user, 2026-10-10 00:46] [2023/05/23 (Tue) 18:02] I've been listening to audiobooks during my daily commute, which takes 45 minutes each way.",
+              "[user, 2026-10-10 00:46] [2023/05/23 (Tue) 18:02] I've noticed that I tend to retain more information from audiobooks than e-books, maybe because audiobooks are more engaging or because I can multitask while listening to them. I've started\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, I can answer your question about your daily commute to work.\n\nYour daily commute to work takes 45 minutes each way, which means the total daily commute time is 1 hour and 30 minutes.",
+          "latency_ms": 1775.7,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "gpt4_2487a7cb",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "Which event did I attend first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar?",
+          "question_date": "2023/05/28 (Sun) 06:47",
+          "expected": "'Data Analysis using Python' webinar",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_1c6b85ea_2:2",
+            "answer_1c6b85ea_1:10"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 148.2,
+          "compile_latency_ms": 57.1,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 543,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 4
+              },
+              {
+                "type": "conversation",
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "Python",
+              "data visualization",
+              "Sun",
+              "2023/05/28",
+              "[user, 2026-10-10 00:47] [2023/05/28 (Sun) 07:17] I'm actually thinking of using Python to connect to the data source and then create the dashboard, so I don't think the data connection and integration aspect is a major concern for me. I'm\u2026",
+              "[user, 2026-10-10 00:47] [2023/05/28 (Sun) 07:17] I think I'll try out both Tableau and Power BI's free trials to get a feel for their interfaces and customization options. I'll also explore their Python APIs and documentation to see which\u2026",
+              "[user, 2026-10-10 00:47] [2023/05/28 (Sun) 21:04] I'll definitely check out these recommendations. I've been trying to implement some of the strategies like prioritizing tasks and breaking them down into smaller chunks, and it's been helpi\u2026"
+            ]
+          },
+          "answer": "I cannot determine which event you attended first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar, as this information is not present in the provided memory context. Is there anything else I can help you with?",
+          "latency_ms": 1926.6,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "982b5123_abs",
+          "question_type": "temporal-reasoning",
+          "category": "abstention",
+          "abstention": true,
+          "question": "When did I book the Airbnb in Sacramento?",
+          "question_date": "2023/05/25 (Thu) 14:37",
+          "expected": "The information provided is not enough. You only mentioned booking Airbnb in San Francisco.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_ab603dd5_abs_1:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 103.0,
+          "compile_latency_ms": 50.2,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 597,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 4
+              },
+              {
+                "type": "conversation",
+                "items": 4
+              }
+            ],
+            "top_items": [
+              "Airbnb",
+              "[2023/05/25 (Thu",
+              "[2023/05/25 (Thu)",
+              "2023/05/25",
+              "[user, 2026-10-10 00:50] [2023/05/25 (Thu) 03:03] I'm planning a trip to San Francisco and was wondering if you could recommend some good neighborhoods to stay in. By the way, I've had a great experience with Airbnb in the past, like when \u2026",
+              "[user, 2026-10-10 00:50] [2023/05/25 (Thu) 03:03] I'll definitely check out those options. Can you also help me with transportation from the airport to my Airbnb in the city? I don't plan on renting a car.",
+              "[user, 2026-10-10 00:50] [2023/05/25 (Thu) 10:17] I'm planning a trip to San Francisco for next month and I was wondering if you could recommend some good restaurants in the Haight-Ashbury neighborhood. By the way, I've been to SF before, \u2026",
+              "[user, 2026-10-10 00:50] [2023/05/25 (Thu) 10:17] I'm actually planning to rent a car for my upcoming San Francisco trip, so I was wondering if you could recommend any scenic drives or routes that I shouldn't miss around the Bay Area."
+            ]
+          },
+          "answer": "I cannot provide information about your personal activities. Is there anything else I can help you with?",
+          "latency_ms": 1581.9,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "830ce83f",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "Where did Rachel move to after her recent relocation?",
+          "question_date": "2023/06/24 (Sat) 08:50",
+          "expected": "the suburbs",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_0b1a0942_1:2",
+            "answer_0b1a0942_1:4",
+            "answer_0b1a0942_2:2"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 62.6,
+          "compile_latency_ms": 41.9,
+          "evidence_recall": 0.3333,
+          "context": {
+            "total_token_estimate": 144,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "Rachel",
+              "[user, 2026-10-10 00:52] [2023/05/21 (Sun) 09:14] She moved to Chicago.",
+              "[user, 2026-10-10 00:52] [2023/05/21 (Sun) 09:14] I'll ask Rachel which neighborhood she's living in, and then I can narrow down the options for accommodations. Thanks for the suggestions!"
+            ]
+          },
+          "answer": "According to the conversation history, Rachel moved to Chicago after her recent relocation.",
+          "latency_ms": 922.8,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "gpt4_59c863d7",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many model kits have I worked on or bought?",
+          "question_date": "2023/05/30 (Tue) 21:08",
+          "expected": "I have worked on or bought five model kits. The scales of the models are: Revell F-15 Eagle (scale not mentioned), Tamiya 1/48 scale Spitfire Mk.V, 1/16 scale German Tiger I tank, 1/72 scale B-29 bomber, and 1/24 scale '69 Camaro.",
+          "sessions": 4,
+          "turns": 46,
+          "evidence": [
+            "answer_593bdffd_1:0",
+            "answer_593bdffd_2:0",
+            "answer_593bdffd_2:8",
+            "answer_593bdffd_3:0",
+            "answer_593bdffd_4:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 211.2,
+          "compile_latency_ms": 51.9,
+          "evidence_recall": 0.6,
+          "context": {
+            "total_token_estimate": 394,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 5
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 00:53] [2023/05/21 (Sun) 09:04] I'm looking for some tips on weathering techniques for my model kits. I've been getting back into model building and I recently finished a simple Revell F-15 Eagle kit that I picked up on a\u2026",
+              "[user, 2026-10-10 00:53] [2023/05/21 (Sun) 09:04] I'm looking forward to adding some extra details to my B-29 bomber. I'll make sure to use the right materials and techniques to create realistic antennas and aerials. Thanks for the tips an\u2026",
+              "[user, 2026-10-10 00:53] [2023/05/21 (Sun) 17:52] I didn't think to use a wet palette, that's a great tip. What's the best way to apply a metallic sheen to a model? I've been using a clear coat, but I'm not sure if that's the best approach\u2026",
+              "[user, 2026-10-10 00:53] [2023/05/27 (Sat) 10:59] I'm looking for some tips on weathering techniques for my model tanks. I've been using AK Interactive products, but I'm interested in trying out some new methods. By the way, I also started\u2026",
+              "[user, 2026-10-10 00:53] [2023/05/29 (Mon) 20:29] I'm looking for some tips on photo-etching for my new 1/72 scale B-29 bomber model kit. I've never tried it before, but I've seen some amazing results online. By the way, I just got this ki\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, it appears that you have worked on or bought the following model kits:\n\n1. Revell F-15 Eagle kit (1/72 scale)\n2. B-29 bomber kit (1/72 scale)\n3. 1/16 scale German Tiger I tank (part of a diorama)\n4. 1/24 scale '69 Camaro\n\nNote that the context also mentions that you have a 1/72 scale B-29 bomber model kit, but it's not clear if this is the same kit as the one mentioned earlier. However, based on the context, it seems likely that it is the same kit.",
+          "latency_ms": 3775.2,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "89527b6b",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "I'm going back to our previous conversation about the children's book on dinosaurs. Can you remind me what color was the scaly body of the Plesiosaur in the image?",
+          "question_date": "2023/05/24 (Wed) 21:34",
+          "expected": "The Plesiosaur had a blue scaly body.",
+          "sessions": 1,
+          "turns": 2,
+          "evidence": [
+            "answer_sharegpt_YkWn1Ne_0:1"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 10.9,
+          "compile_latency_ms": 61.3,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 718,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 1
+              },
+              {
+                "type": "assistant_said",
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 00:56] [2023/05/21 (Sun) 10:20] pretend you're an author, write a children's book about dinosaurs. the book will include images of the dinosaurs. Wherever it's appropriate to insert an image, insert the image by writing t\u2026",
+              "[assistant said, 2026-10-10 00:56] [2023/05/21 (Sun) 10:20] \"The Amazing Adventures of Dinosaurs\" Once upon a time, in a land far, far away, there lived a group of incredible creatures called dinosaurs. These fascinating creatures roamed t\u2026"
+            ]
+          },
+          "answer": "The Plesiosaur in the image has a blue scaly body.",
+          "latency_ms": 1926.1,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "75832dbd",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you recommend some recent publications or conferences that I might find interesting?",
+          "question_date": "2023/05/22 (Mon) 14:25",
+          "expected": "The user would prefer suggestions related to recent research papers, articles, or conferences that focus on artificial intelligence in healthcare, particularly those that involve deep learning for medical image analysis. They would not be interested in general AI topics or those unrelated to healthcare.",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_d87a6ef8:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 26.8,
+          "compile_latency_ms": 46.9,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 52,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 00:57] [2023/05/20 (Sat) 06:37] Can you give me an overview of the recent advancements in this field of deep learning for medical image analysis? Skip the basics as I am working in the field."
+            ]
+          },
+          "answer": "Based on the provided context, I don't have any specific recommendations for recent publications or conferences in the field of deep learning for medical image analysis. However, I can suggest some general approaches to find relevant information.\n\nYou may want to check the latest issues of top-tier journals in the field, such as Nature Medicine, Lancet, or IEEE Transactions on Medical Imaging. You can also search for recent conference proceedings from major events like the International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI) or the Conference on Computer Vision and Pattern Recognition (CVPR).\n\nAdditionally, you can explore online platforms like arXiv, which provides a repository of electronic preprints (particularly in fields like physics, mathematics, computer science, and related disciplines) that may be relevant to your interests.\n\nPlease note that these suggestions are based on general knowledge and not specific to your request, as the context provided does not contain any information about recent publications or conferences.",
+          "latency_ms": 4374.5,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "51a45a95",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "Where did I redeem a $5 coupon on coffee creamer?",
+          "question_date": "2023/05/30 (Tue) 01:13",
+          "expected": "Target",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_d61669c7:4"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 76.7,
+          "compile_latency_ms": 49.2,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 295,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "the \"Expiration Date\" filter",
+              "[user, 2026-10-10 00:57] [2023/05/27 (Sat) 07:11] I actually redeemed a $5 coupon on coffee creamer last Sunday, which was a nice surprise since I didn't know I had it in my email inbox.",
+              "[user, 2026-10-10 00:57] [2023/05/27 (Sat) 07:11] I shop at Target pretty frequently, maybe every other week. I like buying household items, toiletries, and sometimes clothes for my kids. I've also been using their Cartwheel app for a few \u2026",
+              "[user, 2026-10-10 00:57] [2023/05/27 (Sat) 07:11] I think the Cartwheel app is really user-friendly and easy to navigate. I like how it's organized by category and how I can easily browse through the offers and add them to my list. One thi\u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, I found a relevant conversation where you mentioned redeeming a $5 coupon on coffee creamer. According to your statement on 2023/05/27 (Sat) 07:11, you redeemed the coupon last Sunday, which would be the previous Sunday to the date of the conversation, making it 2023/05/21.\n\nSince you mentioned shopping at Target frequently and using their Cartwheel app, it's likely that you redeemed the coupon at Target.",
+          "latency_ms": 2709.9,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "gpt4_76048e76",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "Which vehicle did I take care of first in February, the bike or the car?",
+          "question_date": "2023/03/10 (Fri) 23:15",
+          "expected": "bike",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_b535969f_1:0",
+            "answer_b535969f_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 52.5,
+          "compile_latency_ms": 43.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 660,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "mid-February",
+              "2023/03/10",
+              "[user, 2026-10-10 00:59] [2023/03/10 (Fri) 08:11] I'm thinking of getting a newer car and I'm researching the new hybrid model of my current Toyota Corolla. Do you have any info on its fuel efficiency and any promotions or discounts availa\u2026",
+              "[user, 2026-10-10 00:59] [2023/03/10 (Fri) 08:11] I'd like to know more about the maintenance costs of the Corolla Hybrid. I've been doing some maintenance on my current car myself, like washing and vacuuming, but I had to take it to the d\u2026",
+              "[user, 2026-10-10 00:59] [2023/03/10 (Fri) 08:11] I'm considering trading in my current Corolla for the hybrid model, and I'm still doing some research. I did just get my car insurance policy renewed, and I was able to get a better rate wi\u2026",
+              "[user, 2026-10-10 00:59] [2023/03/10 (Fri) 22:50] I'm thinking of getting a new bike rack for my car. Do you have any recommendations? By the way, I've been having some issues with my bike lately - in mid-February, I had to take it in for \u2026",
+              "[user, 2026-10-10 00:59] [2023/03/10 (Fri) 22:50] I have a hybrid bike, and I want to carry just one bike. My car is a Toyota Corolla. I'm not sure about the type of mount, but I'd like something easy to install and remove. I'm open to dif\u2026",
+              "[user, 2026-10-10 00:59] [2023/03/10 (Fri) 22:50] By the way, speaking of bikes, I'm glad I got my bike repaired back in mid-February. The gears were acting up, and I couldn't shift properly, but the bike shop fixed it for me. It's been ru\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, it appears that you took care of your car first in February. On February 27th, you washed your Toyota Corolla, which suggests that you were attending to its maintenance needs. Additionally, you mentioned that your friend borrowed your car and noticed the \"check engine\" light on, prompting you to take it to the dealership for a routine checkup. This implies that you were prioritizing your car's maintenance over your bike's in mid-February.",
+          "latency_ms": 3227.2,
+          "judge": false,
+          "judge_reason": "judge_no"
+        },
+        {
+          "id": "c8090214_abs",
+          "question_type": "temporal-reasoning",
+          "category": "abstention",
+          "abstention": true,
+          "question": "How many days before I bought my iPad did I attend the Holiday Market?",
+          "question_date": "2023/05/27 (Sat) 17:02",
+          "expected": "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_70dc7d08_abs_1:0",
+            "answer_70dc7d08_abs_1:8"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 27.9,
+          "compile_latency_ms": 44.8,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 339,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 4
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 00:59] [2023/05/27 (Sat) 13:37] I'm looking to upgrade my phone case and screen protector. Can you show me some options for iPhone 13 Pro cases and screen protectors? By the way, I got my iPhone 13 Pro at a discounted pri\u2026",
+              "[user, 2026-10-10 01:00] [2023/05/27 (Sat) 13:37] Can you show me some waterproof phone cases, I'm planning to use my phone more outdoors and want to make sure it's protected from water and dust.",
+              "[user, 2026-10-10 01:00] [2023/05/27 (Sat) 18:16] I'm looking for some gift ideas for my sister's birthday, which is coming up soon. I'd like to get her something nice, but I'm on a budget. Do you have any suggestions? By the way, I attend\u2026",
+              "[user, 2026-10-10 01:00] [2023/05/27 (Sat) 18:16] I think I'll go back to the Holiday Market and take a closer look at the jewelry vendors. I remember seeing a few pieces that caught my eye, but I wasn't sure if they were the right fit for\u2026"
+            ]
+          },
+          "answer": "To answer your question, I need to find the date when you attended the Holiday Market and the date when you bought your iPad. \n\nFrom the conversation, I see that you attended the Holiday Market a week before Black Friday. Black Friday was when you bought your iPhone 13 Pro, which was on sale for $800. \n\nHowever, I don't have any information about when you bought your iPad. Therefore, I cannot determine how many days before you bought your iPad you attended the Holiday Market.",
+          "latency_ms": 2812.5,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "852ce960",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "What was the amount I was pre-approved for when I got my mortgage from Wells Fargo?",
+          "question_date": "2023/12/09 (Sat) 11:53",
+          "expected": "$400,000",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_3a6f1e82_1:2",
+            "answer_3a6f1e82_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 202.9,
+          "compile_latency_ms": 57.2,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 80,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              }
+            ],
+            "top_items": [
+              "Wells Fargo"
+            ]
+          },
+          "answer": "I'm sorry, but I don't have enough information in my memory context to answer your question. The context only mentions Wells Fargo, but it doesn't contain any details about your mortgage or the pre-approval amount.",
+          "latency_ms": 1206.8,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "b5ef892d",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many days did I spend on camping trips in the United States this year?",
+          "question_date": "2023/04/29 (Sat) 22:31",
+          "expected": "8 days.",
+          "sessions": 3,
+          "turns": 36,
+          "evidence": [
+            "answer_a8b4290f_2:0",
+            "answer_a8b4290f_1:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 215.0,
+          "compile_latency_ms": 55.9,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 343,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "2023/04/29",
+              "[user, 2026-10-10 01:03] [2023/04/29 (Sat) 04:40] I'm looking for some new hiking boots. Do you have any recommendations for waterproof boots that are good for multi-day backpacking trips? By the way, I just got back from a 3-day solo camp\u2026",
+              "[user, 2026-10-10 01:04] [2023/04/29 (Sat) 16:26] I'm planning a trip to Moab, Utah and was wondering if you could recommend some must-see attractions and trails in the area. By the way, I've been loving the scenic drives and hikes in Utah\u2026",
+              "[user, 2026-10-10 01:04] [2023/04/29 (Sat) 19:01] I'm planning a trip to the Rocky Mountains in Colorado and I was wondering if you could recommend some good hiking trails and camping spots in the area. By the way, I just got back from an \u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, I can see that you mentioned two camping trips this year:\n\n1. A 3-day solo camping trip to Big Sur in early April.\n2. A 5-day camping trip to Yellowstone National Park last month (which would be in March, considering the current date is April 29th).\n\nTherefore, the total number of days you spent on camping trips in the United States this year is 3 + 5 = 8 days.",
+          "latency_ms": 2583.0,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "e9327a54",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "I'm planning to revisit Orlando. I was wondering if you could remind me of that unique dessert shop with the giant milkshakes we talked about last time?",
+          "question_date": "2023/05/30 (Tue) 09:10",
+          "expected": "The Sugar Factory at Icon Park.",
+          "sessions": 1,
+          "turns": 14,
+          "evidence": [
+            "answer_ultrachat_480665:7"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 86.9,
+          "compile_latency_ms": 65.4,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 1172,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 1
+              },
+              {
+                "type": "assistant_said",
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "Orlando",
+              "[user, 2026-10-10 01:07] [2023/05/21 (Sun) 04:16] Please suggest some family-friendly activities to do in Orlando.",
+              "[assistant said, 2026-10-10 01:07] [2023/05/21 (Sun) 04:16] 1. Visit the Disney World theme parks - Magic Kingdom, Epcot, Animal Kingdom, and Hollywood Studios. 2. Explore the Wizarding World of Harry Potter at Universal Studios and Island\u2026",
+              "[assistant said, 2026-10-10 01:07] [2023/05/21 (Sun) 04:16] Certainly! Orlando has many family-friendly dining options. Here are some recommendations: 1. Toothsome Chocolate Emporium & Savory Feast Kitchen - A restaurant located at Univers\u2026",
+              "[assistant said, 2026-10-10 01:07] [2023/05/21 (Sun) 04:16] Absolutely! Here are some fun dessert spots that your family might enjoy after dinner: 1. The Sugar Factory - A sweet shop located at Icon Park that offers an enormous menu of swe\u2026"
+            ]
+          },
+          "answer": "I remember our previous conversation about Orlando. You were looking for a unique dessert shop with giant milkshakes. I mentioned The Sugar Factory, which is located at Icon Park in Orlando. They offer an enormous menu of sweet treats, including specialty drinks and giant milkshakes. Would you like more information about this place or other dessert options in Orlando?",
+          "latency_ms": 3916.8,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "0edc2aef",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you suggest a hotel for my upcoming trip to Miami?",
+          "question_date": "2023/05/29 (Mon) 16:40",
+          "expected": "The user would prefer suggestions of hotels in Miami that offer great views, possibly of the ocean or the city skyline, and have unique features such as a rooftop pool or a hot tub on the balcony. They may not prefer suggestions of basic or budget hotels without these features.",
+          "sessions": 1,
+          "turns": 20,
+          "evidence": [
+            "answer_d586e9cd:2"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 82.2,
+          "compile_latency_ms": 46.7,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 221,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "The Edgewater Hotel",
+              "[user, 2026-10-10 01:09] [2023/05/27 (Sat) 18:36] I'd like to know if they have any special packages or promotions that include a room with a hot tub on the balcony and a complimentary room service breakfast.",
+              "[user, 2026-10-10 01:09] [2023/05/27 (Sat) 18:36] I think I'll stick with the Space Needle Romance Package at The Edgewater Hotel. The hot tub on the balcony with a view of the Space Needle sounds amazing, and the complimentary room servic\u2026"
+            ]
+          },
+          "answer": "Based on the context provided, I would suggest The Edgewater Hotel for your upcoming trip to Miami. You've already expressed interest in booking the Space Needle Romance Package at this hotel, which includes a room with a hot tub on the balcony and a complimentary room service breakfast, among other perks.",
+          "latency_ms": 1761.8,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "58bf7951",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "What play did I attend at the local community theater?",
+          "question_date": "2023/05/30 (Tue) 03:57",
+          "expected": "The Glass Menagerie",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_355c48bb:4"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 36.6,
+          "compile_latency_ms": 48.6,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 266,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 4
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 01:10] [2023/05/27 (Sat) 15:29] I'm looking for some recommendations for local Italian restaurants. I recently tried the new place downtown and it was pretty good, but I'd love to explore other options.",
+              "[user, 2026-10-10 01:10] [2023/05/27 (Sat) 15:29] I'll definitely try those suggestions. By the way, I recently went to a play at the local community theater and was impressed by the lead actress's performance - she reminded me of my frien\u2026",
+              "[user, 2026-10-10 01:10] [2023/05/27 (Sat) 15:29] I'll definitely try those suggestions. I've been thinking about taking some acting classes to improve my skills, especially after my recent audition for a role in \"The Crucible\" didn't go w\u2026",
+              "[user, 2026-10-10 01:10] [2023/05/27 (Sat) 15:29] I'm thinking of focusing on scene study and character development. I've always struggled with really getting into character and making my performances feel authentic. I'd love to work on th\u2026"
+            ]
+          },
+          "answer": "I've found a relevant conversation about the local community theater. According to the conversation, you recently attended a play at the local community theater and were impressed by the lead actress's performance. Unfortunately, the specific title of the play is not mentioned in the conversation.",
+          "latency_ms": 1851.7,
+          "judge": false,
+          "judge_reason": "non_answer"
+        },
+        {
+          "id": "gpt4_2312f94c",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?",
+          "question_date": "2023/03/15 (Wed) 03:53",
+          "expected": "Samsung Galaxy S22",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_5328c3c2_1:0",
+            "answer_5328c3c2_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 87.7,
+          "compile_latency_ms": 51.4,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 612,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Samsung Galaxy S22",
+              "2023/03/15",
+              "[user, 2026-10-10 01:11] [2023/03/15 (Wed) 00:56] I'm planning a trip to Hawaii and I want to make sure my new phone stays charged. Can you recommend some must-visit places in Hawaii? By the way, I recently got a new Samsung Galaxy S22 fro\u2026",
+              "[user, 2026-10-10 01:11] [2023/03/15 (Wed) 00:56] I was thinking of visiting the Haleakala National Park on Maui. Can you tell me more about the sunrise viewing at the summit? I got a good deal on my new phone, saving around $100 with a st\u2026",
+              "[user, 2026-10-10 01:11] [2023/03/15 (Wed) 00:56] I'm also planning to use my portable power bank, Anker PowerCore 20000, that I bought from Amazon a week before I got my new phone, to ensure my devices stay charged during the trip.",
+              "[user, 2026-10-10 01:11] [2023/03/15 (Wed) 10:31] I'm planning a trip to Hawaii and I need to pack the right adapters for my devices. Can you help me figure out what kind of power adapters I'll need for my new laptop, Dell XPS 13, and my n\u2026",
+              "[user, 2026-10-10 01:11] [2023/03/15 (Wed) 10:31] I think I've got everything covered. But just to confirm, can you tell me a bit more about the weather in Hawaii? I want to make sure I'm prepared for any conditions.",
+              "[user, 2026-10-10 01:11] [2023/03/15 (Wed) 10:31] I think I'm all set! Thanks for the weather info. I'll make sure to pack accordingly and stay prepared for any conditions. I'm super excited for my trip to Hawaii now!"
+            ]
+          },
+          "answer": "Based on the conversation history, you got the Samsung Galaxy S22 first. The relevant conversation snippet is from 00:56 on March 15, 2023, where you mentioned that you \"recently got a new Samsung Galaxy S22 from the Best Buy store at the mall on February 20th\".",
+          "latency_ms": 2702.4,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "gpt4_c27434e8_abs",
+          "question_type": "temporal-reasoning",
+          "category": "abstention",
+          "abstention": true,
+          "question": "Which project did I start first, the Ferrari model or the Porsche 991 Turbo S model?",
+          "question_date": "2023/05/26 (Fri) 00:18",
+          "expected": "The information provided is not enough. You did not mention starting the Porsche 991 Turbo S model.",
+          "sessions": 2,
+          "turns": 22,
+          "evidence": [
+            "answer_d8e33f5c_abs_1:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 92.9,
+          "compile_latency_ms": 52.8,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 1083,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Ferrari",
+              "Ferrari 288 GTO",
+              "2023/05/26",
+              "[user, 2026-10-10 01:12] [2023/05/26 (Fri) 15:13] I'm working on a model of a 1980s-era Ferrari 288 GTO, started it about three weeks ago on a Sunday afternoon, and I'm looking for some tips on how to achieve a more realistic paint finish.",
+              "[user, 2026-10-10 01:12] [2023/05/26 (Fri) 15:13] I actually just got a new airbrush compressor recently, so I'm excited to try it out on this project. I've been reading up on some YouTube tutorials and forums on weathering and aging effec\u2026",
+              "[user, 2026-10-10 01:12] [2023/05/26 (Fri) 15:13] I've only experimented with it on some test pieces, but I'm really happy with the results. The compressor has been a game-changer for me, allowing me to achieve much smoother, more even coa\u2026",
+              "[user, 2026-10-10 01:12] [2023/05/26 (Fri) 15:13] I used pre-made decals specifically designed for the Ferrari 288 GTO. The application process was pretty straightforward, but it did take some patience and care to avoid air bubbles and wri\u2026",
+              "[user, 2026-10-10 01:12] [2023/05/26 (Fri) 15:13] I think I'll focus on adding more complexity to the engine compartment and interior. I've been thinking about adding more details like wiring, hoses, and maybe even some engine components l\u2026"
+            ]
+          },
+          "answer": "Based on the conversation history, it appears that you started working on the Ferrari 288 GTO model about three weeks ago, on a Sunday afternoon. This is mentioned in the conversation on 2023/05/26 (Fri) 15:13. There is no mention of starting the Porsche 991 Turbo S model in the provided conversation history. Therefore, I can conclude that the project you started first is the Ferrari 288 GTO model.",
+          "latency_ms": 3906.7,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "945e3d21",
+          "question_type": "knowledge-update",
+          "category": "knowledge-update",
+          "abstention": false,
+          "question": "How often do I attend yoga classes to help with my anxiety?",
+          "question_date": "2023/12/25 (Mon) 05:30",
+          "expected": "Three times a week.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_6a4f8626_1:4",
+            "answer_6a4f8626_2:2"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 152.9,
+          "compile_latency_ms": 50.8,
+          "evidence_recall": 0.5,
+          "context": {
+            "total_token_estimate": 253,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 01:14] [2023/08/11 (Fri) 00:31] I'm feeling a bit overwhelmed with work tasks and was wondering if you could help me prioritize them based on urgency and importance.",
+              "[user, 2026-10-10 01:14] [2023/11/30 (Thu) 01:57] I've got a bunch of projects going on, including a marketing campaign, a report due next Friday, and some website updates. I'd say the marketing campaign is the priority, but the report is \u2026",
+              "[user, 2026-10-10 01:14] [2023/11/30 (Thu) 01:57] I think this updated schedule is really working in my favor. I'm feeling more confident about tackling the report and getting it done on time. Thanks for being so flexible and accommodating!"
+            ]
+          },
+          "answer": "Based on the memory context, it appears that you attend yoga classes three times a week, which helps you feel more focused and clear-headed. This is mentioned in the conversation on 2023/11/30 (Thu) 01:57.",
+          "latency_ms": 1850.2,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "e831120c",
+          "question_type": "multi-session",
+          "category": "multi-session",
+          "abstention": false,
+          "question": "How many weeks did it take me to watch all the Marvel Cinematic Universe movies and the main Star Wars films?",
+          "question_date": "2023/05/30 (Tue) 08:15",
+          "expected": "3.5 weeks",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_86c505e7_1:0",
+            "answer_86c505e7_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 88.5,
+          "compile_latency_ms": 59.0,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 579,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 3
+              },
+              {
+                "type": "conversation",
+                "items": 6
+              }
+            ],
+            "top_items": [
+              "Marvel Cinematic",
+              "two weeks",
+              "about two weeks",
+              "[user, 2026-10-10 01:17] [2023/05/21 (Sun) 12:44] I'm trying to organize my movie watching history, can you help me create a list or something? By the way, I've had some crazy movie binges lately, like when I watched all 22 Marvel Cinemati\u2026",
+              "[user, 2026-10-10 01:17] [2023/05/21 (Sun) 12:44] Yeah, that looks great. I think I'll also add a column for the month I watched it, so I can see what I watched each month.",
+              "[user, 2026-10-10 01:17] [2023/05/21 (Sun) 12:44] I think I'll try Method 1, copying and pasting from a list. I have all my movies written down in a note-taking app, so I can just copy and paste them into the spreadsheet.",
+              "[user, 2026-10-10 01:17] [2023/05/21 (Sun) 13:46] I'm trying to keep track of all the movies I've watched recently. Can you help me organize them in a list or something? By the way, I just finished a Star Wars marathon, watched all the mai\u2026",
+              "[user, 2026-10-10 01:17] [2023/05/21 (Sun) 13:46] I think the simple list would be fine. And yeah, I'll add those Star Wars movies to the list. I also watched Rogue One and Solo, so add those too. After that, let's add the Marvel movies I \u2026"
+            ]
+          },
+          "answer": "Based on the provided memory context, it appears that you watched all 22 Marvel Cinematic Universe movies in about two weeks, as mentioned in the conversation on 2023/05/21 (Sun) 13:46.\n\nAdditionally, you watched all the main Star Wars films in a week and a half, as mentioned in the same conversation.\n\nTherefore, it took you about two weeks to watch all the Marvel Cinematic Universe movies and a week and a half to watch all the main Star Wars films.",
+          "latency_ms": 3264.9,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "4c36ccef",
+          "question_type": "single-session-assistant",
+          "category": "single-session-assistant",
+          "abstention": false,
+          "question": "Can you remind me of the name of the romantic Italian restaurant in Rome you recommended for dinner?",
+          "question_date": "2023/05/23 (Tue) 04:42",
+          "expected": "Roscioli",
+          "sessions": 1,
+          "turns": 8,
+          "evidence": [
+            "answer_ultrachat_448704:3"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 21.3,
+          "compile_latency_ms": 53.5,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 1000,
+            "sections": [
+              {
+                "type": "plans",
+                "items": 1
+              },
+              {
+                "type": "semantic",
+                "items": 2
+              },
+              {
+                "type": "assistant_said",
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "{'plan_id': 'eca128ae-4e22-49df-973f-92343577e1a1', 'goal': '[2023/05/21 (Sun) 08:55] Yes, here are some highly recommended authentic Italian restaurants in Rome:', 'status': 'completed', 'valence': 0.8, 'pathway_strength': 0.7, 'similarit\u2026",
+              "Italian",
+              "Rome",
+              "[assistant said, 2026-10-10 01:18] [2023/05/21 (Sun) 08:55] Yes, here are some highly recommended authentic Italian restaurants in Rome: 1. Trattoria Da Enzo al 29 - located in the Trastevere neighborhood, it's a cozy and traditional tratt\u2026",
+              "[assistant said, 2026-10-10 01:18] [2023/05/21 (Sun) 08:55] For a romantic dinner, I would recommend Roscioli. It has a cozy and intimate atmosphere with soft lighting and excellent service. They also have a great wine list and a menu that\u2026",
+              "[assistant said, 2026-10-10 01:18] [2023/05/21 (Sun) 08:55] Certainly! Rome is home to some excellent gelato spots. Here are a few highly recommended ones: 1. Giolitti - founded in 1900, Giolitti is one of the oldest and most famous gelate\u2026"
+            ]
+          },
+          "answer": "Based on the memory context, I recommended Roscioli for a romantic dinner in Rome. It has a cozy and intimate atmosphere, excellent service, and a great wine list with a menu made from high-quality ingredients. You can even request a private wine and cheese tasting for a unique and romantic dining experience.",
+          "latency_ms": 3605.1,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "35a27287",
+          "question_type": "single-session-preference",
+          "category": "single-session-preference",
+          "abstention": false,
+          "question": "Can you recommend some interesting cultural events happening around me this weekend?",
+          "question_date": "2023/05/24 (Wed) 18:12",
+          "expected": "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange.",
+          "sessions": 1,
+          "turns": 14,
+          "evidence": [
+            "answer_9b182436:2",
+            "answer_9b182436:4",
+            "answer_9b182436:12"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 52.5,
+          "compile_latency_ms": 45.9,
+          "evidence_recall": 0.6667,
+          "context": {
+            "total_token_estimate": 274,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 1
+              },
+              {
+                "type": "conversation",
+                "items": 3
+              }
+            ],
+            "top_items": [
+              "language exchange events",
+              "[user, 2026-10-10 01:19] [2023/05/20 (Sat) 03:58] What are some cultural events or festivals in my area that celebrate language diversity and cultural exchange? I'd love to attend something like the cultural festival I volunteered at last \u2026",
+              "[user, 2026-10-10 01:19] [2023/05/20 (Sat) 03:58] Can you recommend any language learning apps or websites that focus on idiomatic expressions and colloquialisms in French and Spanish? I've been trying to improve my conversational skills a\u2026",
+              "[user, 2026-10-10 01:19] [2023/05/20 (Sat) 03:58] Can you recommend some language learning podcasts that focus on conversational skills and everyday language usage in French and Spanish? I'd love to listen to podcasts that are engaging, in\u2026"
+            ]
+          },
+          "answer": "Based on the context, I can recommend some interesting cultural events happening around you this weekend that celebrate language diversity and cultural exchange. \n\nConsidering your interest in language diversity and cultural exchange, I would suggest looking into language exchange events in your area. These events often bring people together to practice languages, share cultures, and learn from one another. They might be a great way to experience the cultural festival atmosphere you mentioned enjoying last month.\n\nUnfortunately, I don't have specific event details or locations in my memory, so I recommend checking local event listings or community boards for more information.",
+          "latency_ms": 2851.3,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "1e043500",
+          "question_type": "single-session-user",
+          "category": "single-session-user",
+          "abstention": false,
+          "question": "What is the name of the playlist I created on Spotify?",
+          "question_date": "2023/05/29 (Mon) 04:35",
+          "expected": "Summer Vibes",
+          "sessions": 1,
+          "turns": 12,
+          "evidence": [
+            "answer_3e012175:2"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 47.1,
+          "compile_latency_ms": 52.7,
+          "evidence_recall": 1.0,
+          "context": {
+            "total_token_estimate": 148,
+            "sections": [
+              {
+                "type": "conversation",
+                "items": 2
+              }
+            ],
+            "top_items": [
+              "[user, 2026-10-10 01:20] [2023/05/21 (Sun) 06:44] What's a good music streaming service that can help me discover new music and artists, especially in the ambient and lo-fi genres? Also, by the way, I've been listening to this one playlist\u2026",
+              "[user, 2026-10-10 01:20] [2023/05/21 (Sun) 06:44] I just remembered that I attended a music festival last month with some friends, and we saw some great acts, including The Lumineers and The 1975. It was an amazing experience!"
+            ]
+          },
+          "answer": "Based on the conversation memory, the name of the playlist you created on Spotify is \"Summer Vibes\".",
+          "latency_ms": 1097.6,
+          "judge": true,
+          "judge_reason": "judge_yes"
+        },
+        {
+          "id": "0bb5a684",
+          "question_type": "temporal-reasoning",
+          "category": "temporal-reasoning",
+          "abstention": false,
+          "question": "How many days before the team meeting I was preparing for did I attend the workshop on 'Effective Communication in the Workplace'?",
+          "question_date": "2023/01/13 (Fri) 19:39",
+          "expected": "7 days. 8 days (including the last day) is also acceptable.",
+          "sessions": 2,
+          "turns": 24,
+          "evidence": [
+            "answer_e936197f_1:0",
+            "answer_e936197f_2:0"
+          ],
+          "evidence_over_ingest_limit": 0,
+          "ingest_seconds": 173.5,
+          "compile_latency_ms": 58.6,
+          "evidence_recall": 0.0,
+          "context": {
+            "total_token_estimate": 560,
+            "sections": [
+              {
+                "type": "semantic",
+                "items": 7
+              }
+            ],
+            "top_items": [
+              "Date",
+              "my team meeting agenda",
+              "2023/01/13 (Fri)",
+              "meeting agenda",
+              "my team's feedback",
+              "(Fri",
+              "2023/01/13"
+            ]
+          },
+          "answer": "Based on the provided memory context, I can see that the current date is 2023/01/13 (Fri) 19:39. However, I don't have enough information to determine the date of the team meeting I was preparing for or the date of the workshop on 'Effective Communication in the Workplace'.\n\nI do have some relevant information, such as the current date and the fact that I was preparing for a team meeting, but I need more specific details to answer the question accurately.",
+          "latency_ms": 2308.5,
+          "judge": false,
+          "judge_reason": "judge_no"
+        }
+      ],
+      "valid": true,
+      "client_calls": 1570,
+      "client_failures": 0
+    }
+  },
+  "all_suites_valid": true,
+  "canonical_baseline_targets": {
+    "retrieval_latency_ms": "<10.0ms (via B375)",
+    "llm_generation_latency_s": "<1.0s (via B374)",
+    "daemon_idle_rss_mb": "<80MB (via B384)",
+    "token_compression_ratio": "50%-70% bulk, 100% bypass on sub-budget (B374)",
+    "ask_eval_overall": ">=0.90"
+  },
+  "baselines": {
+    "config": {
+      "llm": {
+        "provider": "ollama",
+        "model": "llama3.1:8b",
+        "base_url": "http://localhost:11434/v1",
+        "endpoint": "ollama /api/chat (num_ctx sized per prompt)",
+        "temperature": 0.0
+      },
+      "rag_k": 5,
+      "scope": "per-suite turns; LoCoMo-10 full_context = the question's own conversation, naive_rag = all turns written so far (the corpus Campy's store holds); LongMemEval and DMR: the question's own history only",
+      "rag_retriever": "embedding",
+      "rag_embed_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "llm_source": "isolated daemon config"
+    },
+    "no_memory": {
+      "longmemeval": {
+        "valid": false,
+        "error": "cannot reach http://localhost:11434/api/chat: timed out"
+      }
+    },
+    "full_context": {
+      "longmemeval": {
+        "questions": 35,
+        "accuracy": 0.5714,
+        "task_averaged_accuracy": 0.5714,
+        "evidence_recall": 1.0,
+        "evidence_over_ingest_limit": 0,
+        "errors": 0,
+        "by_category": {
+          "abstention": {
+            "n": 5,
+            "accuracy": 0.6,
+            "evidence_recall": 1.0
+          },
+          "knowledge-update": {
+            "n": 5,
+            "accuracy": 0.4,
+            "evidence_recall": 1.0
+          },
+          "multi-session": {
+            "n": 5,
+            "accuracy": 0.0,
+            "evidence_recall": 1.0
+          },
+          "single-session-assistant": {
+            "n": 5,
+            "accuracy": 1.0,
+            "evidence_recall": 1.0
+          },
+          "single-session-preference": {
+            "n": 5,
+            "accuracy": 0.6,
+            "evidence_recall": 1.0
+          },
+          "single-session-user": {
+            "n": 5,
+            "accuracy": 0.8,
+            "evidence_recall": 1.0
+          },
+          "temporal-reasoning": {
+            "n": 5,
+            "accuracy": 0.6,
+            "evidence_recall": 1.0
+          }
+        },
+        "avg_prompt_tokens_est": 7355.3,
+        "avg_latency_ms": 19049.1,
+        "context_overflow": 0,
+        "details": [
+          {
+            "id": "gpt4_70e84552_abs",
+            "expected": "The information provided is not enough. You mentioned fixing the fence but did not mention purchasing cows from Peter.",
+            "answer": "Based on the provided memory context, it appears that you completed the task of fixing the fence on your property three weeks ago, as mentioned in the conversation turn on 2023/05/30 (Tue) 04:10.",
+            "evidence": [
+              "answer_b3070ec4_abs_1:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 9365,
+            "num_ctx": 16384,
+            "latency_ms": 25888.9,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Which task did I complete first, fixing the fence or purchasing three cows from Peter?",
+            "question_type": "temporal-reasoning",
+            "category": "abstention",
+            "abstention": true,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "6a1eabeb",
+            "expected": "25 minutes and 50 seconds (or 25:50)",
+            "answer": "Based on the provided memory context, your personal best time in the charity 5K run was 27:12.",
+            "evidence": [
+              "answer_a25d4a91_1:4",
+              "answer_a25d4a91_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 9492,
+            "num_ctx": 16384,
+            "latency_ms": 28211.7,
+            "judge": false,
+            "context_overflow": false,
+            "question": "What was my personal best time in the charity 5K run?",
+            "question_type": "knowledge-update",
+            "category": "knowledge-update",
+            "abstention": false,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "0a995998",
+            "expected": "3",
+            "answer": "Based on the provided memory context, it appears that you have several items to pick up or return from a store. Specifically, you mentioned that you need to pick up your dry cleaning for a navy blue blazer, and you also exchanged a pair of boots from Zara on February 5th, but you still need to pick up the new pair.\n\nTherefore, the answer to your question is: you need to pick up at least 2 items from a store: your dry cleaning for the navy blue blazer and the new pair of boots from Zara.",
+            "evidence": [
+              "answer_afa9873b_2:10",
+              "answer_afa9873b_3:6",
+              "answer_afa9873b_1:4"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 34,
+            "prompt_tokens_est": 10532,
+            "num_ctx": 32768,
+            "latency_ms": 29175.8,
+            "judge": false,
+            "context_overflow": false,
+            "question": "How many items of clothing do I need to pick up or return from a store?",
+            "question_type": "multi-session",
+            "category": "multi-session",
+            "abstention": false,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "7161e7e2",
+            "expected": "Admon was assigned to the 8 am - 4 pm (Day Shift) on Sundays.",
+            "answer": "Based on the provided memory context, I can see that the shift rotation sheet for GM social media agents was created with 7 agents, 4 shifts, and 2 days off for every agent. The rotation was specifically designed for a week starting on Sunday and ending on Saturday.\n\nTo answer your question, I can see that on Sunday, Admon is assigned to the 8 am - 4 pm shift.",
+            "evidence": [
+              "answer_sharegpt_5Lzox6N_0:13"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 14,
+            "prompt_tokens_est": 2422,
+            "num_ctx": 8192,
+            "latency_ms": 9348.9,
+            "judge": true,
+            "context_overflow": false,
+            "question": "I'm checking our previous chat about the shift rotation sheet for GM social media agents. Can you remind me what was the rotation for Admon on a Sunday?",
+            "question_type": "single-session-assistant",
+            "category": "single-session-assistant",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "8a2466db",
+            "expected": "The user would prefer responses that suggest resources specifically tailored to Adobe Premiere Pro, especially those that delve into its advanced settings. They might not prefer general video editing resources or resources related to other video editing software.",
+            "answer": "Based on the provided memory context, I can recommend some resources where you can learn more about video editing.\n\nFrom the conversation turns, I see that you're interested in learning more about advanced settings for video editing with Adobe Premiere Pro. I previously recommended the following resources:\n\n* Adobe Premiere Pro's official documentation and tutorials\n* YouTube channels like Premiere Bro, Video Copilot, and Adobe Creative Cloud\n* Online courses on platforms like Udemy, LinkedIn Learning, and Skillshare\n* Premiere Pro communities and forums, such as Reddit's r/premierepro and Adobe's Premiere Pro forum\n\nAdditionally, I provided detailed information on using the Lumetri Color Panel, including tips on how to use the Creative panel and the Curves panel together to create a cohesive look for your video.\n\nIf you have any specific questions or topics you'd like to discuss further, feel free to ask, and I'll do my best to help!",
+            "evidence": [
+              "answer_edb03329:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 18,
+            "prompt_tokens_est": 7240,
+            "num_ctx": 16384,
+            "latency_ms": 19409.6,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Can you recommend some resources where I can learn more about video editing?",
+            "question_type": "single-session-preference",
+            "category": "single-session-preference",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "e47becba",
+            "expected": "Business Administration",
+            "answer": "You graduated with a degree in Business Administration.",
+            "evidence": [
+              "answer_280352e9:4",
+              "answer_280352e9:5"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 12,
+            "prompt_tokens_est": 5084,
+            "num_ctx": 16384,
+            "latency_ms": 10381.3,
+            "judge": true,
+            "context_overflow": false,
+            "question": "What degree did I graduate with?",
+            "question_type": "single-session-user",
+            "category": "single-session-user",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "gpt4_2655b836",
+            "expected": "GPS system not functioning correctly",
+            "answer": "Based on the provided memory context, I can answer your question about the first issue you had with your new car after its first service.\n\nUnfortunately, I couldn't find any information in the memory context about the first issue you had with your new car after its first service. The context only mentions a conversation about getting a car wax and detailing done, planning a road trip to Yellowstone, and discussing car insurance and rewards programs. It does not mention any issues with your car's service.\n\nIf you'd like to provide more context or clarify your question, I'd be happy to try and help further.",
+            "evidence": [
+              "answer_4be1b6b4_3:2",
+              "answer_4be1b6b4_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 36,
+            "prompt_tokens_est": 12030,
+            "num_ctx": 32768,
+            "latency_ms": 30165.9,
+            "judge": false,
+            "context_overflow": false,
+            "question": "What was the first issue I had with my new car after its first service?",
+            "question_type": "temporal-reasoning",
+            "category": "temporal-reasoning",
+            "abstention": false,
+            "judge_reason": "non_answer"
+          },
+          {
+            "id": "gpt4_93159ced_abs",
+            "expected": "The information provided is not enough. From the information provided, You haven't started working at Google yet.",
+            "answer": "Based on the provided memory context, I can answer the user's question about how long they have been working before starting their current job at Google.\n\nThe user mentioned that they have been working at NovaTech for about 4 years and 3 months. However, there is no information in the memory context about their previous work experience or how long they have been working before starting their current job at Google.\n\nTherefore, I must say that the context does not contain enough information to provide a specific answer to the user's question.",
+            "evidence": [],
+            "evidence_recall": null,
+            "context_turns": 24,
+            "prompt_tokens_est": 9441,
+            "num_ctx": 16384,
+            "latency_ms": 22038.9,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How long have I been working before I started my current job at Google?",
+            "question_type": "temporal-reasoning",
+            "category": "abstention",
+            "abstention": true,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "6aeb4375",
+            "expected": "four",
+            "answer": "Based on the provided memory context, I can answer your question about how many Korean restaurants you've tried in your city. \n\nYou mentioned trying four different Korean restaurants in your city, but you didn't specify how many of them you've actually tried. However, in one of the conversations, you mentioned trying three different Korean restaurants and each had its own unique flavor and style.",
+            "evidence": [
+              "answer_3f9693b7_1:8",
+              "answer_3f9693b7_2:2"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 6649,
+            "num_ctx": 16384,
+            "latency_ms": 16329.8,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How many Korean restaurants have I tried in my city?",
+            "question_type": "knowledge-update",
+            "category": "knowledge-update",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "6d550036",
+            "expected": "2",
+            "answer": "Based on the provided memory context, I can answer the user's question about how many projects they have led or are currently leading.\n\nThe user's question is: \"How many projects have I led or am currently leading?\"\n\nThe memory context does not contain any information about the user's projects or their leadership roles. Therefore, I must say that I do not have enough information to provide an accurate answer to the user's question.\n\nIf the user would like to provide more context or information about their projects, I would be happy to try and assist them further.",
+            "evidence": [
+              "answer_ec904b3c_4:0",
+              "answer_ec904b3c_2:2",
+              "answer_ec904b3c_1:0",
+              "answer_ec904b3c_3:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 44,
+            "prompt_tokens_est": 19755,
+            "num_ctx": 32768,
+            "latency_ms": 47743.8,
+            "judge": false,
+            "context_overflow": false,
+            "question": "How many projects have I led or am currently leading?",
+            "question_type": "multi-session",
+            "category": "multi-session",
+            "abstention": false,
+            "judge_reason": "non_answer"
+          },
+          {
+            "id": "c4f10528",
+            "expected": "Miss Bee Providore",
+            "answer": "Based on our previous conversation, I remember that you were planning to visit Cihampelas Walk in Bandung and were interested in trying out Miss Bee Providore for their delicious food. Specifically, you mentioned that you wanted to try their signature dish, Miss Bee's Nasi Goreng.",
+            "evidence": [
+              "answer_ultrachat_234453:7"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 14,
+            "prompt_tokens_est": 2604,
+            "num_ctx": 8192,
+            "latency_ms": 7208.9,
+            "judge": true,
+            "context_overflow": false,
+            "question": "I'm planning to visit Bandung again and I was wondering if you could remind me of the name of that restaurant in Cihampelas Walk that serves a great Nasi Goreng?",
+            "question_type": "single-session-assistant",
+            "category": "single-session-assistant",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "06878be2",
+            "expected": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+            "answer": "Based on the provided memory context, I can suggest some accessories that would complement your current photography setup.\n\nSince you're looking to upgrade your camera flash, you've already considered the Godox V1, which is a great option. However, if you're looking for other accessories to complement your setup, here are a few suggestions:\n\n1. **External battery pack**: An external battery pack can be a great addition to your photography kit, especially if you're shooting on location or need to charge your camera frequently. Some popular options include the Anker PowerCore 20000 PD, Mophie Powerstation XXL, and Jackery Titan S 20000.\n2. **Lens cleaning kit**: A lens cleaning kit can help you keep your lenses clean and streak-free. Look for a kit that includes a soft, dry microfiber cloth, a lens cleaning tissue or pre-moistened wipe, and a lens cleaning solution.\n3. **Camera bag**: A comfortable and durable camera bag can make a big difference in your photography experience. Consider a bag that's specifically designed for Sony cameras, such as the Think Tank Photo Pro Optic 15 or the Lowepro ProTactic 350 AW.\n4. **Tripod**: A tripod can be a great investment for any photographer. Consider a tripod that's specifically designed for Sony cameras, such as the Gitzo GT3543LS or the Manfrotto BeFree Live.\n\nThese are just a few suggestions, and there are many other accessories that can complement your photography setup. Let me know if you have any other questions or if there's anything else I can help you with!",
+            "evidence": [
+              "answer_555dfb94:0",
+              "answer_555dfb94:8",
+              "answer_555dfb94:14"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 16,
+            "prompt_tokens_est": 5541,
+            "num_ctx": 16384,
+            "latency_ms": 19504.3,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Can you suggest some accessories that would complement my current photography setup?",
+            "question_type": "single-session-preference",
+            "category": "single-session-preference",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "118b2229",
+            "expected": "45 minutes each way",
+            "answer": "Based on the provided memory context, I can answer your question about your daily commute to work.\n\nYou mentioned in one of the conversation turns that your daily commute takes 45 minutes each way.",
+            "evidence": [
+              "answer_40a90d51:8"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 12,
+            "prompt_tokens_est": 3889,
+            "num_ctx": 8192,
+            "latency_ms": 9261.2,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How long is my daily commute to work?",
+            "question_type": "single-session-user",
+            "category": "single-session-user",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "gpt4_2487a7cb",
+            "expected": "'Data Analysis using Python' webinar",
+            "answer": "Based on the provided memory context, I can answer your original question: \"Which event did I attend first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar?\"\n\nUnfortunately, the memory context does not contain any information about you attending either of these events. The context only mentions you attending a workshop on \"Effective Time Management\" at the local community center last Saturday, but it does not provide any information about a \"Data Analysis using Python\" webinar.",
+            "evidence": [
+              "answer_1c6b85ea_2:2",
+              "answer_1c6b85ea_1:10"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 9656,
+            "num_ctx": 16384,
+            "latency_ms": 21949.0,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Which event did I attend first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar?",
+            "question_type": "temporal-reasoning",
+            "category": "temporal-reasoning",
+            "abstention": false,
+            "judge_reason": "non_answer"
+          },
+          {
+            "id": "982b5123_abs",
+            "expected": "The information provided is not enough. You only mentioned booking Airbnb in San Francisco.",
+            "answer": "Based on the provided memory context, I found a mention of an Airbnb booking in the conversation turn where the user mentioned their previous trip to San Francisco for their best friend's wedding. However, there is no specific mention of the date or time of the booking.\n\nIn the conversation turn where the user asked for recommendations on good neighborhoods to stay in San Francisco, the assistant mentioned that the user had mentioned staying in Haight-Ashbury for their friend's wedding, but there is no mention of the date or time of the booking.\n\nSince there is no specific information about the date or time of the booking, I'm unable to provide a more precise answer. However, based on the conversation turn where the user mentioned their previous trip to San Francisco, it appears that the booking was made for a trip that occurred two months prior to the current date (May 25, 2023).",
+            "evidence": [
+              "answer_ab603dd5_abs_1:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 7880,
+            "num_ctx": 16384,
+            "latency_ms": 20103.3,
+            "judge": true,
+            "context_overflow": false,
+            "question": "When did I book the Airbnb in Sacramento?",
+            "question_type": "temporal-reasoning",
+            "category": "abstention",
+            "abstention": true,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "830ce83f",
+            "expected": "the suburbs",
+            "answer": "Based on the provided memory context, I can answer the original question: \"Where did Rachel move to after her recent relocation?\"\n\nAccording to the conversation, Rachel moved to Chicago.",
+            "evidence": [
+              "answer_0b1a0942_1:2",
+              "answer_0b1a0942_1:4",
+              "answer_0b1a0942_2:2"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 7006,
+            "num_ctx": 16384,
+            "latency_ms": 15488.8,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Where did Rachel move to after her recent relocation?",
+            "question_type": "knowledge-update",
+            "category": "knowledge-update",
+            "abstention": false,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "gpt4_59c863d7",
+            "expected": "I have worked on or bought five model kits. The scales of the models are: Revell F-15 Eagle (scale not mentioned), Tamiya 1/48 scale Spitfire Mk.V, 1/16 scale German Tiger I tank, 1/72 scale B-29 bomber, and 1/24 scale '69 Camaro.",
+            "answer": "Based on the provided memory context, it appears that you have worked on several model kits, including a Revell F-15 Eagle kit and a 1/72 scale B-29 bomber kit. You have also experimented with various weathering techniques and products, including AK Interactive and Vallejo products. Additionally, you have worked on a diorama featuring a 1/16 scale German Tiger I tank and have used various materials and techniques to create realistic terrain and water effects.\n\nAs for the question of how many model kits you have worked on or bought, the memory context does not provide a specific answer. However, based on the information provided, it appears that you have worked on at least two model kits (the Revell F-15 Eagle kit and the 1/72 scale B-29 bomber kit) and have also worked on a diorama featuring a 1/16 scale German Tiger I tank.",
+            "evidence": [
+              "answer_593bdffd_1:0",
+              "answer_593bdffd_2:0",
+              "answer_593bdffd_2:8",
+              "answer_593bdffd_3:0",
+              "answer_593bdffd_4:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 46,
+            "prompt_tokens_est": 19685,
+            "num_ctx": 32768,
+            "latency_ms": 57503.2,
+            "judge": false,
+            "context_overflow": false,
+            "question": "How many model kits have I worked on or bought?",
+            "question_type": "multi-session",
+            "category": "multi-session",
+            "abstention": false,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "89527b6b",
+            "expected": "The Plesiosaur had a blue scaly body.",
+            "answer": "The Plesiosaur in the image has a blue scaly body.",
+            "evidence": [
+              "answer_sharegpt_YkWn1Ne_0:1"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 2,
+            "prompt_tokens_est": 996,
+            "num_ctx": 4096,
+            "latency_ms": 6537.1,
+            "judge": true,
+            "context_overflow": false,
+            "question": "I'm going back to our previous conversation about the children's book on dinosaurs. Can you remind me what color was the scaly body of the Plesiosaur in the image?",
+            "question_type": "single-session-assistant",
+            "category": "single-session-assistant",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "75832dbd",
+            "expected": "The user would prefer suggestions related to recent research papers, articles, or conferences that focus on artificial intelligence in healthcare, particularly those that involve deep learning for medical image analysis. They would not be interested in general AI topics or those unrelated to healthcare.",
+            "answer": "Based on the provided memory context, I can recommend some recent publications and conferences that you might find interesting.\n\nFrom the context, I see that there are several sections on recent advancements in deep learning for medical image analysis, including multimodal fusion, self-supervised learning, generative models, explainability and interpretability, transformers in medical imaging, 3D imaging and volume analysis, federated learning, integration with clinical workflows, and personalized medicine.\n\nSome relevant research papers and articles on these topics are also provided in the context. For example, there are papers on multimodal fusion, transfer learning, and domain adaptation in medical imaging, as well as techniques for visualizing and interpreting deep learning models.\n\nAs for conferences, I don't see any specific information on upcoming conferences in the provided context. However, I can suggest some popular conferences in the field of medical image analysis and deep learning, such as the International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI), the International Symposium on Biomedical Imaging (ISBI), and the Conference on Computer Vision and Pattern Recognition (CVPR).\n\nPlease let me know if you would like more information on any of these topics or if you have any specific questions.",
+            "evidence": [
+              "answer_d87a6ef8:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 12,
+            "prompt_tokens_est": 5387,
+            "num_ctx": 16384,
+            "latency_ms": 15718.9,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Can you recommend some recent publications or conferences that I might find interesting?",
+            "question_type": "single-session-preference",
+            "category": "single-session-preference",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "51a45a95",
+            "expected": "Target",
+            "answer": "You redeemed a $5 coupon on coffee creamer last Sunday.",
+            "evidence": [
+              "answer_d61669c7:4"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 12,
+            "prompt_tokens_est": 3396,
+            "num_ctx": 8192,
+            "latency_ms": 7836.4,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Where did I redeem a $5 coupon on coffee creamer?",
+            "question_type": "single-session-user",
+            "category": "single-session-user",
+            "abstention": false,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "gpt4_76048e76",
+            "expected": "bike",
+            "answer": "Based on the provided memory context, I can answer your question about which vehicle you took care of first in February, the bike or the car.\n\nAccording to the conversation, you mentioned that you had to take your bike in for repairs in mid-February because the gears were acting up and you couldn't shift properly. This suggests that you took care of your bike first in February.\n\nAdditionally, you mentioned that you washed your current Corolla on February 27th, which implies that you took care of your car later in the month.\n\nTherefore, based on the information provided, it appears that you took care of your bike first in February.",
+            "evidence": [
+              "answer_b535969f_1:0",
+              "answer_b535969f_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 7464,
+            "num_ctx": 16384,
+            "latency_ms": 18966.5,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Which vehicle did I take care of first in February, the bike or the car?",
+            "question_type": "temporal-reasoning",
+            "category": "temporal-reasoning",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "c8090214_abs",
+            "expected": "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad.",
+            "answer": "Based on the provided memory context, I can answer your question.\n\nYou attended the Holiday Market a week before Black Friday, and you're considering getting your sister a piece of handmade jewelry to go along with the phone case. To find the perfect piece, you're planning to go back to the Holiday Market and take a closer look at the jewelry vendors.\n\nTo determine how many days before you bought your iPad you attended the Holiday Market, I need to know the date you bought your iPad. However, the provided memory context does not contain this information.\n\nIf you provide the date you bought your iPad, I can calculate the number of days between that date and the date you attended the Holiday Market.",
+            "evidence": [
+              "answer_70dc7d08_abs_1:0",
+              "answer_70dc7d08_abs_1:8"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 7654,
+            "num_ctx": 16384,
+            "latency_ms": 20462.1,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How many days before I bought my iPad did I attend the Holiday Market?",
+            "question_type": "temporal-reasoning",
+            "category": "abstention",
+            "abstention": true,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "852ce960",
+            "expected": "$400,000",
+            "answer": "Based on the provided memory context, I can answer your original question: \"What was the amount I was pre-approved for when I got my mortgage from Wells Fargo?\"\n\nAccording to the conversation on August 11, 2023, you mentioned that you got pre-approved for $350,000 from Wells Fargo.",
+            "evidence": [
+              "answer_3a6f1e82_1:2",
+              "answer_3a6f1e82_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 7332,
+            "num_ctx": 16384,
+            "latency_ms": 18125.1,
+            "judge": false,
+            "context_overflow": false,
+            "question": "What was the amount I was pre-approved for when I got my mortgage from Wells Fargo?",
+            "question_type": "knowledge-update",
+            "category": "knowledge-update",
+            "abstention": false,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "b5ef892d",
+            "expected": "8 days.",
+            "answer": "Based on the provided memory context, I can answer your original question: \"How many days did I spend on camping trips in the United States this year?\"\n\nUnfortunately, the memory context does not contain any information about your personal camping trips or the number of days you spent on them. However, it does mention that you recently returned from a 7-day family road trip to Utah in February and that you're planning a trip to Moab, Utah, and another trip to the Rocky Mountains in Colorado.",
+            "evidence": [
+              "answer_a8b4290f_2:0",
+              "answer_a8b4290f_1:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 36,
+            "prompt_tokens_est": 12855,
+            "num_ctx": 32768,
+            "latency_ms": 33714.0,
+            "judge": false,
+            "context_overflow": false,
+            "question": "How many days did I spend on camping trips in the United States this year?",
+            "question_type": "multi-session",
+            "category": "multi-session",
+            "abstention": false,
+            "judge_reason": "non_answer"
+          },
+          {
+            "id": "e9327a54",
+            "expected": "The Sugar Factory at Icon Park.",
+            "answer": "Based on our previous conversation, I remember that you were interested in visiting a unique dessert shop with giant milkshakes. I recommended The Sugar Factory, which is located at Icon Park and offers an enormous menu of sweet treats, including specialty drinks and giant milkshakes. Would you like to visit The Sugar Factory again during your upcoming trip to Orlando?",
+            "evidence": [
+              "answer_ultrachat_480665:7"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 14,
+            "prompt_tokens_est": 3112,
+            "num_ctx": 8192,
+            "latency_ms": 8300.9,
+            "judge": true,
+            "context_overflow": false,
+            "question": "I'm planning to revisit Orlando. I was wondering if you could remind me of that unique dessert shop with the giant milkshakes we talked about last time?",
+            "question_type": "single-session-assistant",
+            "category": "single-session-assistant",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "0edc2aef",
+            "expected": "The user would prefer suggestions of hotels in Miami that offer great views, possibly of the ocean or the city skyline, and have unique features such as a rooftop pool or a hot tub on the balcony. They may not prefer suggestions of basic or budget hotels without these features.",
+            "answer": "I don't have any information about hotels in Miami. The context provided is about hotels in Seattle, Washington. If you would like, I can try to find information about hotels in Miami.",
+            "evidence": [
+              "answer_d586e9cd:2"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 20,
+            "prompt_tokens_est": 5462,
+            "num_ctx": 16384,
+            "latency_ms": 12527.6,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Can you suggest a hotel for my upcoming trip to Miami?",
+            "question_type": "single-session-preference",
+            "category": "single-session-preference",
+            "abstention": false,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "58bf7951",
+            "expected": "The Glass Menagerie",
+            "answer": "You attended a production of \"The Glass Menagerie\" at the local community theater.",
+            "evidence": [
+              "answer_355c48bb:4"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 12,
+            "prompt_tokens_est": 3192,
+            "num_ctx": 8192,
+            "latency_ms": 7042.7,
+            "judge": true,
+            "context_overflow": false,
+            "question": "What play did I attend at the local community theater?",
+            "question_type": "single-session-user",
+            "category": "single-session-user",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "gpt4_2312f94c",
+            "expected": "Samsung Galaxy S22",
+            "answer": "Based on the provided memory context, it appears that you purchased a Samsung Galaxy S22 on February 20th and a Dell XPS 13 laptop on January 28th, with the original expected arrival date of February 11th, but it finally arrived on February 25th. \n\nYou also mentioned that you got a good deal on your new phone, saving around $100 with a student discount, and you traded in your old phone, iPhone 12, to get an additional $200 off.\n\nTo answer your original question, \"Which device did I get first, the Samsung Galaxy S22 or the Dell XPS 13?\", based on the memory context, it seems that you got the Samsung Galaxy S22 first, as it was purchased on February 20th, while the Dell XPS 13 was pre-ordered on January 28th.",
+            "evidence": [
+              "answer_5328c3c2_1:0",
+              "answer_5328c3c2_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 7648,
+            "num_ctx": 16384,
+            "latency_ms": 21311.2,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?",
+            "question_type": "temporal-reasoning",
+            "category": "temporal-reasoning",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "gpt4_c27434e8_abs",
+            "expected": "The information provided is not enough. You did not mention starting the Porsche 991 Turbo S model.",
+            "answer": "Based on the provided memory context, it appears that you started building the Ferrari 288 GTO model about three weeks ago, on a Sunday afternoon.",
+            "evidence": [
+              "answer_d8e33f5c_abs_1:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 22,
+            "prompt_tokens_est": 8888,
+            "num_ctx": 16384,
+            "latency_ms": 20263.6,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Which project did I start first, the Ferrari model or the Porsche 991 Turbo S model?",
+            "question_type": "temporal-reasoning",
+            "category": "abstention",
+            "abstention": true,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "945e3d21",
+            "expected": "Three times a week.",
+            "answer": "Based on the provided memory context, it appears that you attend yoga classes three times a week, which helps you feel more grounded and centered, especially on days when you're feeling anxious.",
+            "evidence": [
+              "answer_6a4f8626_1:4",
+              "answer_6a4f8626_2:2"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 8125,
+            "num_ctx": 16384,
+            "latency_ms": 18269.2,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How often do I attend yoga classes to help with my anxiety?",
+            "question_type": "knowledge-update",
+            "category": "knowledge-update",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "e831120c",
+            "expected": "3.5 weeks",
+            "answer": "Based on the provided memory context, it took you 2 weeks to watch all 22 Marvel Cinematic Universe movies.",
+            "evidence": [
+              "answer_86c505e7_1:0",
+              "answer_86c505e7_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 6323,
+            "num_ctx": 16384,
+            "latency_ms": 16848.6,
+            "judge": false,
+            "context_overflow": false,
+            "question": "How many weeks did it take me to watch all the Marvel Cinematic Universe movies and the main Star Wars films?",
+            "question_type": "multi-session",
+            "category": "multi-session",
+            "abstention": false,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "4c36ccef",
+            "expected": "Roscioli",
+            "answer": "I recommended Roscioli for a romantic dinner in Rome. It has a cozy and intimate atmosphere with soft lighting and excellent service, and they also have a great wine list and a menu that offers a range of dishes made with high-quality ingredients.",
+            "evidence": [
+              "answer_ultrachat_448704:3"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 8,
+            "prompt_tokens_est": 1272,
+            "num_ctx": 4096,
+            "latency_ms": 3991.8,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Can you remind me of the name of the romantic Italian restaurant in Rome you recommended for dinner?",
+            "question_type": "single-session-assistant",
+            "category": "single-session-assistant",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "35a27287",
+            "expected": "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange.",
+            "answer": "Based on the provided memory context, I can recommend some cultural events happening around you this weekend. However, I don't have access to your location. You can try searching online event calendars, social media, or local news websites for cultural events in your area that celebrate language diversity and cultural exchange.\n\nSome examples of cultural events and festivals that might interest you include:\n\n* Language Festivals\n* Cultural Exchange Programs\n* International Festivals\n* World Language Day\n* Heritage Months\n\nYou can also try reaching out to local language schools, cultural centers, or embassies that represent countries with languages you're interested in. They often host cultural events, language exchange programs, or conversation practice groups.\n\nRemember to search for events in your local area and don't be afraid to reach out to organizations or individuals who might be hosting or participating in these events. Good luck, and I hope you find an event that resonates with your interests!",
+            "evidence": [
+              "answer_9b182436:2",
+              "answer_9b182436:4",
+              "answer_9b182436:12"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 14,
+            "prompt_tokens_est": 6170,
+            "num_ctx": 16384,
+            "latency_ms": 15517.2,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Can you recommend some interesting cultural events happening around me this weekend?",
+            "question_type": "single-session-preference",
+            "category": "single-session-preference",
+            "abstention": false,
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "1e043500",
+            "expected": "Summer Vibes",
+            "answer": "The name of the playlist you created on Spotify is \"Summer Vibes\".",
+            "evidence": [
+              "answer_3e012175:2"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 12,
+            "prompt_tokens_est": 3948,
+            "num_ctx": 8192,
+            "latency_ms": 8978.7,
+            "judge": true,
+            "context_overflow": false,
+            "question": "What is the name of the playlist I created on Spotify?",
+            "question_type": "single-session-user",
+            "category": "single-session-user",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "0bb5a684",
+            "expected": "7 days. 8 days (including the last day) is also acceptable.",
+            "answer": "You attended the workshop on \"Effective Communication in the Workplace\" on January 10th. To determine how many days before the team meeting on January 17th you attended the workshop, we need to calculate the difference between the two dates.\n\nJanuary 10th to January 17th is 7 days.\n\nTherefore, you attended the workshop 7 days before the team meeting.",
+            "evidence": [
+              "answer_e936197f_1:0",
+              "answer_e936197f_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 24,
+            "prompt_tokens_est": 9942,
+            "num_ctx": 16384,
+            "latency_ms": 22592.2,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How many days before the team meeting I was preparing for did I attend the workshop on 'Effective Communication in the Workplace'?",
+            "question_type": "temporal-reasoning",
+            "category": "temporal-reasoning",
+            "abstention": false,
+            "judge_reason": "judge_yes"
+          }
+        ],
+        "valid": true
+      }
+    },
+    "naive_rag": {
+      "longmemeval": {
+        "questions": 35,
+        "accuracy": 0.6286,
+        "task_averaged_accuracy": 0.6286,
+        "evidence_recall": 0.7569,
+        "evidence_over_ingest_limit": 0,
+        "errors": 0,
+        "by_category": {
+          "abstention": {
+            "n": 5,
+            "accuracy": 0.6,
+            "evidence_recall": 0.5
+          },
+          "knowledge-update": {
+            "n": 5,
+            "accuracy": 0.6,
+            "evidence_recall": 0.8333
+          },
+          "multi-session": {
+            "n": 5,
+            "accuracy": 0.2,
+            "evidence_recall": 0.4467
+          },
+          "single-session-assistant": {
+            "n": 5,
+            "accuracy": 0.6,
+            "evidence_recall": 0.8
+          },
+          "single-session-preference": {
+            "n": 5,
+            "accuracy": 0.8,
+            "evidence_recall": 0.8667
+          },
+          "single-session-user": {
+            "n": 5,
+            "accuracy": 0.8,
+            "evidence_recall": 0.9
+          },
+          "temporal-reasoning": {
+            "n": 5,
+            "accuracy": 0.8,
+            "evidence_recall": 0.9
+          }
+        },
+        "avg_prompt_tokens_est": 1221.5,
+        "avg_latency_ms": 4348.6,
+        "context_overflow": 0,
+        "details": [
+          {
+            "id": "gpt4_70e84552_abs",
+            "expected": "The information provided is not enough. You mentioned fixing the fence but did not mention purchasing cows from Peter.",
+            "answer": "Based on the provided memory context, it appears that you completed the task of fixing the fence before purchasing three cows from Peter. The conversation turns indicate that you had already fixed the fence and were discussing plans for your farm open house event and selecting a new cow breed. The user's question about purchasing three cows from Peter was asked after you had already completed the task of fixing the fence.",
+            "evidence": [
+              "answer_b3070ec4_abs_1:0"
+            ],
+            "evidence_recall": 0.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1556,
+            "num_ctx": 4096,
+            "latency_ms": 5241.1,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Which task did I complete first, fixing the fence or purchasing three cows from Peter?",
+            "question_type": "temporal-reasoning",
+            "category": "abstention",
+            "abstention": true,
+            "retrieved": [
+              "answer_b3070ec4_abs_1:1",
+              "answer_b3070ec4_abs_1:10",
+              "answer_b3070ec4_abs_1:11",
+              "answer_b3070ec4_abs_1:8",
+              "answer_b3070ec4_abs_2:4"
+            ],
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "6a1eabeb",
+            "expected": "25 minutes and 50 seconds (or 25:50)",
+            "answer": "Your personal best time in the charity 5K run is 25:50.",
+            "evidence": [
+              "answer_a25d4a91_1:4",
+              "answer_a25d4a91_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1388,
+            "num_ctx": 4096,
+            "latency_ms": 3119.1,
+            "judge": true,
+            "context_overflow": false,
+            "question": "What was my personal best time in the charity 5K run?",
+            "question_type": "knowledge-update",
+            "category": "knowledge-update",
+            "abstention": false,
+            "retrieved": [
+              "answer_a25d4a91_1:0",
+              "answer_a25d4a91_1:4",
+              "answer_a25d4a91_2:0",
+              "answer_a25d4a91_2:1",
+              "answer_a25d4a91_2:10"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "0a995998",
+            "expected": "3",
+            "answer": "Based on the provided memory context, it appears that you need to pick up a new pair of boots from Zara, which you exchanged on 2/5. You also mentioned that you still need to pick up your dry cleaning. Therefore, you need to pick up at least 2 items from a store.",
+            "evidence": [
+              "answer_afa9873b_2:10",
+              "answer_afa9873b_3:6",
+              "answer_afa9873b_1:4"
+            ],
+            "evidence_recall": 0.3333,
+            "context_turns": 5,
+            "prompt_tokens_est": 1625,
+            "num_ctx": 4096,
+            "latency_ms": 4238.7,
+            "judge": false,
+            "context_overflow": false,
+            "question": "How many items of clothing do I need to pick up or return from a store?",
+            "question_type": "multi-session",
+            "category": "multi-session",
+            "abstention": false,
+            "retrieved": [
+              "answer_afa9873b_1:4",
+              "answer_afa9873b_1:5",
+              "answer_afa9873b_2:1",
+              "answer_afa9873b_2:2",
+              "answer_afa9873b_2:6"
+            ],
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "7161e7e2",
+            "expected": "Admon was assigned to the 8 am - 4 pm (Day Shift) on Sundays.",
+            "answer": "Based on the provided memory context, I can see that the shift rotation sheet for GM social media agents has been updated multiple times. However, I can find the specific information you're looking for in the last updated version of the sheet.\n\nAccording to the last updated version of the shift rotation sheet (retrieved_memory source=\"naive_rag\" trust=\"stored_data\"), on a Sunday, Admon is assigned to the 12 am - 8 am (Night Shift).",
+            "evidence": [
+              "answer_sharegpt_5Lzox6N_0:13"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1388,
+            "num_ctx": 4096,
+            "latency_ms": 5189.1,
+            "judge": false,
+            "context_overflow": false,
+            "question": "I'm checking our previous chat about the shift rotation sheet for GM social media agents. Can you remind me what was the rotation for Admon on a Sunday?",
+            "question_type": "single-session-assistant",
+            "category": "single-session-assistant",
+            "abstention": false,
+            "retrieved": [
+              "answer_sharegpt_5Lzox6N_0:0",
+              "answer_sharegpt_5Lzox6N_0:11",
+              "answer_sharegpt_5Lzox6N_0:13",
+              "answer_sharegpt_5Lzox6N_0:5",
+              "answer_sharegpt_5Lzox6N_0:9"
+            ],
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "8a2466db",
+            "expected": "The user would prefer responses that suggest resources specifically tailored to Adobe Premiere Pro, especially those that delve into its advanced settings. They might not prefer general video editing resources or resources related to other video editing software.",
+            "answer": "Based on the provided memory context, I can recommend some resources where you can learn more about video editing, specifically with Adobe Premiere Pro.\n\nTo dive deeper into the topics mentioned earlier, I recommend the following resources:\n\n* Adobe Premiere Pro's official documentation and tutorials\n* YouTube channels like Premiere Bro, Video Copilot, and Adobe Creative Cloud\n* Online courses on platforms like Udemy, LinkedIn Learning, and Skillshare\n* Premiere Pro communities and forums, such as Reddit's r/premierepro and Adobe's Premiere Pro forum\n\nAdditionally, if you're looking for tips on color grading, you can refer to the conversation I had with the user on May 20th, where I provided a step-by-step guide on how to use the Lumetri Color Panel to create a cinematic look for your videos.",
+            "evidence": [
+              "answer_edb03329:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 2073,
+            "num_ctx": 8192,
+            "latency_ms": 7620.3,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Can you recommend some resources where I can learn more about video editing?",
+            "question_type": "single-session-preference",
+            "category": "single-session-preference",
+            "abstention": false,
+            "retrieved": [
+              "answer_edb03329:0",
+              "answer_edb03329:1",
+              "answer_edb03329:11",
+              "answer_edb03329:16",
+              "answer_edb03329:6"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "e47becba",
+            "expected": "Business Administration",
+            "answer": "You graduated with a degree in Business Administration.",
+            "evidence": [
+              "answer_280352e9:4",
+              "answer_280352e9:5"
+            ],
+            "evidence_recall": 0.5,
+            "context_turns": 5,
+            "prompt_tokens_est": 704,
+            "num_ctx": 4096,
+            "latency_ms": 2822.5,
+            "judge": true,
+            "context_overflow": false,
+            "question": "What degree did I graduate with?",
+            "question_type": "single-session-user",
+            "category": "single-session-user",
+            "abstention": false,
+            "retrieved": [
+              "answer_280352e9:0",
+              "answer_280352e9:10",
+              "answer_280352e9:2",
+              "answer_280352e9:4",
+              "answer_280352e9:8"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "gpt4_2655b836",
+            "expected": "GPS system not functioning correctly",
+            "answer": "The first issue you had with your new car after its first service was related to the GPS system. It stopped working properly and you had to take it back to the dealership to get it fixed. They replaced the entire system, and now it's working flawlessly. This issue occurred on March 22nd.",
+            "evidence": [
+              "answer_4be1b6b4_3:2",
+              "answer_4be1b6b4_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1010,
+            "num_ctx": 4096,
+            "latency_ms": 3004.1,
+            "judge": true,
+            "context_overflow": false,
+            "question": "What was the first issue I had with my new car after its first service?",
+            "question_type": "temporal-reasoning",
+            "category": "temporal-reasoning",
+            "abstention": false,
+            "retrieved": [
+              "answer_4be1b6b4_1:0",
+              "answer_4be1b6b4_2:0",
+              "answer_4be1b6b4_2:1",
+              "answer_4be1b6b4_2:4",
+              "answer_4be1b6b4_3:2"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "gpt4_93159ced_abs",
+            "expected": "The information provided is not enough. From the information provided, You haven't started working at Google yet.",
+            "answer": "Based on the provided memory context, it appears that you have been working at NovaTech for about 4 years and 3 months. However, there is no information about when you started your current job at Google. Therefore, I cannot determine how long you have been working before you started your current job at Google.",
+            "evidence": [],
+            "evidence_recall": null,
+            "context_turns": 5,
+            "prompt_tokens_est": 723,
+            "num_ctx": 4096,
+            "latency_ms": 2552.3,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How long have I been working before I started my current job at Google?",
+            "question_type": "temporal-reasoning",
+            "category": "abstention",
+            "abstention": true,
+            "retrieved": [
+              "answer_e5131a1b_abs_1:0",
+              "answer_e5131a1b_abs_1:4",
+              "answer_e5131a1b_abs_1:6",
+              "answer_e5131a1b_abs_2:0",
+              "answer_e5131a1b_abs_2:10"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "6aeb4375",
+            "expected": "four",
+            "answer": "Based on the provided memory context, I can answer your question about the number of Korean restaurants you've tried in your city.\n\nAccording to the conversations, you've mentioned trying four different Korean restaurants in your city as of September 30, 2023.",
+            "evidence": [
+              "answer_3f9693b7_1:8",
+              "answer_3f9693b7_2:2"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1112,
+            "num_ctx": 4096,
+            "latency_ms": 7576.1,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How many Korean restaurants have I tried in my city?",
+            "question_type": "knowledge-update",
+            "category": "knowledge-update",
+            "abstention": false,
+            "retrieved": [
+              "answer_3f9693b7_1:0",
+              "answer_3f9693b7_1:8",
+              "answer_3f9693b7_1:9",
+              "answer_3f9693b7_2:2",
+              "answer_3f9693b7_2:3"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "6d550036",
+            "expected": "2",
+            "answer": "Based on the provided memory context, I can see that you have been discussing a project with me, and we have been working on presenting your findings effectively. However, I don't have any information about the specific project you are leading or the number of projects you are currently leading.\n\nUnfortunately, I don't have enough information to provide a specific answer to your question. If you would like to provide more context or details about your projects, I would be happy to try and assist you further.",
+            "evidence": [
+              "answer_ec904b3c_4:0",
+              "answer_ec904b3c_2:2",
+              "answer_ec904b3c_1:0",
+              "answer_ec904b3c_3:0"
+            ],
+            "evidence_recall": 0.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1400,
+            "num_ctx": 4096,
+            "latency_ms": 4151.2,
+            "judge": false,
+            "context_overflow": false,
+            "question": "How many projects have I led or am currently leading?",
+            "question_type": "multi-session",
+            "category": "multi-session",
+            "abstention": false,
+            "retrieved": [
+              "answer_ec904b3c_1:2",
+              "answer_ec904b3c_1:6",
+              "answer_ec904b3c_2:10",
+              "answer_ec904b3c_2:11",
+              "answer_ec904b3c_2:7"
+            ],
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "c4f10528",
+            "expected": "Miss Bee Providore",
+            "answer": "Based on our previous conversation, I remember that you were planning to visit Cihampelas Walk in Bandung. You asked for recommendations on good restaurants or cafes in the area, and I provided you with a list of options. Unfortunately, I don't recall you specifically asking about a restaurant that serves great Nasi Goreng, but I can suggest checking out the list I provided earlier. One of the options was a cooking class where you can learn how to make traditional Indonesian dishes, including Nasi Goreng. However, if you're looking for a specific restaurant that serves great Nasi Goreng, I'm not sure which one it might be from the list I provided.",
+            "evidence": [
+              "answer_ultrachat_234453:7"
+            ],
+            "evidence_recall": 0.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1376,
+            "num_ctx": 4096,
+            "latency_ms": 5276.4,
+            "judge": false,
+            "context_overflow": false,
+            "question": "I'm planning to visit Bandung again and I was wondering if you could remind me of the name of that restaurant in Cihampelas Walk that serves a great Nasi Goreng?",
+            "question_type": "single-session-assistant",
+            "category": "single-session-assistant",
+            "abstention": false,
+            "retrieved": [
+              "answer_ultrachat_234453:1",
+              "answer_ultrachat_234453:10",
+              "answer_ultrachat_234453:11",
+              "answer_ultrachat_234453:4",
+              "answer_ultrachat_234453:5"
+            ],
+            "judge_reason": "non_answer"
+          },
+          {
+            "id": "06878be2",
+            "expected": "The user would prefer suggestions of Sony-compatible accessories or high-quality photography gear that can enhance their photography experience. They may not prefer suggestions of other brands' equipment or low-quality gear.",
+            "answer": "Based on our previous conversation, I see that you're a Sony A7R IV user and have recently purchased the Godox V1 flash. You're also considering upgrading your tripod to the Gitzo GT3543LS.\n\nAs for accessories that would complement your current photography setup, I would recommend the following:\n\n1. A lens cleaning kit: Since you're using a high-end camera like the A7R IV, it's essential to keep your lenses clean and scratch-free. A good lens cleaning kit can help you maintain your lenses and prevent damage.\n2. A remote shutter release: A remote shutter release can help you take sharper photos, especially in low-light conditions. It can also reduce camera shake and noise.\n3. A memory card holder: With the Godox V1 flash, you'll likely be taking more photos, and you'll need a way to store them. A memory card holder can help you keep your memory cards organized and easily accessible.\n4. A camera strap: A comfortable camera strap can help you carry your camera and flash comfortably, especially when you're on the go.\n\nAs for the Gitzo GT3543LS tripod, I can tell you more about it if you'd like. It's a high-end tripod that's known for its stability and durability. However, I would recommend trying it out before purchasing, as it's a significant investment.\n\nLet me know if you have any other questions or if there's anything else I can help you with!",
+            "evidence": [
+              "answer_555dfb94:0",
+              "answer_555dfb94:8",
+              "answer_555dfb94:14"
+            ],
+            "evidence_recall": 0.6667,
+            "context_turns": 5,
+            "prompt_tokens_est": 827,
+            "num_ctx": 4096,
+            "latency_ms": 7921.5,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Can you suggest some accessories that would complement my current photography setup?",
+            "question_type": "single-session-preference",
+            "category": "single-session-preference",
+            "abstention": false,
+            "retrieved": [
+              "answer_555dfb94:0",
+              "answer_555dfb94:10",
+              "answer_555dfb94:14",
+              "answer_555dfb94:15",
+              "answer_555dfb94:4"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "118b2229",
+            "expected": "45 minutes each way",
+            "answer": "Based on the provided memory context, I can answer your question about your daily commute to work.\n\nYour daily commute to work takes 45 minutes each way, as mentioned in the conversation on 2023/05/23 (Tue) 18:02.",
+            "evidence": [
+              "answer_40a90d51:8"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 738,
+            "num_ctx": 4096,
+            "latency_ms": 2657.8,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How long is my daily commute to work?",
+            "question_type": "single-session-user",
+            "category": "single-session-user",
+            "abstention": false,
+            "retrieved": [
+              "answer_40a90d51:0",
+              "answer_40a90d51:2",
+              "answer_40a90d51:4",
+              "answer_40a90d51:8",
+              "answer_40a90d51:9"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "gpt4_2487a7cb",
+            "expected": "'Data Analysis using Python' webinar",
+            "answer": "Based on the provided memory context, I can answer your question.\n\nYou attended the 'Effective Time Management' workshop first, which was held at the local community center last Saturday.",
+            "evidence": [
+              "answer_1c6b85ea_2:2",
+              "answer_1c6b85ea_1:10"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1973,
+            "num_ctx": 4096,
+            "latency_ms": 4377.8,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Which event did I attend first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar?",
+            "question_type": "temporal-reasoning",
+            "category": "temporal-reasoning",
+            "abstention": false,
+            "retrieved": [
+              "answer_1c6b85ea_1:1",
+              "answer_1c6b85ea_1:10",
+              "answer_1c6b85ea_1:2",
+              "answer_1c6b85ea_2:1",
+              "answer_1c6b85ea_2:2"
+            ],
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "982b5123_abs",
+            "expected": "The information provided is not enough. You only mentioned booking Airbnb in San Francisco.",
+            "answer": "I'm sorry, but I don't have enough information to answer your question. The context provided mentions a trip to San Francisco, but it doesn't mention Sacramento or an Airbnb booking in Sacramento.",
+            "evidence": [
+              "answer_ab603dd5_abs_1:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1108,
+            "num_ctx": 4096,
+            "latency_ms": 2797.0,
+            "judge": true,
+            "context_overflow": false,
+            "question": "When did I book the Airbnb in Sacramento?",
+            "question_type": "temporal-reasoning",
+            "category": "abstention",
+            "abstention": true,
+            "retrieved": [
+              "answer_ab603dd5_abs_1:0",
+              "answer_ab603dd5_abs_1:4",
+              "answer_ab603dd5_abs_1:5",
+              "answer_ab603dd5_abs_1:8",
+              "answer_ab603dd5_abs_2:2"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "830ce83f",
+            "expected": "the suburbs",
+            "answer": "Based on the conversation turns, I can see that Rachel recently moved to Chicago. However, I don't have any information about her moving to a new location after that. The conversation only mentions her recent relocation to Chicago, but it doesn't mention any subsequent moves.",
+            "evidence": [
+              "answer_0b1a0942_1:2",
+              "answer_0b1a0942_1:4",
+              "answer_0b1a0942_2:2"
+            ],
+            "evidence_recall": 0.6667,
+            "context_turns": 5,
+            "prompt_tokens_est": 624,
+            "num_ctx": 4096,
+            "latency_ms": 2162.6,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Where did Rachel move to after her recent relocation?",
+            "question_type": "knowledge-update",
+            "category": "knowledge-update",
+            "abstention": false,
+            "retrieved": [
+              "answer_0b1a0942_1:2",
+              "answer_0b1a0942_1:3",
+              "answer_0b1a0942_1:4",
+              "answer_0b1a0942_1:6",
+              "answer_0b1a0942_1:8"
+            ],
+            "judge_reason": "non_answer"
+          },
+          {
+            "id": "gpt4_59c863d7",
+            "expected": "I have worked on or bought five model kits. The scales of the models are: Revell F-15 Eagle (scale not mentioned), Tamiya 1/48 scale Spitfire Mk.V, 1/16 scale German Tiger I tank, 1/72 scale B-29 bomber, and 1/24 scale '69 Camaro.",
+            "answer": "Based on the provided memory context, it appears that you have worked on or bought the following model kits:\n\n1. Revell F-15 Eagle kit (finished)\n2. 1/72 scale B-29 bomber model kit (mentioned as a new kit)\n3. 1/24 scale '69 Camaro model kit (bought at a model show)\n\nTherefore, I can conclude that you have worked on or bought at least 3 model kits.",
+            "evidence": [
+              "answer_593bdffd_1:0",
+              "answer_593bdffd_2:0",
+              "answer_593bdffd_2:8",
+              "answer_593bdffd_3:0",
+              "answer_593bdffd_4:0"
+            ],
+            "evidence_recall": 0.4,
+            "context_turns": 5,
+            "prompt_tokens_est": 764,
+            "num_ctx": 4096,
+            "latency_ms": 3302.3,
+            "judge": false,
+            "context_overflow": false,
+            "question": "How many model kits have I worked on or bought?",
+            "question_type": "multi-session",
+            "category": "multi-session",
+            "abstention": false,
+            "retrieved": [
+              "answer_593bdffd_1:0",
+              "answer_593bdffd_1:10",
+              "answer_593bdffd_1:11",
+              "answer_593bdffd_4:0",
+              "answer_593bdffd_4:6"
+            ],
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "89527b6b",
+            "expected": "The Plesiosaur had a blue scaly body.",
+            "answer": "The Plesiosaur in the image has a blue scaly body.",
+            "evidence": [
+              "answer_sharegpt_YkWn1Ne_0:1"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 2,
+            "prompt_tokens_est": 994,
+            "num_ctx": 4096,
+            "latency_ms": 2342.2,
+            "judge": true,
+            "context_overflow": false,
+            "question": "I'm going back to our previous conversation about the children's book on dinosaurs. Can you remind me what color was the scaly body of the Plesiosaur in the image?",
+            "question_type": "single-session-assistant",
+            "category": "single-session-assistant",
+            "abstention": false,
+            "retrieved": [
+              "answer_sharegpt_YkWn1Ne_0:0",
+              "answer_sharegpt_YkWn1Ne_0:1"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "75832dbd",
+            "expected": "The user would prefer suggestions related to recent research papers, articles, or conferences that focus on artificial intelligence in healthcare, particularly those that involve deep learning for medical image analysis. They would not be interested in general AI topics or those unrelated to healthcare.",
+            "answer": "Based on the provided context, I can see that the user is interested in recent advancements in deep learning for medical image analysis. Specifically, they have asked about popular datasets for segmentation tasks, latest trends in explainable AI, and research papers on advanced topics such as multi-modal image fusion, transfer learning, and domain adaptation.\n\nUnfortunately, the context does not provide any direct recommendations for recent publications or conferences. However, I can suggest some possible sources that might be relevant:\n\n* For recent advancements in deep learning for medical image analysis, you may want to check the latest issues of journals such as Medical Image Analysis, IEEE Transactions on Medical Imaging, or Nature Medicine.\n* For conferences, some notable ones in the field of medical image analysis include the International Conference on Medical Image Computing and Computer-Assisted Intervention (MICCAI), the International Symposium on Biomedical Imaging (ISBI), and the Medical Imaging with Deep Learning (MIDL) conference.\n* For research papers on explainable AI in medical image analysis, you may want to search for papers on academic databases such as arXiv, PubMed, or IEEE Xplore.\n\nPlease note that these are just suggestions based on the context provided, and I would be happy to provide more specific recommendations if I had more information about the user's interests or preferences.",
+            "evidence": [
+              "answer_d87a6ef8:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 609,
+            "num_ctx": 4096,
+            "latency_ms": 6316.2,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Can you recommend some recent publications or conferences that I might find interesting?",
+            "question_type": "single-session-preference",
+            "category": "single-session-preference",
+            "abstention": false,
+            "retrieved": [
+              "answer_d87a6ef8:0",
+              "answer_d87a6ef8:10",
+              "answer_d87a6ef8:2",
+              "answer_d87a6ef8:4",
+              "answer_d87a6ef8:8"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "51a45a95",
+            "expected": "Target",
+            "answer": "Based on the provided memory context, I found that you redeemed a $5 coupon on coffee creamer last Sunday. Unfortunately, the context does not specify where you redeemed the coupon. However, it does mention that you received the coupon via email, and you mentioned it was a nice surprise.",
+            "evidence": [
+              "answer_d61669c7:4"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1428,
+            "num_ctx": 4096,
+            "latency_ms": 4195.7,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Where did I redeem a $5 coupon on coffee creamer?",
+            "question_type": "single-session-user",
+            "category": "single-session-user",
+            "abstention": false,
+            "retrieved": [
+              "answer_d61669c7:0",
+              "answer_d61669c7:1",
+              "answer_d61669c7:4",
+              "answer_d61669c7:5",
+              "answer_d61669c7:6"
+            ],
+            "judge_reason": "non_answer"
+          },
+          {
+            "id": "gpt4_76048e76",
+            "expected": "bike",
+            "answer": "Based on the memory context, it appears that you took care of your bike first in February, as you mentioned that you had to take it in for repairs because the gears were acting up and you couldn't shift properly. There is no mention of taking care of your car in February.",
+            "evidence": [
+              "answer_b535969f_1:0",
+              "answer_b535969f_2:0"
+            ],
+            "evidence_recall": 0.5,
+            "context_turns": 5,
+            "prompt_tokens_est": 963,
+            "num_ctx": 4096,
+            "latency_ms": 2956.5,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Which vehicle did I take care of first in February, the bike or the car?",
+            "question_type": "temporal-reasoning",
+            "category": "temporal-reasoning",
+            "abstention": false,
+            "retrieved": [
+              "answer_b535969f_2:0",
+              "answer_b535969f_2:1",
+              "answer_b535969f_2:10",
+              "answer_b535969f_2:11",
+              "answer_b535969f_2:2"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "c8090214_abs",
+            "expected": "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad.",
+            "answer": "Based on the provided memory context, I can see that the user attended the Holiday Market on the same day they were planning to buy a new TV and a phone case. The user mentioned going back to the Holiday Market to take a closer look at the jewelry vendors, which suggests that they attended the market earlier that day.\n\nTo calculate the number of days before the user bought their iPad that they attended the Holiday Market, I need to know the date they bought their iPad. Unfortunately, the provided memory context does not mention the iPad or its purchase date.\n\nHowever, I can tell you that the user attended the Holiday Market on the same day they were planning to buy a new TV and a phone case, which is May 27th, 2023.",
+            "evidence": [
+              "answer_70dc7d08_abs_1:0",
+              "answer_70dc7d08_abs_1:8"
+            ],
+            "evidence_recall": 0.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1326,
+            "num_ctx": 4096,
+            "latency_ms": 5587.6,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How many days before I bought my iPad did I attend the Holiday Market?",
+            "question_type": "temporal-reasoning",
+            "category": "abstention",
+            "abstention": true,
+            "retrieved": [
+              "answer_70dc7d08_abs_1:10",
+              "answer_70dc7d08_abs_1:11",
+              "answer_70dc7d08_abs_2:0",
+              "answer_70dc7d08_abs_2:1",
+              "answer_70dc7d08_abs_2:4"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "852ce960",
+            "expected": "$400,000",
+            "answer": "Based on the provided memory context, you were pre-approved for $350,000 from Wells Fargo.",
+            "evidence": [
+              "answer_3a6f1e82_1:2",
+              "answer_3a6f1e82_2:0"
+            ],
+            "evidence_recall": 0.5,
+            "context_turns": 5,
+            "prompt_tokens_est": 1876,
+            "num_ctx": 4096,
+            "latency_ms": 5271.9,
+            "judge": false,
+            "context_overflow": false,
+            "question": "What was the amount I was pre-approved for when I got my mortgage from Wells Fargo?",
+            "question_type": "knowledge-update",
+            "category": "knowledge-update",
+            "abstention": false,
+            "retrieved": [
+              "answer_3a6f1e82_1:1",
+              "answer_3a6f1e82_1:10",
+              "answer_3a6f1e82_1:11",
+              "answer_3a6f1e82_1:2",
+              "answer_3a6f1e82_1:3"
+            ],
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "b5ef892d",
+            "expected": "8 days.",
+            "answer": "Based on the provided memory context, I can see that the user mentioned they just got back from a 5-day camping trip to Yellowstone National Park last month. However, I don't have any information about the user's camping trips in the United States this year, specifically in 2023.\n\nUnfortunately, I don't have enough information to provide a specific answer to your question.",
+            "evidence": [
+              "answer_a8b4290f_2:0",
+              "answer_a8b4290f_1:0"
+            ],
+            "evidence_recall": 0.5,
+            "context_turns": 5,
+            "prompt_tokens_est": 1181,
+            "num_ctx": 4096,
+            "latency_ms": 3545.2,
+            "judge": false,
+            "context_overflow": false,
+            "question": "How many days did I spend on camping trips in the United States this year?",
+            "question_type": "multi-session",
+            "category": "multi-session",
+            "abstention": false,
+            "retrieved": [
+              "answer_a8b4290f_1:0",
+              "answer_a8b4290f_3:4",
+              "answer_a8b4290f_3:5",
+              "answer_a8b4290f_3:6",
+              "answer_a8b4290f_3:8"
+            ],
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "e9327a54",
+            "expected": "The Sugar Factory at Icon Park.",
+            "answer": "I'd be happy to help you remember that unique dessert shop with the giant milkshakes. Based on our previous conversation, I recommended The Sugar Factory, a sweet shop located at Icon Park that offers an enormous menu of sweet treats, including specialty drinks and giant milkshakes. It's a great spot to visit with your family after dinner!",
+            "evidence": [
+              "answer_ultrachat_480665:7"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 913,
+            "num_ctx": 4096,
+            "latency_ms": 3034.8,
+            "judge": true,
+            "context_overflow": false,
+            "question": "I'm planning to revisit Orlando. I was wondering if you could remind me of that unique dessert shop with the giant milkshakes we talked about last time?",
+            "question_type": "single-session-assistant",
+            "category": "single-session-assistant",
+            "abstention": false,
+            "retrieved": [
+              "answer_ultrachat_480665:0",
+              "answer_ultrachat_480665:12",
+              "answer_ultrachat_480665:2",
+              "answer_ultrachat_480665:4",
+              "answer_ultrachat_480665:7"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "0edc2aef",
+            "expected": "The user would prefer suggestions of hotels in Miami that offer great views, possibly of the ocean or the city skyline, and have unique features such as a rooftop pool or a hot tub on the balcony. They may not prefer suggestions of basic or budget hotels without these features.",
+            "answer": "I'm happy to help you with your hotel query, but I must point out that the context provided is about a trip to Seattle, not Miami. Unfortunately, I don't have any relevant information about hotels in Miami in my memory. If you'd like, I can try to suggest a general approach to finding a hotel with great views and unique features, but it won't be specific to Miami.",
+            "evidence": [
+              "answer_d586e9cd:2"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 505,
+            "num_ctx": 4096,
+            "latency_ms": 2602.3,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Can you suggest a hotel for my upcoming trip to Miami?",
+            "question_type": "single-session-preference",
+            "category": "single-session-preference",
+            "abstention": false,
+            "retrieved": [
+              "answer_d586e9cd:0",
+              "answer_d586e9cd:16",
+              "answer_d586e9cd:2",
+              "answer_d586e9cd:4",
+              "answer_d586e9cd:6"
+            ],
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "58bf7951",
+            "expected": "The Glass Menagerie",
+            "answer": "The play you attended at the local community theater was a production of \"The Glass Menagerie\".",
+            "evidence": [
+              "answer_355c48bb:4"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 785,
+            "num_ctx": 4096,
+            "latency_ms": 2091.9,
+            "judge": true,
+            "context_overflow": false,
+            "question": "What play did I attend at the local community theater?",
+            "question_type": "single-session-user",
+            "category": "single-session-user",
+            "abstention": false,
+            "retrieved": [
+              "answer_355c48bb:2",
+              "answer_355c48bb:3",
+              "answer_355c48bb:4",
+              "answer_355c48bb:6",
+              "answer_355c48bb:8"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "gpt4_2312f94c",
+            "expected": "Samsung Galaxy S22",
+            "answer": "Based on the provided memory context, it appears that you got the Samsung Galaxy S22 first. The context mentions that you \"recently got a new Samsung Galaxy S22 from the Best Buy store at the mall on February 20th\" and that you pre-ordered the Dell XPS 13 on January 28th, but it didn't arrive until February 25th.",
+            "evidence": [
+              "answer_5328c3c2_1:0",
+              "answer_5328c3c2_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1459,
+            "num_ctx": 4096,
+            "latency_ms": 4370.8,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?",
+            "question_type": "temporal-reasoning",
+            "category": "temporal-reasoning",
+            "abstention": false,
+            "retrieved": [
+              "answer_5328c3c2_1:0",
+              "answer_5328c3c2_1:4",
+              "answer_5328c3c2_2:0",
+              "answer_5328c3c2_2:1",
+              "answer_5328c3c2_2:3"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "gpt4_c27434e8_abs",
+            "expected": "The information provided is not enough. You did not mention starting the Porsche 991 Turbo S model.",
+            "answer": "Based on the provided memory context, it appears that you started working on the Ferrari 288 GTO model about three weeks ago on a Sunday afternoon. There is no mention of a Porsche 991 Turbo S model in the context. Therefore, I can conclude that the project you started first is the Ferrari 288 GTO model.",
+            "evidence": [
+              "answer_d8e33f5c_abs_1:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 2181,
+            "num_ctx": 8192,
+            "latency_ms": 6331.8,
+            "judge": false,
+            "context_overflow": false,
+            "question": "Which project did I start first, the Ferrari model or the Porsche 991 Turbo S model?",
+            "question_type": "temporal-reasoning",
+            "category": "abstention",
+            "abstention": true,
+            "retrieved": [
+              "answer_d8e33f5c_abs_1:0",
+              "answer_d8e33f5c_abs_1:1",
+              "answer_d8e33f5c_abs_1:11",
+              "answer_d8e33f5c_abs_1:5",
+              "answer_d8e33f5c_abs_1:9"
+            ],
+            "judge_reason": "judge_no"
+          },
+          {
+            "id": "945e3d21",
+            "expected": "Three times a week.",
+            "answer": "Based on the provided memory context, it appears that you attend yoga classes three times a week. This is mentioned in the conversation turn from November 30th, where you mention that you're more focused on days when you attend yoga classes.",
+            "evidence": [
+              "answer_6a4f8626_1:4",
+              "answer_6a4f8626_2:2"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 2150,
+            "num_ctx": 8192,
+            "latency_ms": 5020.7,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How often do I attend yoga classes to help with my anxiety?",
+            "question_type": "knowledge-update",
+            "category": "knowledge-update",
+            "abstention": false,
+            "retrieved": [
+              "answer_6a4f8626_1:10",
+              "answer_6a4f8626_1:11",
+              "answer_6a4f8626_1:4",
+              "answer_6a4f8626_1:5",
+              "answer_6a4f8626_2:2"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "e831120c",
+            "expected": "3.5 weeks",
+            "answer": "Based on the provided memory context, it took you 2 weeks to watch all 22 Marvel Cinematic Universe movies, and 1 week and a half to watch all the main Star Wars films.",
+            "evidence": [
+              "answer_86c505e7_1:0",
+              "answer_86c505e7_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 963,
+            "num_ctx": 4096,
+            "latency_ms": 3920.7,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How many weeks did it take me to watch all the Marvel Cinematic Universe movies and the main Star Wars films?",
+            "question_type": "multi-session",
+            "category": "multi-session",
+            "abstention": false,
+            "retrieved": [
+              "answer_86c505e7_1:0",
+              "answer_86c505e7_2:0",
+              "answer_86c505e7_2:2",
+              "answer_86c505e7_2:4",
+              "answer_86c505e7_2:5"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "4c36ccef",
+            "expected": "Roscioli",
+            "answer": "I recommended Roscioli for a romantic dinner in Rome. It has a cozy and intimate atmosphere, excellent service, and a great wine list, making it a perfect spot for a romantic evening.",
+            "evidence": [
+              "answer_ultrachat_448704:3"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 830,
+            "num_ctx": 4096,
+            "latency_ms": 2182.6,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Can you remind me of the name of the romantic Italian restaurant in Rome you recommended for dinner?",
+            "question_type": "single-session-assistant",
+            "category": "single-session-assistant",
+            "abstention": false,
+            "retrieved": [
+              "answer_ultrachat_448704:0",
+              "answer_ultrachat_448704:1",
+              "answer_ultrachat_448704:2",
+              "answer_ultrachat_448704:3",
+              "answer_ultrachat_448704:6"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "35a27287",
+            "expected": "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange.",
+            "answer": "Based on our previous conversation, I'd be happy to help you find cultural events and language exchange opportunities in your area. Since I don't have access to your location, I'll provide you with some general suggestions and ideas.\n\nConsidering your interest in language diversity and cultural exchange, I recommend checking online event calendars like Eventbrite and Meetup. You can search for keywords like \"language festival,\" \"cultural exchange,\" \"diversity celebration,\" or \"international festival\" to find relevant events.\n\nAdditionally, you can follow local cultural organizations, language schools, and community centers on social media platforms like Facebook, Twitter, or Instagram. They often post about upcoming events and festivals.\n\nIf you're interested in language exchange events, especially those that focus on conversational practice, you can try searching for language exchange groups or events on Meetup or Eventbrite. You can also reach out to local language schools or cultural centers to inquire about language exchange opportunities.\n\nSome examples of cultural events and festivals that might interest you include:\n\n1. Language Festivals: Events that celebrate languages, such as the polyglot conference, language exchange festivals, or linguistic diversity festivals.\n2. Cultural Exchange Programs: Organizations that host cultural exchange programs, homestays, or language exchange events, which can be a great way to meet people from diverse backgrounds.\n3. International Festivals: Events that celebrate the culture, food, music, and traditions of specific countries or regions, such as Chinese New Year, Diwali, or Cinco de Mayo festivals.\n\nRemember to search for events in your local area, and don't be afraid to reach out to organizations or individuals who might be hosting or participating in these events.\n\nAs for tips for effective language exchange and conversation practice, I can suggest the following:\n\n1. Be open-minded and respectful of your language partner's culture and language.\n2. Set clear goals and expectations for your language exchange sessions.\n3. Practice active listening and speaking.\n4. Use language exchange apps or websites to find language partners or events.\n5. Attend language exchange events or join language exchange groups to meet people with similar interests.\n\nI hope this helps you find some interesting cultural events and language exchange opportunities in your area!",
+            "evidence": [
+              "answer_9b182436:2",
+              "answer_9b182436:4",
+              "answer_9b182436:12"
+            ],
+            "evidence_recall": 0.6667,
+            "context_turns": 5,
+            "prompt_tokens_est": 1310,
+            "num_ctx": 4096,
+            "latency_ms": 11786.1,
+            "judge": true,
+            "context_overflow": false,
+            "question": "Can you recommend some interesting cultural events happening around me this weekend?",
+            "question_type": "single-session-preference",
+            "category": "single-session-preference",
+            "abstention": false,
+            "retrieved": [
+              "answer_9b182436:12",
+              "answer_9b182436:2",
+              "answer_9b182436:3",
+              "answer_9b182436:6",
+              "answer_9b182436:8"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "1e043500",
+            "expected": "Summer Vibes",
+            "answer": "The name of the playlist you created on Spotify is \"Summer Vibes\".",
+            "evidence": [
+              "answer_3e012175:2"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1541,
+            "num_ctx": 4096,
+            "latency_ms": 3507.3,
+            "judge": true,
+            "context_overflow": false,
+            "question": "What is the name of the playlist I created on Spotify?",
+            "question_type": "single-session-user",
+            "category": "single-session-user",
+            "abstention": false,
+            "retrieved": [
+              "answer_3e012175:10",
+              "answer_3e012175:2",
+              "answer_3e012175:3",
+              "answer_3e012175:8",
+              "answer_3e012175:9"
+            ],
+            "judge_reason": "judge_yes"
+          },
+          {
+            "id": "0bb5a684",
+            "expected": "7 days. 8 days (including the last day) is also acceptable.",
+            "answer": "You attended the workshop on \"Effective Communication in the Workplace\" on January 10th. Your team meeting is on January 17th. Therefore, you attended the workshop 7 days before the team meeting.",
+            "evidence": [
+              "answer_e936197f_1:0",
+              "answer_e936197f_2:0"
+            ],
+            "evidence_recall": 1.0,
+            "context_turns": 5,
+            "prompt_tokens_est": 1349,
+            "num_ctx": 4096,
+            "latency_ms": 3125.8,
+            "judge": true,
+            "context_overflow": false,
+            "question": "How many days before the team meeting I was preparing for did I attend the workshop on 'Effective Communication in the Workplace'?",
+            "question_type": "temporal-reasoning",
+            "category": "temporal-reasoning",
+            "abstention": false,
+            "retrieved": [
+              "answer_e936197f_1:0",
+              "answer_e936197f_1:1",
+              "answer_e936197f_1:2",
+              "answer_e936197f_2:0",
+              "answer_e936197f_2:2"
+            ],
+            "judge_reason": "judge_yes"
+          }
+        ],
+        "valid": true
+      }
+    }
+  },
+  "longmemeval_judge": {
+    "enabled": true,
+    "prompts": "official evaluate_qa.py get_anscheck_prompt",
+    "llm": {
+      "provider": "ollama",
+      "model": "gemma4:26b",
+      "base_url": "http://localhost:11434/v1",
+      "endpoint": "ollama /api/chat (num_ctx sized per prompt)",
+      "temperature": 0.0
+    },
+    "source": "isolated daemon config + CLI overrides",
+    "calls": 94
+  },
+  "campy_vs_baselines": {
+    "longmemeval": {
+      "full_context": {
+        "baseline_passes_campy_fails": [
+          "7161e7e2",
+          "e47becba",
+          "75832dbd",
+          "gpt4_76048e76",
+          "58bf7951",
+          "0bb5a684"
+        ],
+        "campy_passes_baseline_fails": [
+          "6a1eabeb",
+          "51a45a95",
+          "b5ef892d",
+          "0edc2aef",
+          "gpt4_c27434e8_abs",
+          "e831120c",
+          "35a27287"
+        ]
+      },
+      "naive_rag": {
+        "baseline_passes_campy_fails": [
+          "e47becba",
+          "gpt4_2655b836",
+          "75832dbd",
+          "gpt4_76048e76",
+          "58bf7951",
+          "0bb5a684"
+        ],
+        "campy_passes_baseline_fails": [
+          "c4f10528",
+          "51a45a95",
+          "b5ef892d",
+          "0edc2aef",
+          "gpt4_c27434e8_abs"
+        ]
+      }
+    }
+  }
+}
