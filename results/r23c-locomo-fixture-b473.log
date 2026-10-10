@@ -1,0 +1,24 @@
+=== Campy Benchmark Harness (B381) ===
+Timestamp: 2026-10-10T09:00:28.815325+00:00Z
+Mode: STANDARD
+Target MCP Server: /Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/python -m campy.adapters.mcp_server
+[+] Starting isolated daemon (base config: /Users/djshelton/.campy/config.toml)...
+    ready in 2.0s at /tmp/campy-bench-s4ozkql1
+
+[+] Running LoCoMo Suite (Conversational Deprecation)...
+    Completed in 806.89s (calls=402, failures=0, valid=True)
+    LLM judge (gemma4:26b) graded Campy: 28 calls
+                         Campy Benchmark Results (FULL)                         
+┏━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Suite  ┃ Key Metrics                 ┃ Score / Rate             ┃ Latency    ┃
+┡━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ LoCoMo │ DeprecAcc: 0.963 | EM:      │ Acc: 0.9643 | Judge: 1.0 │ 1267.86 ms │
+│        │ 0.9643 | F1: 0.2819         │                          │            │
+└────────┴─────────────────────────────┴──────────────────────────┴────────────┘
+
+### Lexical scorer vs LLM judge disagree (read these answers first)
+- locomo/p1_current_db: lexical fail (missing_current_value), LLM judge pass
+
+[+] Recorded results (with per-probe details) to /private/tmp/cb-q/results/r23c-locomo-fixture-b473.json
+
+Harness execution complete.

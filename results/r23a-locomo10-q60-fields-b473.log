@@ -1,0 +1,23 @@
+=== Campy Benchmark Harness (B381) ===
+Timestamp: 2026-10-10T08:14:46.709726+00:00Z
+Mode: STANDARD
+Target MCP Server: /Users/djshelton/Desktop/GitProjects/hippocampy/.venv/bin/python -m campy.adapters.mcp_server
+[+] Starting isolated daemon (base config: /Users/djshelton/.campy/config.toml)...
+    ready in 2.0s at /tmp/campy-bench-vfg1grvm
+
+[+] Running LoCoMo-10 (published dataset; {'conversations': 1, 'max_questions': 60, 'categories': None})...
+    Completed in 577.41s (calls=615, failures=0, valid=True)
+
+[+] LoCoMo-10 judge: gemma4:26b over ['campy']
+    judged campy: 42 calls
+                         Campy Benchmark Results (FULL)                         
+┏━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━┓
+┃ Suite     ┃ Key Metrics                          ┃ Score / Rate  ┃ Latency   ┃
+┡━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━┩
+│ LoCoMo-10 │ F1: 0.0738 | Adv. abstain: 0.1667 |  │ Judge: 0.3958 │ 2922.5 ms │
+│           │ Evidence recall: 0.3879              │               │           │
+└───────────┴──────────────────────────────────────┴───────────────┴───────────┘
+
+[+] Recorded results (with per-probe details) to /private/tmp/cb-q/results/r23a-locomo10-q60-fields-b473.json
+
+Harness execution complete.
