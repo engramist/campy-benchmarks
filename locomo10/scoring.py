@@ -157,7 +157,11 @@ def build_judge_prompt(question: str, gold: str, answer: str, persona: bool = Fa
     return f"{head}\n\n{rest}"
 
 
-JUDGE_MAX_TOKENS = 256  # the verdict is one word; a cap stops a degenerate generation
+# No cap on the judge's reply: the judge model reasons before its verdict and a
+# reasoning-capped reply comes back EMPTY (unparseable = WRONG). A 256 cap cost 4
+# of 50 correct DMR verdicts on identical answers (R34a vs R33a). A runaway
+# generation is stopped by the server (token repeat limit) and retried below.
+JUDGE_MAX_TOKENS = None
 JUDGE_ATTEMPTS = 2       # one retry, then the verdict is recorded as a judge error
 
 

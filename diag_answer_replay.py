@@ -238,6 +238,8 @@ def make_passed(judge, votes: int = 1):
     from locomo10.scoring import judge_one, score_answer
     from qa_judge import is_non_answer
     cache: dict = {}
+    from collections import Counter
+    problems: Counter = Counter()  # verdicts the judge did not really give
 
     def passed(d: dict, answer: str) -> bool:
         if d.get("category") == 5:  # LoCoMo-10 adversarial: declining is right
@@ -247,9 +249,12 @@ def make_passed(judge, votes: int = 1):
         persona = d.get("category") is None  # DMR; every LoCoMo-10 record has a category
         key = (d["question"], d["expected"], answer, persona)
         if key not in cache:
-            cache[key] = judge_one(judge, d["question"], d["expected"], answer,
-                                   persona=persona, votes=votes)["judge"]
+            v = judge_one(judge, d["question"], d["expected"], answer, persona=persona, votes=votes)
+            if v.get("reason") in ("judge_unparseable", "judge_error"):
+                problems[v["reason"]] += 1
+            cache[key] = v["judge"]
         return cache[key]
+    passed.problems = problems  # e.g. a capped or failing judge: report it next to any score
     return passed
 
 
@@ -352,6 +357,7 @@ def main() -> int:
                     line += f"   adversarial {sum(r['variants'][v]['passed'] for r in adv)}/{len(adv)}"
             print(line)
         report[str(path)] = rows
+    print(f"\njudge problems (verdicts scored WRONG without a real verdict): {dict(passed.problems) or 'none'}")
     if args.out:
         args.out.write_text(json.dumps(report, indent=1))
     return 0

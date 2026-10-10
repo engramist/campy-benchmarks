@@ -162,7 +162,7 @@ def judge_errors() -> None:
     once = Flaky(1)
     r = judge_one(once, "q", "gold", "ans")
     check(r["judge"] is True and once.calls == 2, f"one error is retried: {r}, calls={once.calls}")
-    check(once.caps == [JUDGE_MAX_TOKENS] * 2, f"judge calls are capped: {once.caps}")
+    check(once.caps == [None] * 2 and JUDGE_MAX_TOKENS is None, f"judge calls are not capped (a capped reasoning judge replies empty): {once.caps}")
     twice = Flaky(5)
     try:
         r = judge_one(twice, "q", "gold", "ans", votes=3)

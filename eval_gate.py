@@ -169,10 +169,13 @@ def main() -> int:
 
     from llm_client import BaselineLLM
     judge = BaselineLLM(args.judge_provider, args.judge_model, args.judge_base_url)
-    out = gate(args.results, replay_mod.make_passed(judge, args.judge_votes), args.main_tree, args.branch_tree, args.store,
+    passed = replay_mod.make_passed(judge, args.judge_votes)
+    out = gate(args.results, passed, args.main_tree, args.branch_tree, args.store,
                args.noise, {i for i in args.ids.split(",") if i}, args.llm_model, args.split)
-    out["judge"] = {"provider": args.judge_provider, "model": args.judge_model, "votes": args.judge_votes}
+    out["judge"] = {"provider": args.judge_provider, "model": args.judge_model, "votes": args.judge_votes,
+                    "problems": dict(passed.problems)}
     print("\n" + render(out))
+    print(f"\njudge problems (verdicts scored WRONG without a real verdict): {dict(passed.problems) or 'none'}")
     if args.out:
         args.out.write_text(json.dumps(out, indent=1))
     return 0
