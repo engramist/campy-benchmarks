@@ -28,6 +28,7 @@ python check_qa_judge.py
 python check_longmemeval.py
 python check_report.py
 python check_dmr.py
+python check_rejudge.py
 
 # Before trusting a judge model: grade the ~600 hand-labelled answers with it
 python check_qa_judge.py --live --judge-model gemma4:26b
@@ -127,6 +128,17 @@ which contain thousands of unrelated messages as distractors. `--compare`
 warns when isolation differs. `provenance.store` records the overrides,
 ready time, and the isolated activity-log line count, which should roughly
 match `client_calls` and shows the calls reached the isolated daemon.
+
+## Judge robustness: persona rule, votes, re-judging
+
+- DMR's judge prompt carries a persona rule: "I"/"you" may be swapped between
+  question, gold and answer; a person flip is not an error. LoCoMo-10 does not
+  get it (two named speakers).
+- `--judge-votes 3` (run_all.py, diag_answer_replay.py, eval_gate.py,
+  rejudge.py): judge twice with the fields in different orders and let a third
+  order decide a disagreement. Default 1 (a single call).
+- `python rejudge.py results/X.json --judge-model gemma4:26b [--judge-votes 3]
+  --out new.json` re-judges existing answers offline and prints the flips.
 
 ## LLM judge for LoCoMo and MemBench
 
