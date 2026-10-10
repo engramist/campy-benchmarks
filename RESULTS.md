@@ -61,7 +61,7 @@ Newest counted run, by category:
 
 ## DMR (MSC-Self-Instruct)
 
-Deep Memory Retrieval (Packer et al., MemGPT, 2023): 500 questions, each over 4 earlier Multi-Session Chat sessions. Judge: LoCoMo-10's prompt. Evidence labels are derived (turns containing the answer), so recall covers only the questions where the answer is quoted. Published scores are near the full-context ceiling (MemGPT 93.4%, Zep 94.8%, GPT-4 Turbo full context 94.4%), so DMR separates systems little.
+Deep Memory Retrieval (Packer et al., MemGPT, 2023): 500 questions, each over 4 earlier Multi-Session Chat sessions. Judge: LoCoMo-10's prompt plus a persona rule (I/you may be swapped; a person flip is not an error) from M1.4 on -- runs before that mark pronoun flips wrong, so re-judge them with `rejudge.py` before comparing. Evidence labels are derived (turns containing the answer), so recall covers only the questions where the answer is quoted. Published scores are near the full-context ceiling (MemGPT 93.4%, Zep 94.8%, GPT-4 Turbo full context 94.4%), so DMR separates systems little.
 
 | date | subset | judge accuracy | F1 | evidence recall | repeat | LLM / judge | hippocampy | harness | file |
 |---|---|---|---|---|---|---|---|---|---|

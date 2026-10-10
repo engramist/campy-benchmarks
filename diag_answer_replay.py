@@ -229,10 +229,12 @@ def replay(store: Path, questions: list, variants: list, hippocampy: Path | None
         return out["rows"]
 
 
-def make_passed(judge):
+def make_passed(judge, votes: int = 1):
     """passed(d, answer) with `judge` (a BaselineLLM). Verdicts are cached on
     (question, expected, answer): two trees that give the same answer get the same
-    verdict, so judge noise cannot show up as a gained or lost question."""
+    verdict, so judge noise cannot show up as a gained or lost question. DMR
+    records (no `category`) get the persona rule, as in dmr/scoring.py; `votes`
+    is as in locomo10.scoring.judge_one."""
     from locomo10.scoring import judge_one, score_answer
     from qa_judge import is_non_answer
     cache: dict = {}
@@ -242,9 +244,11 @@ def make_passed(judge):
             return bool(score_answer(answer, d["expected"], 5)["passed"])
         if not answer.strip() or is_non_answer(answer):
             return False
-        key = (d["question"], d["expected"], answer)
+        persona = d.get("category") is None  # DMR; every LoCoMo-10 record has a category
+        key = (d["question"], d["expected"], answer, persona)
         if key not in cache:
-            cache[key] = judge_one(judge, d["question"], d["expected"], answer)["judge"]
+            cache[key] = judge_one(judge, d["question"], d["expected"], answer,
+                                   persona=persona, votes=votes)["judge"]
         return cache[key]
     return passed
 
@@ -302,6 +306,8 @@ def main() -> int:
     ap.add_argument("--judge-provider", default="ollama")
     ap.add_argument("--judge-model", default="gemma4:26b")
     ap.add_argument("--judge-base-url", default=None)
+    ap.add_argument("--judge-votes", type=int, choices=[1, 3], default=1,
+                    help="3 = judge twice, a third call breaks a disagreement (default 1)")
     ap.add_argument("--show", action="store_true", help="per-question verdicts and answers")
     ap.add_argument("--out", type=Path, help="write every answer and verdict as JSON")
     ap.add_argument("--hippocampy", type=Path,
@@ -322,7 +328,7 @@ def main() -> int:
     from llm_client import BaselineLLM
 
     judge = BaselineLLM(args.judge_provider, args.judge_model, args.judge_base_url)
-    passed = make_passed(judge)
+    passed = make_passed(judge, args.judge_votes)
     ids = {i for i in args.ids.split(",") if i}
 
     report = {}

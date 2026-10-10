@@ -14,6 +14,7 @@ import os
 import shlex
 import sys
 import time
+from functools import partial
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
@@ -257,7 +258,8 @@ def finalize_locomo10(results: Dict[str, Any], args, isolated) -> None:
             targets.append((name, per_suite["locomo10"]))
     if not targets:
         return
-    info: Dict[str, Any] = {"enabled": args.judge != "none", "template_sha256": hashlib.sha256(JUDGE_TEMPLATE.encode()).hexdigest()[:16]}
+    info: Dict[str, Any] = {"enabled": args.judge != "none", "template_sha256": hashlib.sha256(JUDGE_TEMPLATE.encode()).hexdigest()[:16],
+                            "votes": getattr(args, "judge_votes", 1)}
     if args.judge != "none":
         judge_llm, _, source = resolve_baseline_llm(
             args, os.environ.get("CAMPY_MCP_CMD"), isolated,
@@ -269,7 +271,7 @@ def finalize_locomo10(results: Dict[str, Any], args, isolated) -> None:
         print(f"\n[+] LoCoMo-10 judge: {judge_llm.describe()['model']} over {[n for n, _ in targets]}")
         try:
             for name, res in targets:
-                n = judge_details(res["details"], judge_llm)
+                n = judge_details(res["details"], judge_llm, votes=getattr(args, "judge_votes", 1))
                 print(f"    judged {name}: {n} calls")
         except LLMError as e:
             info["error"] = str(e)[:500]
@@ -326,7 +328,9 @@ def _finalize_own_history(results: Dict[str, Any], args, isolated, mcp_cmd, suit
 def finalize_dmr(results: Dict[str, Any], args, isolated, mcp_cmd) -> None:
     """Grade DMR answers with LoCoMo-10's judge (dmr/scoring.py)."""
     _finalize_own_history(results, args, isolated, mcp_cmd, "dmr", "DMR",
-                          {"enabled": False, "prompt": "locomo10 JUDGE_TEMPLATE"}, dmr_judge_details)
+                          {"enabled": False, "prompt": "locomo10 JUDGE_TEMPLATE + PERSONA_RULE",
+                           "votes": getattr(args, "judge_votes", 1)},
+                          partial(dmr_judge_details, votes=getattr(args, "judge_votes", 1)))
 
 
 def finalize_longmemeval(results: Dict[str, Any], args, isolated, mcp_cmd) -> None:
@@ -442,6 +446,9 @@ def main():
     parser.add_argument("--judge-model", type=str, default=None,
                         help="A stronger judge than the answering model is recommended")
     parser.add_argument("--judge-base-url", type=str, default=None)
+    parser.add_argument("--judge-votes", type=int, choices=[1, 3], default=1,
+                        help="LoCoMo-10 and DMR judge: 3 = judge twice (fields in two orders) and let a third "
+                             "call decide when they disagree; default 1 = one call")
     parser.add_argument("--baselines", type=str, default=None,
                         help="Reference systems to score on the QA suites (LoCoMo, MemBench, LoCoMo-10, "
                              "LongMemEval, DMR) with the same LLM "

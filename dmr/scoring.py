@@ -3,9 +3,10 @@ campy-benchmarks / dmr / scoring.py
 DMR has no official scorer: MemGPT reported an LLM judge's accuracy, and
 later work (Zep) reports the same metric. Here, per question:
 
-  judge     LoCoMo-10's judge (locomo10/scoring.py, this harness's prompt):
-            CORRECT/WRONG against the gold answer; a non-answer is WRONG
-            without a call
+  judge     LoCoMo-10's judge (locomo10/scoring.py, this harness's prompt) plus
+            its persona rule (I/you may be swapped; a person flip is not an
+            error): CORRECT/WRONG against the gold answer; a non-answer is
+            WRONG without a call
   f1        token F1 against the gold answer (LoCoMo's normalization)
   evidence_recall
             the derived evidence turns (dmr/dataset.py) that
@@ -20,7 +21,7 @@ from locomo10.scoring import _token_f1, judge_one
 from qa_judge import is_non_answer
 
 
-def judge_details(details: List[Dict[str, Any]], judge_llm, log=print) -> int:
+def judge_details(details: List[Dict[str, Any]], judge_llm, log=print, votes: int = 1) -> int:
     n = 0
     for d in details:
         if d.get("judge") is not None:
@@ -28,7 +29,8 @@ def judge_details(details: List[Dict[str, Any]], judge_llm, log=print) -> int:
         if not d["answer"].strip() or is_non_answer(d["answer"]):
             d.update({"judge": False, "reason": "non_answer"})
         else:
-            d.update(judge_one(judge_llm, d["question"], d["expected"], d["answer"]))
+            d.update(judge_one(judge_llm, d["question"], d["expected"], d["answer"],
+                                persona=True, votes=votes))
             n += 1
     return n
 

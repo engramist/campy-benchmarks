@@ -162,14 +162,16 @@ def main() -> int:
     ap.add_argument("--judge-provider", default="ollama")
     ap.add_argument("--judge-model", default="gemma4:26b")
     ap.add_argument("--judge-base-url", default=None)
+    ap.add_argument("--judge-votes", type=int, choices=[1, 3], default=1,
+                    help="3 = judge twice, a third call breaks a disagreement (default 1)")
     ap.add_argument("--out", type=Path, help="write the table data and every answer and verdict as JSON")
     args = ap.parse_args()
 
     from llm_client import BaselineLLM
     judge = BaselineLLM(args.judge_provider, args.judge_model, args.judge_base_url)
-    out = gate(args.results, replay_mod.make_passed(judge), args.main_tree, args.branch_tree, args.store,
+    out = gate(args.results, replay_mod.make_passed(judge, args.judge_votes), args.main_tree, args.branch_tree, args.store,
                args.noise, {i for i in args.ids.split(",") if i}, args.llm_model, args.split)
-    out["judge"] = {"provider": args.judge_provider, "model": args.judge_model}
+    out["judge"] = {"provider": args.judge_provider, "model": args.judge_model, "votes": args.judge_votes}
     print("\n" + render(out))
     if args.out:
         args.out.write_text(json.dumps(out, indent=1))

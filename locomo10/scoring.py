@@ -122,11 +122,45 @@ Reply with exactly one word: CORRECT or WRONG."""
 
 _VERDICT = re.compile(r"\b(CORRECT|WRONG)\b")
 
+# Added to the prompt for single-persona questions (DMR), where the question is
+# put to the assistant about the user's own conversation. The gold answer is
+# written in whichever person the dataset author chose, so "I used to ..." vs
+# "You used to ..." is the same fact. Not used for LoCoMo-10, whose two named
+# speakers make "you" ambiguous there.
+PERSONA_RULE = """The question, the gold answer and the generated answer may be
+written in different grammatical person: "I"/"my" and "you"/"your" can be
+swapped between them, because the answer is about the speaker being asked. A
+first/second-person flip is not an error; judge the facts, not the pronoun."""
 
-def judge_one(judge_llm, question: str, gold: str, answer: str) -> Dict[str, Any]:
+# Field orders for the prompt. Variant 0 is the byte-identical original prompt;
+# the others only reorder the three labelled fields (the labels stay explicit),
+# which is what lets repeated votes be independent samples at temperature 0
+# instead of the same request answered the same way.
+_FIELD_ORDERS = (
+    ("question", "gold", "answer"),
+    ("answer", "gold", "question"),
+    ("gold", "question", "answer"),
+)
+_LABELS = {"question": "Question", "gold": "Gold answer", "answer": "Generated answer"}
+
+
+def build_judge_prompt(question: str, gold: str, answer: str, persona: bool = False,
+                       variant: int = 0) -> str:
+    vals = {"question": question, "gold": gold, "answer": answer}
+    if variant == 0 and not persona:
+        return JUDGE_TEMPLATE.format(question=question, gold=gold, answer=answer)
+    _head, _, rest = JUDGE_TEMPLATE.partition("\n\n")
+    head = "\n".join(f"{_LABELS[k]}: {vals[k]}" for k in _FIELD_ORDERS[variant % len(_FIELD_ORDERS)])
+    if persona:  # the rule goes just before the one-word reply instruction
+        body, _, tail = rest.rpartition("\n\n")
+        rest = f"{body}\n\n{PERSONA_RULE}\n\n{tail}"
+    return f"{head}\n\n{rest}"
+
+
+def _judge_call(judge_llm, question: str, gold: str, answer: str, persona: bool, variant: int) -> Dict[str, Any]:
     res = judge_llm.chat([
         {"role": "system", "content": JUDGE_SYSTEM},
-        {"role": "user", "content": JUDGE_TEMPLATE.format(question=question, gold=gold, answer=answer)},
+        {"role": "user", "content": build_judge_prompt(question, gold, answer, persona, variant)},
     ])
     m = _VERDICT.search(res["text"].upper())
     if not m:
@@ -135,7 +169,32 @@ def judge_one(judge_llm, question: str, gold: str, answer: str) -> Dict[str, Any
     return {"judge": ok, "reason": "judge_correct" if ok else "judge_wrong"}
 
 
-def judge_details(details: List[Dict[str, Any]], judge_llm, log=print) -> int:
+def judge_one(judge_llm, question: str, gold: str, answer: str, persona: bool = False,
+              votes: int = 1) -> Dict[str, Any]:
+    """One verdict. votes=1 is a single call (the default, unchanged). votes=3
+    judges twice -- with the fields in two different orders, so the second
+    call is a genuinely different request -- and, only if those disagree, a
+    third (a third order) decides. Any other `votes` is rejected."""
+    if votes not in (1, 3):
+        raise ValueError(f"judge votes must be 1 or 3, got {votes}")
+    first = _judge_call(judge_llm, question, gold, answer, persona, 0)
+    if votes == 1:
+        return first
+    second = _judge_call(judge_llm, question, gold, answer, persona, 1)
+    cast = [first["judge"], second["judge"]]
+    if cast[0] == cast[1]:
+        out = dict(first)
+        out["judge_votes"] = cast
+        return out
+    third = _judge_call(judge_llm, question, gold, answer, persona, 2)
+    cast.append(third["judge"])
+    out = dict(third)
+    out["judge_votes"] = cast
+    out["judge_tiebreak"] = True
+    return out
+
+
+def judge_details(details: List[Dict[str, Any]], judge_llm, log=print, votes: int = 1) -> int:
     """Judge every category 1-4 record in place; returns the number judged.
     Records with an empty answer are WRONG without a call."""
     n = 0
@@ -145,7 +204,7 @@ def judge_details(details: List[Dict[str, Any]], judge_llm, log=print) -> int:
         if not d["answer"].strip() or is_non_answer(d["answer"]):
             d.update({"judge": False, "reason": "non_answer"})
         else:
-            d.update(judge_one(judge_llm, d["raw_question"], d["expected"], d["answer"]))
+            d.update(judge_one(judge_llm, d["raw_question"], d["expected"], d["answer"], votes=votes))
             n += 1
         d["passed"] = d["judge"]
     return n

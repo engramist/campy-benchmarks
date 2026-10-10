@@ -37,7 +37,9 @@ SUITES: Dict[str, Tuple[str, str, List[Tuple[str, str]], str]] = {
     "dmr": ("DMR (MSC-Self-Instruct)", "published dataset", [
         ("judge_accuracy", "judge accuracy"), ("f1", "F1"), ("evidence_recall", "evidence recall")],
         "Deep Memory Retrieval (Packer et al., MemGPT, 2023): 500 questions, each over 4 earlier "
-        "Multi-Session Chat sessions. Judge: LoCoMo-10's prompt. Evidence labels are derived (turns "
+        "Multi-Session Chat sessions. Judge: LoCoMo-10's prompt plus a persona rule (I/you may be swapped; "
+        "a person flip is not an error) from M1.4 on -- runs before that mark pronoun flips wrong, so "
+        "re-judge them with `rejudge.py` before comparing. Evidence labels are derived (turns "
         "containing the answer), so recall covers only the questions where the answer is quoted. "
         "Published scores are near the full-context ceiling (MemGPT 93.4%, Zep 94.8%, GPT-4 Turbo "
         "full context 94.4%), so DMR separates systems little."),
