@@ -12,8 +12,9 @@ What it pins:
   - the worker imports campy from the tree given by --hippocampy (campy_file),
     not from the other one, and a path with no campy package is an error
   - the gate table counts gained/lost correctly in both directions and gives
-    real / regression / within noise per the plan (C.4), including the
-    "gained 2" and "noise" edges, with the same judge for both sides
+    real / regression / within noise from an exact two-sided McNemar test
+    (p < 0.05), with the same judge for both sides
+  - mcnemar_p known values, the verdict rule, split labels, pooled sums, gate_report.py
   - identical trees can never report a change (the broken-comparison case)
   - --llm-model changes [llm].model in the COPY only; the kept store is untouched
   - set_llm_model on config shapes: no [llm], missing model, comments, [llm.sub]
@@ -151,11 +152,12 @@ def main() -> int:
             m, b = trees(set(main_ok), set(branch_ok))
             return gate.gate([res], passed, m, b, **kw), m, b
 
-        # 1. improvement: gained 3, lost 0, +0.5 -> real; code really comes from each tree
-        out, m, b = run({"q1", "q2"}, {"q1", "q2", "q3", "q4", "q5"})
+        # 1. improvement: gained 6, lost 0 -> p = 0.031 -> real; code really comes from each tree
+        out, m, b = run(set(), {"q1", "q2", "q3", "q4", "q5", "q6"})
         c = out["suites"][0]
-        check("real: counts", (c["gained"], c["lost"], c["n"]) == (3, 0, 6), str(c["gained_ids"]))
-        check("real: scores", abs(c["main"] - 2 / 6) < 1e-9 and abs(c["branch"] - 5 / 6) < 1e-9, str((c["main"], c["branch"])))
+        check("real: counts", (c["gained"], c["lost"], c["n"]) == (6, 0, 6), str(c["gained_ids"]))
+        check("real: scores", abs(c["main"] - 0) < 1e-9 and abs(c["branch"] - 1) < 1e-9, str((c["main"], c["branch"])))
+        check("real: p", abs(c["p"] - 2 / 64) < 1e-12, str(c["p"]))
         check("real: verdict", c["verdict"] == "real", c["verdict"])
         check("worker imported main's campy", str(m.resolve()) in c["code"]["main"] and str(b.resolve()) not in c["code"]["main"],
               str(c["code"]))
@@ -166,13 +168,14 @@ def main() -> int:
         check("split from the result's selection", c["label"] == "dmr (held-out)", c["label"])
         table = gate.render(out)
         check("table header", gate.HEADER in table, table)
-        check("table row", "| dmr (held-out) | 0.333 | 0.833 | +0.500 | 3 | 0 | ±0.04 | real |" in table, table)
-        check("gained ids listed", "gained: q3, q4, q5" in table, table)
+        check("table row", "| dmr (held-out) | 0.000 | 1.000 | +1.000 | 6 | 0 | 0.031 | real |" in table, table)
+        check("gained ids listed", "gained: q1, q2, q3, q4, q5, q6" in table, table)
+        check("no pooled line for one suite", "pooled" not in table, table)
 
         # 2. regression: the swap
-        out, _, _ = run({"q1", "q2", "q3", "q4", "q5"}, {"q1", "q2"})
+        out, _, _ = run({"q1", "q2", "q3", "q4", "q5", "q6"}, set())
         c = out["suites"][0]
-        check("regression", (c["gained"], c["lost"], c["verdict"]) == (0, 3, "regression"), str(c["verdict"]))
+        check("regression", (c["gained"], c["lost"], c["verdict"]) == (0, 6, "regression"), str(c["verdict"]))
 
         # 3. the broken comparison: same answers on both sides can never report a change
         out, _, _ = run({"q1", "q2", "q3"}, {"q1", "q2", "q3"})
@@ -180,17 +183,64 @@ def main() -> int:
         check("identical trees: nothing gained or lost", (c["gained"], c["lost"], c["delta"]) == (0, 0, 0), str(c["delta"]))
         check("identical trees: within noise", c["verdict"] == "within noise", c["verdict"])
 
-        # 4. edges: net 2 is not enough; net 3 with a swap of one is; mean inside noise is not real
-        out, _, _ = run({"q1"}, {"q1", "q2", "q3"})
-        check("net +2: within noise", out["suites"][0]["verdict"] == "within noise", out["suites"][0]["verdict"])
-        out, _, _ = run({"q1", "q2"}, {"q1", "q3", "q4", "q5", "q6"})
+        # 4. edges: 5 gained / 0 lost is p=0.0625 (not significant); 6/0 is; a swap of one is not
+        out, _, _ = run({"q1"}, {"q1", "q2", "q3", "q4", "q5", "q6"})
         c = out["suites"][0]
-        check("gained 4 lost 1: real", (c["gained"], c["lost"], c["verdict"]) == (4, 1, "real"), str(c["verdict"]))
-        out, _, _ = run({"q1"}, {"q1", "q2", "q3", "q4"}, noise=0.60)
-        check("a larger noise floor turns real into within noise",
-              out["suites"][0]["verdict"] == "within noise" and out["suites"][0]["noise"] == 0.60, "")
-        check("verdict function: no sign confusion",
-              gate.verdict(3, 0, -0.5, 0.04) == "within noise" and gate.verdict(0, 3, 0.5, 0.04) == "within noise", "")
+        check("gained 5 lost 0: within noise", (c["gained"], c["lost"], c["verdict"]) == (5, 0, "within noise"), str(c["verdict"]))
+        out, _, _ = run({"q1"}, {"q2", "q3", "q4", "q5", "q6"})
+        c = out["suites"][0]
+        check("gained 5 lost 1: within noise", (c["gained"], c["lost"], c["verdict"]) == (5, 1, "within noise"), str(c["verdict"]))
+
+        # 4b. McNemar known values (exact, two-sided)
+        mp = gate.mcnemar_p
+        check("mcnemar b=34 c=28", abs(mp(34, 28) - 0.53) < 0.01, str(mp(34, 28)))
+        check("mcnemar b=5 c=1", abs(mp(5, 1) - 0.21875) < 1e-9, str(mp(5, 1)))
+        check("mcnemar b=0 c=10", abs(mp(0, 10) - 2 / 1024) < 1e-12 and abs(mp(0, 10) - 0.002) < 0.0005, str(mp(0, 10)))
+        check("mcnemar symmetric, capped at 1, empty is 1",
+              mp(3, 9) == mp(9, 3) and mp(5, 5) == 1.0 and mp(0, 0) == 1.0, "")
+        # verdict rule: p < 0.05 and sign of delta
+        v = gate.verdict
+        check("verdict rule", v(0.049, 0.01) == "real" and v(0.049, -0.01) == "regression"
+              and v(0.05, 0.1) == "within noise" and v(0.5, -0.1) == "within noise" and v(0.001, 0.0) == "within noise", "")
+
+        # 4c. split labels
+        so = gate.split_of
+        check("dmr split labels",
+              so("dmr", {"offset": 50, "max_questions": 50}) == "held-out" and so("dmr", {"offset": 50, "max_questions": 20}) == "held-out"
+              and so("dmr", {"offset": 0}) == "dev" and so("dmr", {}) == "dev"
+              and so("dmr", {"offset": 100, "max_questions": 200}) == "dev-large" and so("dmr", {"offset": 25}) == "dev-large", "")
+        check("locomo10 split labels",
+              so("locomo10", {"conversation_ids": ["conv-30"]}) == "held-out"
+              and so("locomo10", {"conversation_ids": ["conv-26"]}) == "dev" and so("locomo10", {}) == "dev"
+              and so("locomo10", {"conversation_ids": ["conv-41"]}) == "dev-large", "")
+
+        # 4d. pooled: sums gained/lost across suites, McNemar on the sums
+        a = {"n": 100, "main": 0.5, "branch": 0.6, "delta": 0.1, "gained": 15, "lost": 5}
+        bb = {"n": 50, "main": 0.5, "branch": 0.5, "delta": 0.0, "gained": 6, "lost": 4}
+        pl = gate.pooled([a, bb])
+        check("pooled sums", (pl["gained"], pl["lost"], pl["n"]) == (21, 9, 150), str(pl))
+        check("pooled p/verdict", abs(pl["p"] - mp(21, 9)) < 1e-12 and pl["verdict"] == "real", str(pl))
+        check("pooled mean weighted by n", abs(pl["branch"] - (0.6 * 100 + 0.5 * 50) / 150) < 1e-12, "")
+        check("pooled line only for 2+", gate.pooled_line([a]) is None and "pooled (2 suites, n=150)" in gate.pooled_line([a, bb]), "")
+
+        # 4e. two result files in one gate -> pooled line in the table; gate_report recomputes it
+        m2, b2 = trees({"q1"}, {"q1", "q2", "q3", "q4", "q5", "q6"})
+        two = gate.gate([res, res], passed, m2, b2)
+        t2 = gate.render(two)
+        check("table pooled line", "| pooled (2 suites, n=12) | 0.167 | 1.000 | +0.833 | 10 | 0 | 0.002 | real |" in t2, t2)
+        gj = t / "gate.json"
+        gj.write_text(json.dumps(two))
+        import gate_report
+        rs = gate_report.suites_of(gj)
+        check("gate_report recomputes", [(c["gained"], c["lost"], c["verdict"]) for c in rs] == [(5, 0, "within noise")] * 2
+              and "dev" not in rs[0]["label"].replace("held-out", ""), str(rs))
+        # a stale file with the old labelling and no p is relabelled from its selection
+        old = json.loads(gj.read_text())
+        for s_ in old["suites"]:
+            s_["options"] = {"offset": 100, "max_questions": 200}
+            s_["label"] = "dmr (held-out)"
+        gj.write_text(json.dumps(old))
+        check("gate_report relabels offset 100 as dev-large", "dmr (dev-large)" in gate_report.suites_of(gj)[0]["label"], "")
 
         # 5. one judge, cached: same answer text is never judged twice
         calls = judge.calls
@@ -252,6 +302,8 @@ def main() -> int:
         o = gate.gate([l10], passed, m, m, store=l10_store)
         c = o["suites"][0]
         check("locomo10 replayed with --store", c["n"] == 2 and c["label"] == "locomo10 (held-out)", str((c["n"], c["label"])))
+        check("--split can override with dev-large",
+              gate.gate([l10], passed, m, m, store=l10_store, split="dev-large")["suites"][0]["label"] == "locomo10 (dev-large)", "")
         check("locomo10 identical trees: within noise", c["verdict"] == "within noise", "")
         check("locomo10 conv-26 is dev", gate.split_of("locomo10", {"conversation_ids": ["conv-26"]}) == "dev"
               and gate.split_of("locomo10", {}) == "dev" and gate.split_of("dmr", {"offset": 0}) == "dev", "")
