@@ -361,12 +361,14 @@ class CampyMCPClient:
     def compile_context(self, query: str, token_budget: int = 32000) -> Dict[str, Any]:
         return self.call_tool("compile_context", {"query": query, "token_budget": token_budget})
 
-    def run_sweep(self, timeout: float = 3600.0, poll: float = 5.0) -> Dict[str, Any]:
+    def run_sweep(self, timeout: Optional[float] = None, poll: float = 5.0) -> Dict[str, Any]:
         """B448: settle -- block until the daemon's Gated Consolidation Loop has
         drained (context_status.consolidation_pending == 0 on consecutive
         polls). There has never been a `run_sweep` MCP tool; the old call
         silently no-op'd, so probes raced consolidation. Mock mode: no-op.
         Raises CampyClientError if it does not drain within `timeout`."""
+        if timeout is None:  # observation extraction makes the drain much longer on big conversations
+            timeout = float(os.environ.get("CAMPY_BENCH_DRAIN_TIMEOUT", "3600"))
         if self.mock_mode:
             return {"status": "mock"}
         deadline = time.monotonic() + timeout
