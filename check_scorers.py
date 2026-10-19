@@ -40,6 +40,7 @@ NON_ANSWERS = [
     "No relevant context was found in memory.",
     "I'm not sure.",
     "There is no information about this in memory.",
+    "I don't have that information.",  # hippocampy B475 cite-or-abstain
     "",
 ]
 
