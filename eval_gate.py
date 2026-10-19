@@ -159,7 +159,9 @@ def gate(results: List[Path], passed, main_tree: Path, branch_tree: Path, store:
          log=print) -> Dict[str, Any]:
     """Run the replays and compare. `passed(d, answer)` is the judge (same for both sides)."""
     out: Dict[str, Any] = {"main": str(main_tree), "branch": str(branch_tree),
-                           "llm_model": llm_model, "suites": []}
+                           "llm_model": llm_model, "suites": [],
+                           "provenance": {"main": replay_mod.tree_provenance(main_tree),
+                                          "branch": replay_mod.tree_provenance(branch_tree)}}
     for path in results:
         sides = {}
         for side, tree in (("main", main_tree), ("branch", branch_tree)):
@@ -176,8 +178,23 @@ def gate(results: List[Path], passed, main_tree: Path, branch_tree: Path, store:
     return out
 
 
+def side_line(side: str, prov: Optional[Dict[str, Any]]) -> str:
+    """`main <short sha>[+dirty] CAMPY_X=1 ...` for one side's provenance."""
+    if not prov:
+        return f"{side}: (no provenance recorded)"
+    sha = (prov.get("sha") or "unknown")[:7]
+    flags = " ".join(f"{k}={v}" for k, v in (prov.get("env") or {}).items()) or "no CAMPY_* flags"
+    return f"{side}: {sha}{'+dirty' if prov.get('dirty') else ''} {flags}"
+
+
+def provenance_lines(out: Dict[str, Any]) -> List[str]:
+    prov = out.get("provenance") or {}
+    return [side_line(s, prov.get(s)) for s in ("main", "branch")]
+
+
 def render(out: Dict[str, Any]) -> str:
-    lines = [HEADER, "|---|---|---|---|---|---|---|---|"]
+    lines = provenance_lines(out) + [""]
+    lines += [HEADER, "|---|---|---|---|---|---|---|---|"]
     lines += [table_row(c["label"], c) for c in out["suites"]]
     pl = pooled_line(out["suites"])
     if pl:
