@@ -187,12 +187,20 @@ def worker(questions: list, variants: list) -> dict:
 
         class Recorder:  # records every call the model is sent, in order
             async def achat(self, messages, **kw):
-                reply = await llm.achat(messages, **kw)
+                try:
+                    reply = await llm.achat(messages, **kw)
+                except Exception as exc:  # record the prompt of a failed call too
+                    seen.setdefault("calls", []).append(record_call("achat", messages, f"<error: {exc!r}>"))
+                    raise
                 seen.setdefault("calls", []).append(record_call("achat", messages, reply))
                 return reply
 
             def chat(self, messages, **kw):
-                reply = llm.chat(messages, **kw)
+                try:
+                    reply = llm.chat(messages, **kw)
+                except Exception as exc:
+                    seen.setdefault("calls", []).append(record_call("chat", messages, f"<error: {exc!r}>"))
+                    raise
                 seen.setdefault("calls", []).append(record_call("chat", messages, reply))
                 return reply
         return Recorder()
