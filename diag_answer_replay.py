@@ -96,6 +96,41 @@ def _with_limit(config: dict, limit: int) -> dict:
     return cfg
 
 
+def record_call(kind: str, messages, reply) -> dict:
+    """One model call: its kind, the last message's text, and the reply text."""
+    text = reply.get("text") if isinstance(reply, dict) and "text" in reply else reply
+    return {"kind": kind, "prompt": messages[-1]["content"],
+            "reply": text if isinstance(text, str) else repr(text)}
+
+
+def json_safe_meta(meta: dict) -> dict:
+    """The run_ask meta dict with every non-JSON-serialisable entry dropped."""
+    out = {}
+    for k, v in (meta or {}).items():
+        try:
+            json.dumps(v)
+        except (TypeError, ValueError):
+            continue
+        out[str(k)] = v
+    return out
+
+
+def campy_env(env=None) -> dict:
+    """Every CAMPY_* variable in force, minus CAMPY_HOME (a per-store temp copy)."""
+    env = os.environ if env is None else env
+    return {k: v for k, v in sorted(env.items()) if k.startswith("CAMPY_") and k != "CAMPY_HOME"}
+
+
+def tree_provenance(tree: Path, env=None) -> dict:
+    """Which commit and flags a hippocampy tree runs with: HEAD sha, dirty flag, CAMPY_* env."""
+    def git(*a):
+        r = subprocess.run(["git", "-C", str(tree), *a], capture_output=True, text=True, timeout=30)
+        return r.stdout.strip() if r.returncode == 0 else None
+    sha, status = git("rev-parse", "HEAD"), git("status", "--porcelain")
+    return {"tree": str(tree), "sha": sha, "dirty": bool(status) if status is not None else None,
+            "env": campy_env(env)}
+
+
 def worker(questions: list, variants: list) -> dict:
     """In a subprocess with CAMPY_HOME set to a copy of one kept store."""
     import campy
@@ -137,7 +172,10 @@ def worker(questions: list, variants: list) -> dict:
             meta: dict = {}
             t0 = time.perf_counter()
             answer = await ask_mod.run_ask(question, "diag_eval", db, cfg, capture=False, meta=meta)
-            out[v] = {"answer": answer, "sections": seen.get("sections"), "prompt": seen.get("prompt"),
+            calls = list(seen.get("calls") or [])
+            first = next((c["prompt"] for c in calls if c["kind"] == "achat"), None)
+            out[v] = {"answer": answer, "sections": seen.get("sections"), "prompt": first,
+                      "calls": calls, "meta": json_safe_meta(meta),
                       "compressed": meta.get("compression_bypassed") is False,
                       "latency_ms": round((time.perf_counter() - t0) * 1000)}
         return out
@@ -147,13 +185,24 @@ def worker(questions: list, variants: list) -> dict:
         if llm is None:
             return None
 
-        class Recorder:  # keeps the prompt the model was sent
+        class Recorder:  # records every call the model is sent, in order
             async def achat(self, messages, **kw):
-                seen["prompt"] = messages[-1]["content"]
-                return await llm.achat(messages, **kw)
+                try:
+                    reply = await llm.achat(messages, **kw)
+                except Exception as exc:  # record the prompt of a failed call too
+                    seen.setdefault("calls", []).append(record_call("achat", messages, f"<error: {exc!r}>"))
+                    raise
+                seen.setdefault("calls", []).append(record_call("achat", messages, reply))
+                return reply
 
             def chat(self, messages, **kw):
-                return llm.chat(messages, **kw)
+                try:
+                    reply = llm.chat(messages, **kw)
+                except Exception as exc:
+                    seen.setdefault("calls", []).append(record_call("chat", messages, f"<error: {exc!r}>"))
+                    raise
+                seen.setdefault("calls", []).append(record_call("chat", messages, reply))
+                return reply
         return Recorder()
 
     async def run_all() -> list:

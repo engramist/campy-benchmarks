@@ -28,6 +28,11 @@ sys.path.insert(0, str(HERE))
 import eval_gate as g  # noqa: E402
 
 
+def provenance_of(path: Path) -> List[str]:
+    out = json.loads(path.read_text())
+    return [f"{path.stem} {line}" for line in g.provenance_lines(out)]
+
+
 def suites_of(path: Path) -> List[Dict[str, Any]]:
     data = json.loads(path.read_text())
     out = []
@@ -49,7 +54,8 @@ def main() -> int:
     ap.add_argument("gates", nargs="+", type=Path, help="eval_gate.py --out JSON files")
     args = ap.parse_args()
     suites = [c for p in args.gates for c in suites_of(p)]
-    lines = [g.HEADER, "|---|---|---|---|---|---|---|---|"] + [g.table_row(c["label"], c) for c in suites]
+    lines = [x for p in args.gates for x in provenance_of(p)] + [""]
+    lines += [g.HEADER, "|---|---|---|---|---|---|---|---|"] + [g.table_row(c["label"], c) for c in suites]
     pl = g.pooled_line(suites)
     if pl:
         lines.append(pl)

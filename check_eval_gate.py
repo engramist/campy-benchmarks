@@ -86,6 +86,8 @@ def make_tree(root: Path, mark: str, correct: set) -> Path:
             class _LLM:
                 def __init__(self, model):
                     self.model = model
+                def chat(self, messages, **kw):
+                    return {{'text': 'sync reply'}}
                 async def achat(self, messages, **kw):
                     q = messages[-1]['content']
                     ans = ('The answer is ' + 'a' + q[1:]) if q in CORRECT else 'It was something else entirely.'
@@ -94,7 +96,14 @@ def make_tree(root: Path, mark: str, correct: set) -> Path:
                 return _LLM(config['llm']['model'])
             async def run_ask(query, session_id, db, config, token_budget=32000, capture=True, meta=None, budget_tokens=None):
                 await compile_bundle(query)
-                return await _get_llm(config).achat([{{'role': 'user', 'content': query}}])
+                llm = _get_llm(config)
+                ans = await llm.achat([{{'role': 'user', 'content': query}}])
+                meta['verify'] = 'ok'
+                meta['unserialisable'] = object()
+                await llm.achat([{{'role': 'user', 'content': 'VERIFY ' + ans}}])
+                if hasattr(llm, 'chat'):
+                    llm.chat([{{'role': 'user', 'content': 'RETRY ' + query}}])
+                return ans
             """),
     }
     for rel, text in files.items():
@@ -307,6 +316,48 @@ def main() -> int:
         check("locomo10 identical trees: within noise", c["verdict"] == "within noise", "")
         check("locomo10 conv-26 is dev", gate.split_of("locomo10", {"conversation_ids": ["conv-26"]}) == "dev"
               and gate.split_of("locomo10", {}) == "dev" and gate.split_of("dmr", {"offset": 0}) == "dev", "")
+
+        # 11. B491: every call, meta, and per-side provenance are in the gate JSON
+        import os
+        import subprocess
+        def git(tree, *a):
+            subprocess.run(["git", "-C", str(tree), "-c", "user.email=a@b", "-c", "user.name=t", *a],
+                           check=True, capture_output=True)
+        m = make_tree(t / "pm", "main", {"q1"})
+        b = make_tree(t / "pb", "branch", {"q1"})
+        for tr in (m, b):
+            git(tr, "init", "-q")
+            git(tr, "add", "-A")
+            git(tr, "commit", "-qm", "x")
+        (b / "dirty.txt").write_text("x")
+        os.environ["CAMPY_VERIFY"] = "1"
+        try:
+            o = gate.gate([res], passed, m, b)
+        finally:
+            del os.environ["CAMPY_VERIFY"]
+        v = o["suites"][0]["rows"]["main"][0]["variants"]["asis"]
+        check("calls: three in order", [c["kind"] for c in v["calls"]] == ["achat", "achat", "chat"], str(v["calls"]))
+        check("calls: prompts", [c["prompt"] for c in v["calls"]][0] == "q1"
+              and v["calls"][1]["prompt"].startswith("VERIFY ") and v["calls"][2]["prompt"] == "RETRY q1", str(v["calls"]))
+        check("calls: replies", v["calls"][2]["reply"] == "sync reply" and v["calls"][0]["reply"] == v["answer"], str(v["calls"]))
+        check("prompt is the first achat prompt", v["prompt"] == "q1", str(v["prompt"]))
+        check("meta saved, unserialisable dropped", v["meta"] == {"verify": "ok"}, str(v["meta"]))
+        json.dumps(o)  # whole gate output stays serialisable
+        pm, pb = o["provenance"]["main"], o["provenance"]["branch"]
+        head = subprocess.run(["git", "-C", str(m), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+        check("provenance sha", pm["sha"] == head and len(pm["sha"]) == 40, str(pm))
+        check("provenance dirty flags", pm["dirty"] is False and pb["dirty"] is True, str((pm, pb)))
+        check("provenance CAMPY env", pm["env"].get("CAMPY_VERIFY") == "1" and "CAMPY_HOME" not in pm["env"], str(pm))
+        txt = gate.render(o)
+        check("table header shows sha, dirty, flags",
+              f"main: {head[:7]} CAMPY_VERIFY=1" in txt and "+dirty CAMPY_VERIFY=1" in txt.split("branch:")[1].split("\n")[0], txt[:300])
+        gj = t / "gate.json"
+        gj.write_text(json.dumps(o))
+        import gate_report
+        check("gate_report prints provenance",
+              any(head[:7] in l for l in gate_report.provenance_of(gj)), str(gate_report.provenance_of(gj)))
+        old = {k: v2 for k, v2 in o.items() if k != "provenance"}
+        check("old gate JSON without provenance renders", "no provenance recorded" in gate.render(old), "")
 
         # 10. percentile
         check("p50/p95", gate.percentile([1, 2, 3, 4, 5], 0.5) == 3 and abs(gate.percentile([0, 100], 0.95) - 95) < 1e-9, "")
