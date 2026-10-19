@@ -47,6 +47,9 @@ SCORER_VERSION = 4
 
 NON_ANSWER_PATTERNS = [
     r"\b(?:i|we)\s+(?:do\s*n[o']t|don't|cannot|can't|am\s+unable\s+to)\s+(?:know|find|determine|say|tell|recall|answer)",
+    # "I don't have that information" -- the abstention Campy's cite-or-abstain prompt
+    # (hippocampy B475) asks for; without it a correct adversarial abstention scored WRONG
+    r"\b(?:i|we)\s+(?:do\s*n[o']t|don't)\s+have\s+(?:that|this|the|any|enough)\s+(?:information|info|details?|record)",
     r"\bnot\s+sure\b",
     r"\bno\s+(?:relevant\s+)?(?:context|information|info|memory|memories|record|records|data|details)\b",
     r"\b(?:insufficient|not\s+enough)\s+(?:context|information|info)\b",
