@@ -400,11 +400,13 @@ def main():
                              "using the personal ~/.campy daemon; needs hippocampy with CAMPY_HOME support")
     parser.add_argument("--daemon-python", type=str, default=None,
                         help="With --isolated: python that runs campy.brain_daemon (default: first word of CAMPY_MCP_CMD)")
-    parser.add_argument("--turn-metadata", choices=["text", "fields"], default="text",
+    parser.add_argument("--turn-metadata", choices=["text", "fields"], default="fields",
                         help="LoCoMo-10, LongMemEval, DMR: how a turn's speaker and date reach Campy. "
-                             "text (default, as before): written into the turn, e.g. '[date] Name: ...'; "
-                             "fields: the turn's text alone, with notify_turn's speaker/occurred_at "
-                             "(hippocampy B472; needs a daemon that has them)")
+                             "fields (default): the turn's text alone, with notify_turn's speaker/occurred_at, "
+                             "so every item derived from the turn carries the session's date "
+                             "(hippocampy B472; needs a daemon that has them); "
+                             "text: written into the turn, e.g. '[date] Name: ...' -- Campy then stamps "
+                             "everything with the ingest date, so only use it to reproduce an old run")
     parser.add_argument("--keep-store", action="store_true",
                         help="With --isolated: keep the temp CAMPY_HOME for inspection instead of deleting it")
     parser.add_argument("--daemon-ready-timeout", type=float, default=900.0,
@@ -677,7 +679,8 @@ def main():
 
     results: Dict[str, Any] = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "provenance": provenance.collect(mcp_cmd, args.smoke, sys.argv, isolated),
+        "provenance": {**provenance.collect(mcp_cmd, args.smoke, sys.argv, isolated),
+                       "turn_metadata": args.turn_metadata},
         "mode": "smoke" if args.smoke else "standard",
         "mcp_configured": bool(mcp_cmd),
         "suites": executed_suites,
