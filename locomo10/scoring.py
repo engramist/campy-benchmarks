@@ -36,7 +36,7 @@ from collections import Counter
 from typing import Any, Dict, List, Optional
 
 from locomo10.dataset import CATEGORY_NAMES
-from scoring import is_non_answer
+from scoring import is_auto_fail, is_non_answer
 
 try:  # optional: the official F1 stems; without nltk it doesn't
     from nltk.stem import PorterStemmer
@@ -223,7 +223,7 @@ def judge_details(details: List[Dict[str, Any]], judge_llm, log=print, votes: in
     for d in details:
         if d["category"] == 5 or d.get("judge") is not None:
             continue
-        if not d["answer"].strip() or is_non_answer(d["answer"]):
+        if is_auto_fail(d["answer"]):
             d.update({"judge": False, "reason": "non_answer"})
         else:
             d.update(judge_one(judge_llm, d["raw_question"], d["expected"], d["answer"], votes=votes))

@@ -29,6 +29,7 @@ python check_longmemeval.py
 python check_report.py
 python check_dmr.py
 python check_rejudge.py
+python check_non_answer.py   # B539 non-answer policy (rescore_non_answers.py lists/re-judges old runs)
 
 # Before trusting a judge model: grade the ~600 hand-labelled answers with it
 python check_qa_judge.py --live --judge-model gemma4:26b
