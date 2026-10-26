@@ -226,10 +226,17 @@ def main() -> int:
     ap.add_argument("--judge-provider", default="ollama")
     ap.add_argument("--judge-model", default="gemma4:26b")
     ap.add_argument("--judge-base-url", default=None)
+    ap.add_argument("--non-answer-policy", choices=["judge", "legacy"], default="judge",
+                    help="which answers are auto-failed WITHOUT the judge. judge (default, B539): only an "
+                         "answer that opens with an abstention and asserts nothing after it; a hedged or "
+                         "'abstain + fact' answer goes to the judge. legacy: any abstention phrase anywhere "
+                         "(reproduces runs before B539)")
     ap.add_argument("--judge-votes", type=int, choices=[1, 3], default=1,
                     help="3 = judge twice, a third call breaks a disagreement (default 1)")
     ap.add_argument("--out", type=Path, help="write the table data and every answer and verdict as JSON")
     args = ap.parse_args()
+    import scoring
+    scoring.set_non_answer_policy(args.non_answer_policy)
 
     from llm_client import BaselineLLM
     judge = BaselineLLM(args.judge_provider, args.judge_model, args.judge_base_url)
@@ -240,7 +247,7 @@ def main() -> int:
     out = gate(args.results, passed, args.main_tree, args.branch_tree, args.store,
                {i for i in args.ids.split(",") if i}, args.llm_model, args.split)
     out["judge"] = {"provider": args.judge_provider, "model": args.judge_model, "votes": args.judge_votes,
-                    "problems": dict(passed.problems)}
+                    "non_answer_policy": args.non_answer_policy, "problems": dict(passed.problems)}
     print("\n" + render(out))
     print(f"\njudge problems (verdicts scored WRONG without a real verdict): {dict(passed.problems) or 'none'}")
     if args.out:

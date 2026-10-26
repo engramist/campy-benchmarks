@@ -12,7 +12,7 @@ from __future__ import annotations
 import re
 from typing import Any, Dict, List, Optional
 
-from qa_judge import is_non_answer
+from scoring import is_auto_fail
 
 _QA = ("I will give you a question, a correct answer, and a response from a model. Please answer yes "
        "if the response contains the correct answer. Otherwise, answer no. If the response is equivalent "
@@ -64,7 +64,7 @@ def judge_record(judge_llm, rec: Dict[str, Any]) -> Dict[str, Any]:
     """One verdict. A non-answer is wrong without a call -- except for an
     abstention question, where declining is the point."""
     answer = rec.get("answer") or ""
-    if not rec["abstention"] and (not answer.strip() or is_non_answer(answer)):
+    if not rec["abstention"] and is_auto_fail(answer):
         return {"judge": False, "judge_reason": "non_answer", "called": False}
     prompt = anscheck_prompt(rec["question_type"], rec["question"], rec["expected"], answer,
                              abstention=rec["abstention"])

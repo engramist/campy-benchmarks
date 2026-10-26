@@ -25,6 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import provenance
 import qa_judge
+import scoring
 import repeats
 from baselines import BASELINE_NAMES, QA_SUITES, aggregate_suite, compare_to_campy, run_all_baselines
 from isolation import IsolatedDaemon
@@ -444,6 +445,11 @@ def main():
     parser.add_argument("--judge", choices=["auto", "none"], default="auto",
                         help="LLM judge for LoCoMo, MemBench and LoCoMo-10: auto = run it (default LLM = the "
                              "baselines' LLM; real-daemon runs only), none = lexical scorer / F1 only")
+    parser.add_argument("--non-answer-policy", choices=["judge", "legacy"], default="judge",
+                    help="which answers are auto-failed WITHOUT the judge. judge (default, B539): only an "
+                         "answer that opens with an abstention and asserts nothing after it; a hedged or "
+                         "'abstain + fact' answer goes to the judge. legacy: any abstention phrase anywhere "
+                         "(reproduces runs before B539)")
     parser.add_argument("--judge-provider", type=str, default=None)
     parser.add_argument("--judge-model", type=str, default=None,
                         help="A stronger judge than the answering model is recommended")
@@ -465,6 +471,7 @@ def main():
                         help="naive_rag retriever: embedding (fastembed, Campy's embedder), bm25, or auto "
                              "(embedding, else bm25 with a warning)")
     args = parser.parse_args()
+    scoring.set_non_answer_policy(args.non_answer_policy)
 
     baseline_names = []
     if args.baselines:
@@ -680,7 +687,8 @@ def main():
     results: Dict[str, Any] = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "provenance": {**provenance.collect(mcp_cmd, args.smoke, sys.argv, isolated),
-                       "turn_metadata": args.turn_metadata},
+                       "turn_metadata": args.turn_metadata,
+                       "non_answer_policy": args.non_answer_policy},
         "mode": "smoke" if args.smoke else "standard",
         "mcp_configured": bool(mcp_cmd),
         "suites": executed_suites,

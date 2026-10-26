@@ -25,7 +25,7 @@ from __future__ import annotations
 import re
 from typing import Any, Dict, List, Optional
 
-from scoring import is_non_answer
+from scoring import is_auto_fail
 
 JUDGED_SUITES = ("locomo", "membench")
 
@@ -61,8 +61,9 @@ _VERDICT = re.compile(r"\b(CORRECT|WRONG)\b")
 
 
 def judge_answer(judge_llm, question: str, gold: str, answer: str) -> Dict[str, Any]:
-    """One verdict. Non-answers are WRONG without a call."""
-    if not answer.strip() or is_non_answer(answer):
+    """One verdict. Auto-failed answers (scoring.is_auto_fail: under the default
+    policy only a pure abstention) are WRONG without a call."""
+    if is_auto_fail(answer):
         return {"llm_judge": False, "llm_judge_reason": "non_answer", "called": False}
     res = judge_llm.chat([
         {"role": "system", "content": JUDGE_SYSTEM},

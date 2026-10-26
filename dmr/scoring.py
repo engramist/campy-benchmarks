@@ -18,7 +18,7 @@ from __future__ import annotations
 from typing import Any, Dict, List, Optional
 
 from locomo10.scoring import _token_f1, judge_one
-from qa_judge import is_non_answer
+from scoring import is_auto_fail
 
 
 def judge_details(details: List[Dict[str, Any]], judge_llm, log=print, votes: int = 1) -> int:
@@ -26,7 +26,7 @@ def judge_details(details: List[Dict[str, Any]], judge_llm, log=print, votes: in
     for d in details:
         if d.get("judge") is not None:
             continue
-        if not d["answer"].strip() or is_non_answer(d["answer"]):
+        if is_auto_fail(d["answer"]):
             d.update({"judge": False, "reason": "non_answer"})
         else:
             d.update(judge_one(judge_llm, d["question"], d["expected"], d["answer"],

@@ -41,7 +41,7 @@ is the real fix; until then check_scorers.py is the contract.
 from __future__ import annotations
 
 import re
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 SCORER_VERSION = 4
 
@@ -85,7 +85,110 @@ def _any(patterns: List[str], text: str) -> bool:
 
 
 def is_non_answer(answer: str) -> bool:
+    """The legacy rule: any NON_ANSWER_PATTERNS hit ANYWHERE in the answer. It
+    also fails a correct answer with a trailing hedge ("May 10, 2023. The exact
+    date is not specified.") and an "I don't have that information. However,
+    ... June 13, 2023" self-contradiction. Kept for the adversarial-abstention
+    metric, the lexical probe scorer, and `--non-answer-policy legacy`."""
     return not answer.strip() or _any(NON_ANSWER_PATTERNS, answer)
+
+
+# --- B539: auto-fail only a pure abstention ---------------------------------
+# An answer is auto-failed (WRONG with no judge call) under the `judge` policy
+# only when it OPENS with an abstention and asserts nothing after it. Anything
+# with a substantive claim goes to the judge, which sees the claim.
+
+NON_ANSWER_POLICIES = ("judge", "legacy")
+DEFAULT_NON_ANSWER_POLICY = "judge"
+_policy = DEFAULT_NON_ANSWER_POLICY
+
+
+def set_non_answer_policy(policy: str) -> None:
+    """Set once per process (run_all.py / rescoring tools); recorded in the result meta."""
+    global _policy
+    if policy not in NON_ANSWER_POLICIES:
+        raise ValueError(f"non-answer policy must be one of {NON_ANSWER_POLICIES}, got {policy!r}")
+    _policy = policy
+
+
+def get_non_answer_policy() -> str:
+    return _policy
+
+
+# Words that carry no claim: function words plus the vocabulary an abstention
+# uses to talk about itself ("the provided context does not mention ...").
+_NO_CLAIM_WORDS = frozenset("""
+a an the and or but if then so of to in on at by for with from about as into than that this these those
+it its is are was were be been being am do does did have has had can could would should will may might must
+i me my we us our you your he she they them their there here what which who whom whose when where why how
+not no nor any some such also just only still yet very more most much many other another own same
+however although though while whereas unfortunately sorry apologize apologies afraid please
+based according given provided provide providing available info information detail details data
+context memory memories record records conversation conversations chat chats text transcript transcripts
+mention mentions mentioned mentioning specify specifies specified specific specifically state states stated
+say says said contain contains contained include includes included find found locate determine know known
+tell recall answer answers question questions ask asked asking clarify clarification additional further
+share exact exactly precisely enough sufficient insufficient relevant otherwise
+help like want need let see look check try
+t s m d ll ve re don doesn didn isn wasn couldn won
+""".split())
+
+# Extra abstention phrasings, used only by is_pure_abstention (NON_ANSWER_PATTERNS
+# stays frozen so `legacy` reproduces old runs): "There is no mention of X",
+# "I couldn't find any mention of X", "X is not explicitly stated".
+_PURE_ABSTENTION_EXTRA = [
+    r"\bno\s+(?:direct\s+|explicit\s+)?(?:mention|quote|statement|indication|evidence)\b",
+    r"\b(?:could\s*n[o']t|can\s*n[o']t|could\s+not|cannot)\s+(?:find|see)\b",
+    r"\bnot\s+(?:explicitly\s+)?(?:stated|provided|given)\b",
+]
+
+# a clause break after which a new claim may start
+_CLAUSE_BREAK = re.compile(r"[.!?;\n]+|,?\s+(?:but|however|although|though|yet|whereas)\b", re.IGNORECASE)
+
+
+def _claim_tokens(text: str) -> List[str]:
+    return [t for t in re.findall(r"[a-z0-9]+", text.lower()) if t not in _NO_CLAIM_WORDS]
+
+
+def is_pure_abstention(answer: str) -> bool:
+    """True when `answer` is empty, or opens with an abstention and asserts nothing.
+
+    The answer is cut into clauses (sentence ends, `;`, and a "but/however/
+    though" break). The FIRST clause must contain a NON_ANSWER_PATTERNS match
+    (anchored: an answer that opens with a claim is never a pure abstention,
+    whatever it says later). In an abstention clause the words before the match
+    must carry no claim; the words after it are the abstention's topic ("no
+    information about Caroline's trip") and are ignored. Every later clause
+    must be another abstention or contain only no-claim words (stopwords,
+    hedge and boilerplate vocabulary); any other content token -- a name, a
+    date, a number -- is an assertion, so the answer goes to the judge."""
+    if not answer.strip():
+        return True
+    clauses = [c for c in _CLAUSE_BREAK.split(answer) if c and c.strip()]
+    clauses = [c for c in clauses if re.search(r"[a-z0-9]", c, re.IGNORECASE)]
+    if not clauses:
+        return True
+    first = True
+    for clause in clauses:
+        m = next((m for pat in NON_ANSWER_PATTERNS + _PURE_ABSTENTION_EXTRA if (m := re.search(pat, clause, re.IGNORECASE))), None)
+        if first and m is None:
+            return False
+        first = False
+        if m is not None:
+            if _claim_tokens(clause[:m.start()]):
+                return False
+        elif _claim_tokens(clause):
+            return False
+    return True
+
+
+def is_auto_fail(answer: str, policy: Optional[str] = None) -> bool:
+    """Should this answer be WRONG without reaching the judge? `policy` defaults
+    to the process-wide setting (default "judge")."""
+    policy = policy or _policy
+    if policy == "legacy":
+        return is_non_answer(answer)
+    return is_pure_abstention(answer)
 
 
 def judge(answer: str, kind: str, accept: List[str], stale: List[str]) -> Tuple[bool, str]:

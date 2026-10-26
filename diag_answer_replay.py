@@ -285,7 +285,7 @@ def make_passed(judge, votes: int = 1):
     records (no `category`) get the persona rule, as in dmr/scoring.py; `votes`
     is as in locomo10.scoring.judge_one."""
     from locomo10.scoring import judge_one, score_answer
-    from qa_judge import is_non_answer
+    from scoring import is_auto_fail
     cache: dict = {}
     from collections import Counter
     problems: Counter = Counter()  # verdicts the judge did not really give
@@ -293,7 +293,7 @@ def make_passed(judge, votes: int = 1):
     def passed(d: dict, answer: str) -> bool:
         if d.get("category") == 5:  # LoCoMo-10 adversarial: declining is right
             return bool(score_answer(answer, d["expected"], 5)["passed"])
-        if not answer.strip() or is_non_answer(answer):
+        if is_auto_fail(answer):
             return False
         persona = d.get("category") is None  # DMR; every LoCoMo-10 record has a category
         key = (d["question"], d["expected"], answer, persona)
@@ -360,6 +360,11 @@ def main() -> int:
     ap.add_argument("--judge-provider", default="ollama")
     ap.add_argument("--judge-model", default="gemma4:26b")
     ap.add_argument("--judge-base-url", default=None)
+    ap.add_argument("--non-answer-policy", choices=["judge", "legacy"], default="judge",
+                    help="which answers are auto-failed WITHOUT the judge. judge (default, B539): only an "
+                         "answer that opens with an abstention and asserts nothing after it; a hedged or "
+                         "'abstain + fact' answer goes to the judge. legacy: any abstention phrase anywhere "
+                         "(reproduces runs before B539)")
     ap.add_argument("--judge-votes", type=int, choices=[1, 3], default=1,
                     help="3 = judge twice, a third call breaks a disagreement (default 1)")
     ap.add_argument("--show", action="store_true", help="per-question verdicts and answers")
@@ -369,6 +374,8 @@ def main() -> int:
     ap.add_argument("--llm-model", help="answer model: sets [llm].model in the copied store's config.toml")
     ap.add_argument("--worker", help=argparse.SUPPRESS)
     args = ap.parse_args()
+    import scoring
+    scoring.set_non_answer_policy(args.non_answer_policy)
     variants = [v for v in args.variants.split(",") if v]
     bad = set(variants) - set(VARIANTS)
     if bad:
