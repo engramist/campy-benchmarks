@@ -128,6 +128,31 @@ def daemon_config(repo: Optional[Path]) -> Dict[str, Any]:
     return {"source": None, "note": "no config found; set CAMPY_BENCH_CONFIG"}
 
 
+def pipeline_profile(repo: Optional[Path], config_path: Optional[Path], env: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
+    """hippocampy B545: the pipeline profile name and every profile flag's resolved value and source
+    (env / file / profile / default). Resolved by the checked-out engine's own loader, run in a
+    subprocess so this harness still imports nothing from it. `env` is the environment the daemon runs
+    with (the isolated one when there is one). A hippocampy without B545 reports `unavailable`."""
+    if repo is None or config_path is None:
+        return {"unavailable": "no hippocampy checkout or config file"}
+    py = repo / ".venv" / "bin" / "python"
+    code = (
+        "import json,sys;"
+        "from campy.brain.brainstem.config import load_config, profile_report;"
+        "print(json.dumps(profile_report(load_config(sys.argv[1]))))"
+    )
+    try:
+        out = subprocess.run(
+            [str(py if py.exists() else sys.executable), "-c", code, str(config_path)],
+            cwd=repo, capture_output=True, text=True, timeout=60, env=env if env is not None else os.environ.copy(),
+        )
+        if out.returncode != 0:
+            return {"unavailable": (out.stderr.strip().splitlines() or ["failed"])[-1][:200]}
+        return json.loads(out.stdout.strip().splitlines()[-1])
+    except Exception as e:
+        return {"unavailable": str(e)[:200]}
+
+
 def isolated_daemon_config(isolated) -> Dict[str, Any]:
     """Exact: this is the config file the harness itself wrote."""
     info: Dict[str, Any] = {
@@ -172,16 +197,20 @@ def collect(mcp_cmd: Optional[str], smoke: bool, argv, isolated=None) -> Dict[st
     repo = hippocampy_repo_from_cmd(mcp_cmd)
     if isolated is not None:
         config_info = isolated_daemon_config(isolated)
+        profile_info = pipeline_profile(repo, isolated.home / "config.toml", isolated.client_env())
     elif mcp_cmd:
         config_info = daemon_config(repo)
+        profile_info = pipeline_profile(repo, Path(config_info["path"]) if config_info.get("path") else None)
     else:
         config_info = {"source": "mock"}
+        profile_info = {"unavailable": "mock run"}
     return {
         "scorer_version": SCORER_VERSION,
         "argv": list(argv),
         "harness": git_info(HARNESS_ROOT),
         "hippocampy": git_info(repo),
         "daemon_config": config_info,
+        "pipeline_profile": profile_info,
         "store": isolated.describe() if isolated is not None else {
             "isolated": False,
             "note": "personal ~/.campy store; contains earlier runs' data",
