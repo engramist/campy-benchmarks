@@ -16,6 +16,7 @@ import hashlib
 from datetime import datetime
 import json
 import os
+import re
 import shutil
 import subprocess
 import tempfile
@@ -124,6 +125,24 @@ class L10Turn:
             return None
 
 
+_EVIDENCE_ID = re.compile(r"D:?(\d+):0*(\d+)$")
+
+
+def parse_evidence(labels: List[str]) -> List[str]:
+    """Turn ids from a question's evidence labels. A few labels in the published
+    file hold several ids in one string ("D8:6; D9:17", "D9:1 D4:4") or are
+    mistyped ("D:11:26", "D30:05"); split on ';', ',' and spaces and normalise
+    each piece to "D<session>:<turn>". Pieces that are not a turn id ("D") are
+    dropped. Ids are not checked against the turns here."""
+    out: List[str] = []
+    for label in labels:
+        for piece in re.split(r"[;,\s]+", str(label)):
+            m = _EVIDENCE_ID.match(piece)
+            if m and f"D{m[1]}:{int(m[2])}" not in out:
+                out.append(f"D{m[1]}:{int(m[2])}")
+    return out
+
+
 @dataclass
 class L10Question:
     id: str
@@ -195,7 +214,7 @@ def load_conversations(path: Path, conversations: Optional[int] = None,
             q = qa["question"] + (TEMPORAL_SUFFIX if cat == 2 else "")
             gold = str(qa.get("adversarial_answer") if cat == 5 else qa.get("answer", ""))
             qs.append(L10Question(f"{sample['sample_id']}_q{i}", q, qa["question"], gold, cat,
-                                  list(qa.get("evidence") or [])))
+                                  parse_evidence(qa.get("evidence") or [])))
         if max_questions is not None:
             qs = _interleave_by_category(qs)[:max_questions]
         out.append(L10Conversation(sample["sample_id"], [conv.get("speaker_a"), conv.get("speaker_b")],
