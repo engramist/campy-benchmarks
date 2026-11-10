@@ -23,7 +23,7 @@ from __future__ import annotations
 import collections
 import sys
 
-from locomo10.dataset import DatasetError, ensure_dataset, load_conversations
+from locomo10.dataset import DatasetError, ensure_dataset, load_conversations, parse_evidence
 from locomo10.scoring import STEMMED, abstention, evidence_recall_from_texts, locomo_f1
 
 
@@ -86,6 +86,15 @@ def main() -> int:
     check("strict rule is the official phrase set", not abstention("I don't know.")["abstained_strict"])
     for a in ("She realized self-care is important.", "Caroline realized she loves running."):
         check("answer is not abstention", not abstention(a)["abstained"], repr(a))
+
+    # evidence labels: multi-id and mistyped labels become turn ids
+    check("evidence ';' split", parse_evidence(["D8:6; D9:17"]) == ["D8:6", "D9:17"])
+    check("evidence space split", parse_evidence(["D9:1 D4:4 D4:6"]) == ["D9:1", "D4:4", "D4:6"])
+    check("evidence typo", parse_evidence(["D:11:26", "D30:05", "D"]) == ["D11:26", "D30:5"])
+    check("evidence plain", parse_evidence(["D1:3", "D1:3"]) == ["D1:3"])
+    turn_ids = {c.sample_id: {t.dia_id for t in c.turns()} for c in convs}
+    dangling = sorted({e for c in convs for q in c.questions for e in q.evidence if e not in turn_ids[c.sample_id]})
+    check("evidence ids name a turn (2 published ids have no turn)", dangling == ["D10:19", "D4:36"], str(dangling))
 
     # evidence recall
     turns = {"D1:1": "[date] Caroline: I went to the LGBTQ support group yesterday.",
