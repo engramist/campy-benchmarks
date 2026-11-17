@@ -55,7 +55,7 @@ CLAIM = [
 # (answer, gets a second pass, stripped text the judge sees)
 SECOND = [
     ("I don't have that information. However, it was on June 13, 2023.", True, "it was on June 13, 2023."),
-    ("I don't have that information, but Caroline went to Paris.", True, "Caroline went to Paris."),
+    ("I don't have that information, but Nora went to Paris.", True, "Nora went to Paris."),
     ("I don't have that information; the trip was in May 2023.", True, "the trip was in May 2023."),
     ("No, I don't have that information. But she went in May.", True, "she went in May."),
     ("I don't have that information. The context does not mention it. However, I can tell you that Nora joined a gym "
