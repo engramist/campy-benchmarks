@@ -182,6 +182,49 @@ def is_pure_abstention(answer: str) -> bool:
     return True
 
 
+# --- Second score (2026-11-17): an opening refusal ignored --------------------
+# Reported beside the strict score, never inside it. An answer that OPENS with an
+# abstention and then asserts something is judged a second time on what follows
+# the refusal; a pure abstention still fails. Both rules are fixed here and are the
+# same for every arm.
+
+_LEADING_CONNECTIVE = re.compile(r"^(?:however|but|that said|still|yet|nevertheless)\b[\s,:;-]*", re.IGNORECASE)
+
+
+def _is_abstention_clause(clause: str) -> bool:
+    return any(re.search(pat, clause, re.IGNORECASE) for pat in NON_ANSWER_PATTERNS + _PURE_ABSTENTION_EXTRA)
+
+
+def _clause_spans(answer: str) -> List[Tuple[int, int]]:
+    spans, pos = [], 0
+    for m in _CLAUSE_BREAK.finditer(answer):
+        spans.append((pos, m.start()))
+        pos = m.end()
+    spans.append((pos, len(answer)))
+    return [(s, e) for s, e in spans if re.search(r"[a-z0-9]", answer[s:e], re.IGNORECASE)]
+
+
+def opens_with_refusal_then_answers(answer: str) -> bool:
+    """True when the first clause is an abstention (NON_ANSWER_PATTERNS) and the
+    answer is NOT a pure abstention, i.e. it asserts something after refusing."""
+    spans = _clause_spans(answer or "")
+    if not spans:
+        return False
+    s, e = spans[0]
+    first = answer[s:e]
+    return any(re.search(p, first, re.IGNORECASE) for p in NON_ANSWER_PATTERNS) and not is_pure_abstention(answer)
+
+
+def strip_opening_refusal(answer: str) -> str:
+    """The answer with its leading abstention clauses (and a leading connective
+    such as "However,") removed; the rest verbatim. "" when nothing is left."""
+    for s, e in _clause_spans(answer or ""):
+        if _is_abstention_clause(answer[s:e]):
+            continue
+        return _LEADING_CONNECTIVE.sub("", answer[s:].lstrip(" \t,;:-")).lstrip(" \t,;:-").strip()
+    return ""
+
+
 def is_auto_fail(answer: str, policy: Optional[str] = None) -> bool:
     """Should this answer be WRONG without reaching the judge? `policy` defaults
     to the process-wide setting (default "judge")."""
