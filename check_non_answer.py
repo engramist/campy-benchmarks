@@ -51,6 +51,39 @@ CLAIM = [
 ]
 
 
+# Second score (2026-11-17): which answers get a second judge pass, and the text it sees.
+# (answer, gets a second pass, stripped text the judge sees)
+SECOND = [
+    ("I don't have that information. However, it was on June 13, 2023.", True, "it was on June 13, 2023."),
+    ("I don't have that information, but Nora went to Paris.", True, "Nora went to Paris."),
+    ("I don't have that information; the trip was in May 2023.", True, "the trip was in May 2023."),
+    ("No, I don't have that information. But she went in May.", True, "she went in May."),
+    ("I don't have that information. The context does not mention it. However, I can tell you that Nora joined a gym "
+     "on June 9.", True, "I can tell you that Nora joined a gym on June 9."),
+    ("I don't have that information. However, Nora said: \"I joined a gym last week [= 2023-06-09]. It's great.\"",
+     True, "Nora said: \"I joined a gym last week [= 2023-06-09]. It's great.\""),
+]
+NO_SECOND = PURE + [
+    "May 10, 2023. The exact date is not specified.",           # opens with a claim: strict verdict stands
+    "Nora went to Lisbon.",
+    "She likes pottery, although the context does not specify how long.",
+]
+
+
+def second_score_failures(opens, strip) -> List[str]:
+    """The contract for the second-score rules; run on the real functions (no failures) and on broken ones."""
+    out = []
+    for a, gets, text in SECOND:
+        if opens(a) is not gets:
+            out.append(f"second pass {opens(a)} for {a!r}")
+        elif strip(a) != text:
+            out.append(f"stripped {strip(a)!r}, want {text!r}")
+    for a in NO_SECOND:
+        if opens(a):
+            out.append(f"second pass given to {a!r}")
+    return out
+
+
 def main() -> int:
     for a in PURE:
         check(scoring.is_pure_abstention(a), f"pure abstention not auto-failed: {a!r}")
@@ -92,6 +125,16 @@ def main() -> int:
         check(False, "bogus policy accepted")
     except ValueError:
         pass
+
+    # second score: the real rules hold the contract; two deliberately broken versions are rejected
+    check(not second_score_failures(scoring.opens_with_refusal_then_answers, scoring.strip_opening_refusal),
+          f"second-score rules: {second_score_failures(scoring.opens_with_refusal_then_answers, scoring.strip_opening_refusal)}")
+    lets_pure_through = lambda a: bool(scoring._clause_spans(a or "")) and scoring._is_abstention_clause(a)  # no is_pure_abstention check
+    check(bool(second_score_failures(lets_pure_through, scoring.strip_opening_refusal)),
+          "self-test did not reject a rule that gives a pure abstention a second pass")
+    cuts_answer = lambda a: (a.rsplit(".", 2)[-2].strip() + ".") if a.count(".") >= 2 else ""   # keeps only the last sentence
+    check(bool(second_score_failures(scoring.opens_with_refusal_then_answers, cuts_answer)),
+          "self-test did not reject a stripper that cuts real answer text")
 
     # rescore_non_answers.affected: legacy auto-fails the new policy would judge
     res = {"details": [
